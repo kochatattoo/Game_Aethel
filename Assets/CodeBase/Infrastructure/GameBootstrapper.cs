@@ -1,10 +1,14 @@
 using UnityEngine;
-
-public class GameBootstrapper : MonoBehaviour
+namespace CodeBase
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Awake()
+    public class GameBootstrapper : MonoBehaviour
     {
-        
+        // Start is called once before the first execution of Update after the MonoBehaviour is created
+        void Awake()
+        {
+            Game game = new Game();
+
+            DontDestroyOnLoad(this);
+        }
     }
 }
