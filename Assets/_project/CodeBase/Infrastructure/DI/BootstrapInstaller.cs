@@ -14,38 +14,71 @@ namespace CodeBase.DI
 
         public override void InstallBindings()
         {
-            GameBootstrapper gameBootstrapper =Container
-                .InstantiatePrefabForComponent<GameBootstrapper>(GameBootstrapper);
+            BindCoroutineRunner();
+            BindSceneLoader();
+            BindLoadingCurtain();
 
+            BindServices();
+
+            BindGameStateMachine();
+            BindGame();
+        }
+
+        private void BindServices()
+        {
+            BindInputService();
+        }
+
+        private void BindGame()
+        {
+            Container.Bind<Game>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindGameStateMachine()
+        {
             Container
-                .Bind<ICoroutineRunner>()
-                .FromInstance(gameBootstrapper)
+                .BindInterfacesTo<GameStateMachine>()
                 .AsSingle()
                 .NonLazy();
+        }
 
-            Container.Bind<SceneLoader>()
-                .AsSingle()
-                .NonLazy();
+        private void BindInputService()
+        {
+            Container
+               .BindInterfacesTo<NewInputService>()
+               .AsSingle()
+               .NonLazy();
+        }
 
-            LoadingCurtain loadingCurtain = Container
-                .InstantiatePrefabForComponent<LoadingCurtain>(LoadingCurtain);
+        private void BindLoadingCurtain()
+        {
+            LoadingCurtain loadingCurtain = 
+                Container.InstantiatePrefabForComponent<LoadingCurtain>(LoadingCurtain);
 
             Container
                 .Bind<LoadingCurtain>()
                 .FromInstance(loadingCurtain)
                 .AsSingle()
                 .NonLazy();
+        }
+
+        private void BindSceneLoader()
+        {
+            Container.Bind<SceneLoader>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindCoroutineRunner()
+        {
+            GameBootstrapper gameBootstrapper = Container
+                .InstantiatePrefabForComponent<GameBootstrapper>(GameBootstrapper);
 
             Container
-                .BindInterfacesTo<NewInputService>()
-                .AsSingle()
-                .NonLazy();
-
-            Container.BindInterfacesTo<GameStateMachine>()
-                .AsSingle()
-                .NonLazy();
-
-            Container.Bind<Game>()
+                .Bind<ICoroutineRunner>()
+                .FromInstance(gameBootstrapper)
                 .AsSingle()
                 .NonLazy();
         }
