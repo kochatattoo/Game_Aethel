@@ -24,42 +24,14 @@ namespace CodeBase.DI
             BindGame();
         }
 
-        private void BindServices()
+        private void BindCoroutineRunner()
         {
-            BindInputService();
-        }
-
-        private void BindGame()
-        {
-            Container.Bind<Game>()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void BindGameStateMachine()
-        {
-            Container
-                .BindInterfacesTo<GameStateMachine>()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void BindInputService()
-        {
-            Container
-               .BindInterfacesTo<NewInputService>()
-               .AsSingle()
-               .NonLazy();
-        }
-
-        private void BindLoadingCurtain()
-        {
-            LoadingCurtain loadingCurtain = 
-                Container.InstantiatePrefabForComponent<LoadingCurtain>(LoadingCurtain);
+            GameBootstrapper gameBootstrapper = Container
+                .InstantiatePrefabForComponent<GameBootstrapper>(GameBootstrapper);
 
             Container
-                .Bind<LoadingCurtain>()
-                .FromInstance(loadingCurtain)
+                .Bind<ICoroutineRunner>()
+                .FromInstance(gameBootstrapper)
                 .AsSingle()
                 .NonLazy();
         }
@@ -71,14 +43,42 @@ namespace CodeBase.DI
                 .NonLazy();
         }
 
-        private void BindCoroutineRunner()
+        private void BindLoadingCurtain()
         {
-            GameBootstrapper gameBootstrapper = Container
-                .InstantiatePrefabForComponent<GameBootstrapper>(GameBootstrapper);
+            LoadingCurtain loadingCurtain =
+                Container.InstantiatePrefabForComponent<LoadingCurtain>(LoadingCurtain);
 
             Container
-                .Bind<ICoroutineRunner>()
-                .FromInstance(gameBootstrapper)
+                .Bind<LoadingCurtain>()
+                .FromInstance(loadingCurtain)
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindServices()
+        {
+            BindInputService();
+        }
+
+        private void BindInputService()
+        {
+            Container
+               .BindInterfacesTo<NewInputService>()
+               .AsSingle()
+               .NonLazy();
+        }
+
+        private void BindGameStateMachine()
+        {
+            Container
+                .BindInterfacesTo<GameStateMachine>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindGame()
+        {
+            Container.Bind<Game>()
                 .AsSingle()
                 .NonLazy();
         }
