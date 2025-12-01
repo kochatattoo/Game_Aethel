@@ -9,7 +9,7 @@ namespace CodeBase.DI
 {
     public class BootstrapInstaller : MonoInstaller
     {
-        public GameObject GameBootstrapper;
+        public GameObject CoroutineRunner;
         public GameObject LoadingCurtain;
 
         public override void InstallBindings()
@@ -26,12 +26,12 @@ namespace CodeBase.DI
 
         private void BindCoroutineRunner()
         {
-            GameBootstrapper gameBootstrapper = Container
-                .InstantiatePrefabForComponent<GameBootstrapper>(GameBootstrapper);
+            CoroutineRunner coroutineRunner = Container
+                .InstantiatePrefabForComponent<CoroutineRunner>(CoroutineRunner);
 
             Container
                 .Bind<ICoroutineRunner>()
-                .FromInstance(gameBootstrapper)
+                .FromInstance(coroutineRunner)
                 .AsSingle()
                 .NonLazy();
         }

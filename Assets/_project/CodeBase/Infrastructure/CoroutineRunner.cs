@@ -2,7 +2,7 @@ using CodeBase.Infrastructure;
 using UnityEngine;
 namespace CodeBase
 {
-    public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
+    public class CoroutineRunner : MonoBehaviour, ICoroutineRunner
     {
         void Awake()
         {

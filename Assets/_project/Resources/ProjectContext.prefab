@@ -74,5 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60bf3014eb62bcc488e83f6f53dc41b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BootstrapInstaller
-  GameBootstrapper: {fileID: 6185335028906658508, guid: 5e13d311ca1ac1d46a62a0247c83fbb8, type: 3}
+  CoroutineRunner: {fileID: 6185335028906658508, guid: 5e13d311ca1ac1d46a62a0247c83fbb8, type: 3}
   LoadingCurtain: {fileID: 8236979409719356722, guid: 9e66b2f1e187e8f419e6a4f1f84fff7e, type: 3}

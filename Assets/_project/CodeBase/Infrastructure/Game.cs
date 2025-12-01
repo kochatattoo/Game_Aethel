@@ -4,7 +4,7 @@ namespace CodeBase
 {
     public class Game
     {
-        private IGameStateMachine _gameStateMachine;
+        private readonly IGameStateMachine _gameStateMachine;
 
         public Game(IGameStateMachine gameStateMachine)
         {

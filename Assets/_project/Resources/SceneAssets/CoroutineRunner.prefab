@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4902446234608718129}
   - component: {fileID: 2895819606151396918}
   m_Layer: 0
-  m_Name: GameBootstrapper
+  m_Name: CoroutineRunner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
