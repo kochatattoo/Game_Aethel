@@ -1,4 +1,6 @@
-﻿using CodeBase.Logic;
+﻿using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.StaticData;
+using CodeBase.Logic;
 using System;
 using System.Collections.Generic;
 
@@ -7,20 +9,17 @@ namespace CodeBase.Infrastructure.State
     public class GameStateMachine: IGameStateMachine
     {
         private readonly Dictionary<Type, IExitableState> _states;
-        private readonly SceneLoader _sceneLoader;
-        private readonly LoadingCurtain _loadingCurtain;
 
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain)
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IStaticDataService staticDataService)
         {
-            _sceneLoader = sceneLoader;
-            _loadingCurtain = loadingCurtain;
-
             _states = new Dictionary<Type, IExitableState>() // Словарь наших стейтов ключ по типу
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, _sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, _loadingCurtain, _sceneLoader),
+                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
+                [typeof(LoadLevelState)] = new LoadLevelState(this, 
+                                                              loadingCurtain, sceneLoader, 
+                                                              gameFactory, staticDataService),
                 [typeof(GameLoopState)] = new GameLoopState(this)
             };
 

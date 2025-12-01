@@ -1,7 +1,11 @@
 using CodeBase.Infrastructure;
+using CodeBase.Infrastructure.AssetManagement;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.State;
+using CodeBase.Infrastructure.StaticData;
 using CodeBase.Logic;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -57,7 +61,26 @@ namespace CodeBase.DI
 
         private void BindServices()
         {
+            BindAssetProvider();
+            BindStaticData();
             BindInputService();
+            BindGameFactory();
+        }
+
+        private void BindAssetProvider()
+        {
+            Container
+                .BindInterfacesTo<AssetProvider>()
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindStaticData()
+        {
+            Container
+               .BindInterfacesTo<StaticDataService>()
+               .AsSingle()
+               .NonLazy();
         }
 
         private void BindInputService()
@@ -66,6 +89,14 @@ namespace CodeBase.DI
                .BindInterfacesTo<NewInputService>()
                .AsSingle()
                .NonLazy();
+        }
+
+        private void BindGameFactory()
+        {
+            Container
+                .BindInterfacesTo<GameFactory>()
+                .AsSingle()
+                .NonLazy();
         }
 
         private void BindGameStateMachine()

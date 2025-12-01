@@ -13,7 +13,7 @@ namespace CodeBase.DI
         {
             BindHeroController();
 
-            BindHeroFactory();
+           // BindHeroFactory();
         }
 
         private void BindHeroFactory()
