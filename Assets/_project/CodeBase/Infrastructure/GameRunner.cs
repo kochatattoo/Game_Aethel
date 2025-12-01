@@ -11,7 +11,6 @@ namespace CodeBase
 
             if (bootstrapper == null)
                 Instantiate(bootstrapperPrefab);
-
         }
     }
 }
