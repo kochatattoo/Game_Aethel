@@ -25,7 +25,6 @@ namespace CodeBase.DI
             BindServices();
 
             BindGameStateMachine();
-            BindGame();
         }
 
         private void BindCoroutineRunner()
@@ -65,6 +64,7 @@ namespace CodeBase.DI
             BindStaticData();
             BindInputService();
             BindGameFactory();
+            BindStateFactory();
         }
 
         private void BindAssetProvider()
@@ -99,6 +99,14 @@ namespace CodeBase.DI
                 .NonLazy();
         }
 
+        private void BindStateFactory()
+        {
+           Container
+                .BindInterfacesTo<StateFactory>()
+                .AsSingle()
+                .NonLazy();
+        }
+
         private void BindGameStateMachine()
         {
             BindStates();
@@ -111,14 +119,9 @@ namespace CodeBase.DI
 
         private void BindStates()
         {
-            
-        }
-
-        private void BindGame()
-        {
-            Container.Bind<Game>()
-                .AsSingle()
-                .NonLazy();
+            Container.Bind<BootstrapState>().AsSingle().NonLazy();
+            Container.Bind<LoadLevelState>().AsSingle().NonLazy();
+            Container.Bind<GameLoopState>().AsSingle().NonLazy();
         }
     }
 }

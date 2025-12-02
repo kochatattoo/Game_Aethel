@@ -1,29 +1,37 @@
 ﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.StaticData;
-using CodeBase.Logic;
 using System;
 using System.Collections.Generic;
+using Zenject;
 
 namespace CodeBase.Infrastructure.State
 {
-    public class GameStateMachine: IGameStateMachine
+    public class GameStateMachine: IGameStateMachine, IInitializable
     {
-        private readonly Dictionary<Type, IExitableState> _states;
+        private readonly IStateFactory _stateFactory;
 
+        private Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IStaticDataService staticDataService)
+        public GameStateMachine(IStateFactory stateFactory)
         {
-            _states = new Dictionary<Type, IExitableState>() // Словарь наших стейтов ключ по типу
+            _stateFactory = stateFactory;
+        }
+
+        public void Initialize()
+        {
+            _states = new Dictionary<Type, IExitableState>
             {
-                [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(LoadLevelState)] = new LoadLevelState(this, 
-                                                              loadingCurtain, sceneLoader, 
-                                                              gameFactory, staticDataService),
-                [typeof(GameLoopState)] = new GameLoopState(this)
+                [typeof(BootstrapState)] = _stateFactory
+                .CreateState<BootstrapState>(),
+                [typeof(LoadLevelState)] = _stateFactory
+                .CreateState<LoadLevelState>(),
+                [typeof(GameLoopState)] = _stateFactory
+                .CreateState<GameLoopState>()
             };
 
+            Enter<BootstrapState>();
         }
+
         /// <summary>
         /// Входим в новое состояние через обобщеные типы (ограничение интерфейс IState)
         /// </summary>

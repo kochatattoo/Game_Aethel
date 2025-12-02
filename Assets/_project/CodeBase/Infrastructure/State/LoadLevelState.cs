@@ -17,7 +17,11 @@ namespace CodeBase.Infrastructure.State
         private readonly IGameFactory _gameFactory;
         private readonly IStaticDataService _staticDataService;
 
-        public LoadLevelState(IGameStateMachine stateMachine, LoadingCurtain curtain, SceneLoader sceneLoader, IGameFactory gameFactory, IStaticDataService staticDataService)
+        public LoadLevelState(IGameStateMachine stateMachine,
+            LoadingCurtain curtain, 
+            SceneLoader sceneLoader,
+            IGameFactory gameFactory,
+            IStaticDataService staticDataService)
         {
             _stateMachine = stateMachine;
             _curtain = curtain;
