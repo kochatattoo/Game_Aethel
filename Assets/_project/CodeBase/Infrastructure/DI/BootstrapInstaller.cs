@@ -101,10 +101,17 @@ namespace CodeBase.DI
 
         private void BindGameStateMachine()
         {
+            BindStates();
+
             Container
                 .BindInterfacesTo<GameStateMachine>()
                 .AsSingle()
                 .NonLazy();
+        }
+
+        private void BindStates()
+        {
+            
         }
 
         private void BindGame()
