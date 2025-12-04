@@ -3,9 +3,11 @@ using CodeBase.Enemy;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.StaticData;
+using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.StaticData;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +21,8 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IStaticDataService _staticDataService;
 
         private GameObject HeroGameObject { get; set; }
+        public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
+        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress> { };
 
         public GameFactory(IInputService inputService, IAsset asset, IStaticDataService staticData)
         {

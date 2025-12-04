@@ -10,5 +10,6 @@ namespace CodeBase.StaticData
         public List<EnemySpawnerData> EnemySpawners;
         public Vector3 InitialHeroPosition;
 
+        public LevelTransferData LevelTransferData;
     }
 }

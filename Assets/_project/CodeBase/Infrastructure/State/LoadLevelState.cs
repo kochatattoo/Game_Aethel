@@ -1,9 +1,8 @@
 ﻿using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.StaticData;
+using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.Utils;
 using CodeBase.Logic;
 using CodeBase.StaticData;
-using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;

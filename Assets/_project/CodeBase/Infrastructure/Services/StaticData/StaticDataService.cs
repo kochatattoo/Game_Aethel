@@ -1,10 +1,9 @@
-﻿
-using CodeBase.StaticData;
+﻿using CodeBase.StaticData;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.StaticData
+namespace CodeBase.Infrastructure.Services.StaticData
 {
     public class StaticDataService : IStaticDataService
     {

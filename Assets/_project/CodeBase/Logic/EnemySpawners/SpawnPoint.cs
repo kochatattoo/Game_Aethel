@@ -1,11 +1,13 @@
-﻿using CodeBase.Enemy;
+﻿using CodeBase.Data;
+using CodeBase.Enemy;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Logic
 {
-    public class SpawnPoint : MonoBehaviour
+    public class SpawnPoint : MonoBehaviour, ISavedProgress
     {
         public MonsterTypeID MonsterTypeID;
         private string _id;
@@ -17,12 +19,16 @@ namespace CodeBase.Logic
 
         public string Id { get => _id; set => _id = value; }
 
-        public void Construct(IGameFactory factory) 
-        {
+        public void Construct(IGameFactory factory) =>
             _factory = factory;
-            Spawn();
-        }
 
+        public void LoadProgress(PlayerProgress progress)
+        {
+            if (progress.KillData.ClaeredSpawners.Contains(_id))
+                _slain = true;
+            else
+                Spawn();
+        }
 
         private async void Spawn()
         {
@@ -38,5 +44,15 @@ namespace CodeBase.Logic
 
             _slain = true;
         }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            if (_slain)
+            {
+                Debug.Log("Регестрируем выключеный спавнер");
+                progress.KillData.ClaeredSpawners.Add(_id);
+            }
+        }
     }
 }
+

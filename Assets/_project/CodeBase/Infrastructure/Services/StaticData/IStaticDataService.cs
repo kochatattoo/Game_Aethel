@@ -1,8 +1,6 @@
 using CodeBase.StaticData;
-using Unity.Services.Core;
-using UnityEngine;
 
-namespace CodeBase.Infrastructure.StaticData
+namespace CodeBase.Infrastructure.Services.StaticData
 {
     public interface IStaticDataService : IService
     {
