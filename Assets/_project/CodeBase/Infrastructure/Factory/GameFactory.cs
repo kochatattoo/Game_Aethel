@@ -23,7 +23,7 @@ namespace CodeBase.Infrastructure.Factory
         {
             HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroParh, at);
 
-            HeroGameObject.GetComponent<HeroController>()
+            HeroGameObject.GetComponent<HeroMove>()
                .Construct(_inputService);
 
             return HeroGameObject;

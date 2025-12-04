@@ -18,7 +18,7 @@ namespace CodeBase.DI
 
         private void BindHeroFactory()
         {
-            Container.BindFactory<Vector3, HeroController, HeroFactory>()
+            Container.BindFactory<Vector3, HeroMove, HeroFactory>()
                 .FromComponentInNewPrefab(HeroPrefab)
                 .UnderTransform(StartPoint)
                 .AsSingle()
@@ -27,11 +27,11 @@ namespace CodeBase.DI
 
         private void BindHeroController()
         {
-            HeroController heroController = Container
-                            .InstantiatePrefabForComponent<HeroController>(HeroPrefab, StartPoint.position, Quaternion.identity, null);
+            HeroMove heroController = Container
+                            .InstantiatePrefabForComponent<HeroMove>(HeroPrefab, StartPoint.position, Quaternion.identity, null);
 
             Container
-                .Bind<HeroController>()
+                .Bind<HeroMove>()
                 .FromInstance(heroController)
                 .AsSingle()
                 .NonLazy();

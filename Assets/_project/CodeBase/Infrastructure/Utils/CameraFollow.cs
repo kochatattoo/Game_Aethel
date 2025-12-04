@@ -14,7 +14,7 @@ namespace CodeBase.Infrastructure.Utils
         private Transform _following;
 
         [Inject]
-        private void Construct(HeroController controller)
+        private void Construct(HeroMove controller)
         {
             _following = controller.transform;
         }

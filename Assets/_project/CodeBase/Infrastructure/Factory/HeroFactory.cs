@@ -4,5 +4,5 @@ using Zenject;
 
 namespace CodeBase.Infrastructure.Hero
 {
-    public class HeroFactory : PlaceholderFactory<Vector3, HeroController> {}
+    public class HeroFactory : PlaceholderFactory<Vector3, HeroMove> {}
 }

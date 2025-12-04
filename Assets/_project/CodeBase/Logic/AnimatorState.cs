@@ -7,5 +7,6 @@
         Attack,
         Walking,
         Died,
+        Win
     }
 }
