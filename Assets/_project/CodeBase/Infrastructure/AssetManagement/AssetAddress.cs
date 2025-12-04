@@ -2,6 +2,8 @@
 {
     public static class AssetAddress
     {
-        public const string HeroParh = "Hero";
+        public const string HeroPath = "Hero";
+        public const string EnemiesPath = "Enemy";
+        public const string Spawner = "Spawner";
     }
 }

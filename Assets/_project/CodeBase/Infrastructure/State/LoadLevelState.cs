@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.StaticData;
+using CodeBase.Infrastructure.Utils;
 using CodeBase.Logic;
 using CodeBase.StaticData;
 using System;
@@ -42,8 +43,8 @@ namespace CodeBase.Infrastructure.State
         {
             _staticDataService.Load();
 
-           await InitGameWorld();
-
+            await InitGameWorld();
+            
             _curtain.Hide();
             _stateMachine.Enter<GameLoopState>();
         }
@@ -52,12 +53,24 @@ namespace CodeBase.Infrastructure.State
         {
             LevelStaticData levelData = LevelStaticData();
             GameObject hero = await InitHero(levelData);
+            await InitSpawners(levelData);
+
+            Camera.main.GetComponent<CameraFollow>().Construct(hero.transform);
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelData) =>
             await _gameFactory.CreateHero(at: levelData.InitialHeroPosition);
 
+        private async Task InitSpawners(LevelStaticData levelData)
+        {
+            foreach (EnemySpawnerData spawnerData in levelData.EnemySpawners)
+            {
+                await _gameFactory.CreateSpawner(spawnerData.position, spawnerData.Id, spawnerData.MonsterTypeID);
+            }
+        }
+
         private LevelStaticData LevelStaticData() =>
             _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
+
     }
 }

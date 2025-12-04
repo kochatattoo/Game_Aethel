@@ -32,13 +32,13 @@ namespace CodeBase.Enemies
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
-        public AnimatorState State {  get; private set; }
-
         private void Awake() => 
             _animator = GetComponent<Animator>();
 
+        public AnimatorState State {  get; private set; }
+
         public void PlayHit() =>
-                   _animator.SetTrigger(Hit);
+            _animator.SetTrigger(Hit);
 
         public void PlayDeath() =>
             _animator.SetTrigger(Die);
@@ -48,8 +48,11 @@ namespace CodeBase.Enemies
 
         public void Move(float speed)
         {
+            Debug.Log("Enemy Animator Move");
             _animator.SetBool(IsMoving, true);
-            _animator.SetFloat(Speed, speed);
+            _animator.SetFloat(Speed, speed); 
+            Debug.Log("ISMoving "+IsMoving);
+            Debug.Log("Speed " + Speed);
         }
 
         public void StopMoving() => _animator.SetBool(IsMoving, false);

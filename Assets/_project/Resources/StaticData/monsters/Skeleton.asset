@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db936055d065aed4f86a1691ccbdfa7c, type: 3}
+  m_Name: Skeleton
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.StaticData.MonsterStaticData
+  MonsterTypeId: 0
+  Hp: 1
+  Damage: 5
+  MaxLoot: 0
+  MinLoot: 0
+  MoveSpeed: 5
+  EffectiveDistance: 0.5
+  Cleavage: 0.5
+  PrefabReference:
+    m_AssetGUID: bc8724e40aa66b7418ab15bd14e3bc55
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 0

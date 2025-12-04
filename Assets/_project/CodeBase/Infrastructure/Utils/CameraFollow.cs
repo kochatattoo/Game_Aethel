@@ -1,4 +1,5 @@
 ﻿using CodeBase.Hero;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -13,10 +14,9 @@ namespace CodeBase.Infrastructure.Utils
         [SerializeField]
         private Transform _following;
 
-        [Inject]
-        private void Construct(HeroMove controller)
+        public void Construct(Transform hero)
         {
-            _following = controller.transform;
+            _following = hero;
         }
 
         private void LateUpdate()

@@ -8,5 +8,6 @@ namespace CodeBase.Infrastructure.StaticData
     {
         void Load();
         LevelStaticData ForLevel(string sceneKey);
+        MonsterStaticData ForMonster(MonsterTypeID typeId);
     }
 }
