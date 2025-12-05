@@ -20,9 +20,9 @@ TagManager:
   - 
   - Player
   - Aggro
-  - 
-  - 
-  - 
+  - AttackZone
+  - Hittable
+  - PickUp
   - 
   - 
   - 

@@ -1,5 +1,4 @@
 ﻿using CodeBase.Enemies;
-using CodeBase.Enemy;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
@@ -52,7 +51,7 @@ namespace CodeBase.Infrastructure.Factory
             health.Current = monsterData.Hp;
             health.Max = monsterData.Hp;
 
-           // monster.GetComponent<ActorUI>().Construct(health);
+            //monster.GetComponent<ActorUI>().Construct(health);
             monster.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
@@ -66,7 +65,7 @@ namespace CodeBase.Infrastructure.Factory
             attack.Cleavage = monsterData.Cleavage;
             attack.EffectiveDistance = monsterData.EffectiveDistance;
 
-            //monster.GetComponent<RotateToHero>()?.Consturct(HeroGameObject.transform);
+            monster.GetComponent<RotateToHero>()?.Consturct(HeroGameObject.transform);
 
             return monster;
         }

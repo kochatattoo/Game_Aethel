@@ -1,5 +1,5 @@
 ﻿using CodeBase.Data;
-using CodeBase.Enemy;
+using CodeBase.Enemies;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;

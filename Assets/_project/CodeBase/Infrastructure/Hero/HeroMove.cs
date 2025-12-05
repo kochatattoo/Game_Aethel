@@ -1,17 +1,18 @@
-﻿using CodeBase.Infrastructure.Services;
+﻿using CodeBase.Data;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
-using Zenject;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
-    public class HeroMove : MonoBehaviour
+    public class HeroMove : MonoBehaviour, ISavedProgress
     {
         public float MoveSpeed = 5f;
 
         private CharacterController _characterController;
         private IInputService _input;
 
-        [Inject]
         public void Construct(IInputService inputService)
         {
             _input = inputService;
@@ -38,5 +39,32 @@ namespace CodeBase.Hero
 
             _characterController.Move(motion: MoveSpeed * Time.deltaTime * movementVector);
         }
+
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            progress.WorldData.PositionOnLevel = new PositionOnLevel(CurrentLevel(), transform.position.AsVectorData());
+        }
+
+        public void LoadProgress(PlayerProgress progress)
+        {
+            if (CurrentLevel() == progress.WorldData.PositionOnLevel.Level)
+            {
+                Vector3Data savedPosition = progress.WorldData.PositionOnLevel.Position;
+
+                if (savedPosition != null)
+                {
+                    Warp(savedPosition);
+                }
+            }
+        }
+
+        private void Warp(Vector3Data to)
+        {
+            _characterController.enabled = false;
+            transform.position = to.AsUnityVector().AddY(_characterController.height);
+            _characterController.enabled = true;
+        }
+
+        private static string CurrentLevel() => SceneManager.GetActiveScene().name;
     }
 }

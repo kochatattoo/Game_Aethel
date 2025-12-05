@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.StaticData.MonsterStaticData
   MonsterTypeId: 0
-  Hp: 1
+  Hp: 5
   Damage: 5
   MaxLoot: 0
   MinLoot: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
   EffectiveDistance: 0.5
   Cleavage: 0.5
   PrefabReference:
-    m_AssetGUID: bc8724e40aa66b7418ab15bd14e3bc55
+    m_AssetGUID: 77435d1fa4bdd6b4d87fa0131981bf3e
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

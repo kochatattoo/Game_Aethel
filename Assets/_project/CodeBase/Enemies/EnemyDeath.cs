@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-namespace CodeBase.Enemy
+namespace CodeBase.Enemies
 {
     [RequireComponent(typeof(EnemyHealth), typeof(EnemyAnimator), typeof(Follow))]
     public class EnemyDeath : MonoBehaviour
