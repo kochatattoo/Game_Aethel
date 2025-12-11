@@ -1,6 +1,5 @@
 ﻿using System;
 
-
 namespace CodeBase.Data
 {
     [Serializable]
