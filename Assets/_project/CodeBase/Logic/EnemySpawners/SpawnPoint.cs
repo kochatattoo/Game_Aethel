@@ -24,6 +24,8 @@ namespace CodeBase.Logic
 
         public void LoadProgress(PlayerProgress progress)
         {
+            Debug.Log("Load Spawn Progress State");
+
             if (progress.KillData.ClaeredSpawners.Contains(_id))
                 _slain = true;
             else

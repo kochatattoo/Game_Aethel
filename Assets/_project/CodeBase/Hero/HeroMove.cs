@@ -9,9 +9,12 @@ namespace CodeBase.Hero
     public class HeroMove : MonoBehaviour, ISavedProgress
     {
         public float MoveSpeed = 5f;
+        public HeroAnimator heroAnimator;
 
         private CharacterController _characterController;
         private IInputService _input;
+
+        public bool IsMove {  get; private set; }
 
         public void Construct(IInputService inputService)
         {
@@ -33,11 +36,16 @@ namespace CodeBase.Hero
                 movementVector.y = 0;
                 movementVector.Normalize();
                 transform.forward = movementVector;
+                IsMove = true;
             }
+            else
+                IsMove = false;
 
             movementVector += Physics.gravity;
 
             _characterController.Move(motion: MoveSpeed * Time.deltaTime * movementVector);
+
+            PlayMove();
         }
 
         public void UpdateProgress(PlayerProgress progress)
@@ -56,6 +64,14 @@ namespace CodeBase.Hero
                     Warp(savedPosition);
                 }
             }
+        }
+
+        private void PlayMove()
+        {
+            if (IsMove)
+                heroAnimator.Move();
+            else
+                heroAnimator.StopMoving();
         }
 
         private void Warp(Vector3Data to)

@@ -13,8 +13,8 @@ namespace CodeBase.Enemies
         public float AttackCooldown = 3f;
 
         public float Damage = 10;
-        public float Cleavage = 0.5f;
-        public float EffectiveDistance = 0.5f;
+        public float Cleavage = 1f;
+        public float EffectiveDistance = 1f;
 
         private Transform _heroTransform;
         private readonly Collider[] _hits = new Collider[1];
@@ -74,7 +74,7 @@ namespace CodeBase.Enemies
         }
 
         private Vector3 StartPoint() =>
-            new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * EffectiveDistance;
+            new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z) + transform.forward * EffectiveDistance;
 
         private void UpdateCooldown()
         {

@@ -5,21 +5,25 @@ namespace CodeBase.Enemies
 {
     public class AgentMoveToHero : Follow
     {
-        private const float MinimalDistance = 0.8f;
+        private const float MinimalDistance = 2.5f;
         public NavMeshAgent Agent;
         private Transform _heroTransform;
 
-        public void Construct(Transform heroTransform) =>
+        public void Construct(Transform heroTransform)
+        {
             _heroTransform = heroTransform;
-
-
+            Agent.stoppingDistance = MinimalDistance;
+        }
+            
         private void Update()
         {
-            if (HeroNotReached() && !IsDied)
+            if (!IsDied)
                 Agent.destination = _heroTransform.position;
+            else
+            { 
+                Agent.ResetPath(); 
+                gameObject.SetActive(false);
+            }
         }
-
-        private bool HeroNotReached() =>
-            Vector3.Distance(Agent.transform.position, _heroTransform.position) >= MinimalDistance;
     }
 }

@@ -36,6 +36,8 @@ namespace CodeBase.Infrastructure.Factory
 
             HeroGameObject.GetComponent<HeroMove>()
                .Construct(_inputService);
+            HeroGameObject.GetComponent<HeroAttack>() 
+               .Construct(_inputService);
 
             return HeroGameObject;
         }
@@ -80,10 +82,27 @@ namespace CodeBase.Infrastructure.Factory
             spawner.MonsterTypeID = monsterTypeID;
         }
 
+        private void Register(ISavedProgressReader progressReader)
+        {
+            if (progressReader is ISavedProgress progressWriter)
+                ProgressWriters.Add(progressWriter);
+
+            ProgressReaders.Add(progressReader);
+        }
+
         private async Task<GameObject> InstantiateRegisteredAsync(string path, Vector3 at)
         {
             GameObject gameObject = await _assets.Instantiate(path, at);
+            RegisterProggressWatchers(gameObject);
             return gameObject;
+        }
+
+        private void RegisterProggressWatchers(GameObject gameObject)
+        {
+            foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
+            {
+                Register(progressReader);
+            }
         }
     }
 }

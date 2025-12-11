@@ -23,6 +23,8 @@ namespace CodeBase.Infrastructure.State
             {
                 [typeof(BootstrapState)] = _stateFactory
                 .CreateState<BootstrapState>(),
+                [typeof(LoadProgressState)] = _stateFactory
+                .CreateState<LoadProgressState>(),
                 [typeof(LoadLevelState)] = _stateFactory
                 .CreateState<LoadLevelState>(),
                 [typeof(GameLoopState)] = _stateFactory

@@ -1,15 +1,21 @@
-﻿namespace CodeBase.Infrastructure.State
+﻿using CodeBase.Infrastructure.Services.StaticData;
+
+namespace CodeBase.Infrastructure.State
 {
     public class BootstrapState : IState
     {
         private const string Bootstrap = "Bootstrap";
         private readonly IGameStateMachine _stateMachine;
+        private readonly IStaticDataService _staticDataService;
         private readonly SceneLoader _sceneLoader;
 
-        public BootstrapState(IGameStateMachine stateMachine, SceneLoader sceneLoader)
+        public BootstrapState(IGameStateMachine stateMachine, IStaticDataService staticDataService, SceneLoader sceneLoader)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
+            _staticDataService = staticDataService;
+
+            _staticDataService.Load();
         }
 
         public void Enter()
@@ -22,7 +28,7 @@
         }
 
         private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadLevelState, string>("Level_1");
+            _stateMachine.Enter<LoadProgressState>();
 
     }
 }

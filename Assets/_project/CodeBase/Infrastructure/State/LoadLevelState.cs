@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.Utils;
 using CodeBase.Logic;
@@ -15,12 +16,14 @@ namespace CodeBase.Infrastructure.State
         private readonly LoadingCurtain _curtain;
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticDataService;
 
         public LoadLevelState(IGameStateMachine stateMachine,
             LoadingCurtain curtain, 
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
+            IPersistentProgressService progressService,
             IStaticDataService staticDataService)
         {
             _stateMachine = stateMachine;
@@ -28,6 +31,7 @@ namespace CodeBase.Infrastructure.State
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _staticDataService = staticDataService;
+            _progressService = progressService;
         }
 
         public void Enter(string sceneName)
@@ -40,12 +44,19 @@ namespace CodeBase.Infrastructure.State
 
         private async void OnLoaded()
         {
-            _staticDataService.Load();
-
             await InitGameWorld();
-            
+            InformProgressReaders();
+
             _curtain.Hide();
             _stateMachine.Enter<GameLoopState>();
+        }
+
+        private void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+            {
+                progressReader.LoadProgress(_progressService.Progress);
+            }
         }
 
         private async Task InitGameWorld()

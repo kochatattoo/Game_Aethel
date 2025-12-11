@@ -2,18 +2,20 @@
 using System;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Hero
+namespace CodeBase.Hero
 {
     public class HeroAnimator : MonoBehaviour, IAnimationStateReader
     {
-        private static readonly int MoveHash = Animator.StringToHash("Walking");
+        private static readonly int IsMoveHash = Animator.StringToHash("Move");
         private static readonly int AttackHash = Animator.StringToHash("AttackNormal");
+        private static readonly int AttackSpecialHash = Animator.StringToHash("AttackNSpecial");
         private static readonly int HitHash = Animator.StringToHash("Hit");
         private static readonly int DieHash = Animator.StringToHash("Die");
 
         private readonly int _idleStateHash = Animator.StringToHash("Idle");
         private readonly int _idleStateFullHash = Animator.StringToHash("Base Layer.Idle");
-        private readonly int _attackStateHash = Animator.StringToHash("Attack Normal");
+        private readonly int _attackStateHash = Animator.StringToHash("Attack_R");
+        private readonly int _attackSpecialStateHash = Animator.StringToHash("Attack_L");
         private readonly int _walkingStateHash = Animator.StringToHash("Run");
         private readonly int _deathStateHash = Animator.StringToHash("Die");
 
@@ -23,19 +25,15 @@ namespace CodeBase.Infrastructure.Hero
         public AnimatorState State { get; private set; }
 
         public Animator Animator;
-        public CharacterController CharacterController;
-
-        public void EnteredState(int stateHash)
-        {
-            State = StateFor(stateHash);
-        }
-        private void Update()
-        {
-            Animator.SetFloat(MoveHash, CharacterController.velocity.magnitude, 0.1f, Time.deltaTime);
-        }
 
         public bool IsAttacking => State == AnimatorState.Attack;
 
+        public void Move()
+        {
+            Animator.SetBool(IsMoveHash, true);
+        }
+
+        public void StopMoving() => Animator.SetBool(IsMoveHash, false);
 
         public void PlayHit() => Animator.SetTrigger(HitHash);
 
@@ -44,6 +42,13 @@ namespace CodeBase.Infrastructure.Hero
         public void PlayDeath() => Animator.SetTrigger(DieHash);
 
         public void ResetToIdle() => Animator.Play(_idleStateHash, -1);
+
+        public void EnteredState(int stateHash)
+        {
+            State = StateFor(stateHash);
+            Debug.Log(State);
+            StateEntered?.Invoke(State);
+        }
 
         public void ExitedState(int stateHash) =>
             StateExited?.Invoke(StateFor(stateHash));

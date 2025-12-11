@@ -8,7 +8,7 @@ namespace CodeBase.Logic.Animate
 
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.OnStateEnter(animator, stateInfo, layerIndex);
+           // base.OnStateEnter(animator, stateInfo, layerIndex);
             FindReader(animator);
 
             _stateReader.EnteredState(stateInfo.shortNameHash);
@@ -16,7 +16,7 @@ namespace CodeBase.Logic.Animate
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            base.OnStateExit(animator, stateInfo, layerIndex);
+           // base.OnStateExit(animator, stateInfo, layerIndex);
             FindReader(animator);
 
             _stateReader.ExitedState(stateInfo.shortNameHash);
@@ -28,6 +28,7 @@ namespace CodeBase.Logic.Animate
                 return;
 
             _stateReader = animator.gameObject.GetComponent<IAnimationStateReader>();
+            Debug.Log(_stateReader);
         }
     }
 }

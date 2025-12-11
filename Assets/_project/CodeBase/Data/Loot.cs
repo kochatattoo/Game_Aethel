@@ -8,5 +8,4 @@ namespace CodeBase.Data
     {
         public int Value;
     }
-
 }

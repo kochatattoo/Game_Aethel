@@ -1,5 +1,4 @@
-﻿using CodeBase.Enemies;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 namespace CodeBase.Enemies
@@ -22,6 +21,6 @@ namespace CodeBase.Enemies
 
         private bool ShouldMove() =>
             Agent.velocity.magnitude > MinimalVelocity
-            && Agent.remainingDistance > Agent.radius;
+            && Agent.remainingDistance > Agent.stoppingDistance;
     }
 }

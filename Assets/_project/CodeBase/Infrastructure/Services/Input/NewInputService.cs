@@ -13,6 +13,8 @@ namespace CodeBase.Infrastructure.Services
 
         public Vector2 Axis => _move;
 
+        public event Action Attack;
+
         public NewInputService()
         {
             _actions = new PlayerInputAction();
@@ -20,19 +22,17 @@ namespace CodeBase.Infrastructure.Services
 
         public void Initialize()
         {
-            Debug.Log("initialize Input Service");
-
             // Включаем экшен сет и подписываемся
             _actions.Player.Enable();
 
             _actions.Player.Move.performed += OnMove;
             _actions.Player.Move.canceled += OnMove;
+            _actions.Player.Attack.started += OnAttack;
 
             // Выбираем схему на старте
             ChoiseInpuDevice();
-
-            Debug.Log("Device is " + _actions.devices);
         }
+
 
         private void ChoiseInpuDevice()
         {
@@ -40,6 +40,11 @@ namespace CodeBase.Infrastructure.Services
                 _actions.devices = new InputDevice[] { Touchscreen.current };
             else
                 _actions.devices = new InputDevice[] { Keyboard.current, Mouse.current };
+        }
+
+        private void OnAttack(InputAction.CallbackContext context)
+        {
+            Attack?.Invoke();
         }
 
         private void OnMove(InputAction.CallbackContext ctx)
