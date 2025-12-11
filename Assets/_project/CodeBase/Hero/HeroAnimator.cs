@@ -46,7 +46,6 @@ namespace CodeBase.Hero
         public void EnteredState(int stateHash)
         {
             State = StateFor(stateHash);
-            Debug.Log(State);
             StateEntered?.Invoke(State);
         }
 

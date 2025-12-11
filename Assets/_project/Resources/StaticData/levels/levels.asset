@@ -14,10 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.StaticData.LevelStaticData
   LevelKey: Level_1
   EnemySpawners:
-  - Id: 1
+  - Id: Level_1_a568b031-4b97-4ece-a250-1d6e3182c4d8
     MonsterTypeID: 0
-    position: {x: 98, y: 17, z: 0.84}
-  InitialHeroPosition: {x: 79.68, y: 5.79, z: -30.27}
+    position: {x: 133.52, y: 17.73, z: -21.3}
+  - Id: Level_1_11cfd58f-4adc-4519-925b-d4c3436b86e2
+    MonsterTypeID: 0
+    position: {x: 132.32, y: 17.73, z: 35.02}
+  - Id: Level_1_178d5c22-d369-4241-8ecf-d8dbc382a397
+    MonsterTypeID: 0
+    position: {x: 132.32, y: 17.97, z: 0.84832954}
+  - Id: Level_1_14c71b3b-9fc5-4018-94b6-6ce89fd23d03
+    MonsterTypeID: 0
+    position: {x: 98.91251, y: 15.48, z: 0.84832954}
+  InitialHeroPosition: {x: 79.68, y: 5.79, z: -28.44}
   LevelTransferData:
-    LevelTo: 
-    TransferToPosition: {x: 0, y: 0, z: 0}
+    LevelTo: Level_1
+    TransferToPosition: {x: 150.04, y: 16.08, z: -36.79}

@@ -28,7 +28,6 @@ namespace CodeBase.Logic.Animate
                 return;
 
             _stateReader = animator.gameObject.GetComponent<IAnimationStateReader>();
-            Debug.Log(_stateReader);
         }
     }
 }

@@ -22,10 +22,8 @@ namespace CodeBase.Infrastructure.State
         {
             _sceneLoader.Load(Bootstrap, EnterLoadLevel);
         }
-        public void Exit()
-        {
 
-        }
+        public void Exit() {}
 
         private void EnterLoadLevel() =>
             _stateMachine.Enter<LoadProgressState>();

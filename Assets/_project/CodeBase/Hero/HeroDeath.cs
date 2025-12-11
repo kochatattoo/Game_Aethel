@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace CodeBase.Hero
 {
@@ -13,6 +14,8 @@ namespace CodeBase.Hero
 
         public GameObject DeathFx;
         private bool _isDead;
+
+        public event Action PlayerDie;
 
         private void Start()
         {
@@ -35,6 +38,8 @@ namespace CodeBase.Hero
             Attack.enabled = false;
             Animator.PlayDeath();
             Instantiate(DeathFx, transform.position, Quaternion.identity);
+
+            PlayerDie?.Invoke();
         }
     }
 }
