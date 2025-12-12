@@ -6,7 +6,7 @@
         public const string HUDPath = "HUD";
         public const string Loot = "Loot";
         public const string Spawner = "Spawner";
-        public const string TransferToPoint = "LevelTransferToPoint";
+        public const string TransferToPoint = "LevelTransferPoint";
         public const string UIRoot = "UIRoot";
     }
 }

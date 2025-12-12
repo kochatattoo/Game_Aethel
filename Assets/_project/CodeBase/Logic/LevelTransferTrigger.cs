@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.State;
+﻿using CodeBase.Infrastructure.Services.Levels;
 using UnityEngine;
 
 namespace CodeBase.Logic
@@ -9,15 +9,15 @@ namespace CodeBase.Logic
 
         public string TransferTo;
 
-        private IGameStateMachine _stateMachine;
+        private bool _triggered = false;
+        private ILevelTransferService _levelTransfer;
 
-        private bool _triggered;
-
-        public void Construct(IGameStateMachine stateMachine, string levelTo)
+        public void Construct(ILevelTransferService levelTransferService, string levelTo)
         {
-            _stateMachine = stateMachine;
+            _levelTransfer = levelTransferService;
             TransferTo = levelTo;
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (_triggered)
@@ -25,8 +25,8 @@ namespace CodeBase.Logic
 
             if (other.CompareTag(PlayerTag))
             {
-                _stateMachine.Enter<LoadLevelState, string>(TransferTo);
                 _triggered = true;
+                _levelTransfer.GoTo(TransferTo);
             }
         }
     }

@@ -4,6 +4,7 @@ using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.Utils;
 using CodeBase.Logic;
 using CodeBase.StaticData;
+using CodeBase.UI.Elements;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -62,14 +63,38 @@ namespace CodeBase.Infrastructure.State
         private async Task InitGameWorld()
         {
             LevelStaticData levelData = LevelStaticData();
-            GameObject hero = await InitHero(levelData);
+
             await InitSpawners(levelData);
+            await InitLoots();
+            await InitTransferToPoints(levelData);
+
+            GameObject hero = await InitHero(levelData);
+            await InitHud(hero);
 
             Camera.main.GetComponent<CameraFollow>().Construct(hero.transform);
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelData) =>
             await _gameFactory.CreateHero(at: levelData.InitialHeroPosition);
+
+        private async Task InitHud(GameObject hero)
+        {
+            GameObject hud = await _gameFactory.CreateHud();
+
+            hud.GetComponentInChildren<ActorUI>()
+                .Construct(hero.GetComponent<IHealth>());
+        }
+
+        private async Task InitTransferToPoints(LevelStaticData levelData) =>
+           await _gameFactory.CreateTransferToPoint(levelData.LevelTransferData);
+
+        private async Task InitLoots()
+        {
+            foreach (var id in _progressService.Progress.WorldData.LootData.LootsOnGround.Dict)
+            {
+                await _gameFactory.CreateLoot(id.Key);
+            }
+        }
 
         private async Task InitSpawners(LevelStaticData levelData)
         {
@@ -81,6 +106,5 @@ namespace CodeBase.Infrastructure.State
 
         private LevelStaticData LevelStaticData() =>
             _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
-
     }
 }

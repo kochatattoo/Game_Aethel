@@ -104,6 +104,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 16
       objectReference: {fileID: 0}
+    - target: {fileID: 3634758806780902263, guid: 3d8f29094dcec0f419e5231ad2acbd23, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3673947263168810027, guid: 3d8f29094dcec0f419e5231ad2acbd23, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -312,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d00d80d3c72f67409faf6164d50ecbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemies.EndlessRotation
-  Speed: 1
+  Speed: 180
 --- !u!1001 &7983832941038987795
 PrefabInstance:
   m_ObjectHideFlags: 0

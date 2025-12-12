@@ -2,11 +2,13 @@ using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Levels;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.State;
 using CodeBase.Logic;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -64,10 +66,16 @@ namespace CodeBase.DI
             BindInputService();
             BindRandom();
             BindPersistentProgress();
+            BindLevelTransfer();
             BindFactory();
             BindSaveLoad();
             BindReload();
         }
+
+        private void BindLevelTransfer() =>
+            Container.BindInterfacesTo<LevelTransferService>()
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindRandom() => 
             Container.BindInterfacesTo<UnityRandomService>()
@@ -106,8 +114,8 @@ namespace CodeBase.DI
 
         private void BindFactory()
         {
-            BindGameFactory();
             BindStateFactory();
+            BindGameFactory();
         }
 
         private void BindGameFactory() => 

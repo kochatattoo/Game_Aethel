@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.Levels;
 using System;
 using System.Collections.Generic;
 using Zenject;
@@ -8,13 +9,14 @@ namespace CodeBase.Infrastructure.State
     public class GameStateMachine: IGameStateMachine, IInitializable
     {
         private readonly IStateFactory _stateFactory;
-
+        private readonly ILevelTransferService _levelTransfer;
         private Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(IStateFactory stateFactory)
+        public GameStateMachine(IStateFactory stateFactory, ILevelTransferService levelTransferService)
         {
             _stateFactory = stateFactory;
+            _levelTransfer = levelTransferService;
         }
 
         public void Initialize()
@@ -30,6 +32,8 @@ namespace CodeBase.Infrastructure.State
                 [typeof(GameLoopState)] = _stateFactory
                 .CreateState<GameLoopState>()
             };
+
+            _levelTransfer.Resolve(this);
 
             Enter<BootstrapState>();
         }

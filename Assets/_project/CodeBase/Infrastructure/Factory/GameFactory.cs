@@ -2,6 +2,7 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Levels;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
@@ -20,22 +21,41 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IAsset _assets;
         private readonly IStaticDataService _staticDataService;
         private readonly IPersistentProgressService _progressService;
+        private readonly IRandomService _randomService;
+        private readonly ILevelTransferService _levelTransfer;
 
         private GameObject HeroGameObject { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress> { };
 
-        public GameFactory(IInputService inputService, IAsset asset, IStaticDataService staticData, IPersistentProgressService progressService)
+        public GameFactory(IInputService inputService, 
+                           IAsset asset, 
+                           IStaticDataService staticData, 
+                           IPersistentProgressService progressService, 
+                           IRandomService randomService,
+                           ILevelTransferService levelTransferService)
         {
             _inputService = inputService;
             _assets = asset;
             _staticDataService = staticData;
             _progressService = progressService;
+            _randomService = randomService;
+            _levelTransfer = levelTransferService;
         }
+
         public async Task WarmUp()
         {
             await _assets.Load<GameObject>(AssetAddress.Loot);
             await _assets.Load<GameObject>(AssetAddress.Spawner);
+        }
+
+        public async Task<GameObject> CreateHud()
+        {
+            GameObject hud = await InstantiateRegisteredAsync(AssetAddress.HUDPath);
+            hud.GetComponentInChildren<LootCounter>()
+                .Construct(_progressService.Progress.WorldData);
+
+            return hud;
         }
 
         public async Task<GameObject> CreateHero(Vector3 at)
@@ -66,9 +86,9 @@ namespace CodeBase.Infrastructure.Factory
             monster.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
-            //LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
-            //lootSpawner.Setloot(monsterData.MinLoot, monsterData.MaxLoot);
-            //lootSpawner.Construct(this, _randomService);
+            LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            lootSpawner.Setloot(monsterData.MinLoot, monsterData.MaxLoot);
+            lootSpawner.Construct(this, _randomService);
 
             Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform, HeroGameObject.GetComponent<HeroDeath>());
@@ -110,6 +130,13 @@ namespace CodeBase.Infrastructure.Factory
             spawner.Construct(this);
             spawner.Id = spawnerId;
             spawner.MonsterTypeID = monsterTypeID;
+        }
+
+        public async Task CreateTransferToPoint(LevelTransferData levelTransferData)
+        {
+            GameObject levelTransferTrigger = await InstantiateRegisteredAsync(AssetAddress.TransferToPoint, levelTransferData.TransferToPosition);
+            levelTransferTrigger.GetComponent<LevelTransferTrigger>()
+              .Construct(_levelTransfer, levelTransferData.LevelTo);
         }
 
         private void Register(ISavedProgressReader progressReader)
