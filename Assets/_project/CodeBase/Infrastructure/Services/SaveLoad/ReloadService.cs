@@ -4,9 +4,9 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
 {
     public class ReloadService : IReloadService
     {
-        private readonly GameStateMachine _gameStateMachine;
+        private readonly IGameStateMachine _gameStateMachine;
 
-        public ReloadService(GameStateMachine gameStateMachine)
+        public ReloadService(IGameStateMachine gameStateMachine)
         {
             _gameStateMachine = gameStateMachine;
         }

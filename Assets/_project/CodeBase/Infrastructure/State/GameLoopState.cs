@@ -2,7 +2,7 @@
 {
     public class GameLoopState : IState
     {
-        private IGameStateMachine _stateMachine;
+        private readonly IGameStateMachine _stateMachine;
 
         public GameLoopState(IGameStateMachine gameStateMachine)
         {
@@ -11,12 +11,10 @@
 
         public void Enter()
         {
-
         }
 
         public void Exit()
         {
-
         }
     }
 }

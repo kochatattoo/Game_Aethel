@@ -2,10 +2,14 @@
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Levels;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.StaticData;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Windows;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -18,16 +22,53 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IInputService _inputService;
         private readonly IAsset _assets;
         private readonly IStaticDataService _staticDataService;
+        private readonly IPersistentProgressService _progressService;
+        private readonly IRandomService _randomService;
+        private readonly ILevelTransferService _levelTransfer;
+        private readonly IWindowService _windowService;
+        private readonly ISaveLoadService _saveLoad;
 
         private GameObject HeroGameObject { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress> { };
+        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
-        public GameFactory(IInputService inputService, IAsset asset, IStaticDataService staticData)
+        public GameFactory(IInputService inputService,
+                           IAsset asset,
+                           IStaticDataService staticData,
+                           IPersistentProgressService progressService,
+                           IRandomService randomService,
+                           ILevelTransferService levelTransfer,
+                           IWindowService windowService,
+                           ISaveLoadService saveLoad)
         {
             _inputService = inputService;
             _assets = asset;
             _staticDataService = staticData;
+            _progressService = progressService;
+            _randomService = randomService;
+            _levelTransfer = levelTransfer;
+            _windowService = windowService;
+            _saveLoad = saveLoad;
+        }
+
+        public async Task WarmUp()
+        {
+            await _assets.Load<GameObject>(AssetAddress.Loot);
+            await _assets.Load<GameObject>(AssetAddress.Spawner);
+        }
+
+        public async Task<GameObject> CreateHud()
+        {
+            GameObject hud = await InstantiateRegisteredAsync(AssetAddress.HUDPath);
+            hud.GetComponentInChildren<LootCounter>()
+                .Construct(_progressService.Progress.WorldData);
+
+            foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
+            {
+                openWindowButton.Construct(_windowService);
+            }
+
+            return hud;
         }
 
         public async Task<GameObject> CreateHero(Vector3 at)
@@ -35,6 +76,8 @@ namespace CodeBase.Infrastructure.Factory
             HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
             HeroGameObject.GetComponent<HeroMove>()
+               .Construct(_inputService);
+            HeroGameObject.GetComponent<HeroAttack>() 
                .Construct(_inputService);
 
             return HeroGameObject;
@@ -46,28 +89,50 @@ namespace CodeBase.Infrastructure.Factory
 
             GameObject prefab = await _assets.Load<GameObject>(monsterData.PrefabReference);
             GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
+            
 
             IHealth health = monster.GetComponent<EnemyHealth>();
             health.Current = monsterData.Hp;
             health.Max = monsterData.Hp;
 
-            //monster.GetComponent<ActorUI>().Construct(health);
+            monster.GetComponent<ActorUI>().Construct(health);
             monster.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
-            //LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
-            //lootSpawner.Setloot(monsterData.MinLoot, monsterData.MaxLoot);
-            //lootSpawner.Construct(this, _randomService);
+            LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
+            lootSpawner.Setloot(monsterData.MinLoot, monsterData.MaxLoot);
+            lootSpawner.Construct(this, _randomService);
 
             Attack attack = monster.GetComponent<Attack>();
-            attack.Construct(HeroGameObject.transform);
+            attack.Construct(HeroGameObject.transform, HeroGameObject.GetComponent<HeroDeath>());
             attack.Damage = monsterData.Damage;
             attack.Cleavage = monsterData.Cleavage;
             attack.EffectiveDistance = monsterData.EffectiveDistance;
 
             monster.GetComponent<RotateToHero>()?.Consturct(HeroGameObject.transform);
 
+            FaceTarget(monster.transform, HeroGameObject.transform.position);
+
             return monster;
+        }
+
+        public async Task<LootPiece> CreateLoot()
+        {
+            GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.Loot);
+            LootPiece lootPiece = prefab.GetComponent<LootPiece>();
+
+            lootPiece.Construct(_progressService.Progress.WorldData, this);
+
+            return lootPiece;
+        }
+
+        public async Task<LootPiece> CreateLoot(string id)
+        {
+            LootPiece lootPiece = await CreateLoot();
+
+            lootPiece.SetId(id);
+
+            return lootPiece;
         }
 
         public async Task CreateSpawner(Vector3 at, string spawnerId, MonsterTypeID monsterTypeID)
@@ -80,10 +145,66 @@ namespace CodeBase.Infrastructure.Factory
             spawner.MonsterTypeID = monsterTypeID;
         }
 
+        public async Task CreateSaveTrigger(Vector3 at, string triggerId)
+        {
+            GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.SaveTrigger, at);
+            SaveTrigger saveTrigger = prefab.GetComponent<SaveTrigger>();
+
+            saveTrigger.Construct(_saveLoad);
+            saveTrigger.Id = triggerId;
+        }
+
+        public async Task CreateTransferToPoint(LevelTransferData levelTransferData)
+        {
+            GameObject levelTransferTrigger = await InstantiateRegisteredAsync(AssetAddress.TransferToPoint, levelTransferData.TransferToPosition);
+            levelTransferTrigger.GetComponent<LevelTransferTrigger>()
+              .Construct(_levelTransfer, levelTransferData.LevelTo);
+        }
+
+        public void CleanUp()
+        {
+            ProgressReaders.Clear();
+            ProgressWriters.Clear();
+
+            _assets.CleanUp();
+        }
+
+        private void Register(ISavedProgressReader progressReader)
+        {
+            if (progressReader is ISavedProgress progressWriter)
+                ProgressWriters.Add(progressWriter);
+
+            ProgressReaders.Add(progressReader);
+        }
+
         private async Task<GameObject> InstantiateRegisteredAsync(string path, Vector3 at)
         {
             GameObject gameObject = await _assets.Instantiate(path, at);
+            RegisterProggressWatchers(gameObject);
             return gameObject;
+        }
+
+        private async Task<GameObject> InstantiateRegisteredAsync(string path)
+        {
+            GameObject gameObject = await _assets.Instantiate(path);
+            RegisterProggressWatchers(gameObject);
+            return gameObject;
+        }
+
+        private void RegisterProggressWatchers(GameObject gameObject)
+        {
+            foreach (ISavedProgressReader progressReader in gameObject.GetComponentsInChildren<ISavedProgressReader>())
+            {
+                Register(progressReader);
+            }
+        }
+
+        private void FaceTarget(Transform prefab, Vector3 targetPosition)
+        {
+            Vector3 dir = targetPosition - prefab.position;
+            dir.y = 0;
+            if (dir.sqrMagnitude > 0.001f)
+                prefab.rotation = Quaternion.LookRotation(dir);
         }
     }
 }

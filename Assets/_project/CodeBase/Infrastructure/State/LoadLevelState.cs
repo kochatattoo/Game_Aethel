@@ -1,11 +1,17 @@
 ﻿using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.Utils;
 using CodeBase.Logic;
 using CodeBase.StaticData;
+using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Factory;
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace CodeBase.Infrastructure.State
 {
@@ -15,24 +21,32 @@ namespace CodeBase.Infrastructure.State
         private readonly LoadingCurtain _curtain;
         private readonly SceneLoader _sceneLoader;
         private readonly IGameFactory _gameFactory;
+        private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticDataService;
+        private readonly IUIFactory _uIFactory;
 
         public LoadLevelState(IGameStateMachine stateMachine,
-            LoadingCurtain curtain, 
+            LoadingCurtain curtain,
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
-            IStaticDataService staticDataService)
+            IPersistentProgressService progressService,
+            IStaticDataService staticDataService,
+            IUIFactory uIFactory)
         {
             _stateMachine = stateMachine;
             _curtain = curtain;
             _sceneLoader = sceneLoader;
             _gameFactory = gameFactory;
             _staticDataService = staticDataService;
+            _progressService = progressService;
+            _uIFactory = uIFactory;
         }
 
         public void Enter(string sceneName)
         {
             _curtain.Show();
+            _gameFactory.CleanUp();
+            _gameFactory.WarmUp();
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
@@ -40,25 +54,61 @@ namespace CodeBase.Infrastructure.State
 
         private async void OnLoaded()
         {
-            _staticDataService.Load();
-
+            await InitUIRoot();
             await InitGameWorld();
-            
+            InformProgressReaders();
+
             _curtain.Hide();
             _stateMachine.Enter<GameLoopState>();
+        }
+
+        private async Task InitUIRoot() =>
+           await _uIFactory.CreateUIRoot();
+
+        private void InformProgressReaders()
+        {
+            foreach (ISavedProgressReader progressReader in _gameFactory.ProgressReaders)
+            {
+                progressReader.LoadProgress(_progressService.Progress);
+            }
         }
 
         private async Task InitGameWorld()
         {
             LevelStaticData levelData = LevelStaticData();
-            GameObject hero = await InitHero(levelData);
+
             await InitSpawners(levelData);
+            await InitLoots();
+            await InitSaveTrigger(levelData);
+            await InitTransferToPoints(levelData);
+
+            GameObject hero = await InitHero(levelData);
+            await InitHud(hero);
 
             Camera.main.GetComponent<CameraFollow>().Construct(hero.transform);
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelData) =>
             await _gameFactory.CreateHero(at: levelData.InitialHeroPosition);
+
+        private async Task InitHud(GameObject hero)
+        {
+            GameObject hud = await _gameFactory.CreateHud();
+
+            hud.GetComponentInChildren<ActorUI>()
+                .Construct(hero.GetComponent<IHealth>());
+        }
+
+        private async Task InitTransferToPoints(LevelStaticData levelData) =>
+           await _gameFactory.CreateTransferToPoint(levelData.LevelTransferData);
+
+        private async Task InitLoots()
+        {
+            foreach (var id in _progressService.Progress.WorldData.LootData.LootsOnGround.Dict)
+            {
+                await _gameFactory.CreateLoot(id.Key);
+            }
+        }
 
         private async Task InitSpawners(LevelStaticData levelData)
         {
@@ -68,8 +118,15 @@ namespace CodeBase.Infrastructure.State
             }
         }
 
+        private async Task InitSaveTrigger(LevelStaticData levelData) 
+        {
+            foreach (SaveTriggerData saveTriggerData in levelData.SaveTriggers)
+            {
+                await _gameFactory.CreateSaveTrigger(saveTriggerData.Position, saveTriggerData.Id);
+            }
+        }
+
         private LevelStaticData LevelStaticData() =>
             _staticDataService.ForLevel(SceneManager.GetActiveScene().name);
-
     }
 }

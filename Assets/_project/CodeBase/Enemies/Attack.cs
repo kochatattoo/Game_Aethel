@@ -1,4 +1,4 @@
-﻿using CodeBase.Enemies;
+﻿using CodeBase.Hero;
 using CodeBase.Logic;
 using System.Linq;
 using UnityEngine;
@@ -11,23 +11,28 @@ namespace CodeBase.Enemies
         public EnemyAnimator Animator;
 
         public float AttackCooldown = 3f;
-
         public float Damage = 10;
-        public float Cleavage = 0.5f;
-        public float EffectiveDistance = 0.5f;
+        public float Cleavage = 1f;
+        public float EffectiveDistance = 1f;
 
         private Transform _heroTransform;
+        private HeroDeath _heroDeath;
+
         private readonly Collider[] _hits = new Collider[1];
         private int _layerMask;
         private float _attackCooldown;
         private bool _isAttacking;
         private bool _attackIsActive;
 
-        public void Construct(Transform heroTransform)
+        public void Construct(Transform heroTransform, HeroDeath heroDeath)
         {
             _layerMask = 1 << LayerMask.NameToLayer("Player");
             _heroTransform = heroTransform;
+
+            _heroDeath = heroDeath;
+            _heroDeath.PlayerDie += OnPlayerDie;
         }
+
 
         private void Update()
         {
@@ -35,6 +40,17 @@ namespace CodeBase.Enemies
 
             if (CanAttack())
                 StartAttack();
+        }
+
+        private void OnDisable()
+        {
+            _heroDeath.PlayerDie -= OnPlayerDie;
+        }
+
+        private void OnPlayerDie()
+        {
+            Animator.PlayWin();
+            this.enabled = false;
         }
 
         private void OnAttack()
@@ -74,7 +90,7 @@ namespace CodeBase.Enemies
         }
 
         private Vector3 StartPoint() =>
-            new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z) + transform.forward * EffectiveDistance;
+            new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z) + transform.forward * EffectiveDistance;
 
         private void UpdateCooldown()
         {
@@ -84,6 +100,7 @@ namespace CodeBase.Enemies
 
         private bool CooldownIsUp() =>
             _attackCooldown <= 0f;
+
         private bool CanAttack() =>
            _attackIsActive && !_isAttacking && CooldownIsUp();
 

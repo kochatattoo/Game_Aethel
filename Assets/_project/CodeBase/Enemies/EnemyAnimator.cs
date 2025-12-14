@@ -32,10 +32,10 @@ namespace CodeBase.Enemies
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
+        public AnimatorState State {  get; private set; }
+
         private void Awake() => 
             _animator = GetComponent<Animator>();
-
-        public AnimatorState State {  get; private set; }
 
         public void PlayHit() =>
             _animator.SetTrigger(Hit);
@@ -48,19 +48,21 @@ namespace CodeBase.Enemies
 
         public void Move(float speed)
         {
-            Debug.Log("Enemy Animator Move");
             _animator.SetBool(IsMoving, true);
             _animator.SetFloat(Speed, speed); 
-            Debug.Log("ISMoving "+IsMoving);
-            Debug.Log("Speed " + Speed);
         }
 
         public void StopMoving() => _animator.SetBool(IsMoving, false);
 
         public void PlayAttack1() => _animator.SetTrigger(Attack_1);
+
         public void PlayAttack2() => _animator.SetTrigger(Attack_2);
+
         public void PlayAttack3() => _animator.SetTrigger(Attack_3);
+
         public void PlayRangeAttack() => _animator.SetTrigger(Range_Attack);
+
+        public void ResetToIdle() => _animator.Play(_idleStateHash, -1);
 
         public void EnteredState(int stateHash)
         {

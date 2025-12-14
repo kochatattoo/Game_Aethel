@@ -2,9 +2,14 @@ using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Levels;
+using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.State;
 using CodeBase.Logic;
+using CodeBase.UI.Services.Factory;
+using CodeBase.UI.Services.Windows;
 using System;
 using UnityEngine;
 using Zenject;
@@ -18,14 +23,39 @@ namespace CodeBase.DI
 
         public override void InstallBindings()
         {
+            BindDIFactory();
+            BindGameStateMachine();
+
             BindCoroutineRunner();
             BindSceneLoader();
             BindLoadingCurtain();
 
             BindServices();
 
-            BindGameStateMachine();
+            BindStates();
         }
+
+        private void BindDIFactory()
+        {
+            BindServiceFactory();
+            BindStateFactory();
+        }
+
+        private void BindServiceFactory() => 
+            Container.Bind<IServiceFactory>().To<ServiceFactory>()
+                     .AsSingle()
+                     .NonLazy();
+
+        private void BindStateFactory() =>
+            Container.Bind<IStateFactory>()
+                     .To<StateFactory>()
+                     .AsSingle()
+                     .NonLazy();
+
+        private void BindGameStateMachine() =>
+            Container.BindInterfacesTo<GameStateMachine>()
+                .AsSingle()
+                .NonLazy();
 
         private void BindCoroutineRunner()
         {
@@ -39,12 +69,10 @@ namespace CodeBase.DI
                 .NonLazy();
         }
 
-        private void BindSceneLoader()
-        {
+        private void BindSceneLoader() => 
             Container.Bind<SceneLoader>()
-                .AsSingle()
-                .NonLazy();
-        }
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindLoadingCurtain()
         {
@@ -63,63 +91,82 @@ namespace CodeBase.DI
             BindAssetProvider();
             BindStaticData();
             BindInputService();
+            BindRandom();
+            BindPersistentProgress();
+            BindWindowService();
+            BindLevelTransfer();
+            BindReload();
+            BindSaveLoad();
             BindGameFactory();
-            BindStateFactory();
+            BindUIFactory();
         }
+        private void BindAssetProvider() => 
+            Container.Bind<IAsset>()
+                     .To<AssetProvider>()
+                     .AsSingle()
+                     .NonLazy();
 
-        private void BindAssetProvider()
-        {
-            Container
-                .BindInterfacesTo<AssetProvider>()
-                .AsSingle()
-                .NonLazy();
-        }
+        private void BindStaticData() => 
+            Container.Bind<IStaticDataService>()
+                     .To<StaticDataService>()
+                     .AsSingle()
+                     .NonLazy();
 
-        private void BindStaticData()
-        {
-            Container
-               .BindInterfacesTo<StaticDataService>()
+        private void BindInputService() =>
+            Container.BindInterfacesTo<NewInputService>()
+                     .AsSingle()
+                     .NonLazy();
+
+        private void BindRandom() => 
+            Container.Bind<IRandomService>()
+                                 .To<UnityRandomService>()
+                                 .AsSingle()
+                                 .NonLazy();
+
+        private void BindPersistentProgress() => 
+            Container.Bind<IPersistentProgressService>()            
+                                .To<PersistentProgressService>()
+                                .AsSingle()
+                                .NonLazy();
+
+        private void BindWindowService() =>
+            Container.BindInterfacesTo<WindowService>()
                .AsSingle()
                .NonLazy();
-        }
 
-        private void BindInputService()
-        {
-            Container
-               .BindInterfacesTo<NewInputService>()
-               .AsSingle()
-               .NonLazy();
-        }
+        private void BindLevelTransfer() =>
+            Container.Bind<ILevelTransferService>()
+                     .To<LevelTransferService>()
+                     .AsSingle()
+                     .NonLazy();
 
-        private void BindGameFactory()
-        {
-            Container
-                .BindInterfacesTo<GameFactory>()
-                .AsSingle()
-                .NonLazy();
-        }
+        private void BindReload() => 
+            Container.Bind<IReloadService>()
+                     .To<ReloadService>()
+                     .AsSingle()
+                     .NonLazy();
 
-        private void BindStateFactory()
-        {
-           Container
-                .BindInterfacesTo<StateFactory>()
-                .AsSingle()
-                .NonLazy();
-        }
+        private void BindSaveLoad() =>
+         Container.BindInterfacesTo<SaveLoadService>()
+                  .AsSingle()
+                  .NonLazy();
 
-        private void BindGameStateMachine()
-        {
-            BindStates();
+        private void BindGameFactory() => 
+            Container.Bind<IGameFactory>()
+                     .To<GameFactory>()
+                     .AsSingle()
+                     .NonLazy();
 
-            Container
-                .BindInterfacesTo<GameStateMachine>()
-                .AsSingle()
-                .NonLazy();
-        }
+        private void BindUIFactory() =>
+            Container.Bind<IUIFactory>()
+                     .To<UIFactory>()
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindStates()
         {
             Container.Bind<BootstrapState>().AsSingle().NonLazy();
+            Container.Bind<LoadProgressState>().AsSingle().NonLazy();
             Container.Bind<LoadLevelState>().AsSingle().NonLazy();
             Container.Bind<GameLoopState>().AsSingle().NonLazy();
         }
