@@ -30,6 +30,16 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d6daa0ed18d60841853dbcd85652638
+    m_Address: SaveTrigger
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: de21e524e8b077b41ae266af3cb62080
+    m_Address: UIRoot
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e412fd62482b17945aa2913a8448abab
     m_Address: LevelTransferPoint
     m_ReadOnly: 0

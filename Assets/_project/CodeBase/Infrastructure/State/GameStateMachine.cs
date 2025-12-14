@@ -9,14 +9,16 @@ namespace CodeBase.Infrastructure.State
     public class GameStateMachine: IGameStateMachine, IInitializable
     {
         private readonly IStateFactory _stateFactory;
-        private readonly ILevelTransferService _levelTransfer;
+        private readonly IServiceFactory _serviceFactory;
+        private ILevelTransferService _levelTransfer;
+
         private Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
-        public GameStateMachine(IStateFactory stateFactory, ILevelTransferService levelTransferService)
+        public GameStateMachine(IStateFactory stateFactory, IServiceFactory serviceFactory)
         {
             _stateFactory = stateFactory;
-            _levelTransfer = levelTransferService;
+            _serviceFactory = serviceFactory;
         }
 
         public void Initialize()
@@ -33,7 +35,7 @@ namespace CodeBase.Infrastructure.State
                 .CreateState<GameLoopState>()
             };
 
-            _levelTransfer.Resolve(this);
+            _levelTransfer = _serviceFactory.CreateService<ILevelTransferService>();
 
             Enter<BootstrapState>();
         }

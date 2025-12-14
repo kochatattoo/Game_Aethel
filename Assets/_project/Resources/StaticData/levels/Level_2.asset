@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1df51cbd3d42149b60dbf87138a98b, type: 3}
+  m_Name: Level_2
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.StaticData.LevelStaticData
+  LevelKey: Level_2
+  EnemySpawners:
+  - Id: Level_2_2b09f880-4803-4e4c-8551-ec245d55d04a
+    MonsterTypeID: 0
+    position: {x: 59.79, y: 0.06, z: 113.584564}
+  - Id: Level_2_ba7dc699-fba1-4c6c-bcb8-a158e07c5040
+    MonsterTypeID: 0
+    position: {x: 59.91798, y: -0.09000015, z: 82.00381}
+  - Id: Level_2_e586e1a1-dc97-456c-8f7f-fa58febeb984
+    MonsterTypeID: 0
+    position: {x: 27.887623, y: -0.089998245, z: 81.79219}
+  - Id: Level_2_8a36eff5-3696-4191-901e-6e6b5309e7f0
+    MonsterTypeID: 0
+    position: {x: 27.783573, y: -0.09000206, z: 114.24934}
+  InitialHeroPosition: {x: 45.42, y: -0.089998245, z: 98.39}
+  LevelTransferData:
+    LevelTo: Level_1
+    TransferToPosition: {x: 46.21, y: 0.30747032, z: 117.61615}

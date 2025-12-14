@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.Factory
 {
-    public interface IGameFactory
+    public interface IGameFactory: IService
     {
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
@@ -18,6 +18,8 @@ namespace CodeBase.Infrastructure.Factory
         Task<LootPiece> CreateLoot(string id);
         Task CreateSpawner(Vector3 at, string spawnerId, MonsterTypeID monsterTypeID);
         Task CreateTransferToPoint(LevelTransferData levelTransferData);
+        Task CreateSaveTrigger(Vector3 at, string triggerId);
         Task WarmUp();
+        void CleanUp();
     }
 }

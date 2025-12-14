@@ -2,21 +2,27 @@
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Infrastructure.Services.SaveLoad
 {
-    public class SaveLoadService : ISaveLoadService
+    public class SaveLoadService : ISaveLoadService, IInitializable
     {
         private const string ProgressKey = "Progress";
 
-        private readonly IGameFactory _gameFactory;
+        private readonly IServiceFactory _serviceFactory;
         private readonly IPersistentProgressService _progressServices;
+        private IGameFactory _gameFactory;
 
-
-        public SaveLoadService(IPersistentProgressService progressServices, IGameFactory gamefactory)
+        public SaveLoadService(IPersistentProgressService progressServices, IServiceFactory serviceFactory)
         {
-            _gameFactory = gamefactory;
             _progressServices = progressServices;
+            _serviceFactory = serviceFactory;
+        }
+
+        public void Initialize()
+        {
+            _gameFactory = _serviceFactory.CreateService<IGameFactory>();
         }
 
         public void SaveProgress()
@@ -29,9 +35,17 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
             Debug.Log("Progress Saved by service");
         }
 
+        public void SaveLevelPregress()
+        {
+            foreach (ISavedProgress progressWritet in _gameFactory.ProgressWriters)
+                progressWritet.UpdateProgress(_progressServices.Progress);
+
+            PlayerPrefs.SetString(ProgressKey, _progressServices.Progress.ToJson());
+            Debug.Log("Level progress Saved by service");
+        }
+
         public PlayerProgress LoadProgress() =>
             PlayerPrefs.GetString(ProgressKey)?
             .ToDeserialized<PlayerProgress>();
-
     }
 }

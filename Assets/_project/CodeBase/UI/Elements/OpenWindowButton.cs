@@ -16,6 +16,9 @@ namespace CodeBase.UI.Elements
         private void Awake() =>
             Button.onClick.AddListener(Open);
 
+        private void OnDisable() => 
+            Button.onClick.RemoveListener(Open);
+
         private void Open()
         {
             _windowService.Open(WindowId);

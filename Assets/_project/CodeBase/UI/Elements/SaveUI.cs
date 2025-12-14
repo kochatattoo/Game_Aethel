@@ -1,20 +1,35 @@
-﻿using CodeBase.Infrastructure.Services.SaveLoad;
+﻿using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.SaveLoad;
+using System;
+using UnityEngine.UI;
 
 namespace CodeBase.UI.Elements
 {
     public class SaveUI : SaveLoadUI
     {
+        public Button SaveButton; 
+
         private ISaveLoadService _saveLoadService;
 
-        protected override void Start()
+        public void Construct(ISaveLoadService saveLoadService, IInputService inputService)
         {
-            base.Start();
+            base.Construct(inputService);
+            _saveLoadService = saveLoadService;
         }
 
-        protected void Update()
+        protected override void OnSubscribe()
         {
-            //if (_inputService.IsSaveButtonUp())
-            //    _saveLoadService.SaveProgress();
+            SaveButton.onClick.AddListener(SaveProgress);
+        }
+
+        protected override void CleanUp()
+        {
+            SaveButton.onClick.RemoveAllListeners();
+        }
+
+        private void SaveProgress()
+        {
+            _saveLoadService.SaveProgress();
         }
     }
 }

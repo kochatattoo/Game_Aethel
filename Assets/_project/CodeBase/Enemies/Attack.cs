@@ -100,6 +100,7 @@ namespace CodeBase.Enemies
 
         private bool CooldownIsUp() =>
             _attackCooldown <= 0f;
+
         private bool CanAttack() =>
            _attackIsActive && !_isAttacking && CooldownIsUp();
 

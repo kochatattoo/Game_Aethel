@@ -4,10 +4,12 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Levels;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Logic;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
+using CodeBase.UI.Services.Windows;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -23,24 +25,30 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IPersistentProgressService _progressService;
         private readonly IRandomService _randomService;
         private readonly ILevelTransferService _levelTransfer;
+        private readonly IWindowService _windowService;
+        private readonly ISaveLoadService _saveLoad;
 
         private GameObject HeroGameObject { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
-        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress> { };
+        public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
-        public GameFactory(IInputService inputService, 
-                           IAsset asset, 
-                           IStaticDataService staticData, 
-                           IPersistentProgressService progressService, 
+        public GameFactory(IInputService inputService,
+                           IAsset asset,
+                           IStaticDataService staticData,
+                           IPersistentProgressService progressService,
                            IRandomService randomService,
-                           ILevelTransferService levelTransferService)
+                           ILevelTransferService levelTransfer,
+                           IWindowService windowService,
+                           ISaveLoadService saveLoad)
         {
             _inputService = inputService;
             _assets = asset;
             _staticDataService = staticData;
             _progressService = progressService;
             _randomService = randomService;
-            _levelTransfer = levelTransferService;
+            _levelTransfer = levelTransfer;
+            _windowService = windowService;
+            _saveLoad = saveLoad;
         }
 
         public async Task WarmUp()
@@ -54,6 +62,11 @@ namespace CodeBase.Infrastructure.Factory
             GameObject hud = await InstantiateRegisteredAsync(AssetAddress.HUDPath);
             hud.GetComponentInChildren<LootCounter>()
                 .Construct(_progressService.Progress.WorldData);
+
+            foreach (OpenWindowButton openWindowButton in hud.GetComponentsInChildren<OpenWindowButton>())
+            {
+                openWindowButton.Construct(_windowService);
+            }
 
             return hud;
         }
@@ -132,11 +145,28 @@ namespace CodeBase.Infrastructure.Factory
             spawner.MonsterTypeID = monsterTypeID;
         }
 
+        public async Task CreateSaveTrigger(Vector3 at, string triggerId)
+        {
+            GameObject prefab = await InstantiateRegisteredAsync(AssetAddress.SaveTrigger, at);
+            SaveTrigger saveTrigger = prefab.GetComponent<SaveTrigger>();
+
+            saveTrigger.Construct(_saveLoad);
+            saveTrigger.Id = triggerId;
+        }
+
         public async Task CreateTransferToPoint(LevelTransferData levelTransferData)
         {
             GameObject levelTransferTrigger = await InstantiateRegisteredAsync(AssetAddress.TransferToPoint, levelTransferData.TransferToPosition);
             levelTransferTrigger.GetComponent<LevelTransferTrigger>()
               .Construct(_levelTransfer, levelTransferData.LevelTo);
+        }
+
+        public void CleanUp()
+        {
+            ProgressReaders.Clear();
+            ProgressWriters.Clear();
+
+            _assets.CleanUp();
         }
 
         private void Register(ISavedProgressReader progressReader)

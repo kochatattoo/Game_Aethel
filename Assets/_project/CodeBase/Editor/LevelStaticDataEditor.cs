@@ -13,6 +13,7 @@ namespace CodeBase.Editor
     {
         private const string InitialPointTag = "InitialPoint";
         private const string TransferToPositionTag = "TransferToPoint";
+        private const string SaveTriggerTag = "SaveTrigger";
 
         public override void OnInspectorGUI()
         {
@@ -30,6 +31,10 @@ namespace CodeBase.Editor
                 levelData.LevelKey = SceneManager.GetActiveScene().name;
 
                 levelData.InitialHeroPosition = GameObject.FindGameObjectWithTag(InitialPointTag).transform.position;
+
+                levelData.SaveTriggers = GameObject.FindGameObjectsWithTag(SaveTriggerTag)
+                    .Select(x => new SaveTriggerData(x.GetComponent<UniqueId>().Id, x.transform.position))
+                    .ToList();
 
                 var transferToPoint = GameObject.FindGameObjectWithTag(TransferToPositionTag).GetComponent<LevelTransferTrigger>();
                 levelData.LevelTransferData.TransferToPosition = transferToPoint.transform.position;

@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure.Services;
+using System;
 using UnityEngine;
 
 namespace CodeBase.UI.Elements
@@ -7,9 +8,23 @@ namespace CodeBase.UI.Elements
     {
         protected IInputService _inputService;
 
-        protected virtual void Start()
+        public void Construct(IInputService inputService)
         {
-           
+           _inputService = inputService;
         }
+
+        private void Start()
+        {
+            OnSubscribe();
+        }
+
+        private void OnDisable()
+        {
+            CleanUp();
+        }
+
+        protected virtual void OnSubscribe() { }
+
+        protected virtual void CleanUp() { }
     }
 }

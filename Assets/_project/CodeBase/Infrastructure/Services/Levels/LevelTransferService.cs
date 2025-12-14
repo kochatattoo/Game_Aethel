@@ -1,16 +1,13 @@
 ﻿using CodeBase.Infrastructure.State;
-using Zenject;
 
 
 namespace CodeBase.Infrastructure.Services.Levels
 {
     public class LevelTransferService : ILevelTransferService
     {
-        private IGameStateMachine _gameStateMachine;
+        private readonly IGameStateMachine _gameStateMachine;
 
-        public LevelTransferService() { }
-
-        public void Resolve(IGameStateMachine gameState)
+        public LevelTransferService(IGameStateMachine gameState)
         {
             _gameStateMachine = gameState;
         }
@@ -19,5 +16,6 @@ namespace CodeBase.Infrastructure.Services.Levels
         {
             _gameStateMachine.Enter<LoadLevelState, string>(levelName);
         }
+
     }
 }

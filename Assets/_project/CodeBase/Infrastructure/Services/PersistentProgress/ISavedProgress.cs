@@ -11,5 +11,6 @@ namespace CodeBase.Infrastructure.Services.PersistentProgress
     {
         void LoadProgress(PlayerProgress progress);
     }
+
 }
 
