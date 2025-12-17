@@ -4,7 +4,6 @@ using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Ads;
-using CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure.Services.Levels;
 using CodeBase.Infrastructure.Services.LogData;
 using CodeBase.Infrastructure.Services.PersistentProgress;
@@ -14,7 +13,6 @@ using CodeBase.Infrastructure.State;
 using CodeBase.Logic;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
-using System;
 using UnityEngine;
 using Zenject;
 
