@@ -1,31 +1,94 @@
 {
   "Configs": [
     {
-      "Id": "skulls100",
+      "Id": "RestoreEnergy",
       "ProductType": 0,
       "MaxPurchaseCount": "3",
       "ItemType": 1,
       "Quantity": 100,
       "Price": "2.99 $",
-      "Icon": "iap_icon_2"
+      "Icon": "iap_icon_restoreEnergy"
     },
     {
-      "Id": "skulls10",
+      "Id": "SkillBook",
       "ProductType": 0,
       "MaxPurchaseCount": "20",
       "ItemType": 1,
       "Quantity": 10,
       "Price": "0.99 $",
-      "Icon": "iap_icon_3"
+      "Icon": "iap_icon_skillbook"
     },
     {
-      "Id": "skulls666",
+      "Id": "MagicBook",
+      "ProductType": 0,
+      "MaxPurchaseCount": "20",
+      "ItemType": 1,
+      "Quantity": 10,
+      "Price": "0.99 $",
+      "Icon": "iap_icon_magicbook"
+    },  
+    {
+      "Id": "Emerland100",
+      "ProductType": 0,
+      "MaxPurchaseCount": "20",
+      "ItemType": 1,
+      "Quantity": 10,
+      "Price": "0.99 $",
+      "Icon": "iap_icon_emerland100"
+    }, 
+    {
+      "Id": "Emerland1000",
+      "ProductType": 0,
+      "MaxPurchaseCount": "20",
+      "ItemType": 1,
+      "Quantity": 10,
+      "Price": "0.99 $",
+      "Icon": "iap_icon_emerland1000"
+    },
+    {
+      "Id": "Golden100",
       "ProductType": 0,
       "MaxPurchaseCount": "1",
       "ItemType": 1,
       "Quantity": 666,
       "Price": "6.66 $",
-      "Icon": "iap_icon_18"
+      "Icon": "iap_icon_golden100"
+    },
+    {
+      "Id": "Golden500",
+      "ProductType": 0,
+      "MaxPurchaseCount": "1",
+      "ItemType": 1,
+      "Quantity": 666,
+      "Price": "6.66 $",
+      "Icon": "iap_icon_golden500"
+    },
+    {
+      "Id": "Golden1000",
+      "ProductType": 0,
+      "MaxPurchaseCount": "1",
+      "ItemType": 1,
+      "Quantity": 666,
+      "Price": "6.66 $",
+      "Icon": "iap_icon_golden1000"
+    },
+    {
+      "Id": "GoldenKey",
+      "ProductType": 0,
+      "MaxPurchaseCount": "1",
+      "ItemType": 1,
+      "Quantity": 666,
+      "Price": "6.66 $",
+      "Icon": "iap_icon_goldenkey"
+    },
+    {
+      "Id": "Herbs",
+      "ProductType": 0,
+      "MaxPurchaseCount": "1",
+      "ItemType": 1,
+      "Quantity": 666,
+      "Price": "6.66 $",
+      "Icon": "iap_icon_herbs"
     }
   ]
 }

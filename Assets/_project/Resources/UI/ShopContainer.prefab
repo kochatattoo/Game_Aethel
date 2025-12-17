@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.UI.Windows.ShopWindow
   CloseButton: {fileID: 214126379307634612}
-  Skulltext: {fileID: 4821994701072563821}
+  ValueText: {fileID: 4821994701072563821}
   AdItem: {fileID: 7720333160549616278}
   ShopItemsContainer: {fileID: 4350468213733017773}
 --- !u!1 &6827873837910820901

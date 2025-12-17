@@ -9,7 +9,7 @@ namespace CodeBase.UI.Windows
 {
     public class ShopWindow: WindowBase
     {
-        public TextMeshProUGUI Skulltext;
+        public TextMeshProUGUI ValueText;
         public RewardedAdItem AdItem;
         public ShopItemsContainer ShopItemsContainer;
 
@@ -23,13 +23,13 @@ namespace CodeBase.UI.Windows
         {
             AdItem.Initialize();
             ShopItemsContainer.Initialize();
-            RefreshSkullText();
+            RefreshValuesText();
         }
         protected override void SubscribeUpdates()
         {
             AdItem.Subscribe();
             ShopItemsContainer.Subscribe();
-            Progress.WorldData.LootData.Changed += RefreshSkullText;
+            Progress.WorldData.LootData.Changed += RefreshValuesText;
         }
 
         protected override void Cleanup()
@@ -37,10 +37,10 @@ namespace CodeBase.UI.Windows
             base.Cleanup();
             AdItem.CleanUp();
             ShopItemsContainer.CleanUp();
-            Progress.WorldData.LootData.Changed -= RefreshSkullText;
+            Progress.WorldData.LootData.Changed -= RefreshValuesText;
         }
 
-        private void RefreshSkullText() =>
-            Skulltext.text = Progress.WorldData.LootData.Collected.ToString();
+        private void RefreshValuesText() =>
+            ValueText.text = Progress.WorldData.LootData.Collected.ToString();
     }
 }

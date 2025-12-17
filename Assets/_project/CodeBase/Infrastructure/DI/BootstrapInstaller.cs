@@ -118,11 +118,6 @@ namespace CodeBase.DI
                 .AsSingle()
                 .NonLazy();
 
-        private void BindIAPService() =>
-            Container.BindInterfacesTo<IAPService>()
-            .AsSingle()
-            .NonLazy();
-
         private void BindAssetProvider() => 
             Container.Bind<IAsset>()
                      .To<AssetProvider>()
@@ -151,6 +146,11 @@ namespace CodeBase.DI
                                 .To<PersistentProgressService>()
                                 .AsSingle()
                                 .NonLazy();
+
+        private void BindIAPService() =>
+            Container.BindInterfacesTo<IAPService>()
+            .AsSingle()
+            .NonLazy();
 
         private void BindWindowService() =>
             Container.BindInterfacesTo<WindowService>()

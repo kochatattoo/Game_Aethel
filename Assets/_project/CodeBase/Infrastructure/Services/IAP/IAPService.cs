@@ -7,10 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine.Purchasing;
+using Zenject;
 
 namespace Assets._project.CodeBase.Infrastructure.Services.IAP
 {
-    public class IAPService : IIAPService
+    public class IAPService : IIAPService, IInitializable
     {
         private readonly IAPProvider _iapProvider;
         private readonly IPersistentProgressService _progressService;

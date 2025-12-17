@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: ShopIcons
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: ShopIcons
+  m_GUID: 7eea0fa3ca5779a4ba75ba8fd85b74e5
+  m_SerializeEntries:
+  - m_GUID: 068c27b8442e8f74aa952955756d30c5
+    m_Address: iap_icon_emerland100
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3d9d2cb60157da54fb27d2e9f8d924a5
+    m_Address: iap_icon_herbs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 56cad29b891ac134cbc37c56c3d4b627
+    m_Address: iap_icon_goldenkey
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6f33e057c35c8664391a33d5991f1a63
+    m_Address: iap_icon_skillbook
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8d080b389f4811944893b028ef515432
+    m_Address: iap_icon_golden500
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bd7468a48ea38b849a52af623463790d
+    m_Address: iap_icon_golden100
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cddfbeb22d295fc4b808d6b171a6f038
+    m_Address: iap_icon_magicbook
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d209886e55ad71746b9f3b037333c80e
+    m_Address: iap_icon_golden1000
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e47286fac770de44ea03ed6438541dd6
+    m_Address: iap_icon_emerland1000
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f6b448382995aa24bb3b54d9340282e7
+    m_Address: iap_icon_restoreEnergy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: d0ca6940b154fce40920afd27c8bd935, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 70bc6e75d2ba36a4b8d38de872b386fa, type: 2}
+    - {fileID: 11400000, guid: 4e751d1b53d32114fb647f23c8a2490e, type: 2}
