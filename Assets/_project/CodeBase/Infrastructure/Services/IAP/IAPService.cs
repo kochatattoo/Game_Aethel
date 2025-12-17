@@ -18,9 +18,9 @@ namespace Assets._project.CodeBase.Infrastructure.Services.IAP
         public bool IsInitialized => _iapProvider.IsInitialized;
         public event Action Initialized;
 
-        public IAPService(IAPProvider iapProvider, IPersistentProgressService progressService)
+        public IAPService(IPersistentProgressService progressService)
         {
-            _iapProvider = iapProvider;
+            _iapProvider = new();
             _progressService = progressService;
         }
 

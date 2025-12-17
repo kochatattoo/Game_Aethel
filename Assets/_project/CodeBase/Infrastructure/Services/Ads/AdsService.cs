@@ -1,25 +1,34 @@
 ﻿using System;
 using UnityEngine.Advertisements;
 using UnityEngine;
+using CodeBase.Infrastructure.Services.LogData;
+using Zenject;
 
 namespace CodeBase.Infrastructure.Services.Ads
 {
-    public class AdsService : IAdsService, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
+    public class AdsService : IAdsService, IInitializable, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
     {
-        private const string AndroidGameId = ""; //TODO
-        private const string IOSGameId = ""; //TODO
+        private string AndroidGameId;
+        private string IOSGameId;
+        private string RewardedVideoPlacementId;
 
-        private const string RewardedVideoPlacementId = ""; //TODO
-
-        private string _gameID;
         private event Action _onVideoFinished;
 
-        public int Reward => 13;
+        private readonly ILogDataService _logDataService;
+        private string _gameID;
+        public int Reward => 10;
 
         public event Action RewardedVideoReady;
 
+        public AdsService(ILogDataService logDataService)
+        {
+            _logDataService = logDataService;
+        }
+
         public void Initialize()
         {
+            SetIDs();
+
             switch (Application.platform)
             {
                 case RuntimePlatform.Android:
@@ -29,7 +38,7 @@ namespace CodeBase.Infrastructure.Services.Ads
                     _gameID = IOSGameId;
                     break;
                 case RuntimePlatform.WindowsEditor:
-                    _gameID = IOSGameId;
+                    _gameID = AndroidGameId;
                     break;
                 default:
                     Debug.Log("Unsupported platorm for adds");
@@ -107,13 +116,13 @@ namespace CodeBase.Infrastructure.Services.Ads
         // Implement Load and Show Listener error callbacks:
         public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
         {
-            Debug.Log($"Error loading Ad Unit {adUnitId}: {error.ToString()} - {message}");
+            Debug.Log($"Error loading Ad Unit {adUnitId}: {error} - {message}");
             // Use the error details to determine whether to try to load another ad.
         }
 
         public void OnUnityAdsShowFailure(string adUnitId, UnityAdsShowError error, string message)
         {
-            Debug.Log($"Error showing Ad Unit {adUnitId}: {error.ToString()} - {message}");
+            Debug.Log($"Error showing Ad Unit {adUnitId}: {error} - {message}");
             // Use the error details to determine whether to try to load another ad.
         }
 
@@ -128,7 +137,17 @@ namespace CodeBase.Infrastructure.Services.Ads
 
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {
-            Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+            Debug.Log($"Unity Ads Initialization Failed: {error} - {message}");
+        }
+
+        private void SetIDs()
+        {
+            AndroidGameId = _logDataService.logData.androidGameID;
+            Debug.Log(AndroidGameId);
+            IOSGameId = _logDataService.logData.iOSGameID;
+            Debug.Log(IOSGameId);
+            RewardedVideoPlacementId = _logDataService.logData.rewardedID;
+            Debug.Log(RewardedVideoPlacementId);
         }
     }
 }
