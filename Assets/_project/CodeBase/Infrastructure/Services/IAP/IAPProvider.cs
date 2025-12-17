@@ -84,8 +84,8 @@ namespace Assets._project.CodeBase.Infrastructure.Services.IAP
             .Load<TextAsset>(IAPConfigsPath)
             .text
             .ToDeserialized<ProductConfigWrapper>()
-            .Configs.
-            ToDictionary(x => x.Id, x => x);
+            .Configs
+            .ToDictionary(x => x.Id, x => x);
 
     }
 }

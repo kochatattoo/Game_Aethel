@@ -1,8 +1,11 @@
+using Assets._project.CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.Levels;
+using CodeBase.Infrastructure.Services.LogData;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -10,7 +13,6 @@ using CodeBase.Infrastructure.State;
 using CodeBase.Logic;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -88,11 +90,14 @@ namespace CodeBase.DI
 
         private void BindServices()
         {
+            BindLogDataService();
+            BindAdsService();
             BindAssetProvider();
             BindStaticData();
             BindInputService();
             BindRandom();
             BindPersistentProgress();
+            BindIAPService();
             BindWindowService();
             BindLevelTransfer();
             BindReload();
@@ -100,6 +105,17 @@ namespace CodeBase.DI
             BindGameFactory();
             BindUIFactory();
         }
+
+        private void BindLogDataService() =>
+            Container.BindInterfacesTo<LogDataService>()
+                .AsSingle()
+                .NonLazy();
+
+        private void BindAdsService() =>
+            Container.BindInterfacesTo<AdsService>()
+                .AsSingle()
+                .NonLazy();
+
         private void BindAssetProvider() => 
             Container.Bind<IAsset>()
                      .To<AssetProvider>()
@@ -128,6 +144,11 @@ namespace CodeBase.DI
                                 .To<PersistentProgressService>()
                                 .AsSingle()
                                 .NonLazy();
+
+        private void BindIAPService() =>
+            Container.BindInterfacesTo<IAPService>()
+            .AsSingle()
+            .NonLazy();
 
         private void BindWindowService() =>
             Container.BindInterfacesTo<WindowService>()
