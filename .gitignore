@@ -70,9 +70,6 @@ crashlytics-build.properties
 # Игнорировать файлы формата mp4
 *.mp4
 
-# Игнорировать данные логов
-/[Aa]ssets/_project/[Rr]esources/[Ll]og[Dd]ata/**/*.json*
-/[Aa]ssets/_project/[Rr]esources/[Ll]og[Dd]ata/**/*.meta*
 
 # Packed Addressables
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
