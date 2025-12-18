@@ -117,14 +117,12 @@ namespace CodeBase.DI
                 .NonLazy();
 
         private void BindAssetProvider() => 
-            Container.Bind<IAsset>()
-                     .To<AssetProvider>()
+            Container.BindInterfacesTo<AssetProvider>()
                      .AsSingle()
                      .NonLazy();
 
         private void BindStaticData() => 
-            Container.Bind<IStaticDataService>()
-                     .To<StaticDataService>()
+            Container.BindInterfacesTo<StaticDataService>()
                      .AsSingle()
                      .NonLazy();
 
