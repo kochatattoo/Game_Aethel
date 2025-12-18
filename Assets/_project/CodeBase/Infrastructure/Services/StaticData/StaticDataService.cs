@@ -4,10 +4,11 @@ using CodeBase.UI.Services.Windows;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Infrastructure.Services.StaticData
 {
-    public class StaticDataService : IStaticDataService
+    public class StaticDataService : IStaticDataService, IInitializable
     {
         private const string StaticDataLevelsPath = "StaticData/levels";
         private const string StaticDataMonstersPath = "StaticData/monsters";
@@ -16,6 +17,11 @@ namespace CodeBase.Infrastructure.Services.StaticData
         private Dictionary<string, LevelStaticData> _levels;
         private Dictionary<MonsterTypeID, MonsterStaticData> _monsters;
         private Dictionary<WindowId, WindowConfig> _windowConfigs;
+
+        public void Initialize()
+        {
+            Load();
+        }
 
         public void Load()
         {
