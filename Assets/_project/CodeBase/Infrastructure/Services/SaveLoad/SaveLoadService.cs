@@ -35,15 +35,6 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
             Debug.Log("Progress Saved by service");
         }
 
-        public void SaveLevelPregress()
-        {
-            foreach (ISavedProgress progressWritet in _gameFactory.ProgressWriters)
-                progressWritet.UpdateProgress(_progressServices.Progress);
-
-            PlayerPrefs.SetString(ProgressKey, _progressServices.Progress.ToJson());
-            Debug.Log("Level progress Saved by service");
-        }
-
         public PlayerProgress LoadProgress() =>
             PlayerPrefs.GetString(ProgressKey)?
             .ToDeserialized<PlayerProgress>();

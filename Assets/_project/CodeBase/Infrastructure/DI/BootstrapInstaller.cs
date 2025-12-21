@@ -13,6 +13,7 @@ using CodeBase.Infrastructure.State;
 using CodeBase.Logic;
 using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -35,6 +36,7 @@ namespace CodeBase.DI
             BindServices();
 
             BindStates();
+            BindGame();
         }
 
         private void BindDIFactory()
@@ -189,5 +191,10 @@ namespace CodeBase.DI
             Container.Bind<LoadLevelState>().AsSingle().NonLazy();
             Container.Bind<GameLoopState>().AsSingle().NonLazy();
         }
+
+        private void BindGame() =>
+            Container.BindInterfacesTo<Game>()
+            .AsSingle()
+            .NonLazy();
     }
 }

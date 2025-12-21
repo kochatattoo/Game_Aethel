@@ -57,17 +57,17 @@ namespace CodeBase.UI.Services.Factory
             window.Construct(_adsService, _progressService, _iapService, _assets);
         }
 
+        public async Task CreateUIRoot()
+        {
+            GameObject pref = await _assets.Load<GameObject>(AssetAddress.UIRoot);
+            _uiRoot = Object.Instantiate(pref).transform;
+        }
+
         private T CreateWindow<T>(WindowId ind) where T : WindowBase
         {
             WindowConfig config = _staticData.ForWindow(ind);
             T window = Object.Instantiate(config.prefab, _uiRoot) as T;
             return window;
-        }
-
-        public async Task CreateUIRoot()
-        {
-            GameObject pref = await _assets.Load<GameObject>(AssetAddress.UIRoot);
-            _uiRoot = Object.Instantiate(pref).transform;
         }
     }
 }

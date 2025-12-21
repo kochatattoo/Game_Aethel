@@ -23,6 +23,11 @@ namespace CodeBase.Infrastructure.State
 
         public void Initialize()
         {
+            _levelTransfer = _serviceFactory.CreateService<ILevelTransferService>();
+        }
+
+        public void CreateGameStates()
+        {
             _states = new Dictionary<Type, IExitableState>
             {
                 [typeof(BootstrapState)] = _stateFactory
@@ -34,10 +39,6 @@ namespace CodeBase.Infrastructure.State
                 [typeof(GameLoopState)] = _stateFactory
                 .CreateState<GameLoopState>()
             };
-
-            _levelTransfer = _serviceFactory.CreateService<ILevelTransferService>();
-
-            Enter<BootstrapState>();
         }
 
         /// <summary>
@@ -68,5 +69,4 @@ namespace CodeBase.Infrastructure.State
         private TState GetState<TState>() where TState : class, IExitableState =>
             _states[typeof(TState)] as TState;
     }
-
 }
