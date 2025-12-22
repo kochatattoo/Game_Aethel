@@ -106,7 +106,7 @@ namespace CodeBase.Infrastructure.Factory
             Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform, HeroGameObject.GetComponent<HeroDeath>());
             attack.Damage = monsterData.Damage;
-            attack.Cleavage = monsterData.Cleavage;
+            attack.Radius = monsterData.Radius;
             attack.EffectiveDistance = monsterData.EffectiveDistance;
 
             monster.GetComponent<RotateToHero>()?.Consturct(HeroGameObject.transform);

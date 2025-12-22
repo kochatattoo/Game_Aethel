@@ -86,6 +86,7 @@ namespace CodeBase.Infrastructure.State
             await InitHud(hero);
 
             Camera.main.GetComponent<CameraFollow>().Construct(hero.transform);
+            Camera.main.GetComponent<CameraOcclusionFade>().Construct(hero.transform);
         }
 
         private async Task<GameObject> InitHero(LevelStaticData levelData) =>

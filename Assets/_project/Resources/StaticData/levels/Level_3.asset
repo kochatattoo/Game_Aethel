@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1df51cbd3d42149b60dbf87138a98b, type: 3}
+  m_Name: Level_3
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.StaticData.LevelStaticData
+  LevelKey: Level_3
+  EnemySpawners:
+  - Id: Level_3_568e7cd8-aecd-4bd7-95c0-f450fdaace4d
+    MonsterTypeID: 0
+    position: {x: 8.615692, y: -7.877894, z: 9.435905}
+  - Id: Level_3_90f12ffc-c15d-411c-b23b-47c0015f31f0
+    MonsterTypeID: 0
+    position: {x: -1.9723675, y: -7.877894, z: -14.013024}
+  - Id: Level_3_9e0416b2-90be-4ad5-87c8-281d69ed0c86
+    MonsterTypeID: 0
+    position: {x: 26.301111, y: -11.625519, z: 6.837454}
+  - Id: Level_3_156c8171-af90-4e27-a57c-ac1548e2e5f1
+    MonsterTypeID: 0
+    position: {x: 19.75061, y: -23.877895, z: 16.779902}
+  - Id: Level_3_f80c88aa-af6a-41b6-93af-a89cd96d08d2
+    MonsterTypeID: 0
+    position: {x: 22.42, y: -23.877895, z: 6.449609}
+  - Id: Level_3_e2f1c791-21d3-4388-bd80-572de442e4af
+    MonsterTypeID: 0
+    position: {x: 31.012062, y: -23.877893, z: 9.4835825}
+  - Id: Level_3_cb035ba9-4388-4b37-acbe-f4eeb7ed3bef
+    MonsterTypeID: 0
+    position: {x: 30.481512, y: -20.038542, z: 30.986658}
+  - Id: Level_3_c5e75b35-b13f-4f9c-85c2-af537465ad47
+    MonsterTypeID: 0
+    position: {x: 23.278484, y: -15.877894, z: 13.966213}
+  - Id: Level_3_7d72f215-ea6f-4937-bd3a-1f280f3e90b9
+    MonsterTypeID: 0
+    position: {x: 42.21, y: -7.21, z: 20.335365}
+  - Id: Level_3_c20ee584-ee74-4ce8-a84a-06681348ca69
+    MonsterTypeID: 0
+    position: {x: 12.429712, y: -15.877895, z: -0.95747447}
+  - Id: Level_3_292b5564-f86b-413f-aa9d-9f675b6e5ba5
+    MonsterTypeID: 0
+    position: {x: 59.322807, y: -12.016547, z: -8.928769}
+  - Id: Level_3_72a3afc0-1c38-40c3-9db5-7e709438fffb
+    MonsterTypeID: 0
+    position: {x: 53.802017, y: -15.877894, z: -0.11425114}
+  InitialHeroPosition: {x: 39.26021, y: -15.877893, z: -17.837101}
+  SaveTriggers:
+  - Id: Level_3_c6f9c057-718a-4774-91b5-8480ad1c4155
+    Position: {x: 39.371185, y: -15.877894, z: -17.604221}
+  LevelTransferData:
+    LevelTo: 
+    TransferToPosition: {x: 0, y: 0, z: 0}
