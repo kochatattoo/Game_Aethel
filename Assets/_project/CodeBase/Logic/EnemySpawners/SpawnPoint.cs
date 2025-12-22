@@ -30,6 +30,15 @@ namespace CodeBase.Logic
                 Spawn();
         }
 
+        public void UpdateProgress(PlayerProgress progress)
+        {
+            if (_slain)
+            {
+                Debug.Log("Регестрируем выключеный спавнер");
+                progress.KillData.ClaeredSpawners.Add(_id);
+            }
+        }
+
         private async void Spawn()
         {
             GameObject monster = await _factory.CreateEnemies(MonsterTypeID, transform);
@@ -43,15 +52,6 @@ namespace CodeBase.Logic
                 _enemyDeath.Happened -= Slay;
 
             _slain = true;
-        }
-
-        public void UpdateProgress(PlayerProgress progress)
-        {
-            if (_slain)
-            {
-                Debug.Log("Регестрируем выключеный спавнер");
-                progress.KillData.ClaeredSpawners.Add(_id);
-            }
         }
     }
 }

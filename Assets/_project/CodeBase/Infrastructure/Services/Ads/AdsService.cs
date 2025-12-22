@@ -6,18 +6,18 @@ using Zenject;
 
 namespace CodeBase.Infrastructure.Services.Ads
 {
-    public class AdsService : IAdsService, IInitializable, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
+    public class AdsService : IAdsService, IInitializable, 
+        IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
     {
-        private string AndroidGameId;
-        private string IOSGameId;
-        private string RewardedVideoPlacementId;
-
-        private event Action _onVideoFinished;
+        private string _androidGameId;
+        private string _iOSGameId;
+        private string _rewardedVideoPlacementId;
 
         private readonly ILogDataService _logDataService;
         private string _gameID;
         public int Reward => 10;
 
+        private event Action _onVideoFinished;
         public event Action RewardedVideoReady;
 
         public AdsService(ILogDataService logDataService)
@@ -32,13 +32,13 @@ namespace CodeBase.Infrastructure.Services.Ads
             switch (Application.platform)
             {
                 case RuntimePlatform.Android:
-                    _gameID = AndroidGameId;
+                    _gameID = _androidGameId;
                     break;
                 case RuntimePlatform.IPhonePlayer:
-                    _gameID = IOSGameId;
+                    _gameID = _iOSGameId;
                     break;
                 case RuntimePlatform.WindowsEditor:
-                    _gameID = AndroidGameId;
+                    _gameID = _androidGameId;
                     break;
                 default:
                     Debug.Log("Unsupported platorm for adds");
@@ -73,13 +73,13 @@ namespace CodeBase.Infrastructure.Services.Ads
         // Implement a method to execute when the user clicks the button:
         public void ShowAd()
         {
-            Advertisement.Show(RewardedVideoPlacementId, this);
+            Advertisement.Show(_rewardedVideoPlacementId, this);
         }
 
         public void ShowRewardedVideo(Action onVideoFinished)
         {
             _onVideoFinished = onVideoFinished;
-            Advertisement.Show(RewardedVideoPlacementId, this);
+            Advertisement.Show(_rewardedVideoPlacementId, this);
         }
 
         public bool IsRewardedVideoReady() => Advertisement.isInitialized;
@@ -142,12 +142,12 @@ namespace CodeBase.Infrastructure.Services.Ads
 
         private void SetIDs()
         {
-            AndroidGameId = _logDataService.logData.androidGameID;
-            Debug.Log(AndroidGameId);
-            IOSGameId = _logDataService.logData.iOSGameID;
-            Debug.Log(IOSGameId);
-            RewardedVideoPlacementId = _logDataService.logData.rewardedID;
-            Debug.Log(RewardedVideoPlacementId);
+            _androidGameId = _logDataService.logData.androidGameID;
+            Debug.Log(_androidGameId);
+            _iOSGameId = _logDataService.logData.iOSGameID;
+            Debug.Log(_iOSGameId);
+            _rewardedVideoPlacementId = _logDataService.logData.rewardedID;
+            Debug.Log(_rewardedVideoPlacementId);
         }
     }
 }

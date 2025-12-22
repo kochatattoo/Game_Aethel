@@ -1,7 +1,6 @@
 ﻿using CodeBase.Utility;
 using System;
 
-
 namespace CodeBase.Data
 {
     [Serializable]
@@ -22,6 +21,7 @@ namespace CodeBase.Data
             Collected += loot.Value;
             Changed?.Invoke();
         }
+
         public void Add(int loot)
         {
             Collected += loot;
