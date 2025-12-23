@@ -25,7 +25,7 @@ namespace CodeBase.UI.Windows.Shop
             ShowAdButton.onClick.AddListener(OnShowAdClicked);
 
             RefreshAvailableAd();
-
+           // _adsService.LoadAd();
         }
 
         public void Subscribe() =>

@@ -28,22 +28,7 @@ namespace CodeBase.Infrastructure.Services.Ads
         public void Initialize()
         {
             SetIDs();
-
-            switch (Application.platform)
-            {
-                case RuntimePlatform.Android:
-                    _gameID = _androidGameId;
-                    break;
-                case RuntimePlatform.IPhonePlayer:
-                    _gameID = _iOSGameId;
-                    break;
-                case RuntimePlatform.WindowsEditor:
-                    _gameID = _androidGameId;
-                    break;
-                default:
-                    Debug.Log("Unsupported platorm for adds");
-                    break;
-            }
+            HandleGameId();
 
             if (!Advertisement.isInitialized && Advertisement.isSupported)
             {
@@ -143,11 +128,27 @@ namespace CodeBase.Infrastructure.Services.Ads
         private void SetIDs()
         {
             _androidGameId = _logDataService.logData.androidGameID;
-            Debug.Log(_androidGameId);
             _iOSGameId = _logDataService.logData.iOSGameID;
-            Debug.Log(_iOSGameId);
             _rewardedVideoPlacementId = _logDataService.logData.rewardedID;
-            Debug.Log(_rewardedVideoPlacementId);
+        }
+
+        private void HandleGameId()
+        {
+            switch (Application.platform)
+            {
+                case RuntimePlatform.Android:
+                    _gameID = _androidGameId;
+                    break;
+                case RuntimePlatform.IPhonePlayer:
+                    _gameID = _iOSGameId;
+                    break;
+                case RuntimePlatform.WindowsEditor:
+                    _gameID = _androidGameId;
+                    break;
+                default:
+                    Debug.Log("Unsupported platorm for adds");
+                    break;
+            }
         }
     }
 }
