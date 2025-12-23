@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc1df51cbd3d42149b60dbf87138a98b, type: 3}
+  m_Name: Level_4
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.StaticData.LevelStaticData
+  LevelKey: Level_4
+  EnemySpawners:
+  - Id: Level_4_0aa0cc4e-14cf-4981-82e9-a066af358fcc
+    MonsterTypeID: 2
+    position: {x: -6.8155727, y: 1.3674799, z: 48.35711}
+  InitialHeroPosition: {x: -5.13, y: 8.76, z: -36.29}
+  SaveTriggers:
+  - Id: Level_4_b8d40788-7b05-4704-a032-5d1e933cae92
+    Position: {x: 52.59703, y: 14.836973, z: 63.994614}
+  LevelTransferData:
+    LevelTo: Level_1
+    TransferToPosition: {x: 53.06169, y: 14.86208, z: 63.572277}

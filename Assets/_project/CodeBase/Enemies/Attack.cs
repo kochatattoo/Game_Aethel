@@ -12,8 +12,9 @@ namespace CodeBase.Enemies
 
         public float AttackCooldown = 3f;
         public float Damage = 10;
-        public float Cleavage = 1f;
+        public float Radius = 1f;
         public float EffectiveDistance = 1f;
+        public Transform AttackPoint;
 
         private Transform _heroTransform;
         private HeroDeath _heroDeath;
@@ -57,7 +58,7 @@ namespace CodeBase.Enemies
         {
             if (Hit(out Collider hit))
             {
-                PhysicsDebug.DrawDebug(StartPoint(), Cleavage, 1f);
+                PhysicsDebug.DrawDebug(StartPosition(), Radius, 1f);
 
                 hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
             }
@@ -82,15 +83,15 @@ namespace CodeBase.Enemies
 
         private bool Hit(out Collider hit)
         {
-            int hitcount = Physics.OverlapSphereNonAlloc(StartPoint(), Cleavage, _hits, _layerMask);
+            int hitcount = Physics.OverlapSphereNonAlloc(StartPosition(), Radius, _hits, _layerMask);
 
             hit = _hits.FirstOrDefault();
 
             return hitcount > 0;
         }
 
-        private Vector3 StartPoint() =>
-            new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z) + transform.forward * EffectiveDistance;
+        private Vector3 StartPosition() =>
+            new Vector3(AttackPoint.position.x, AttackPoint.position.y, AttackPoint.position.z);
 
         private void UpdateCooldown()
         {

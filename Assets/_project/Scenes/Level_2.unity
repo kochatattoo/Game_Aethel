@@ -1433,6 +1433,7 @@ GameObject:
   - component: {fileID: 1165168115}
   - component: {fileID: 1165168118}
   - component: {fileID: 1165168119}
+  - component: {fileID: 1165168120}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1574,6 +1575,20 @@ MonoBehaviour:
   Distance: 20
   OffSetY: 1.5
   _following: {fileID: 0}
+--- !u!114 &1165168120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1165168114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7fec4b8ba71f24981f614b06637e15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Infrastructure.Utils.CameraOcclusionFade
+  fadeMaterial: {fileID: 2100000, guid: a07ea28ab3bf18341ae2ee9d03ac2531, type: 2}
+  sphereRadius: 0.3
 --- !u!1001 &1358255095
 PrefabInstance:
   m_ObjectHideFlags: 0
