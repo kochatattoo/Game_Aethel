@@ -15,6 +15,7 @@ namespace CodeBase.Editor
         private const string TransferToPositionTag = "TransferToPoint";
         private const string SaveTriggerTag = "SaveTrigger";
 
+        [System.Obsolete]
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
