@@ -17,10 +17,10 @@ MonoBehaviour:
   - Id: Level_4_0aa0cc4e-14cf-4981-82e9-a066af358fcc
     MonsterTypeID: 2
     position: {x: -6.8155727, y: 1.3674799, z: 48.35711}
-  InitialHeroPosition: {x: -5.13, y: 8.76, z: -36.29}
+  InitialHeroPosition: {x: 20.66, y: 9.26, z: -41.2}
   SaveTriggers:
-  - Id: Level_4_b8d40788-7b05-4704-a032-5d1e933cae92
-    Position: {x: 52.59703, y: 14.836973, z: 63.994614}
+  - Id: Level_4_17762079-9a44-450e-89e9-15a046137c55
+    Position: {x: 47.227203, y: 15.44, z: 70.87}
   LevelTransferData:
-    LevelTo: Level_1
-    TransferToPosition: {x: 53.06169, y: 14.86208, z: 63.572277}
+    LevelTo: Level_3
+    TransferToPosition: {x: 47.227203, y: 15.44, z: 70.87}
