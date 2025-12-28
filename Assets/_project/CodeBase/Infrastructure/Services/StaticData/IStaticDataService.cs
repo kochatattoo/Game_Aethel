@@ -9,6 +9,6 @@ namespace CodeBase.Infrastructure.Services.StaticData
         void Load();
         LevelStaticData ForLevel(string sceneKey);
         MonsterStaticData ForMonster(MonsterTypeID typeId);
-        WindowConfig ForWindow(WindowId shop);
+        WindowConfig ForWindow(WindowId window);
     }
 }

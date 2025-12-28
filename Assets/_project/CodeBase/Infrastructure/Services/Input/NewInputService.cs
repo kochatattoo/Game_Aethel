@@ -33,6 +33,15 @@ namespace CodeBase.Infrastructure.Services
             ChoiseInpuDevice();
         }
 
+        public void Dispose()
+        {
+            // Отписываемся и выключаем
+            _actions.Player.Move.performed -= OnMove;
+            _actions.Player.Move.canceled -= OnMove;
+
+            _actions.Player.Disable();
+            _actions.Dispose();
+        }
 
         private void ChoiseInpuDevice()
         {
@@ -50,16 +59,6 @@ namespace CodeBase.Infrastructure.Services
         private void OnMove(InputAction.CallbackContext ctx)
         {
             _move = ctx.ReadValue<Vector2>();
-        }
-
-        public void Dispose()
-        {
-            // Отписываемся и выключаем
-            _actions.Player.Move.performed -= OnMove;
-            _actions.Player.Move.canceled -= OnMove;
-
-            _actions.Player.Disable();
-            _actions.Dispose();
         }
     }
 }
