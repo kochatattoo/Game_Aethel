@@ -19,12 +19,12 @@ namespace CodeBase.UI.Elements
 
         protected override void OnSubscribe()
         {
-            SaveButton.onClick.AddListener(SaveProgress);
+            SaveButton.AddListener(SaveProgress);
         }
 
         protected override void CleanUp()
         {
-            SaveButton.onClick.RemoveAllListeners();
+            SaveButton.RemoveAllListeners();
         }
 
         private void SaveProgress()

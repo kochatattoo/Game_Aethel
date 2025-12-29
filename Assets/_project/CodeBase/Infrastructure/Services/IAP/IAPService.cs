@@ -41,7 +41,7 @@ namespace CodeBase.Infrastructure.Services.IAP
 
             switch (productConfig.ItemType)
             {
-                case ItemType.Skulls:
+                case ItemType.Gold:
                     _progressService.Progress.WorldData.LootData.Add(productConfig.Quantity);
                     _progressService.Progress.PurchaseData.AddPurchase(purchaseProduct.definition.id);
                     break;

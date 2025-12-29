@@ -28,7 +28,7 @@ namespace CodeBase.UI.Windows
 
         public async void Initialize()
         {
-            BuyItemButton.onClick.AddListener(OnBuyItemClick);
+            BuyItemButton.AddListener(OnBuyItemClick);
 
             PriceText.text = _productDescription.Config.Price;
             QuantityText.text = _productDescription.Config.Quantity.ToString();

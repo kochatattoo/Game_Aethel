@@ -30,7 +30,7 @@ namespace CodeBase.UI.Windows
         }
 
         protected virtual void OnAwake() =>
-            CloseButton.onClick.AddListener(() => Destroy(gameObject));
+            CloseButton.AddListener(() => Destroy(gameObject));
 
         protected virtual void Initialize() { }
         protected virtual void SubscribeUpdates() { }

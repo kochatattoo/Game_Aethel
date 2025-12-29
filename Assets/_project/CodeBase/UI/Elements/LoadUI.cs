@@ -6,8 +6,8 @@ namespace CodeBase.UI.Elements
 {
     public class LoadUI : SaveLoadUI
     {
-        private IReloadService _reloadService;
         public Button LoadButton;
+        private IReloadService _reloadService;
 
         public void Construct(IReloadService reloadService, IInputService inputService)
         {
@@ -17,12 +17,12 @@ namespace CodeBase.UI.Elements
 
         protected override void OnSubscribe()
         {
-            LoadButton.onClick.AddListener(Reload);
+            LoadButton.AddListener(Reload);
         }
 
         protected override void CleanUp()
         {
-            LoadButton.onClick.RemoveAllListeners();
+            LoadButton.RemoveAllListeners();
         }
 
         private void Reload()
