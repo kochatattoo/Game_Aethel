@@ -1,42 +1,37 @@
-﻿using CodeBase.UI.Windows;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.ObjectPool
 {
-    public class PoolService: IService
+    public class PoolService : IPoolService
     {
-        private Dictionary<Type, IPool> _pools;
-        
+        private readonly Dictionary<Type, IPool> _pools;
+
         public PoolService()
         {
-            _pools = new Dictionary<Type, IPool>
-            {
-                [typeof(Pool<WindowBase>)] = new Pool<WindowBase>(),
-            };
+            _pools = new Dictionary<Type, IPool>();
         }
 
-        public IPool GetPool<T>() where T : IPool
+        public void AddPool<T>(T prefab, int initialSize) where T : Component, IPoolable
         {
-            return _pools[typeof(T)];
+            if (!_pools.ContainsKey(typeof(T)))
+            {
+                _pools.AddPool<T>(prefab, initialSize);
+            }
+            else
+                Debug.Log($"Pool {nameof(prefab)} is existing");
         }
-    }
 
-    public interface IPool
-    {
+        public IPool<T> GetPool<T>() where T : Component, IPoolable
+        {
+            if (!_pools.TryGetValue(typeof(T), out var rawPool))
+            {
+                Debug.LogWarning($"Pool {nameof(T)} doesn't contains in Pools Dictionaru");
+                return null;
+            }
 
-    }
-
-    public interface IPoolable
-    {
-        void OnSpawned();
-        void OnDespawned();
-    }
-
-    public class Pool<T>:IPool 
-       // where T : Component, IPoolable
-    {
-        readonly T prefab;
-        readonly Stack<T> freeObjects = new();
+            return (IPool<T>)rawPool;
+        }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using CodeBase.Data;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows
 {
-    public abstract class WindowBase : MonoBehaviour
+    public abstract class WindowBase : MonoBehaviour, IPoolable
     {
         public Button CloseButton;
 
@@ -35,5 +36,15 @@ namespace CodeBase.UI.Windows
         protected virtual void Initialize() { }
         protected virtual void SubscribeUpdates() { }
         protected virtual void Cleanup() { }
+
+        public void OnSpawned()
+        {
+            
+        }
+
+        public void OnDespawned()
+        {
+            
+        }
     }
 }
