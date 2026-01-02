@@ -34,6 +34,16 @@ namespace CodeBase.Enemies
             _heroDeath.PlayerDie += OnPlayerDie;
         }
 
+        public void ResetAttack()
+        {
+            OnAttackEnded();
+        }
+
+        public void DisableAttack() =>
+            _attackIsActive = false;
+
+        public void EnabledAttack() =>
+            _attackIsActive = true;
 
         private void Update()
         {
@@ -69,17 +79,6 @@ namespace CodeBase.Enemies
             _attackCooldown = AttackCooldown;
             _isAttacking = false;
         }
-
-        public void ResetAttack()
-        {
-            OnAttackEnded();
-        }
-
-        public void DisableAttack() =>
-            _attackIsActive = false;
-
-        public void EnabledAttack() =>
-            _attackIsActive = true;
 
         private bool Hit(out Collider hit)
         {

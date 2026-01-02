@@ -19,12 +19,12 @@ namespace CodeBase.Hero
         private readonly int _walkingStateHash = Animator.StringToHash("Run");
         private readonly int _deathStateHash = Animator.StringToHash("Die");
 
+        public Animator Animator;
+
         public event Action<AnimatorState> StateEntered;
         public event Action<AnimatorState> StateExited;
 
         public AnimatorState State { get; private set; }
-
-        public Animator Animator;
 
         public bool IsAttacking => State == AnimatorState.Attack;
 

@@ -35,12 +35,6 @@ namespace CodeBase.Hero
             _input.Attack -= Attack;
         }
 
-        private void Attack()
-        {
-            if (!HeroAnimator.IsAttacking)
-                HeroAnimator.PlayAttack();
-        }
-
         public void OnAttack()
         {
             PhysicsDebug.DrawDebug(StartPosition(), Cleavage, 1f);
@@ -51,15 +45,21 @@ namespace CodeBase.Hero
             }
         }
 
+        public void LoadProgress(PlayerProgress progress)
+        {
+            _stats = progress.HeroStats;
+        }
+
+        private void Attack()
+        {
+            if (!HeroAnimator.IsAttacking)
+                HeroAnimator.PlayAttack();
+        }
+
         private int Hit() =>
             Physics.OverlapSphereNonAlloc(StartPosition(), _stats.DamageRadius, _hits, _layerMask);
 
         private Vector3 StartPosition() =>
             new Vector3(AttackPoint.position.x, AttackPoint.position.y, AttackPoint.position.z);
-
-        public void LoadProgress(PlayerProgress progress)
-        {
-            _stats = progress.HeroStats;
-        }
     }
 }

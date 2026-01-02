@@ -98,7 +98,7 @@ namespace CodeBase.Enemies
             _gameFactory.ProgressReaders.Remove(this);
 
             UpdateWorldData();
-            HideSkull();
+            HideLoot();
             PlayPickupFx();
             Showtext();
 
@@ -108,7 +108,7 @@ namespace CodeBase.Enemies
         private void UpdateWorldData() =>
             _worldData.LootData.Collect(_loot);
 
-        private void HideSkull() =>
+        private void HideLoot() =>
             Prefab.SetActive(false);
 
         private void PlayPickupFx() =>

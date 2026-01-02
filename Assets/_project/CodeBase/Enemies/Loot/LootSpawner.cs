@@ -21,10 +21,16 @@ namespace CodeBase.Enemies
 
         private void Start()
         {
-            EnemyDeath.Happened += SpawnLoot;
+            EnemyDeath.Happened += SpawnLootAsync;
         }
 
-        private async void SpawnLoot()
+        public void Setloot(int min, int max)
+        {
+            _lootMin = min;
+            _lootMax = max;
+        }
+
+        private async void SpawnLootAsync()
         {
             LootPiece loot = await _factory.CreateLoot();
             loot.transform.position = transform.position;
@@ -39,12 +45,6 @@ namespace CodeBase.Enemies
             {
                 Value = _random.Next(_lootMin, _lootMax)
             };
-        }
-
-        public void Setloot(int min, int max)
-        {
-            _lootMin = min;
-            _lootMax = max;
         }
     }
 }
