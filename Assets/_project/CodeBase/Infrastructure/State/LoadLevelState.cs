@@ -54,7 +54,7 @@ namespace CodeBase.Infrastructure.State
 
         private async void OnLoaded()
         {
-            await InitUIRoot();
+            await InitUI();
             await InitGameWorld();
             InformProgressReaders();
 
@@ -62,8 +62,11 @@ namespace CodeBase.Infrastructure.State
             _stateMachine.Enter<GameLoopState>();
         }
 
-        private async Task InitUIRoot() =>
-           await _uIFactory.CreateUIRoot();
+        private async Task InitUI()
+        {
+            await _uIFactory.CreateUIRoot(); 
+            _uIFactory.ReservePool();
+        }
 
         private void InformProgressReaders()
         {

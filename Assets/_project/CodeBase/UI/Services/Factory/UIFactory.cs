@@ -2,12 +2,15 @@
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.IAP;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
+using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -24,6 +27,7 @@ namespace CodeBase.UI.Services.Factory
         private readonly IInputService _inputService;
         private readonly IAdsService _adsService;
         private readonly IIAPService _iapService;
+        private readonly IPoolService _poolService;
         private Transform _uiRoot;
 
         public UIFactory(IAsset assets,
@@ -33,7 +37,8 @@ namespace CodeBase.UI.Services.Factory
                     IReloadService reloadService,
                     ISaveLoadService saveLoadService,
                     IAdsService adsService,
-                    IIAPService iapService)
+                    IIAPService iapService,
+                    IPoolService poolService)
         {
             _assets = assets;
             _staticData = staticData;
@@ -43,6 +48,7 @@ namespace CodeBase.UI.Services.Factory
             _inputService = inputService;
             _adsService = adsService;
             _iapService = iapService;
+            _poolService = poolService;
         }
 
         public void CreateOption()
@@ -61,6 +67,28 @@ namespace CodeBase.UI.Services.Factory
         {
             GameObject pref = await _assets.Load<GameObject>(AssetAddress.UIRoot);
             _uiRoot = Object.Instantiate(pref).transform;
+        }
+
+        public void ReservePool()
+        {
+            foreach (WindowId id in Enum.GetValues(typeof(WindowId)))
+            {
+                if (id == WindowId.Unknow)
+                    continue;
+
+                WindowConfig cfg = _staticData.ForWindow(id);
+                WindowBase prefab = cfg.prefab;
+
+                // Определяем конкретный тип окна, например ShopWindow
+                Type windowType = prefab.GetType();
+
+                // Готовим метод RegisterPool<T>(T prefab, int initialSize)
+                MethodInfo registerMethod = typeof(IPoolService)
+                    .GetMethod(nameof(IPoolService.AddPool), BindingFlags.Public | BindingFlags.Instance)
+                    .MakeGenericMethod(windowType);
+
+                registerMethod.Invoke(_poolService, new object[] { prefab, 1 });
+            }
         }
 
         private T CreateWindow<T>(WindowId ind) where T : WindowBase

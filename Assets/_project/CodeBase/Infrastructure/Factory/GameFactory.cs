@@ -3,6 +3,7 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Levels;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -27,6 +28,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly ILevelTransferService _levelTransfer;
         private readonly IWindowService _windowService;
         private readonly ISaveLoadService _saveLoad;
+        private readonly IPoolService _poolService;
 
         private GameObject HeroGameObject { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
@@ -39,7 +41,8 @@ namespace CodeBase.Infrastructure.Factory
                            IRandomService randomService,
                            ILevelTransferService levelTransfer,
                            IWindowService windowService,
-                           ISaveLoadService saveLoad)
+                           ISaveLoadService saveLoad,
+                           IPoolService poolService)
         {
             _inputService = inputService;
             _assets = asset;
@@ -49,6 +52,12 @@ namespace CodeBase.Infrastructure.Factory
             _levelTransfer = levelTransfer;
             _windowService = windowService;
             _saveLoad = saveLoad;
+            _poolService = poolService;
+        }
+
+        public void ReservePool()
+        {
+            //TODO: Зарегестрировать пулы объектов для Enemy и Loot
         }
 
         public async Task WarmUp()

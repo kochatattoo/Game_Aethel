@@ -24,6 +24,8 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             }
         }
 
+        public int FreeCount => _freeObjects.Count;
+
         public T Spawn()
         {
             T obj = _freeObjects.Count>0
@@ -48,10 +50,5 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         {
             // если вы где-то храните список «активных» — можно перебрать и вернуть
         }
-
-        /// <summary>
-        /// Опционально: узнать, сколько сейчас свободных экземпляров внутри.
-        /// </summary>
-        public int FreeCount => _freeObjects.Count;
     }
 }

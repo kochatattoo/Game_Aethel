@@ -1,6 +1,7 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ namespace CodeBase.UI.Windows
         public Button CloseButton;
 
         protected IPersistentProgressService _progressService;
+        protected IPoolService _poolService;
         protected PlayerProgress Progress => _progressService.Progress;
 
         public void Construct(IPersistentProgressService progressService) =>
@@ -39,12 +41,17 @@ namespace CodeBase.UI.Windows
 
         public void OnSpawned()
         {
-            
+            CloseButton.AddListener(() => Close());
         }
 
         public void OnDespawned()
         {
-            
+            CloseButton.RemoveAllListeners();
+        }
+
+        private void Close()
+        {
+            _poolService.GetPool<WindowBase>().Despawn(this);
         }
     }
 }

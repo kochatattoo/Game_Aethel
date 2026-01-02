@@ -8,5 +8,6 @@ namespace CodeBase.UI.Services.Factory
         void CreateOption();
         void CreateShop();
         Task CreateUIRoot();
+        void ReservePool();
     }
 }

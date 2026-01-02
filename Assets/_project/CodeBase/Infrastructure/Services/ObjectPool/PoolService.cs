@@ -15,12 +15,13 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
 
         public void AddPool<T>(T prefab, int initialSize) where T : Component, IPoolable
         {
-            if (!_pools.ContainsKey(typeof(T)))
+            if (_pools.ContainsKey(typeof(T)))
             {
-                _pools.AddPool<T>(prefab, initialSize);
-            }
-            else
                 Debug.Log($"Pool {nameof(prefab)} is existing");
+                return;
+            }
+  
+            _pools.AddPool<T>(prefab, initialSize);
         }
 
         public IPool<T> GetPool<T>() where T : Component, IPoolable

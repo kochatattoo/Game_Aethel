@@ -21,5 +21,6 @@ namespace CodeBase.Infrastructure.Factory
         Task CreateSaveTrigger(Vector3 at, string triggerId);
         Task WarmUp();
         void CleanUp();
+        void ReservePool();
     }
 }

@@ -6,6 +6,7 @@ using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure.Services.Levels;
 using CodeBase.Infrastructure.Services.LogData;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -103,6 +104,7 @@ namespace CodeBase.DI
             BindLevelTransfer();
             BindReload();
             BindSaveLoad();
+            BindPoolService();
             BindGameFactory();
             BindUIFactory();
         }
@@ -170,6 +172,12 @@ namespace CodeBase.DI
          Container.BindInterfacesTo<SaveLoadService>()
                   .AsSingle()
                   .NonLazy();
+
+        private void BindPoolService() =>
+            Container.Bind<IPoolService>()
+                     .To<PoolService>()
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindGameFactory() => 
             Container.Bind<IGameFactory>()
