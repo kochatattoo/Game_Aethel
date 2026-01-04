@@ -20,7 +20,20 @@ namespace CodeBase.UI.Windows
             _progressService = progressService;
             _poolService = poolService;
         }
-            
+
+        public void OnSpawned()
+        {
+            CloseButton.AddListener(() => Close());
+
+            Initialize();
+            SubscribeUpdates();
+        }
+
+        public void OnDespawned()
+        {
+            Cleanup();
+            CloseButton.RemoveAllListeners();
+        }
 
         //private void Awake() =>
         //    OnAwake();
@@ -40,22 +53,10 @@ namespace CodeBase.UI.Windows
         //    CloseButton.AddListener(() => Destroy(gameObject));
 
         protected virtual void Initialize() { }
+
         protected virtual void SubscribeUpdates() { }
+
         protected virtual void Cleanup() { }
-
-        public void OnSpawned()
-        {
-            CloseButton.AddListener(() => Close());
-
-            Initialize();
-            SubscribeUpdates();
-        }
-
-        public void OnDespawned()
-        {
-            Cleanup();
-            CloseButton.RemoveAllListeners();
-        }
 
         protected abstract void Close();
     }

@@ -25,6 +25,7 @@ namespace CodeBase.UI.Windows
             AdItem.Construct(adsService, progressService);
             ShopItemsContainer.Construct(iapService, progressService, assets);
         }
+
         protected override void Initialize()
         {
             AdItem.Initialize();
@@ -47,13 +48,13 @@ namespace CodeBase.UI.Windows
             Progress.WorldData.LootData.Changed -= RefreshValuesText;
         }
 
-        private void RefreshValuesText() =>
-            ValueText.text = Progress.WorldData.LootData.Collected.ToString();
-
         protected override void Close()
         {
             Debug.Log(_poolService.GetPool<ShopWindow>());
             _poolService.GetPool<ShopWindow>().Despawn(this);
         }
+
+        private void RefreshValuesText() =>
+            ValueText.text = Progress.WorldData.LootData.Collected.ToString();
     }
 }

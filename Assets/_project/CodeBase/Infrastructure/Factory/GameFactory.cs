@@ -70,10 +70,10 @@ namespace CodeBase.Infrastructure.Factory
             LootPiece loot = (await prefabLoot).GetComponent<LootPiece>();
             SpawnPoint spawn = (await prefabSpawner).GetComponent<SpawnPoint>();
 
-            await _poolService.AddPoolAsync<LootPiece>(loot, 5);
-            await _poolService.AddPoolAsync<SpawnPoint>(spawn, 5);
+            var warmLootTask = _poolService.AddPoolAsync<LootPiece>(loot, 5);
+            var warmSpawnerTask = _poolService.AddPoolAsync<SpawnPoint>(spawn, 5);
 
-            //await UniTask.WhenAll(warmLootTask, warmSpawnerTask);
+            await UniTask.WhenAll(warmLootTask, warmSpawnerTask);
         }
 
         public async Task<GameObject> CreateHud()
