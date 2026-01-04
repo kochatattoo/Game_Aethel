@@ -13,6 +13,12 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             _pools = new Dictionary<Type, IPool>();
         }
 
+        public void ShowPools()
+        {
+            foreach (var pool in _pools.Values)
+                Debug.Log(pool.ToString());
+        }
+
         public void AddPool<T>(T prefab, int initialSize) 
             where T : Component, IPoolable
         {

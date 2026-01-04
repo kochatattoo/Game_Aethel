@@ -1,4 +1,7 @@
-﻿namespace CodeBase.Infrastructure.Services.ObjectPool
+﻿using System;
+using UnityEngine;
+
+namespace CodeBase.Infrastructure.Services.ObjectPool
 {
     public interface IPool
     {
@@ -10,6 +13,8 @@
     {
         void Despawn(T obj);
         T Spawn();
+        T Spawn(Transform parent);
+        T Spawn(Transform parent, Action<T> di);
     }
 
 }

@@ -53,6 +53,29 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             return obj;
         }
 
+        public T Spawn(Transform parent)
+        {
+            T obj = _freeObjects.Count > 0
+                ? _freeObjects.Pop()
+                : GameObject.Instantiate(_prefab, parent);
+            obj.gameObject.SetActive(true);
+            obj.OnSpawned();
+            return obj;
+        }
+
+        public T Spawn(Transform parent, Action<T> initializer)
+        {
+            T obj = _freeObjects.Count > 0
+               ? _freeObjects.Pop()
+               : GameObject.Instantiate(_prefab, parent);
+            obj.gameObject.SetActive(true);
+
+            initializer?.Invoke(obj);
+
+            obj.OnSpawned();
+            return obj;
+        }
+
         public void Despawn(T obj)
         {
             obj.OnDespawned();

@@ -1,9 +1,11 @@
 ﻿using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services.Ads;
 using CodeBase.Infrastructure.Services.IAP;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.UI.Windows.Shop;
 using TMPro;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows
 {
@@ -13,9 +15,13 @@ namespace CodeBase.UI.Windows
         public RewardedAdItem AdItem;
         public ShopItemsContainer ShopItemsContainer;
 
-        public void Construct(IAdsService adsService, IPersistentProgressService progressService, IIAPService iapService, IAsset assets)
+        public void Construct(IPersistentProgressService progressService, 
+                              IPoolService poolService, 
+                              IAdsService adsService, 
+                              IIAPService iapService, 
+                              IAsset assets)
         {
-            base.Construct(progressService);
+            base.Construct(progressService, poolService);
             AdItem.Construct(adsService, progressService);
             ShopItemsContainer.Construct(iapService, progressService, assets);
         }
@@ -42,5 +48,11 @@ namespace CodeBase.UI.Windows
 
         private void RefreshValuesText() =>
             ValueText.text = Progress.WorldData.LootData.Collected.ToString();
+
+        protected override void Close()
+        {
+            Debug.Log(_poolService.GetPool<ShopWindow>());
+            _poolService.GetPool<ShopWindow>().Despawn(this);
+        }
     }
 }

@@ -15,25 +15,29 @@ namespace CodeBase.UI.Windows
         protected IPoolService _poolService;
         protected PlayerProgress Progress => _progressService.Progress;
 
-        public void Construct(IPersistentProgressService progressService) =>
+        public void Construct(IPersistentProgressService progressService, IPoolService poolService)
+        {
             _progressService = progressService;
-
-        private void Awake() =>
-            OnAwake();
-
-        private void Start()
-        {
-            Initialize();
-            SubscribeUpdates();
+            _poolService = poolService;
         }
+            
 
-        private void OnDestroy()
-        {
-            Cleanup();
-        }
+        //private void Awake() =>
+        //    OnAwake();
 
-        protected virtual void OnAwake() =>
-            CloseButton.AddListener(() => Destroy(gameObject));
+        //private void Start()
+        //{
+        //    Initialize();
+        //    SubscribeUpdates();
+        //}
+
+        //private void OnDestroy()
+        //{
+        //    Cleanup();
+        //}
+
+        //protected virtual void OnAwake() =>
+        //    CloseButton.AddListener(() => Destroy(gameObject));
 
         protected virtual void Initialize() { }
         protected virtual void SubscribeUpdates() { }
@@ -42,16 +46,17 @@ namespace CodeBase.UI.Windows
         public void OnSpawned()
         {
             CloseButton.AddListener(() => Close());
+
+            Initialize();
+            SubscribeUpdates();
         }
 
         public void OnDespawned()
         {
+            Cleanup();
             CloseButton.RemoveAllListeners();
         }
 
-        private void Close()
-        {
-            _poolService.GetPool<WindowBase>().Despawn(this);
-        }
+        protected abstract void Close();
     }
 }

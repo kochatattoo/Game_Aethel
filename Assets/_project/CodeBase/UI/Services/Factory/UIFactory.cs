@@ -53,14 +53,22 @@ namespace CodeBase.UI.Services.Factory
 
         public void CreateOption()
         {
-            OptionWindow optWindow = CreateWindow<OptionWindow>(WindowId.Option);
-            optWindow.Construct(_saveLoadService, _progressService, _reloadService, _inputService);
+            OptionWindow optWindow = CreateWindow<OptionWindow>(w => 
+            w.Construct(_progressService, 
+                        _poolService, 
+                        _saveLoadService,
+                        _reloadService, 
+                        _inputService));
         }
 
         public void CreateShop()
         {
-            ShopWindow window = CreateWindow<ShopWindow>(WindowId.Shop);
-            window.Construct(_adsService, _progressService, _iapService, _assets);
+            ShopWindow window = CreateWindow<ShopWindow>(w =>
+            w.Construct(_progressService, 
+                        _poolService, 
+                        _adsService,
+                        _iapService, 
+                        _assets));
         }
 
         public async Task CreateUIRoot()
@@ -79,16 +87,23 @@ namespace CodeBase.UI.Services.Factory
                 WindowConfig cfg = _staticData.ForWindow(id);
                 WindowBase prefab = cfg.prefab;
 
-                // Определяем конкретный тип окна, например ShopWindow
                 Type windowType = prefab.GetType();
 
-                // Готовим метод RegisterPool<T>(T prefab, int initialSize)
                 MethodInfo registerMethod = typeof(IPoolService)
                     .GetMethod(nameof(IPoolService.AddPoolToParent), BindingFlags.Public | BindingFlags.Instance)
                     .MakeGenericMethod(windowType);
 
-                registerMethod.Invoke(_poolService, new object[] { prefab,_uiRoot, 1 });
+                registerMethod.Invoke(_poolService, new object[] { prefab, _uiRoot, 1 });
             }
+
+            _poolService.ShowPools();
+        }
+
+        private T CreateWindow<T>(Action<T> initializer) where T : WindowBase
+        {
+            var pool = _poolService.GetPool<T>();
+            T window = pool.Spawn(_uiRoot, initializer);
+            return window;
         }
 
         private T CreateWindow<T>(WindowId ind) where T : WindowBase
