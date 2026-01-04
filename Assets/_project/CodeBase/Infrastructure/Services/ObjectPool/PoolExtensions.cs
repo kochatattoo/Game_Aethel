@@ -7,9 +7,17 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
     public static class PoolExtensions
     {
         public static Dictionary<Type, IPool> AddPool<T>(this Dictionary<Type, IPool> dict, T prefab , int initialSize)
-         where T : Component, IPoolable
+        where T : Component, IPoolable
         {
             var pool = new Pool<T>(prefab, initialSize);
+            dict.Add(typeof(T), pool);
+            return dict;
+        }
+
+        public static Dictionary<Type, IPool> AddPool<T>(this Dictionary<Type, IPool> dict, T prefab, Transform parent, int initialSize)
+        where T : Component, IPoolable
+        {
+            var pool = new Pool<T>(prefab, parent, initialSize);
             dict.Add(typeof(T), pool);
             return dict;
         }

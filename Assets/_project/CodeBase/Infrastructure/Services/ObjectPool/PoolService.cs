@@ -13,7 +13,8 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             _pools = new Dictionary<Type, IPool>();
         }
 
-        public void AddPool<T>(T prefab, int initialSize) where T : Component, IPoolable
+        public void AddPool<T>(T prefab, int initialSize) 
+            where T : Component, IPoolable
         {
             if (_pools.ContainsKey(typeof(T)))
             {
@@ -24,7 +25,19 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             _pools.AddPool<T>(prefab, initialSize);
         }
 
-        public IPool<T> GetPool<T>() where T : Component, IPoolable
+        public void AddPoolToParent<T>( T prefab, Transform parent, int initialSize = 0) 
+            where T : Component, IPoolable
+        {
+            if (_pools.ContainsKey(typeof(T)))
+            {
+                Debug.Log($"Pool {nameof(prefab)} is existing");
+                return;
+            }
+            _pools.AddPool<T>(prefab, parent, initialSize);
+        }
+
+        public IPool<T> GetPool<T>() 
+            where T : Component, IPoolable
         {
             if (!_pools.TryGetValue(typeof(T), out var rawPool))
             {

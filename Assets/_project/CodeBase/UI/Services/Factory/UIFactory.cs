@@ -84,10 +84,10 @@ namespace CodeBase.UI.Services.Factory
 
                 // Готовим метод RegisterPool<T>(T prefab, int initialSize)
                 MethodInfo registerMethod = typeof(IPoolService)
-                    .GetMethod(nameof(IPoolService.AddPool), BindingFlags.Public | BindingFlags.Instance)
+                    .GetMethod(nameof(IPoolService.AddPoolToParent), BindingFlags.Public | BindingFlags.Instance)
                     .MakeGenericMethod(windowType);
 
-                registerMethod.Invoke(_poolService, new object[] { prefab, 1 });
+                registerMethod.Invoke(_poolService, new object[] { prefab,_uiRoot, 1 });
             }
         }
 

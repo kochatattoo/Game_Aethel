@@ -10,6 +10,23 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         private readonly T _prefab;
         private readonly Stack<T> _freeObjects = new();
 
+        public Pool(T prefab, Transform parent, int initialSize = 0)
+        {
+            if (prefab == null)
+                throw new ArgumentNullException(nameof(prefab));
+
+            if (parent == null)
+                new Pool<T>(prefab, initialSize);
+
+            _prefab = prefab;
+            for (int i = 0; i < initialSize; i++)
+            {
+                var inst = GameObject.Instantiate(prefab, parent);
+                inst.gameObject.SetActive(false);
+                _freeObjects.Push(inst);
+            }
+        }
+
         public Pool(T prefab, int initialSize = 0)
         {
             if (prefab == null)
