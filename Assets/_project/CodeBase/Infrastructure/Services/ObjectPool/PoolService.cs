@@ -22,24 +22,24 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         public void AddPool<T>(T prefab, int initialSize) 
             where T : Component, IPoolable
         {
-            if (_pools.ContainsKey(typeof(T)))
+            if (PoolsContainKey<T>())
             {
-                Debug.Log($"Pool {nameof(prefab)} is existing");
+                DebugPoolLog(prefab);
                 return;
             }
   
-            _pools.AddPool<T>(prefab, initialSize);
+            _pools.AddPool(prefab, initialSize);
         }
 
         public void AddPoolToParent<T>( T prefab, Transform parent, int initialSize = 0) 
             where T : Component, IPoolable
         {
-            if (_pools.ContainsKey(typeof(T)))
+            if (PoolsContainKey<T>())
             {
-                Debug.Log($"Pool {nameof(prefab)} is existing");
+                DebugPoolLog(prefab);
                 return;
             }
-            _pools.AddPool<T>(prefab, parent, initialSize);
+            _pools.AddPool(prefab, parent, initialSize);
         }
 
         public IPool<T> GetPool<T>() 
@@ -52,6 +52,16 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             }
 
             return (IPool<T>)rawPool;
+        }
+
+        private bool PoolsContainKey<T>()
+        {
+            return _pools.ContainsKey(typeof(T));
+        }
+
+        private void DebugPoolLog<T>(T prefab)
+        {
+            Debug.Log($"Pool {nameof(prefab)} is existing");
         }
     }
 }

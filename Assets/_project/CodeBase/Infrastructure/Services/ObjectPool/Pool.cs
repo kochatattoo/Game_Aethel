@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.ObjectPool
@@ -9,6 +10,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
     {
         private readonly T _prefab;
         private readonly Stack<T> _freeObjects = new();
+        private  Queue<T> _inUse = new();
 
         public Pool(T prefab, Transform parent, int initialSize = 0)
         {
@@ -43,43 +45,50 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
 
         public int FreeCount => _freeObjects.Count;
 
-        public T Spawn()
+        public T Spawn(Transform parent= null, Action<T> initializer = null)
         {
-            T obj = _freeObjects.Count>0
-                ? _freeObjects.Pop()
-                : GameObject.Instantiate(_prefab);
-            obj.gameObject.SetActive(true);
-            obj.OnSpawned();
-            return obj;
-        }
+            T gameObject;
 
-        public T Spawn(Transform parent)
-        {
-            T obj = _freeObjects.Count > 0
-                ? _freeObjects.Pop()
-                : GameObject.Instantiate(_prefab, parent);
-            obj.gameObject.SetActive(true);
-            obj.OnSpawned();
-            return obj;
-        }
+            if (_freeObjects.Count > 0)
+            {
+                // 1) берём из свободных
+                gameObject = _freeObjects.Pop();
+            }
+            else if (_inUse.Count > 0)
+            {
+                // 2) переиспользуем самый ранний активный
+                gameObject = _inUse.Dequeue();
+            }
+            else
+            {
+                // 3) создаём новый
+                gameObject = parent != null
+                    ? GameObject.Instantiate(_prefab, parent)
+                    : GameObject.Instantiate(_prefab);
+            }
 
-        public T Spawn(Transform parent, Action<T> initializer)
-        {
-            T obj = _freeObjects.Count > 0
-               ? _freeObjects.Pop()
-               : GameObject.Instantiate(_prefab, parent);
-            obj.gameObject.SetActive(true);
+            if (parent != null)
+                gameObject.transform.SetParent(parent, false);
 
-            initializer?.Invoke(obj);
+            gameObject.gameObject.SetActive(true);
 
-            obj.OnSpawned();
-            return obj;
+            initializer?.Invoke(gameObject);
+
+            gameObject.OnSpawned();
+
+            _inUse.Enqueue(gameObject);
+
+            return gameObject;
+
         }
 
         public void Despawn(T obj)
         {
             obj.OnDespawned();
             obj.gameObject.SetActive(false);
+
+            _inUse = new Queue<T>(_inUse.Where(x => x != obj));
+
             _freeObjects.Push(obj);
         }
 
