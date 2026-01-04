@@ -1,5 +1,6 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using System;
 using System.Collections;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace CodeBase.Enemies
 {
-    public class LootPiece : MonoBehaviour, ISavedProgress
+    public class LootPiece : MonoBehaviour, ISavedProgress, IPoolable
     {
         public GameObject Prefab;
         public GameObject PickupFxPrefab;
@@ -125,6 +126,16 @@ namespace CodeBase.Enemies
             yield return new WaitForSeconds(1.5f);
 
             Destroy(gameObject);
+        }
+
+        public void OnSpawned()
+        {
+            
+        }
+
+        public void OnDespawned()
+        {
+            
         }
     }
 }

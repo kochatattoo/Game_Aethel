@@ -11,10 +11,6 @@ namespace CodeBase.UI.Elements
         public void Construct(IInputService inputService)
         {
            _inputService = inputService;
-        }
-
-        private void Start()
-        {
             OnSubscribe();
         }
 

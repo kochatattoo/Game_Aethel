@@ -5,6 +5,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
 {
     public interface IPool
     {
+        void Clear();
         void DespawnAllActive();
         int FreeCount { get; }
     }
@@ -12,7 +13,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
     public interface IPool<T>: IPool where T : IPoolable
     {
         void Despawn(T obj);
-        T Spawn(Transform parent, Action<T> di);
+        T Spawn(Transform parent, Action<T> initializer);
     }
 
 }

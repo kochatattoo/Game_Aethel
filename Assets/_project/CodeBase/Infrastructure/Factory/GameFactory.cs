@@ -11,6 +11,7 @@ using CodeBase.Logic;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -57,13 +58,22 @@ namespace CodeBase.Infrastructure.Factory
 
         public void ReservePool()
         {
-            //TODO: Зарегестрировать пулы объектов для Enemy и Loot
         }
 
         public async Task WarmUp()
         {
-            await _assets.Load<GameObject>(AssetAddress.Loot);
-            await _assets.Load<GameObject>(AssetAddress.Spawner);
+            var prefabLoot =  _assets.Load<GameObject>(AssetAddress.Loot);
+            var prefabSpawner =  _assets.Load<GameObject>(AssetAddress.Spawner);
+
+            await Task.WhenAll(prefabLoot, prefabSpawner);
+
+            LootPiece loot = (await prefabLoot).GetComponent<LootPiece>();
+            SpawnPoint spawn = (await prefabSpawner).GetComponent<SpawnPoint>();
+
+            await _poolService.AddPoolAsync<LootPiece>(loot, 5);
+            await _poolService.AddPoolAsync<SpawnPoint>(spawn, 5);
+
+            //await UniTask.WhenAll(warmLootTask, warmSpawnerTask);
         }
 
         public async Task<GameObject> CreateHud()

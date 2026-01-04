@@ -45,23 +45,37 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
 
         public int FreeCount => _freeObjects.Count;
 
+        public void Clear()
+        {
+            foreach (var inst in _freeObjects)
+            {
+                GameObject.Destroy(inst.gameObject);
+            }
+            _freeObjects.Clear();
+
+            foreach( var inst in _inUse)
+            {
+                inst.OnDespawned();
+                GameObject.Destroy(inst.gameObject);
+            }
+            _inUse.Clear();
+
+        }
+
         public T Spawn(Transform parent= null, Action<T> initializer = null)
         {
             T gameObject;
 
             if (_freeObjects.Count > 0)
             {
-                // 1) берём из свободных
                 gameObject = _freeObjects.Pop();
             }
             else if (_inUse.Count > 0)
             {
-                // 2) переиспользуем самый ранний активный
                 gameObject = _inUse.Dequeue();
             }
             else
             {
-                // 3) создаём новый
                 gameObject = parent != null
                     ? GameObject.Instantiate(_prefab, parent)
                     : GameObject.Instantiate(_prefab);
@@ -79,7 +93,6 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             _inUse.Enqueue(gameObject);
 
             return gameObject;
-
         }
 
         public void Despawn(T obj)
@@ -97,7 +110,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         /// </summary>
         public void DespawnAllActive()
         {
-            // если вы где-то храните список «активных» — можно перебрать и вернуть
+            
         }
     }
 }

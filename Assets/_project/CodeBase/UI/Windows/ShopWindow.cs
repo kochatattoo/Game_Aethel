@@ -31,6 +31,7 @@ namespace CodeBase.UI.Windows
             ShopItemsContainer.Initialize();
             RefreshValuesText();
         }
+
         protected override void SubscribeUpdates()
         {
             AdItem.Subscribe();

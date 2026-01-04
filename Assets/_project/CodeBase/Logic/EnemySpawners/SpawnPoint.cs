@@ -1,13 +1,14 @@
 ﻿using CodeBase.Data;
 using CodeBase.Enemies;
 using CodeBase.Infrastructure.Factory;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;
 using UnityEngine;
 
 namespace CodeBase.Logic
 {
-    public class SpawnPoint : MonoBehaviour, ISavedProgress
+    public class SpawnPoint : MonoBehaviour, ISavedProgress, IPoolable
     {
         public MonsterTypeID MonsterTypeID;
         private string _id;
@@ -52,6 +53,16 @@ namespace CodeBase.Logic
                 _enemyDeath.Happened -= Slay;
 
             _slain = true;
+        }
+
+        public void OnSpawned()
+        {
+
+        }
+
+        public void OnDespawned()
+        {
+
         }
     }
 }

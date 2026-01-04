@@ -23,6 +23,7 @@ namespace CodeBase.DI
     {
         public GameObject CoroutineRunner;
         public GameObject LoadingCurtain;
+        public GameObject PoolContainer;
 
         public override void InstallBindings()
         {
@@ -32,6 +33,7 @@ namespace CodeBase.DI
             BindCoroutineRunner();
             BindSceneLoader();
             BindLoadingCurtain();
+            BindPoolContainer();
 
             BindServices();
 
@@ -86,6 +88,18 @@ namespace CodeBase.DI
             Container
                 .Bind<LoadingCurtain>()
                 .FromInstance(loadingCurtain)
+                .AsSingle()
+                .NonLazy();
+        }
+
+        private void BindPoolContainer()
+        {
+            PoolContainer poolContainer =
+                Container.InstantiatePrefabForComponent<PoolContainer>(PoolContainer);
+
+            Container
+                .Bind<PoolContainer>()
+                .FromInstance(poolContainer)
                 .AsSingle()
                 .NonLazy();
         }

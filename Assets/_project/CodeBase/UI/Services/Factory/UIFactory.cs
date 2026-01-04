@@ -95,8 +95,6 @@ namespace CodeBase.UI.Services.Factory
 
                 registerMethod.Invoke(_poolService, new object[] { prefab, _uiRoot, 1 });
             }
-
-            _poolService.ShowPools();
         }
 
         private T CreateWindow<T>(Action<T> initializer) where T : WindowBase

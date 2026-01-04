@@ -1,16 +1,19 @@
-﻿namespace CodeBase.Infrastructure.State
+﻿using CodeBase.Infrastructure.Services.ObjectPool;
+
+namespace CodeBase.Infrastructure.State
 {
     public class BootstrapState : IState
     {
         private const string Bootstrap = "Bootstrap";
         private readonly IGameStateMachine _stateMachine;
+        private readonly IPoolService _poolService;
         private readonly SceneLoader _sceneLoader;
 
-        public BootstrapState(IGameStateMachine stateMachine, SceneLoader sceneLoader)
+        public BootstrapState(IGameStateMachine stateMachine, SceneLoader sceneLoader, IPoolService poolService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-
+            _poolService = poolService;
         }
 
         public void Enter()
@@ -20,8 +23,10 @@
 
         public void Exit() {}
 
-        private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadProgressState>();
-
+        private void EnterLoadLevel() 
+        { 
+            _poolService.ClearAllPools();
+            _stateMachine.Enter<LoadProgressState>(); 
+        }
     }
 }
