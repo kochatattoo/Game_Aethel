@@ -7,15 +7,22 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
 {
     public class PoolService : IPoolService
     {
-        private readonly PoolContainer _poolContainer;
-        private readonly Transform _root;
+        private readonly Transform _container;
         private readonly Dictionary<Type, IPool> _pools;
 
-        public PoolService(PoolContainer poolContainer)
+        public PoolService()
         {
             _pools = new Dictionary<Type, IPool>();
-            _poolContainer = poolContainer;
-            _root = _poolContainer.transform;
+
+            GameObject gameObject = new()
+            {
+                name = "Pool_Container"
+            };
+
+            GameObject.Instantiate(gameObject);
+            GameObject.DontDestroyOnLoad(gameObject);
+
+            _container = gameObject.transform;
         }
 
         public void ShowPools()
@@ -41,7 +48,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
                 return;
             }
 
-            _pools.AddPool(prefab, _root, initialSize);
+            _pools.AddPool(prefab, initialSize);
         }
 
         public void AddPoolToParent<T>( T prefab, Transform parent, int initialSize = 0) 
@@ -56,6 +63,12 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             _pools.AddPool(prefab, parent, initialSize);
         }
 
+        public void AddPoolToContainer<T>(T prefab, int initialSize = 0)
+            where T : Component, IPoolable
+        {
+            AddPoolToParent(prefab, _container, initialSize);
+        }
+
         public async UniTask AddPoolAsync<T>(T prefab, int initialSize) where T : MonoBehaviour, IPoolable
         {
             if (PoolsContainKey<T>())
@@ -64,7 +77,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
                 return;
             }
 
-            await _pools.AddPoolAsync(prefab, _root, initialSize);
+            await _pools.AddPoolAsync(prefab, initialSize);
         }
 
         public async UniTask AddPoolToParentAsync<T>(T prefab, Transform parent, int initialSize = 0)
@@ -77,6 +90,12 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             }
 
             await _pools.AddPoolAsync(prefab, parent, initialSize);
+        }
+
+        public async UniTask AddPoolToContainerAsync<T>(T prefab, int initialSize = 0)
+          where T : Component, IPoolable
+        {
+           await AddPoolToParentAsync(prefab, _container, initialSize);
         }
 
         public IPool<T> GetPool<T>() 

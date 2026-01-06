@@ -12,6 +12,20 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         private readonly Stack<T> _freeObjects = new();
         private  Queue<T> _inUse = new();
 
+        public Pool(T prefab, int initialSize = 0)
+        {
+            if (prefab == null)
+                throw new ArgumentNullException(nameof(prefab));
+
+            _prefab = prefab;
+            for (int i = 0; i < initialSize; i++)
+            {
+                var inst = GameObject.Instantiate(prefab);
+                inst.gameObject.SetActive(false);
+                _freeObjects.Push(inst);
+            }
+        }
+
         public Pool(T prefab, Transform parent, int initialSize = 0)
         {
             if (prefab == null)
@@ -24,20 +38,6 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             for (int i = 0; i < initialSize; i++)
             {
                 var inst = GameObject.Instantiate(prefab, parent);
-                inst.gameObject.SetActive(false);
-                _freeObjects.Push(inst);
-            }
-        }
-
-        public Pool(T prefab, int initialSize = 0)
-        {
-            if (prefab == null)
-                throw new ArgumentNullException(nameof(prefab));
-
-            _prefab = prefab;
-            for (int i = 0; i < initialSize; i++)
-            {
-                var inst = GameObject.Instantiate(prefab);
                 inst.gameObject.SetActive(false);
                 _freeObjects.Push(inst);
             }
@@ -110,7 +110,10 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         /// </summary>
         public void DespawnAllActive()
         {
-            
+            foreach (var inst in _inUse)
+            {
+                inst.OnDespawned();
+            }
         }
     }
 }
