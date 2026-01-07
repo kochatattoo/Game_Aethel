@@ -148,12 +148,5 @@ namespace CodeBase.Enemies
             yield return new WaitForSeconds(1.5f);
             _pool.Despawn(this);
         }
-
-        private IEnumerator StartDestroyTimer()
-        {
-            yield return new WaitForSeconds(1.5f);
-
-            Destroy(gameObject);
-        }
     }
 }
