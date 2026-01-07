@@ -145,6 +145,13 @@ namespace CodeBase.Infrastructure.Factory
             return lootPiece;
         }
 
+        public async UniTask<LootPiece> CreateLootFromPool()
+        {
+            IPool<LootPiece> pool = _poolService.GetPool<LootPiece>();
+           LootPiece lootobject = pool.Spawn();
+            return null;
+        }
+
         public async Task<LootPiece> CreateLoot(string id)
         {
             LootPiece lootPiece = await CreateLoot();

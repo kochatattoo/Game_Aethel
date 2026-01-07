@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         where T : Component, IPoolable
     {
         private readonly T _prefab;
+        private readonly Transform _defaultParent;
         private readonly Stack<T> _freeObjects = new();
         private  Queue<T> _inUse = new();
 
@@ -17,7 +19,9 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             if (prefab == null)
                 throw new ArgumentNullException(nameof(prefab));
 
+            _defaultParent = GameObject.Instantiate(new GameObject() { name = prefab.name }).transform;
             _prefab = prefab;
+
             for (int i = 0; i < initialSize; i++)
             {
                 var inst = GameObject.Instantiate(prefab);
@@ -34,7 +38,9 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             if (parent == null)
                 new Pool<T>(prefab, initialSize);
 
+            _defaultParent = parent;
             _prefab = prefab;
+
             for (int i = 0; i < initialSize; i++)
             {
                 var inst = GameObject.Instantiate(prefab, parent);
@@ -64,56 +70,98 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
 
         public T Spawn(Transform parent= null, Action<T> initializer = null)
         {
-            T gameObject;
+            T instance;
 
             if (_freeObjects.Count > 0)
             {
-                gameObject = _freeObjects.Pop();
+                instance = _freeObjects.Pop();
             }
             else if (_inUse.Count > 0)
             {
-                gameObject = _inUse.Dequeue();
+                instance = _inUse.Dequeue();
+                instance.OnDespawned();
+                instance.gameObject.SetActive(false);
             }
             else
             {
-                gameObject = parent != null
-                    ? GameObject.Instantiate(_prefab, parent)
-                    : GameObject.Instantiate(_prefab);
+                instance = CreateInstance(parent);
             }
 
-            if (parent != null)
-                gameObject.transform.SetParent(parent, false);
+            SetParent(parent, instance);
+            ActivateInstance(initializer, instance);
 
-            gameObject.gameObject.SetActive(true);
+            return instance;
+        }
 
-            initializer?.Invoke(gameObject);
+        public T SpawnExpandable(Transform parent = null, Action<T> initializer = null)
+        {
+            if (_freeObjects.Count > 0)
+                return Spawn(parent, initializer);
 
-            gameObject.OnSpawned();
+            var instance = CreateInstance(parent);
 
-            _inUse.Enqueue(gameObject);
+            SetParent(parent, instance);
+            ActivateInstance(initializer, instance);
 
-            return gameObject;
+            return instance;
+        }
+
+        public async UniTask<T> SpawnAsync(Transform parent = null, Action<T> initializer = null, bool spreadOverFrames = true)
+        {
+            if (spreadOverFrames)
+                await UniTask.Yield();
+
+            return Spawn(parent, initializer);
+        }
+
+        public async UniTask<T> SpawnExpandableAsync(Transform parent = null, Action<T> initializer = null, bool spreadOverFrames = true)
+        {
+            if (spreadOverFrames)
+                await UniTask.Yield();
+
+            return SpawnExpandable(parent, initializer);
         }
 
         public void Despawn(T obj)
         {
             obj.OnDespawned();
             obj.gameObject.SetActive(false);
+            obj.gameObject.transform.SetParent(_defaultParent, false);
 
             _inUse = new Queue<T>(_inUse.Where(x => x != obj));
 
             _freeObjects.Push(obj);
         }
 
-        /// <summary>
-        /// Опционально: сбросить все в пул (если вам надо почистить сцену).
-        /// </summary>
         public void DespawnAllActive()
         {
             foreach (var inst in _inUse)
             {
                 inst.OnDespawned();
             }
+        }
+
+        private void SetParent(Transform parent, T gameObject)
+        {
+            Transform p = parent != null ? parent : _defaultParent;
+            if (p != null)
+                gameObject.transform.SetParent(p, false);
+        }
+
+        private void ActivateInstance(Action<T> initializer, T instance)
+        {
+            instance.gameObject.SetActive(true);
+            initializer?.Invoke(instance);
+            instance.OnSpawned();
+            _inUse.Enqueue(instance);
+        }
+
+        // Вспомогательный инстанциатор
+        private T CreateInstance(Transform parent)
+        {
+            return parent != null
+                ? GameObject.Instantiate(_prefab, parent, false)
+                : GameObject.Instantiate(_prefab);
         }
     }
 }
