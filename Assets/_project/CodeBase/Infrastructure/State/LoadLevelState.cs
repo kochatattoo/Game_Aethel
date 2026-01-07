@@ -110,7 +110,7 @@ namespace CodeBase.Infrastructure.State
         {
             foreach (var id in _progressService.Progress.WorldData.LootData.LootsOnGround.Dict)
             {
-                await _gameFactory.CreateLoot(id.Key);
+                await _gameFactory.CreateLootFromPool(id.Key);
             }
         }
 

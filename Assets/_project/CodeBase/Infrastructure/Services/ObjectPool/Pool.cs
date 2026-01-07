@@ -55,17 +55,20 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         {
             foreach (var inst in _freeObjects)
             {
+                if(inst != null && inst.gameObject != null)
                 GameObject.Destroy(inst.gameObject);
             }
             _freeObjects.Clear();
 
             foreach( var inst in _inUse)
             {
-                inst.OnDespawned();
-                GameObject.Destroy(inst.gameObject);
+                if (inst != null && inst.gameObject != null)
+                { 
+                    inst.OnDespawned();
+                    GameObject.Destroy(inst.gameObject);
+                }
             }
             _inUse.Clear();
-
         }
 
         public T Spawn(Transform parent= null, Action<T> initializer = null)
@@ -87,8 +90,8 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
                 instance = CreateInstance(parent);
             }
 
-            if (instance is IPoolable<T>Instance) 
-               Instance.SetPool(this);
+            if (instance is IPoolable<T>poolable) 
+               poolable.SetPool(this);
 
             SetParent(parent, instance);
             ActivateInstance(initializer, instance);
@@ -102,6 +105,9 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
                 return Spawn(parent, initializer);
 
             var instance = CreateInstance(parent);
+
+            if (instance is IPoolable<T> poolable)
+                poolable.SetPool(this);
 
             SetParent(parent, instance);
             ActivateInstance(initializer, instance);

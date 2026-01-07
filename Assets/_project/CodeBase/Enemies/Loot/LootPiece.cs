@@ -10,19 +10,23 @@ using UnityEngine;
 
 namespace CodeBase.Enemies
 {
-    public class LootPiece : MonoBehaviour, ISavedProgress, IPoolable
+    public class LootPiece : MonoBehaviour, ISavedProgress, IPoolable<LootPiece>
     {
+        [Header("View")]
         public GameObject Prefab;
-        public GameObject PickupFxPrefab;
-        public TextMeshPro LootText;
         public GameObject PickupPopup;
+        public TextMeshPro LootText;
+
+        [Header("VFX")]
+        public GameObject PickupFxPrefab;
 
         private Loot _loot;
         private bool _picked;
-        private WorldData _worldData;
         [SerializeField] private string _id;
 
+        private WorldData _worldData;
         private IGameFactory _gameFactory;
+        private IPool<LootPiece> _pool;
 
         public void Construct(WorldData worldData, IGameFactory gameFactory)
         {
@@ -30,16 +34,34 @@ namespace CodeBase.Enemies
             _gameFactory = gameFactory;
         }
 
+        public void SetPool(IPool<LootPiece> pool) => 
+            _pool = pool;
+
         public void Initialize(Loot loot)
         {
-            SetId(GenerateId());
             _loot = loot;
+            SetId(GenerateId());
+
+            Instantiate(PickupFxPrefab, transform.position, Quaternion.identity);
+            PickupFxPrefab.SetActive(false);
         }
 
         private void OnTriggerEnter(Collider other) =>
             PickUp();
 
         public void SetId(string id) => _id = id;
+
+        public void OnSpawned()
+        {
+            _picked = false;
+            Prefab.SetActive(true);
+        }
+
+        public void OnDespawned()
+        {
+            PickupFxPrefab.SetActive(false);
+            PickupPopup.SetActive(false);
+        }
 
         public void UpdateProgress(PlayerProgress progress)
         {
@@ -103,7 +125,7 @@ namespace CodeBase.Enemies
             PlayPickupFx();
             Showtext();
 
-            StartCoroutine(StartDestroyTimer());
+            StartCoroutine(ReturnToPoolAfterDelay());
         }
 
         private void UpdateWorldData() =>
@@ -113,7 +135,7 @@ namespace CodeBase.Enemies
             Prefab.SetActive(false);
 
         private void PlayPickupFx() =>
-            Instantiate(PickupFxPrefab, transform.position, Quaternion.identity);
+           PickupFxPrefab.SetActive(true);
 
         private void Showtext()
         {
@@ -121,21 +143,17 @@ namespace CodeBase.Enemies
             PickupPopup.SetActive(true);
         }
 
+        private IEnumerator ReturnToPoolAfterDelay()
+        {
+            yield return new WaitForSeconds(1.5f);
+            _pool.Despawn(this);
+        }
+
         private IEnumerator StartDestroyTimer()
         {
             yield return new WaitForSeconds(1.5f);
 
             Destroy(gameObject);
-        }
-
-        public void OnSpawned()
-        {
-            
-        }
-
-        public void OnDespawned()
-        {
-            
         }
     }
 }

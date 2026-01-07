@@ -32,7 +32,7 @@ namespace CodeBase.Enemies
 
         private async void SpawnLootAsync()
         {
-            LootPiece loot = await _factory.CreateLoot();
+            LootPiece loot = await _factory.CreateLootFromPool();
             loot.transform.position = transform.position;
 
             Loot lootItem = GenerateLoot();

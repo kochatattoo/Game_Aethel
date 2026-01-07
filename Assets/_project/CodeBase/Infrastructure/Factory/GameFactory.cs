@@ -56,10 +56,6 @@ namespace CodeBase.Infrastructure.Factory
             _poolService = poolService;
         }
 
-        public void ReservePool()
-        {
-        }
-
         public async Task WarmUp()
         {
             var prefabLoot =  _assets.Load<GameObject>(AssetAddress.Loot);
@@ -148,7 +144,7 @@ namespace CodeBase.Infrastructure.Factory
         public async UniTask<LootPiece> CreateLootFromPool()
         {
             IPool<LootPiece> pool = _poolService.GetPool<LootPiece>();
-            LootPiece lootObject = await pool.SpawnAsync();
+            LootPiece lootObject = await pool.SpawnExpandableAsync();
             Register(lootObject);
 
             lootObject.Construct(_progressService.Progress.WorldData, this);
