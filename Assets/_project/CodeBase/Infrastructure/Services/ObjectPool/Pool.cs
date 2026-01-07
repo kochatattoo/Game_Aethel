@@ -87,6 +87,9 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
                 instance = CreateInstance(parent);
             }
 
+            if (instance is IPoolable<T>Instance) 
+               Instance.SetPool(this);
+
             SetParent(parent, instance);
             ActivateInstance(initializer, instance);
 

@@ -5,25 +5,28 @@ using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.UI.Windows.Shop;
 using TMPro;
-using UnityEngine;
 
 namespace CodeBase.UI.Windows
 {
-    public class ShopWindow: WindowBase
+    public class ShopWindow: WindowBase, IPoolable<ShopWindow>
     {
         public TextMeshProUGUI ValueText;
         public RewardedAdItem AdItem;
         public ShopItemsContainer ShopItemsContainer;
+        private IPool<ShopWindow> _pool;
 
-        public void Construct(IPersistentProgressService progressService, 
-                              IPoolService poolService, 
+        public void Construct(IPersistentProgressService progressService,  
                               IAdsService adsService, 
                               IIAPService iapService, 
                               IAsset assets)
         {
-            base.Construct(progressService, poolService);
+            base.Construct(progressService);
             AdItem.Construct(adsService, progressService);
             ShopItemsContainer.Construct(iapService, progressService, assets);
+        }
+        public void SetPool(IPool<ShopWindow> pool)
+        {
+            _pool = pool;
         }
 
         protected override void Initialize()
@@ -50,8 +53,7 @@ namespace CodeBase.UI.Windows
 
         protected override void Close()
         {
-            Debug.Log(_poolService.GetPool<ShopWindow>());
-            _poolService.GetPool<ShopWindow>().Despawn(this);
+            _pool.Despawn(this);
         }
 
         private void RefreshValuesText() =>

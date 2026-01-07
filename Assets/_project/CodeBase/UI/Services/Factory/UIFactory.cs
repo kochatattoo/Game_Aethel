@@ -55,7 +55,6 @@ namespace CodeBase.UI.Services.Factory
         {
             OptionWindow optWindow = CreateWindow<OptionWindow>(w => 
             w.Construct(_progressService, 
-                        _poolService, 
                         _saveLoadService,
                         _reloadService, 
                         _inputService));
@@ -64,8 +63,7 @@ namespace CodeBase.UI.Services.Factory
         public void CreateShop()
         {
             ShopWindow window = CreateWindow<ShopWindow>(w =>
-            w.Construct(_progressService, 
-                        _poolService, 
+            w.Construct(_progressService,  
                         _adsService,
                         _iapService, 
                         _assets));

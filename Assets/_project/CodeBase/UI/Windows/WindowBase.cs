@@ -12,13 +12,11 @@ namespace CodeBase.UI.Windows
         public Button CloseButton;
 
         protected IPersistentProgressService _progressService;
-        protected IPoolService _poolService;
         protected PlayerProgress Progress => _progressService.Progress;
 
-        public void Construct(IPersistentProgressService progressService, IPoolService poolService)
+        public void Construct(IPersistentProgressService progressService)
         {
             _progressService = progressService;
-            _poolService = poolService;
         }
 
         public void OnSpawned()
@@ -59,5 +57,6 @@ namespace CodeBase.UI.Windows
         protected virtual void Cleanup() { }
 
         protected abstract void Close();
+
     }
 }

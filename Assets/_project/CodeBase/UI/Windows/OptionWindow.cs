@@ -6,25 +6,30 @@ using CodeBase.UI.Elements;
 
 namespace CodeBase.UI.Windows
 {
-    public class OptionWindow : WindowBase
+    public class OptionWindow : WindowBase, IPoolable<OptionWindow>
     {
         public SaveUI saveUI;
         public LoadUI loadUI;
+        private IPool<OptionWindow> _pool;
 
         public void Construct(IPersistentProgressService persistentProgress,
-                              IPoolService poolService,
                               ISaveLoadService saveLoadService,
                               IReloadService reloadService,
                               IInputService inputService)
         {
-            base.Construct(persistentProgress, poolService);
+            base.Construct(persistentProgress);
             saveUI.Construct(saveLoadService, inputService);
             loadUI.Construct(reloadService, inputService);
         }
 
+        public void SetPool(IPool<OptionWindow> pool)
+        {
+            _pool = pool;
+        }
+
         protected override void Close()
         {
-            _poolService.GetPool<OptionWindow>().Despawn(this);
+            _pool.Despawn(this);
         }
     }
 }
