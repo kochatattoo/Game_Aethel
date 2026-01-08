@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.UI.Services.Factory;
+using Cysharp.Threading.Tasks;
 using System;
 using System.Threading.Tasks;
 
@@ -33,9 +34,9 @@ namespace CodeBase.Infrastructure.State
         private async void  WarmUpAsync()
         {
             var gameFactoryWarmUp = _gameFactory.WarmUpAsync();
-            var uiFactoryCreateRoot = _uIFactory.CreateUIRoot();
+            var uiFactoryCreateRoot = _uIFactory.CreateUIRootAsync();
 
-            await Task.WhenAll(gameFactoryWarmUp, uiFactoryCreateRoot);
+            await UniTask.WhenAll(gameFactoryWarmUp, uiFactoryCreateRoot);
 
             _uIFactory.WarmUp();
         }

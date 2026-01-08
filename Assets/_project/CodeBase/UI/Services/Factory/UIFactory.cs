@@ -72,7 +72,7 @@ namespace CodeBase.UI.Services.Factory
                         _assets));
         }
 
-        public async Task CreateUIRoot()
+        public async UniTask CreateUIRootAsync()
         {
             GameObject pref = await _assets.Load<GameObject>(AssetAddress.UIRoot);
             _uiRoot = Object.Instantiate(pref).transform;

@@ -8,7 +8,7 @@ namespace CodeBase.UI.Services.Factory
     {
         void CreateOption();
         void CreateShop();
-        Task CreateUIRoot();
+        UniTask CreateUIRootAsync();
         void WarmUp();
         UniTask WarmUpAsync();
     }

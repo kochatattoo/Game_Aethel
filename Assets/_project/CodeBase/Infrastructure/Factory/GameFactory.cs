@@ -56,7 +56,7 @@ namespace CodeBase.Infrastructure.Factory
             _poolService = poolService;
         }
 
-        public async Task WarmUpAsync()
+        public async UniTask WarmUpAsync()
         {
             var prefabLoot =  _assets.Load<GameObject>(AssetAddress.Loot);
             var prefabSpawner =  _assets.Load<GameObject>(AssetAddress.Spawner);
