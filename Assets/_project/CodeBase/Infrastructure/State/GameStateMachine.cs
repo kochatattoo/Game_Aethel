@@ -39,7 +39,9 @@ namespace CodeBase.Infrastructure.State
                 [typeof(LoadLevelState)] = _stateFactory
                 .CreateState<LoadLevelState>(),
                 [typeof(GameLoopState)] = _stateFactory
-                .CreateState<GameLoopState>()
+                .CreateState<GameLoopState>(),
+                [typeof(ReloadGameState)]= _stateFactory
+                .CreateState<ReloadGameState>(),
             };
         }
 

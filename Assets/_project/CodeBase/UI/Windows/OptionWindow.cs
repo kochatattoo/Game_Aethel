@@ -19,7 +19,7 @@ namespace CodeBase.UI.Windows
         {
             base.Construct(persistentProgress);
             saveUI.Construct(saveLoadService, inputService);
-            loadUI.Construct(reloadService, inputService);
+            loadUI.Construct(reloadService, inputService, Close);
         }
 
         public void SetPool(IPool<OptionWindow> pool)

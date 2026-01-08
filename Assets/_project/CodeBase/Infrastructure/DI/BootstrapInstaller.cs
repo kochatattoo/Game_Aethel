@@ -198,6 +198,7 @@ namespace CodeBase.DI
             Container.Bind<LoadProgressState>().AsSingle().NonLazy();
             Container.Bind<LoadLevelState>().AsSingle().NonLazy();
             Container.Bind<GameLoopState>().AsSingle().NonLazy();
+            Container.Bind<ReloadGameState>().AsSingle().NonLazy();
         }
 
         private void BindGame() =>
