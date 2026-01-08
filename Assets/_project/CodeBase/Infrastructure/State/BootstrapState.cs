@@ -26,7 +26,7 @@ namespace CodeBase.Infrastructure.State
         private void EnterLoadLevel() 
         { 
             _poolService.ClearAllPools();
-            _stateMachine.Enter<LoadProgressState>(); 
+            _stateMachine.Enter<WarmUpState>(); 
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Shop
 {
-
     public class RewardedAdItem: MonoBehaviour
     {
         public Button ShowAdButton;

@@ -56,10 +56,11 @@ namespace CodeBase.Infrastructure.Factory
             _poolService = poolService;
         }
 
-        public async Task WarmUp()
+        public async Task WarmUpAsync()
         {
             var prefabLoot =  _assets.Load<GameObject>(AssetAddress.Loot);
             var prefabSpawner =  _assets.Load<GameObject>(AssetAddress.Spawner);
+
 
             await Task.WhenAll(prefabLoot, prefabSpawner);
 
@@ -141,6 +142,15 @@ namespace CodeBase.Infrastructure.Factory
             return lootPiece;
         }
 
+        public async Task<LootPiece> CreateLoot(string id)
+        {
+            LootPiece lootPiece = await CreateLoot();
+
+            lootPiece.SetId(id);
+
+            return lootPiece;
+        }
+
         public async UniTask<LootPiece> CreateLootFromPool()
         {
             IPool<LootPiece> pool = _poolService.GetPool<LootPiece>();
@@ -150,15 +160,6 @@ namespace CodeBase.Infrastructure.Factory
             lootObject.Construct(_progressService.Progress.WorldData, this);
 
             return lootObject;
-        }
-
-        public async Task<LootPiece> CreateLoot(string id)
-        {
-            LootPiece lootPiece = await CreateLoot();
-
-            lootPiece.SetId(id);
-
-            return lootPiece;
         }
 
         public async UniTask<LootPiece> CreateLootFromPool(string id)

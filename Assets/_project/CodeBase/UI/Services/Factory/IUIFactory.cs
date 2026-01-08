@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure;
+using Cysharp.Threading.Tasks;
 using System.Threading.Tasks;
 
 namespace CodeBase.UI.Services.Factory
@@ -8,6 +9,7 @@ namespace CodeBase.UI.Services.Factory
         void CreateOption();
         void CreateShop();
         Task CreateUIRoot();
-        void ReservePool();
+        void WarmUp();
+        UniTask WarmUpAsync();
     }
 }

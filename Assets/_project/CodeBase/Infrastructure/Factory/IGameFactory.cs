@@ -22,7 +22,7 @@ namespace CodeBase.Infrastructure.Factory
         Task CreateSpawner(Vector3 at, string spawnerId, MonsterTypeID monsterTypeID);
         Task CreateTransferToPoint(LevelTransferData levelTransferData);
         Task CreateSaveTrigger(Vector3 at, string triggerId);
-        Task WarmUp();
+        Task WarmUpAsync();
         void CleanUp();
     }
 }

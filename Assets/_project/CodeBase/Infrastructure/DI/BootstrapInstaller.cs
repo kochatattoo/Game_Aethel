@@ -194,6 +194,7 @@ namespace CodeBase.DI
         private void BindStates()
         {
             Container.Bind<BootstrapState>().AsSingle().NonLazy();
+            Container.Bind<WarmUpState>().AsSingle().NonLazy();
             Container.Bind<LoadProgressState>().AsSingle().NonLazy();
             Container.Bind<LoadLevelState>().AsSingle().NonLazy();
             Container.Bind<GameLoopState>().AsSingle().NonLazy();

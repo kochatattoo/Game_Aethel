@@ -32,6 +32,8 @@ namespace CodeBase.Infrastructure.State
             {
                 [typeof(BootstrapState)] = _stateFactory
                 .CreateState<BootstrapState>(),
+                [typeof(WarmUpState)] = _stateFactory
+                .CreateState<WarmUpState>(),
                 [typeof(LoadProgressState)] = _stateFactory
                 .CreateState<LoadProgressState>(),
                 [typeof(LoadLevelState)] = _stateFactory

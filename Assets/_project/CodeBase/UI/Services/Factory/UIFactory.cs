@@ -9,7 +9,10 @@ using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
+using Cysharp.Threading.Tasks;
+using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -73,17 +76,19 @@ namespace CodeBase.UI.Services.Factory
         {
             GameObject pref = await _assets.Load<GameObject>(AssetAddress.UIRoot);
             _uiRoot = Object.Instantiate(pref).transform;
+            
+            GameObject.DontDestroyOnLoad(_uiRoot);
         }
 
-        public void ReservePool()
+        public void WarmUp()
         {
             foreach (WindowId id in Enum.GetValues(typeof(WindowId)))
             {
                 if (id == WindowId.Unknow)
                     continue;
 
-                WindowConfig cfg = _staticData.ForWindow(id);
-                WindowBase prefab = cfg.prefab;
+                WindowConfig config = _staticData.ForWindow(id);
+                WindowBase prefab = config.prefab;
 
                 Type windowType = prefab.GetType();
 
@@ -93,6 +98,37 @@ namespace CodeBase.UI.Services.Factory
 
                 registerMethod.Invoke(_poolService, new object[] { prefab, _uiRoot, 1 });
             }
+        }
+
+        public async UniTask WarmUpAsync()
+        {
+            var tasks = new List<UniTask>();
+
+            foreach (WindowId id in Enum.GetValues(typeof(WindowId)))
+            {
+                if (id == WindowId.Unknow)
+                    continue;
+
+                WindowConfig config = _staticData.ForWindow(id);
+                WindowBase prefab = config.prefab;
+                Type windowType = prefab.GetType();
+
+                // Находим через Reflection ваш метод AddPoolToParentAsync<T>
+                MethodInfo mi = typeof(IPoolService)
+                    .GetMethod(nameof(IPoolService.AddPoolToParentAsync),
+                               BindingFlags.Public | BindingFlags.Instance)
+                    .MakeGenericMethod(windowType);
+
+                // Вызываем его и получаем UniTask
+                // Вариант A: явно кастуем
+                var taskObj = mi.Invoke(_poolService, new object[] { prefab, _uiRoot, 1 });
+                var ut = (UniTask)taskObj;
+
+                // Собираем в список, чтобы запустить всё параллельно и потом ждать всех разом
+                tasks.Add(ut);
+            }
+
+            await UniTask.WhenAll(tasks);
         }
 
         private T CreateWindow<T>(Action<T> initializer) where T : WindowBase
