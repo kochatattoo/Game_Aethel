@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
-namespace Assets._project.CodeBase.Infrastructure.Services.IAP
+namespace CodeBase.Infrastructure.Services.IAP
 {
     public class IAPProvider : IStoreListener
     {

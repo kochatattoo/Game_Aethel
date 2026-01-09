@@ -3,6 +3,6 @@
     public enum ItemType
     {
         None = 0,
-        Skulls = 1,
+        Gold = 1,
     }
 }

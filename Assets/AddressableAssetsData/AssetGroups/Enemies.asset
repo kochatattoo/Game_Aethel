@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Enemies
   m_GUID: 8498aab1b4237ea4bb5db4097863180b
   m_SerializeEntries:
+  - m_GUID: 14dc9c2237767b1458ee0cd7cb93e930
+    m_Address: Enemy_FatDragon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 77435d1fa4bdd6b4d87fa0131981bf3e
     m_Address: Enemy_Skeleton
     m_ReadOnly: 0

@@ -21,11 +21,11 @@ namespace CodeBase.StaticData
         [Range(0f, 10f)]
         public float MoveSpeed;
 
-        [Range(0.5f, 1)]
+        [Range(0.5f, 5)]
         public float EffectiveDistance = 0.5f;
 
-        [Range(0.5f, 1)]
-        public float Cleavage;
+        [Range(0.5f, 5)]
+        public float Radius;
 
         public AssetReferenceGameObject PrefabReference;
     }

@@ -15,6 +15,12 @@ namespace CodeBase.Enemies
             Attack.DisableAttack();
         }
 
+        private void OnDisable()
+        {
+            TriggerObserver.TriggerEnter -= TriggerEnter;
+            TriggerObserver.TriggerExit -= TriggerExit;
+        }
+
         private void TriggerExit(Collider obj)
         {
             Attack.DisableAttack();

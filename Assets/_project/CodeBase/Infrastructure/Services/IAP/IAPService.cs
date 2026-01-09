@@ -1,15 +1,13 @@
 ﻿using CodeBase.Data;
-using CodeBase.Infrastructure.Services.IAP;
+
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine.Purchasing;
 using Zenject;
 
-namespace Assets._project.CodeBase.Infrastructure.Services.IAP
+namespace CodeBase.Infrastructure.Services.IAP
 {
     public class IAPService : IIAPService, IInitializable
     {
@@ -43,7 +41,7 @@ namespace Assets._project.CodeBase.Infrastructure.Services.IAP
 
             switch (productConfig.ItemType)
             {
-                case ItemType.Skulls:
+                case ItemType.Gold:
                     _progressService.Progress.WorldData.LootData.Add(productConfig.Quantity);
                     _progressService.Progress.PurchaseData.AddPurchase(purchaseProduct.definition.id);
                     break;

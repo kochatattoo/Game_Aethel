@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CodeBase.Infrastructure.AssetManagement
 {
-    public interface IAsset
+    public interface IAsset: IService
     {
         Task<GameObject> Instantiate(string path);
         Task<GameObject> Instantiate(string path, Vector3 at);

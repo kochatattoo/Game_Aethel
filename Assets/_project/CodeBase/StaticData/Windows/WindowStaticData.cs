@@ -7,6 +7,5 @@ namespace CodeBase.StaticData.Windows
     public class WindowStaticData : ScriptableObject
     {
         public List<WindowConfig> Configs;
-
     }
 }

@@ -14,10 +14,10 @@ namespace CodeBase.UI.Elements
             _windowService = windowService;
 
         private void Awake() =>
-            Button.onClick.AddListener(Open);
+            Button.AddListener(Open);
 
         private void OnDisable() => 
-            Button.onClick.RemoveListener(Open);
+            Button.RemoveListener(Open);
 
         private void Open()
         {

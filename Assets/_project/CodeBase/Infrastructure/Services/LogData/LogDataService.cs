@@ -13,9 +13,6 @@ namespace CodeBase.Infrastructure.Services.LogData
         public void Initialize()
         {
            Load();
-            Debug.Log(logData.androidGameID);
-            Debug.Log(logData.iOSGameID);
-            Debug.Log(logData.rewardedID);
         }
 
         public async void InitializeAsync()

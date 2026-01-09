@@ -3,10 +3,11 @@ using System.Threading.Tasks;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine;
+using Zenject;
 
 namespace CodeBase.Infrastructure.AssetManagement
 {
-    public class AssetProvider: IAsset
+    public class AssetProvider: IAsset, IInitializable
     {
         private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new Dictionary<string, AsyncOperationHandle>();
         private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new Dictionary<string, List<AsyncOperationHandle>>();

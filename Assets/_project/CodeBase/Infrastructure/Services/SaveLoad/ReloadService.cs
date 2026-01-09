@@ -13,7 +13,7 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
 
         public void Reload()
         {
-            _gameStateMachine.Enter<BootstrapState>();
+            _gameStateMachine.Enter<ReloadGameState>();
         }
     }
 }

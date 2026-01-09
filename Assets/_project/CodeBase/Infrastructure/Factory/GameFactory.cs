@@ -3,6 +3,7 @@ using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Levels;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -10,6 +11,7 @@ using CodeBase.Logic;
 using CodeBase.StaticData;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
+using Cysharp.Threading.Tasks;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -27,6 +29,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly ILevelTransferService _levelTransfer;
         private readonly IWindowService _windowService;
         private readonly ISaveLoadService _saveLoad;
+        private readonly IPoolService _poolService;
 
         private GameObject HeroGameObject { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
@@ -39,7 +42,8 @@ namespace CodeBase.Infrastructure.Factory
                            IRandomService randomService,
                            ILevelTransferService levelTransfer,
                            IWindowService windowService,
-                           ISaveLoadService saveLoad)
+                           ISaveLoadService saveLoad,
+                           IPoolService poolService)
         {
             _inputService = inputService;
             _assets = asset;
@@ -49,12 +53,24 @@ namespace CodeBase.Infrastructure.Factory
             _levelTransfer = levelTransfer;
             _windowService = windowService;
             _saveLoad = saveLoad;
+            _poolService = poolService;
         }
 
-        public async Task WarmUp()
+        public async UniTask WarmUpAsync()
         {
-            await _assets.Load<GameObject>(AssetAddress.Loot);
-            await _assets.Load<GameObject>(AssetAddress.Spawner);
+            var prefabLoot =  _assets.Load<GameObject>(AssetAddress.Loot);
+            var prefabSpawner =  _assets.Load<GameObject>(AssetAddress.Spawner);
+
+
+            await Task.WhenAll(prefabLoot, prefabSpawner);
+
+            LootPiece loot = (await prefabLoot).GetComponent<LootPiece>();
+            SpawnPoint spawn = (await prefabSpawner).GetComponent<SpawnPoint>();
+
+            var warmLootTask = _poolService.AddPoolToContainerAsync<LootPiece>(loot, 5);
+            var warmSpawnerTask = _poolService.AddPoolToContainerAsync<SpawnPoint>(spawn, 5);
+
+            await UniTask.WhenAll(warmLootTask, warmSpawnerTask);
         }
 
         public async Task<GameObject> CreateHud()
@@ -106,7 +122,7 @@ namespace CodeBase.Infrastructure.Factory
             Attack attack = monster.GetComponent<Attack>();
             attack.Construct(HeroGameObject.transform, HeroGameObject.GetComponent<HeroDeath>());
             attack.Damage = monsterData.Damage;
-            attack.Cleavage = monsterData.Cleavage;
+            attack.Radius = monsterData.Radius;
             attack.EffectiveDistance = monsterData.EffectiveDistance;
 
             monster.GetComponent<RotateToHero>()?.Consturct(HeroGameObject.transform);
@@ -129,6 +145,26 @@ namespace CodeBase.Infrastructure.Factory
         public async Task<LootPiece> CreateLoot(string id)
         {
             LootPiece lootPiece = await CreateLoot();
+
+            lootPiece.SetId(id);
+
+            return lootPiece;
+        }
+
+        public async UniTask<LootPiece> CreateLootFromPool()
+        {
+            IPool<LootPiece> pool = _poolService.GetPool<LootPiece>();
+            LootPiece lootObject = await pool.SpawnExpandableAsync();
+            Register(lootObject);
+
+            lootObject.Construct(_progressService.Progress.WorldData, this);
+
+            return lootObject;
+        }
+
+        public async UniTask<LootPiece> CreateLootFromPool(string id)
+        {
+            LootPiece lootPiece = await CreateLootFromPool();
 
             lootPiece.SetId(id);
 

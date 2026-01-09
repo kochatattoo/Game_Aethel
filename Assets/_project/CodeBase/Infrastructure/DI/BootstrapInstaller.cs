@@ -1,11 +1,12 @@
-using Assets._project.CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.Ads;
+using CodeBase.Infrastructure.Services.IAP;
 using CodeBase.Infrastructure.Services.Levels;
 using CodeBase.Infrastructure.Services.LogData;
+using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.Infrastructure.Services.StaticData;
@@ -35,6 +36,7 @@ namespace CodeBase.DI
             BindServices();
 
             BindStates();
+            BindGame();
         }
 
         private void BindDIFactory()
@@ -102,6 +104,7 @@ namespace CodeBase.DI
             BindLevelTransfer();
             BindReload();
             BindSaveLoad();
+            BindPoolService();
             BindGameFactory();
             BindUIFactory();
         }
@@ -117,14 +120,12 @@ namespace CodeBase.DI
                 .NonLazy();
 
         private void BindAssetProvider() => 
-            Container.Bind<IAsset>()
-                     .To<AssetProvider>()
+            Container.BindInterfacesTo<AssetProvider>()
                      .AsSingle()
                      .NonLazy();
 
         private void BindStaticData() => 
-            Container.Bind<IStaticDataService>()
-                     .To<StaticDataService>()
+            Container.BindInterfacesTo<StaticDataService>()
                      .AsSingle()
                      .NonLazy();
 
@@ -172,6 +173,12 @@ namespace CodeBase.DI
                   .AsSingle()
                   .NonLazy();
 
+        private void BindPoolService() =>
+            Container.Bind<IPoolService>()
+                     .To<PoolService>()
+                     .AsSingle()
+                     .NonLazy();
+
         private void BindGameFactory() => 
             Container.Bind<IGameFactory>()
                      .To<GameFactory>()
@@ -187,9 +194,16 @@ namespace CodeBase.DI
         private void BindStates()
         {
             Container.Bind<BootstrapState>().AsSingle().NonLazy();
+            Container.Bind<WarmUpState>().AsSingle().NonLazy();
             Container.Bind<LoadProgressState>().AsSingle().NonLazy();
             Container.Bind<LoadLevelState>().AsSingle().NonLazy();
             Container.Bind<GameLoopState>().AsSingle().NonLazy();
+            Container.Bind<ReloadGameState>().AsSingle().NonLazy();
         }
+
+        private void BindGame() =>
+            Container.BindInterfacesTo<Game>()
+            .AsSingle()
+            .NonLazy();
     }
 }

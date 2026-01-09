@@ -19,6 +19,7 @@ namespace CodeBase.Enemies
 
             SwitchFollowOff();
         }
+
         private void OnDisable()
         {
             TriggerObserver.TriggerExit -= TriggerExit;

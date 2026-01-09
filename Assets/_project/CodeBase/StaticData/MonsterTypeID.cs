@@ -3,6 +3,7 @@
     public enum MonsterTypeID
     {
         Sekeleton,
-        Golem 
+        Golem,
+        FatDragon
     }
 }

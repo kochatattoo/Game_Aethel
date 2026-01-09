@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 namespace CodeBase.UI.Windows.Shop
 {
-
     public class RewardedAdItem: MonoBehaviour
     {
         public Button ShowAdButton;
@@ -24,8 +23,8 @@ namespace CodeBase.UI.Windows.Shop
         {
             ShowAdButton.onClick.AddListener(OnShowAdClicked);
 
+            _adsService.LoadAd();
             RefreshAvailableAd();
-
         }
 
         public void Subscribe() =>

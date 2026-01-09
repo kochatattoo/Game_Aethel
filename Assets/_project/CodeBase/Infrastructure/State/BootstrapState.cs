@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.StaticData;
+﻿using CodeBase.Infrastructure.Services.ObjectPool;
 
 namespace CodeBase.Infrastructure.State
 {
@@ -6,16 +6,14 @@ namespace CodeBase.Infrastructure.State
     {
         private const string Bootstrap = "Bootstrap";
         private readonly IGameStateMachine _stateMachine;
-        private readonly IStaticDataService _staticDataService;
+        private readonly IPoolService _poolService;
         private readonly SceneLoader _sceneLoader;
 
-        public BootstrapState(IGameStateMachine stateMachine, IStaticDataService staticDataService, SceneLoader sceneLoader)
+        public BootstrapState(IGameStateMachine stateMachine, SceneLoader sceneLoader, IPoolService poolService)
         {
             _stateMachine = stateMachine;
             _sceneLoader = sceneLoader;
-            _staticDataService = staticDataService;
-
-            _staticDataService.Load();
+            _poolService = poolService;
         }
 
         public void Enter()
@@ -25,8 +23,10 @@ namespace CodeBase.Infrastructure.State
 
         public void Exit() {}
 
-        private void EnterLoadLevel() =>
-            _stateMachine.Enter<LoadProgressState>();
-
+        private void EnterLoadLevel() 
+        { 
+            _poolService.ClearAllPools();
+            _stateMachine.Enter<WarmUpState>(); 
+        }
     }
 }

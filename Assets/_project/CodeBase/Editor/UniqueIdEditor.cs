@@ -10,6 +10,7 @@ namespace CodeBase.Editor
     [CustomEditor(typeof(UniqueId))]
     public class UniqueIdEditor : UnityEditor.Editor
     {
+        [Obsolete]
         private void OnEnable()
         {
             var uniqueId = (UniqueId)target;

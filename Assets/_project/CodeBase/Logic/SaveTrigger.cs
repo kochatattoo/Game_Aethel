@@ -1,5 +1,4 @@
 ﻿using CodeBase.Infrastructure.Services.SaveLoad;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -29,7 +28,7 @@ namespace CodeBase.Logic
             {
                 _triggered = true;
                 _saveLoadService.SaveProgress();
-                StartCoroutine(ResetTimer());
+                //StartCoroutine(ResetTimer());
             }
         }
 

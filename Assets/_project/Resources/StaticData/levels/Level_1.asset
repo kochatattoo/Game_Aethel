@@ -31,5 +31,5 @@ MonoBehaviour:
   - Id: Level_1_65facfb3-b474-4e00-955f-d8ac0ce9b6dd
     Position: {x: 148.15, y: 16.72, z: -34.23}
   LevelTransferData:
-    LevelTo: Level_2
+    LevelTo: Level_4
     TransferToPosition: {x: 150.04, y: 16.08, z: -36.79}
