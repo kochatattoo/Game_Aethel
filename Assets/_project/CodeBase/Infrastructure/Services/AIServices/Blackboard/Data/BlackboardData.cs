@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.AIServices.Blackboard.Data
+namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.Data
 {
     [CreateAssetMenu(fileName = "New Blackboard Data", menuName = "NPCTools/Blackboard/BlackboardData")]
     public class BlackboardData : ScriptableObject

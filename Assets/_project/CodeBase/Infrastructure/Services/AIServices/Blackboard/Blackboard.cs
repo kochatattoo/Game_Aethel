@@ -1,8 +1,8 @@
-﻿using CodeBase.Infrastructure.Services.AIServices.Blackboard.BlackboardExtensions;
+﻿using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.BlackboardExtensions;
 using System;
 using System.Collections.Generic;
 
-namespace CodeBase.Infrastructure.Services.AIServices.Blackboard
+namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem
 {
     [Serializable]
     public class Blackboard

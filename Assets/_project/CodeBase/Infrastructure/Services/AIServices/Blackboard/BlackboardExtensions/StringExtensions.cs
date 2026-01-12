@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Infrastructure.Services.AIServices.Blackboard.BlackboardExtensions
+﻿namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.BlackboardExtensions
 {
     public static class StringExtensions
     {

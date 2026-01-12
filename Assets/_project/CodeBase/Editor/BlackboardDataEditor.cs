@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.Services.AIServices.Blackboard.Data;
+﻿using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.Data;
 using System;
 using UnityEngine;
 using UnityEditor;

@@ -1,7 +1,7 @@
-﻿using CodeBase.Infrastructure.Services.AIServices.Blackboard.BlackboardExtensions;
+﻿using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.BlackboardExtensions;
 using System;
 
-namespace CodeBase.Infrastructure.Services.AIServices.Blackboard
+namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem
 {
     [Serializable]
     public readonly struct BlackboardKey : IEquatable<BlackboardKey>

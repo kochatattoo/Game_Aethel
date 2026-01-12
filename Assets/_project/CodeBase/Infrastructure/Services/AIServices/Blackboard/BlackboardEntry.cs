@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CodeBase.Infrastructure.Services.AIServices.Blackboard
+namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem
 {
     [Serializable]
     public class BlackboardEntry<T>

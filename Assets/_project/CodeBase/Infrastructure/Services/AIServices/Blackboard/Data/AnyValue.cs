@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services.AIServices.Blackboard.Data
+namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.Data
 {
     [Serializable]
     public struct AnyValue
