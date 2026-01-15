@@ -65,9 +65,9 @@ namespace CodeBase.InputActions
     ///     }
     ///
     ///     // Invoked when "Attack" action is either started, performed or canceled.
-    ///     public void OnAttack(InputAction.CallbackContext context)
+    ///     public void AttackAction(InputAction.CallbackContext context)
     ///     {
-    ///         Debug.Log($"OnAttack: {context.ReadValue&lt;float&gt;()}");
+    ///         Debug.Log($"AttackAction: {context.ReadValue&lt;float&gt;()}");
     ///     }
     ///
     ///     #endregion

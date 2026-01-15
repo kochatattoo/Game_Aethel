@@ -7,5 +7,6 @@ namespace CodeBase.Infrastructure.Services
     {
         Vector2 Axis { get; }
         event Action Attack;
+        event Action<Vector3> Click;
     }
 }

@@ -1,26 +1,17 @@
 ﻿using CodeBase.InputActions;
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Zenject;
 
 namespace CodeBase.Infrastructure.Services
 {
-    public class NewInputService : IInputService, IInitializable, IDisposable
+    public class NewInputService : InputServiceAbstract
     {
-        private readonly PlayerInputAction _actions;
-        private Vector2 _move;
-
-        public Vector2 Axis => _move;
-
-        public event Action Attack;
-
         public NewInputService()
         {
             _actions = new PlayerInputAction();
         }
 
-        public void Initialize()
+        public override void Subscribe()
         {
             // Включаем экшен сет и подписываемся
             _actions.Player.Enable();
@@ -28,32 +19,27 @@ namespace CodeBase.Infrastructure.Services
             _actions.Player.Move.performed += OnMove;
             _actions.Player.Move.canceled += OnMove;
             _actions.Player.Attack.started += OnAttack;
+            _actions.Player.Attack.canceled += OnAttack;
 
             // Выбираем схему на старте
             ChoiseInpuDevice();
         }
 
-        public void Dispose()
+        public override void Unsubscribe()
         {
             // Отписываемся и выключаем
             _actions.Player.Move.performed -= OnMove;
             _actions.Player.Move.canceled -= OnMove;
+            _actions.Player.Attack.started -= OnAttack;
+            _actions.Player.Attack.canceled -= OnAttack;
 
             _actions.Player.Disable();
             _actions.Dispose();
         }
 
-        private void ChoiseInpuDevice()
+        private void OnAttack(InputAction.CallbackContext ctx)
         {
-            if (Application.isMobilePlatform)
-                _actions.devices = new InputDevice[] { Touchscreen.current };
-            else
-                _actions.devices = new InputDevice[] { Keyboard.current, Mouse.current };
-        }
-
-        private void OnAttack(InputAction.CallbackContext context)
-        {
-            Attack?.Invoke();
+            AttackAction(ctx);
         }
 
         private void OnMove(InputAction.CallbackContext ctx)
