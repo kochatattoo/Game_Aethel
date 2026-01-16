@@ -10,9 +10,9 @@ namespace CodeBase.Infrastructure.Services
     /// В настоящий момент использую InputService - управление с помощью мышки и точки
     /// </summary>
     [Obsolete]
-    public class NewInputService : InputServiceAbstract
+    public class InputServiceWASD : InputServiceAbstract
     {
-        public NewInputService()
+        public InputServiceWASD()
         {
             _actions = new PlayerInputAction();
         }

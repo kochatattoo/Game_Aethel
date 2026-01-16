@@ -2,6 +2,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 namespace CodeBase.Hero
 {
@@ -22,7 +23,7 @@ namespace CodeBase.Hero
         {
             _inputService = inputService;
             _camera = camera ?? Camera.main;
-            _layerMask = 1 << LayerMask.NameToLayer("Ground");
+            _layerMask = (1 << LayerMask.NameToLayer("Ground")) | (1 << LayerMask.NameToLayer("Default"));
         }
 
         public void Initialize()
@@ -50,8 +51,14 @@ namespace CodeBase.Hero
 
         private void OnClicked(Vector3 screenPos)
         {
-
             Debug.Log("Вызов события клика");
+
+            // TODO: Сделать логику передачи ID устройства (мобильное / ПК)
+            if (EventSystem.current.IsPointerOverGameObject(pointerId:0)) //  Используйте -1 для мыши (ПК), 0 или выше для пальцев (мобильные)
+            {
+                // Если да, игнорируем клик и выходим из метода
+                return;
+            }
 
             Ray ray = _camera.ScreenPointToRay(screenPos);
             if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, _layerMask))
