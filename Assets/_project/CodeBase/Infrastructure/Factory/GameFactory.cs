@@ -91,8 +91,12 @@ namespace CodeBase.Infrastructure.Factory
         {
             HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
-            HeroGameObject.GetComponent<HeroMove>()
-               .Construct(_inputService);
+            //HeroGameObject.GetComponent<HeroMove>()
+            //   .Construct(_inputService);
+
+            HeroGameObject .GetComponent<HeroPathFollower>()
+                .Construct(_inputService);
+
             HeroGameObject.GetComponent<HeroAttack>() 
                .Construct(_inputService);
 

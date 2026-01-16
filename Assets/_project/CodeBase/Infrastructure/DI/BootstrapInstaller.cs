@@ -130,7 +130,7 @@ namespace CodeBase.DI
                      .NonLazy();
 
         private void BindInputService() =>
-            Container.BindInterfacesTo<NewInputService>()
+            Container.BindInterfacesTo<InputService>()
                      .AsSingle()
                      .NonLazy();
 

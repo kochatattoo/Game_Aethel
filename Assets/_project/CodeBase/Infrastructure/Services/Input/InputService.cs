@@ -1,4 +1,5 @@
 ﻿using CodeBase.InputActions;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CodeBase.Infrastructure.Services
@@ -12,12 +13,16 @@ namespace CodeBase.Infrastructure.Services
 
         public override void Subscribe()
         {
+            _actions.Player.Enable();
+
+            _actions.Player.Click.performed += OnClick;
+
             ChoiseInpuDevice();
         }
 
         public override void Unsubscribe()
         {
-
+            _actions.Player.Click.performed -= OnClick;
         }
 
         private void OnClick(InputAction.CallbackContext context)

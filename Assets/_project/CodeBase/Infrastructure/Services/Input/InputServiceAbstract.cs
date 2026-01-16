@@ -31,9 +31,13 @@ namespace CodeBase.Infrastructure.Services
 
         protected void ClickAction(InputAction.CallbackContext context)
         {
+            Debug.Log("Click action");
             if (!context.performed) return;
+           
+           // Vector2 pointerPos = context.ReadValue<Vector2>();
+           // Vector2 pointerPos = _actions.Player.Point.ReadValue<Vector2>();
 
-            Vector2 pointerPos = context.ReadValue<Vector2>();
+            Vector2 pointerPos = UnityEngine.InputSystem.Pointer.current.position.ReadValue();
             Click?.Invoke(pointerPos);
         }
 

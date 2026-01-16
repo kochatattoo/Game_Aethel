@@ -9,7 +9,7 @@ namespace CodeBase.Hero
         public HeroHealth Health;
         public HeroAttack Attack;
 
-        public HeroMove Move;
+        public Move Move;
         public HeroAnimator Animator;
 
         public GameObject DeathFx;

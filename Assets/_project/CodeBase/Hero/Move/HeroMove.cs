@@ -1,12 +1,18 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
-    public class HeroMove : MonoBehaviour, ISavedProgress
+    /// <summary>
+    /// Класс для классического ввода управления WASD и для разработки стандартной TopDownControllSystem 
+    /// В настоящий момент использую HeroPathFollower - управление с помощью мышки и точки
+    /// </summary>
+    [Obsolete]
+    public class HeroMove : Move, ISavedProgress, IMoveable
     {
         public float MoveSpeed = 5f;
         public HeroAnimator heroAnimator;

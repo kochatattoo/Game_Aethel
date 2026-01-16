@@ -7787,14 +7787,16 @@ GameObject:
   m_Component:
   - component: {fileID: 2611548327767575309}
   - component: {fileID: 656229737754803323}
-  - component: {fileID: 1303867210489691716}
   - component: {fileID: 8592286806603912263}
   - component: {fileID: 4626737905903953850}
+  - component: {fileID: 5978339594781275438}
   - component: {fileID: -1781129031036669746}
-  - component: {fileID: 8204890407480049207}
+  - component: {fileID: 4449543265963705239}
   - component: {fileID: 7552671208123744778}
   - component: {fileID: 1059434379214128510}
   - component: {fileID: 7346011571413868619}
+  - component: {fileID: 1303867210489691716}
+  - component: {fileID: 3890444750711108464}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -7841,31 +7843,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!143 &1303867210489691716
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588233372288055087}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 3.5
-  m_Radius: 1.2
-  m_SlopeLimit: 45
-  m_StepOffset: 1
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.93, z: 0}
 --- !u!54 &8592286806603912263
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7914,6 +7891,28 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 3, z: 2}
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!195 &5978339594781275438
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588233372288055087}
+  m_Enabled: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 3.56
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &-1781129031036669746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7927,7 +7926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Infrastructure.Hero.HeroAnimator
   Animator: {fileID: 656229737754803323}
---- !u!114 &8204890407480049207
+--- !u!114 &4449543265963705239
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7936,11 +7935,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 7588233372288055087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d884da174953a7947affd6e1e5703ae6, type: 3}
+  m_Script: {fileID: 11500000, guid: 088e4875debe32544a1d056caf1af4f9, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroController
-  MoveSpeed: 8
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroPathFollower
+  MoveSpeed: 5
   heroAnimator: {fileID: -1781129031036669746}
+  _agent: {fileID: 5978339594781275438}
 --- !u!114 &7552671208123744778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7984,9 +7984,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroDeath
   Health: {fileID: 1059434379214128510}
   Attack: {fileID: 7552671208123744778}
-  Move: {fileID: 8204890407480049207}
+  Move: {fileID: 4449543265963705239}
   Animator: {fileID: -1781129031036669746}
   DeathFx: {fileID: 7226888052703040409, guid: 8c86cc32839a4cb4ead0f06497ec09a5, type: 3}
+--- !u!143 &1303867210489691716
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588233372288055087}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Height: 3.5
+  m_Radius: 1.2
+  m_SlopeLimit: 45
+  m_StepOffset: 1
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1.93, z: 0}
+--- !u!114 &3890444750711108464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588233372288055087}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10e03021a77c3804cb7a68b8bbe10a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroMove
+  MoveSpeed: 5
+  heroAnimator: {fileID: 0}
 --- !u!1 &7670628211990218450
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,9 +1,15 @@
 ﻿using CodeBase.InputActions;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace CodeBase.Infrastructure.Services
 {
+    /// <summary>
+    /// Класс для классического ввода управления WASD и для разработки стандартной TopDownControllSystem 
+    /// В настоящий момент использую InputService - управление с помощью мышки и точки
+    /// </summary>
+    [Obsolete]
     public class NewInputService : InputServiceAbstract
     {
         public NewInputService()
