@@ -5,24 +5,28 @@ using UnityEngine.AI;
 
 namespace CodeBase.Hero
 {
-    public class PathFollower
+    public class PathFollower : IDisposable
     {
         public float maxDistance = 100f;
 
         private readonly IInputService _inputService;
         private readonly Camera _camera;          // Камера для ray‑casting
-        public event Action<Vector3> OnNewDestination;   // <-- событие
 
         private Vector3 _targetPos;
         private bool _hasTarget;
         private static int _layerMask;
+
+        public event Action<Vector3> OnNewDestination;   // <-- событие
 
         public PathFollower(IInputService inputService, Camera camera = null)
         {
             _inputService = inputService;
             _camera = camera ?? Camera.main;
             _layerMask = 1 << LayerMask.NameToLayer("Ground");
+        }
 
+        public void Initialize()
+        {
             Subscribe();
         }
 
@@ -36,13 +40,13 @@ namespace CodeBase.Hero
             }
         }
 
-        private void Subscribe() => _inputService.Click += OnClicked;
-        private void UnSubscribe() => _inputService.Click -= OnClicked;
-
         public void Dispose()
         {
             UnSubscribe();
         }
+
+        private void Subscribe() => _inputService.Click += OnClicked;
+        private void UnSubscribe() => _inputService.Click -= OnClicked;
 
         private void OnClicked(Vector3 screenPos)
         {

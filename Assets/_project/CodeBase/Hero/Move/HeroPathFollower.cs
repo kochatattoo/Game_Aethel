@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
-    public class HeroPathFollower : Move, ISavedProgress, IMoveable
+    public class HeroPathFollower : Move, ISavedProgress
     {
         public float MoveSpeed = 5f;
         public HeroAnimator heroAnimator;
@@ -20,6 +20,8 @@ namespace CodeBase.Hero
         public void Construct(IInputService inputService)
         {
             _pathFollower = new PathFollower(inputService);
+            _pathFollower.Initialize();
+
             _pathFollower.OnNewDestination += SetDestination;
 
             if(_agent == null) _agent = GetComponent<NavMeshAgent>();

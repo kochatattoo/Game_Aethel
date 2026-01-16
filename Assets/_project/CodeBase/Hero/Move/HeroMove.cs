@@ -12,7 +12,7 @@ namespace CodeBase.Hero
     /// В настоящий момент использую HeroPathFollower - управление с помощью мышки и точки
     /// </summary>
     [Obsolete]
-    public class HeroMove : Move, ISavedProgress, IMoveable
+    public class HeroMove : Move, ISavedProgress
     {
         public float MoveSpeed = 5f;
         public HeroAnimator heroAnimator;
