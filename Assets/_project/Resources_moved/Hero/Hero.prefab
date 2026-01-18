@@ -7790,11 +7790,11 @@ GameObject:
   - component: {fileID: 8592286806603912263}
   - component: {fileID: 4626737905903953850}
   - component: {fileID: 5978339594781275438}
+  - component: {fileID: 6912626826889903216}
   - component: {fileID: -1781129031036669746}
   - component: {fileID: 4449543265963705239}
   - component: {fileID: 7552671208123744778}
-  - component: {fileID: 1059434379214128510}
-  - component: {fileID: 7346011571413868619}
+  - component: {fileID: -145745790282939351}
   - component: {fileID: 1303867210489691716}
   - component: {fileID: 3890444750711108464}
   m_Layer: 12
@@ -7913,6 +7913,24 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6912626826889903216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588233372288055087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd77011f1072134ea908d5a1772456b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroFacade
+  _agent: {fileID: 5978339594781275438}
+  _animator: {fileID: -1781129031036669746}
+  _move: {fileID: 4449543265963705239}
+  _attack: {fileID: 7552671208123744778}
+  _health: {fileID: -145745790282939351}
+  _deathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
 --- !u!114 &-1781129031036669746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7957,7 +7975,7 @@ MonoBehaviour:
   AttackPoint: {fileID: 6992450490760242831}
   CharacterController: {fileID: 1303867210489691716}
   Cleavage: 0.5
---- !u!114 &1059434379214128510
+--- !u!114 &-145745790282939351
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7969,24 +7987,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bda6879c9babec4b89d2d76c44531f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroHealth
-  Animator: {fileID: -1781129031036669746}
---- !u!114 &7346011571413868619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588233372288055087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34536d93ea23da40bb0ce7ca7af7ec5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroDeath
-  Health: {fileID: 1059434379214128510}
-  Attack: {fileID: 7552671208123744778}
-  Move: {fileID: 4449543265963705239}
-  Animator: {fileID: -1781129031036669746}
-  DeathFx: {fileID: 7226888052703040409, guid: 8c86cc32839a4cb4ead0f06497ec09a5, type: 3}
 --- !u!143 &1303867210489691716
 CharacterController:
   m_ObjectHideFlags: 0

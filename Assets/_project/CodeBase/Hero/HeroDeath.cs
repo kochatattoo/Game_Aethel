@@ -3,41 +3,51 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    [RequireComponent(typeof(HeroHealth))]
-    public class HeroDeath : MonoBehaviour
+    public class HeroDeath : IDisposable
     {
-        public HeroHealth Health;
-        public HeroAttack Attack;
+        private readonly Transform _transform;
+        private readonly HeroHealth _health;
+        private readonly HeroAttack _attack;
 
-        public Move Move;
-        public HeroAnimator Animator;
+        private readonly Move _move;
+        private readonly HeroAnimator _animator;
 
-        public GameObject DeathFx;
+        private readonly GameObject DeathFx;
         private bool _isDead;
 
         public event Action PlayerDie;
 
-        private void Start()
+        public HeroDeath(Transform transform, HeroHealth health, HeroAttack attack, Move move, HeroAnimator animator, GameObject deathFx)
         {
-            Health.HealthChanged += HealtChanged;
+            _transform = transform;
+            _health = health;
+            _attack = attack;
+            _move = move;
+            _animator = animator;
+            DeathFx = deathFx;
         }
 
-        private void OnDestroy() =>
-            Health.HealthChanged -= HealtChanged;
+        public void Initialize()
+        {
+            _health.HealthChanged += HealtChanged;
+        }
+
+        public void Dispose() =>
+            _health.HealthChanged -= HealtChanged;
 
         private void HealtChanged()
         {
-            if (_isDead == false && Health.Current <= 0)
+            if (_isDead == false && _health.Current <= 0)
                 Die();
         }
 
         private void Die()
         {
             _isDead = true;
-            Move.enabled = false;
-            Attack.enabled = false;
-            Animator.PlayDeath();
-            Instantiate(DeathFx, transform.position, Quaternion.identity);
+            _move.enabled = false;
+            _attack.enabled = false;
+            _animator.PlayDeath();
+            GameObject.Instantiate(DeathFx, _transform.position, Quaternion.identity);
 
             PlayerDie?.Invoke();
         }

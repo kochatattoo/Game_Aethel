@@ -1,9 +1,11 @@
 ﻿using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Core;
+using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Nodes.Composite;
+using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Nodes.Decorators;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Factories
 {
-    /*
+    
     /// <summary>
     /// Абстрактная фабрика, даёт:
     ///  - шаблонный метод BuildTree()
@@ -138,5 +140,5 @@ namespace CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Factories
             => new(name, waitDuration, priority);
 
         #endregion
-    } */
+    } 
 }

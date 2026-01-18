@@ -6,11 +6,9 @@ using UnityEngine;
 
 namespace CodeBase.Hero
 {
-    [RequireComponent(typeof(HeroAnimator))]
     public class HeroHealth : MonoBehaviour, ISavedProgress, IHealth
     {
-        public HeroAnimator Animator;
-
+        private HeroAnimator _animator;
         private State _state;
 
         public event Action HealthChanged;
@@ -34,6 +32,11 @@ namespace CodeBase.Hero
             set => _state.MaxHP = value;
         }
 
+        public void Construct (HeroAnimator animator)
+        {
+            _animator = animator;
+        }
+
         public void LoadProgress(PlayerProgress progress)
         {
             _state = progress.HeroState;
@@ -52,7 +55,7 @@ namespace CodeBase.Hero
                 return;
 
             Current -= damage;
-            Animator.PlayHit();
+            _animator.PlayHit();
         }
     }
 }

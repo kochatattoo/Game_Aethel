@@ -1,4 +1,5 @@
 ﻿using CodeBase.Infrastructure.Services.AIServices.ArbiterLogic;
+using CodeBase.Infrastructure.Services.AIServices.ArbiterLogic.Listeners;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.Data;
 using UnityEngine;
@@ -9,7 +10,7 @@ namespace Assets._project.CodeBase.Infrastructure.Services.AIServices.Blackboard
     {
         [SerializeField] private BlackboardData _blackboardData; // Вот тут должен быть InLineEditor
         private readonly Blackboard _blackboard = new Blackboard();
-        private readonly IArbiter _arbiter; // = new Arbiter();
+        private readonly IArbiter _arbiter = new Arbiter();
 
         private void Awake()
         {
