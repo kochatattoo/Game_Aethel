@@ -7,41 +7,44 @@ using UnityEngine.SceneManagement;
 
 namespace CodeBase.Hero
 {
+    [RequireComponent(typeof(NavMeshAgent), typeof(HeroAnimator))]
     public class HeroPathFollower : Move, ISavedProgress
     {
-        public float MoveSpeed = 5f;
-        public HeroAnimator heroAnimator;
-
+        [SerializeField] private float MoveSpeed = 5f;
+        [SerializeField] private HeroAnimator heroAnimator;
         [SerializeField] private NavMeshAgent _agent;
-        private PathFollower _pathFollower;
 
         public bool IsMove { get; private set; }
 
-        public void Construct(IInputService inputService)
+        public void Construct()
         {
-            _pathFollower = new PathFollower(inputService);
-            _pathFollower.Initialize();
-
-            _pathFollower.OnNewDestination += SetDestination;
-
             if(_agent == null) _agent = GetComponent<NavMeshAgent>();
             _agent.speed = MoveSpeed;
         }
 
-        void Update()
+        private void Update()
         {
-            if (_pathFollower != null)
-            {
-                _pathFollower.Update();          // Обрабатывает клики мышки
+            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+                IsMove = false;
+            else
+                IsMove = true;
 
-                // NavMeshAgent уже управляет движением, но нам нужно знать, когда он остановился
-                if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
-                    IsMove = false;
-                else
-                    IsMove = true;
+            PlayMove();
+        }
 
-                PlayMove();
-            }
+        public void MoveTo(Vector3 worldPoint)
+        {
+            Debug.Log("Установка дистанции для агента" + worldPoint.x + " " + worldPoint.y + " " + worldPoint.z);
+            _agent.isStopped = false;
+            _agent.SetDestination(worldPoint);
+            IsMove = true;
+        }
+
+        public void Stop()
+        {
+            _agent.isStopped = true;
+            _agent.ResetPath();
+            IsMove = false;
         }
 
         public void UpdateProgress(PlayerProgress progress)
@@ -60,13 +63,6 @@ namespace CodeBase.Hero
                     Warp(savedPosition);
                 }
             }
-        }
-
-        private void SetDestination(Vector3 dest)
-        {
-            Debug.Log("Установка дистанции для агента" + dest.x + " " + dest.y + " " + dest.z);
-            _agent.SetDestination(dest);
-            IsMove = true;
         }
 
         private void PlayMove()

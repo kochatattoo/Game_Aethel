@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace CodeBase.Hero
 {
+    [Obsolete]
     public class PathFollower : IDisposable
     {
         public float maxDistance = 100f;

@@ -1,88 +1,65 @@
 ﻿using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.BehaviourTreeExtansions;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Core;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Factories;
-using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Nodes.Composite;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Nodes.Leaf;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
-using System;
 
 namespace CodeBase.Hero.HeroBehaviour
 {
     public class HeroBehaviourFactory : BehaviourFactory
     {
-        private readonly Blackboard _blackboard;
+        private const string CURENT_TARGET = "CurrentTarget";
 
-        public HeroBehaviourFactory(Blackboard blackboard)
+        private readonly Blackboard _blackboard;
+        private readonly HeroPathFollower _heroPathFollower;
+        private readonly BlackboardKey _currentTarget;
+
+        public HeroBehaviourFactory(Blackboard blackboard, HeroPathFollower follower)
         {
             _blackboard = blackboard;
+            _heroPathFollower = follower;
+
+            _currentTarget = _blackboard.GetOrRegisterKey(CURENT_TARGET);
         }
 
         protected override BehaviourNode CreateRoot()
         {
-            var rootSel = PrioritySelector("Main Root Selector", priority: 0)
-                .Add(BuildMoveModule())
-                .Add(IdleModule());
-
-            return rootSel;
+            return PrioritySelector("HeroRoot", 0)
+                .Add(MoveSequence())
+                .Add(AttackSequence())
+                .Add(InteractSequence())
+                .Add(new BehaviourLeaf("Idle", new IdleStrategy(), priority: 0));
         }
 
-        private BehaviourNode BuildMoveModule()
+        private BehaviourNode MoveSequence()
         {
-            BehaviourSequence seqCheck = Sequence("ActivateMoveModule", priority: 10)
-                .Add(Leaf("IsTargetExist", new Condition(IsTarget)))
-                .Add(ChoiseTargetModule());
-
-            return seqCheck;
+            return Sequence("Move", priority: 10)
+                .Add(Leaf("HasMoveTarget", new Condition(IsMoveTarget)))
+                .Add(Leaf("HeroMoveStrategy", new HeroMoveStrategy(_heroPathFollower, _blackboard)));
         }
 
-        private BehaviourNode ChoiseTargetModule()
+        private BehaviourNode AttackSequence()
         {
-            BehaviourPrioritySelector pr_selector = PrioritySelector("CheckTarget")
-                .Add(AttackTarget())
-                .Add(MoveTarget());
-
-            return pr_selector;
+            return Sequence("Attack", priority: 20)
+                .Add(Leaf("HasAttackTarget", new Condition(IsAttackTarget)))
+                .Add(Leaf("HeroAttackStrategy", new HeroAttackStrategy(_blackboard)));
         }
 
-        private BehaviourNode AttackTarget()
+        private BehaviourNode InteractSequence()
         {
-            BehaviourSequence seqCheck = Sequence("IsAttackTarget?", 10);
-            seqCheck
-                .Add(Leaf("IsAttackTarget", new Condition(IsAttackTarget)))
-                .Add(Leaf("HeroAttackStrategy", new HeroAttackStrategy()));
-
-            return seqCheck;
+            return Sequence("Interact", priority: 15)
+                .Add(Leaf("HasInteractTarget", new Condition(IsInteractTarget)))
+                .Add(Leaf("HeroInteractStrategy", new HeroInteractStrategy(_blackboard)));
         }
 
-        private BehaviourNode MoveTarget()
-        {
-            BehaviourSequence seqCheck = Sequence("IMoveTarget?", 5);
-            seqCheck
-                .Add(Leaf("IsMoveTarget", new Condition(IsMoveTarget)))
-                .Add(Leaf("HeroMoveStrategy", new HeroMoveStrategy()));
+        private bool IsMoveTarget() => 
+            _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData.Type == TargetType.Move;
 
-            return seqCheck;
-        }
+        private bool IsAttackTarget() =>
+            _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData.Type == TargetType.Attack;
 
-        private BehaviourNode IdleModule()
-        {
+        private bool IsInteractTarget() =>
+             _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData.Type == TargetType.Interact;
 
-            return new BehaviourLeaf("Idle state", new IdleStrategy(), priority: 0);
-        }
-
-        private bool IsTarget()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool IsAttackTarget()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool IsMoveTarget()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,7 +1,6 @@
-﻿using CodeBase.Infrastructure.Services;
-using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Core;
+﻿using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Core;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
-using UnityEngine.AI;
+using UnityEngine;
 
 namespace CodeBase.Hero.HeroBehaviour
 {
@@ -10,17 +9,19 @@ namespace CodeBase.Hero.HeroBehaviour
     /// </summary>
     public class HeroAction 
     {
-        private readonly NavMeshAgent _agent;
+        private readonly HeroPathFollower _heroPathFollower;
         private readonly Blackboard _blackboard;
         private readonly BehaviourTree _heroActionTree;
         private readonly HeroBehaviourFactory _heroBehaviourFactory;
 
-        public HeroAction(NavMeshAgent agent, Blackboard blackboard)
+        public HeroAction(Blackboard blackboard, Move heroPathFollower)
         {
-            _agent = agent;
+            if (heroPathFollower is HeroPathFollower follower)
+                _heroPathFollower = follower;
+
             _blackboard = blackboard;
             _heroActionTree = new BehaviourTree("HeroAction");
-            _heroBehaviourFactory = new HeroBehaviourFactory(_blackboard);
+            _heroBehaviourFactory = new HeroBehaviourFactory(_blackboard, _heroPathFollower);
         }
 
         public void Initialize()
@@ -31,7 +32,13 @@ namespace CodeBase.Hero.HeroBehaviour
 
         public void Update()
         {
+            Debug.Log("Action Update");
             _heroActionTree.Process();
+        }
+
+        public void ResetTree()
+        {
+            _heroActionTree.Reset();
         }
     }
 }
