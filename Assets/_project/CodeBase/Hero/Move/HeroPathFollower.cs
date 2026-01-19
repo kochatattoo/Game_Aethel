@@ -1,5 +1,4 @@
 ﻿using CodeBase.Data;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,16 +9,20 @@ namespace CodeBase.Hero
     [RequireComponent(typeof(NavMeshAgent), typeof(HeroAnimator))]
     public class HeroPathFollower : Move, ISavedProgress
     {
-        [SerializeField] private float MoveSpeed = 5f;
+        [SerializeField] private float _maxHeightDifference = 2f;
+        [SerializeField] private float _stopingDistance = 0.1f;
+        [SerializeField] private float _moveSpeed = 5f;
         [SerializeField] private HeroAnimator heroAnimator;
         [SerializeField] private NavMeshAgent _agent;
 
         public bool IsMove { get; private set; }
+        public float MaxHeightDifference { get => _maxHeightDifference; private set => _maxHeightDifference = value; }
 
         public void Construct()
         {
             if(_agent == null) _agent = GetComponent<NavMeshAgent>();
-            _agent.speed = MoveSpeed;
+            _agent.speed = _moveSpeed;
+            _agent.stoppingDistance = _stopingDistance;
         }
 
         private void Update()
@@ -34,7 +37,7 @@ namespace CodeBase.Hero
 
         public void MoveTo(Vector3 worldPoint)
         {
-            Debug.Log("Установка дистанции для агента" + worldPoint.x + " " + worldPoint.y + " " + worldPoint.z);
+           // Debug.Log("Установка дистанции для агента" + worldPoint.x + " " + worldPoint.y + " " + worldPoint.z);
             _agent.isStopped = false;
             _agent.SetDestination(worldPoint);
             IsMove = true;
@@ -42,8 +45,8 @@ namespace CodeBase.Hero
 
         public void Stop()
         {
-            _agent.isStopped = true;
             _agent.ResetPath();
+            _agent.isStopped = true;
             IsMove = false;
         }
 

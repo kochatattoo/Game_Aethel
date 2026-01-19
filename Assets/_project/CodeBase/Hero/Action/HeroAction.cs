@@ -10,18 +10,20 @@ namespace CodeBase.Hero.HeroBehaviour
     public class HeroAction 
     {
         private readonly HeroPathFollower _heroPathFollower;
+        private readonly HeroAttack _heroAttack;
         private readonly Blackboard _blackboard;
         private readonly BehaviourTree _heroActionTree;
         private readonly HeroBehaviourFactory _heroBehaviourFactory;
 
-        public HeroAction(Blackboard blackboard, Move heroPathFollower)
+        public HeroAction(Blackboard blackboard, Move heroPathFollower, HeroAttack heroAttack)
         {
             if (heroPathFollower is HeroPathFollower follower)
                 _heroPathFollower = follower;
+            _heroAttack = heroAttack;
 
             _blackboard = blackboard;
             _heroActionTree = new BehaviourTree("HeroAction");
-            _heroBehaviourFactory = new HeroBehaviourFactory(_blackboard, _heroPathFollower);
+            _heroBehaviourFactory = new HeroBehaviourFactory(_blackboard, _heroPathFollower, _heroAttack);
         }
 
         public void Initialize()
@@ -32,7 +34,7 @@ namespace CodeBase.Hero.HeroBehaviour
 
         public void Update()
         {
-            Debug.Log("Action Update");
+           // Debug.Log("Action Update");
             _heroActionTree.Process();
         }
 

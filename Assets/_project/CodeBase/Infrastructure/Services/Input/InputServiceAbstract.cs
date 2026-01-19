@@ -31,7 +31,7 @@ namespace CodeBase.Infrastructure.Services
 
         protected void ClickAction(InputAction.CallbackContext context)
         {
-            Debug.Log("Click action");
+           // Debug.Log("Click action");
             if (!context.performed) return;
            
            // Vector2 pointerPos = context.ReadValue<Vector2>();

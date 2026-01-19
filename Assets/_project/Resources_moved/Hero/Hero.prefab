@@ -7795,8 +7795,6 @@ GameObject:
   - component: {fileID: 4449543265963705239}
   - component: {fileID: 7552671208123744778}
   - component: {fileID: -145745790282939351}
-  - component: {fileID: 1303867210489691716}
-  - component: {fileID: 3890444750711108464}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -7956,7 +7954,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 088e4875debe32544a1d056caf1af4f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroPathFollower
-  MoveSpeed: 5
+  _maxHeightDifference: 2
+  _stopingDistance: 0.1
+  _moveSpeed: 5
   heroAnimator: {fileID: -1781129031036669746}
   _agent: {fileID: 5978339594781275438}
 --- !u!114 &7552671208123744778
@@ -7973,8 +7973,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroAttack
   HeroAnimator: {fileID: -1781129031036669746}
   AttackPoint: {fileID: 6992450490760242831}
-  CharacterController: {fileID: 1303867210489691716}
-  Cleavage: 0.5
+  _attackRange: 3
+  _attackCooldown: 1
+  _cleavage: 0.5
 --- !u!114 &-145745790282939351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7987,45 +7988,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bda6879c9babec4b89d2d76c44531f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroHealth
---- !u!143 &1303867210489691716
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588233372288055087}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Height: 3.5
-  m_Radius: 1.2
-  m_SlopeLimit: 45
-  m_StepOffset: 1
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 1.93, z: 0}
---- !u!114 &3890444750711108464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588233372288055087}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10e03021a77c3804cb7a68b8bbe10a42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroMove
-  MoveSpeed: 5
-  heroAnimator: {fileID: 0}
 --- !u!1 &7670628211990218450
 GameObject:
   m_ObjectHideFlags: 0

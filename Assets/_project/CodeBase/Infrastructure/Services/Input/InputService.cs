@@ -22,6 +22,9 @@ namespace CodeBase.Infrastructure.Services
         public override void Unsubscribe()
         {
             _actions.Player.Click.performed -= OnClick;
+
+            _actions.Player.Disable();
+            _actions.Dispose();
         }
 
         private void OnClick(InputAction.CallbackContext context)

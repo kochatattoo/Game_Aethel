@@ -1,43 +1,44 @@
 ﻿using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Infrastructure.Services;
 using CodeBase.Logic;
 using UnityEngine;
 using CodeBase.Enemies;
 
 namespace CodeBase.Hero
 {
-    [RequireComponent(typeof(HeroAnimator), typeof(CharacterController))]
+    [RequireComponent(typeof(HeroAnimator))]
     public class HeroAttack : MonoBehaviour, ISavedProgressReader
     {
-        public HeroAnimator HeroAnimator;
-        public Transform AttackPoint;
-        public CharacterController CharacterController;
+        [SerializeField] private HeroAnimator _heroAnimator;
+        [SerializeField] private Transform _attackPoint;
+        [SerializeField] private float _attackRange = 3f;
+        [SerializeField] private float _attackCooldown = 1f;
+        [SerializeField] private float _cleavage = 0.5f;
 
-        public float Cleavage = 0.5f;
+        public float Cleavage { get => _cleavage; }
+        public float AttackCooldown { get => _attackCooldown; }
+        public float AttackRange { get => _attackRange; }
 
-        private IInputService _input;
-
-        private static int _layerMask;
-        private Collider[] _hits = new Collider[3];
+        private readonly Collider[] _hits = new Collider[3];
         private Stats _stats;
 
-        public void Construct(IInputService input)
-        {
-            _input = input;
-            _input.Attack += Attack;
+        private static int _layerMask;
 
+        public void Construct()
+        {
             _layerMask = 1 << LayerMask.NameToLayer("Hittable");
         }
 
-        private void OnDisable()
+        public void Attack(Transform enemy)
         {
-            _input.Attack -= Attack;
+            transform.LookAt(enemy);
+            if (!_heroAnimator.IsAttacking)
+                _heroAnimator.PlayAttack();
         }
 
         public void OnAttack()
         {
-            PhysicsDebug.DrawDebug(StartPosition(), Cleavage, 1f);
+            PhysicsDebug.DrawDebug(StartPosition(), _cleavage, 1f);
 
             for (int i = 0; i < Hit(); i++)
             {
@@ -50,16 +51,10 @@ namespace CodeBase.Hero
             _stats = progress.HeroStats;
         }
 
-        private void Attack()
-        {
-            if (!HeroAnimator.IsAttacking)
-                HeroAnimator.PlayAttack();
-        }
-
         private int Hit() =>
             Physics.OverlapSphereNonAlloc(StartPosition(), _stats.DamageRadius, _hits, _layerMask);
 
         private Vector3 StartPosition() =>
-            new Vector3(AttackPoint.position.x, AttackPoint.position.y, AttackPoint.position.z);
+            new Vector3(_attackPoint.position.x, _attackPoint.position.y, _attackPoint.position.z);
     }
 }

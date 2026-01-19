@@ -12,12 +12,14 @@ namespace CodeBase.Hero.HeroBehaviour
 
         private readonly Blackboard _blackboard;
         private readonly HeroPathFollower _heroPathFollower;
+        private readonly HeroAttack _heroAttack;
         private readonly BlackboardKey _currentTarget;
 
-        public HeroBehaviourFactory(Blackboard blackboard, HeroPathFollower follower)
+        public HeroBehaviourFactory(Blackboard blackboard, HeroPathFollower follower, HeroAttack attack)
         {
             _blackboard = blackboard;
             _heroPathFollower = follower;
+            _heroAttack = attack;
 
             _currentTarget = _blackboard.GetOrRegisterKey(CURENT_TARGET);
         }
@@ -42,7 +44,7 @@ namespace CodeBase.Hero.HeroBehaviour
         {
             return Sequence("Attack", priority: 20)
                 .Add(Leaf("HasAttackTarget", new Condition(IsAttackTarget)))
-                .Add(Leaf("HeroAttackStrategy", new HeroAttackStrategy(_blackboard)));
+                .Add(Leaf("HeroAttackStrategy", new HeroAttackStrategy(_blackboard, _heroPathFollower, _heroAttack)));
         }
 
         private BehaviourNode InteractSequence()

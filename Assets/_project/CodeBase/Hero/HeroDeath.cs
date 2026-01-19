@@ -17,7 +17,13 @@ namespace CodeBase.Hero
 
         public event Action PlayerDie;
 
-        public HeroDeath(Transform transform, HeroHealth health, HeroAttack attack, Move move, HeroAnimator animator, GameObject deathFx)
+        public HeroDeath(
+            Transform transform, 
+            HeroHealth health, 
+            HeroAttack attack, 
+            Move move, 
+            HeroAnimator animator, 
+            GameObject deathFx)
         {
             _transform = transform;
             _health = health;

@@ -1,7 +1,6 @@
 ﻿using CodeBase.Hero.HeroBehaviour;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,8 +15,8 @@ namespace CodeBase.Hero
         [Header("Components")]
         [SerializeField] private NavMeshAgent _agent;
         [SerializeField] private HeroAnimator _animator;
-        [SerializeField] private Move _move; // необходимо изменить на логику HeroAction (или же вовсте оставить один HeroPathFollower) 
-        [SerializeField] private HeroAttack _attack; // необходимо изменить на логику HeroAction
+        [SerializeField] private Move _move; // необходимо изменить (или же вовсте оставить один HeroPathFollower) 
+        [SerializeField] private HeroAttack _attack; 
         [SerializeField] private HeroHealth _health; // изменю на загрузку данных в Blackboard - и не придется хранить компонентом (сделаю не монобех)
         [SerializeField] private GameObject _deathFx;
 
@@ -25,15 +24,16 @@ namespace CodeBase.Hero
         private HeroAction _action;
         private HeroDeath _death;
         private Blackboard _blackboard; 
-        private Camera _camera;
+ 
         private ClickInputHandler _clickInputHandler;
+
+        private bool _isDie = false;
 
         public HeroHealth Health {  get { return _health; } }
         public HeroDeath HeroDeath { get { return _death; } }
 
         public void Construct(IInputService input)
         {
-            _camera = Camera.main;
             ConstructControl(input);
             ConstructComponents();
         }
@@ -41,6 +41,7 @@ namespace CodeBase.Hero
         public void Initialize()
         {
             _death.Initialize();
+            _death.PlayerDie += HeroDie;
             _action.Initialize();
 
             _clickInputHandler.Initialize();
@@ -49,10 +50,10 @@ namespace CodeBase.Hero
 
         private void FixedUpdate()
         {
-            if (_action != null)
-            {
-                _action.Update();
-            }
+            if (_isDie)
+                return;
+
+            _action?.Update();
         }
 
         private void OnDisable()
@@ -63,18 +64,22 @@ namespace CodeBase.Hero
 
         private void OnProcessed()
         {
-            Debug.Log("ResetTree");
+            //Debug.Log("ResetTree");
             _action.ResetTree();
+        }
+        private void HeroDie()
+        {
+            _isDie = true;
         }
 
         private void ConstructControl(IInputService input)
         {
             if (_move is HeroPathFollower follower) follower.Construct();
-            _attack.Construct(input);
+            _attack.Construct();
 
             _blackboard = new Blackboard();
-            _action = new HeroAction(_blackboard, _move);
-            _clickInputHandler = new ClickInputHandler(input, _blackboard, _camera);
+            _action = new HeroAction(_blackboard, _move, _attack);
+            _clickInputHandler = new ClickInputHandler(input, _blackboard);
         }
 
         private void ConstructComponents()

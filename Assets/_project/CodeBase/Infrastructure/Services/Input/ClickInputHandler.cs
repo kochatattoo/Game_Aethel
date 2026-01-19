@@ -9,11 +9,10 @@ namespace CodeBase.Infrastructure.Services
 {
     public class ClickInputHandler : IDisposable
     {
-        private const float MAX_DIST = 100f;
+        private const float MAX_DIST = 200f;
 
         private readonly IInputService _inputService;
         private readonly Blackboard _blackboard;
-        private readonly Camera _camera;
         private readonly List<RaycastResult> _uiRaycastResults = new List<RaycastResult>();
 
         private PointerEventData _uiPointerEventData;
@@ -33,12 +32,10 @@ namespace CodeBase.Infrastructure.Services
 
         public ClickInputHandler(
             IInputService inputService, 
-            Blackboard blackboard, 
-            Camera camera)
+            Blackboard blackboard)
         {
             _inputService = inputService;
             _blackboard = blackboard;
-            _camera = camera;
         }
 
         public void Initialize() => Subscribe();
@@ -60,7 +57,7 @@ namespace CodeBase.Infrastructure.Services
 
             OnProcessed?.Invoke();
 
-            Debug.Log("Вызов события клика");
+            //Debug.Log("Вызов события клика");
 
             BlackboardKey currentTarget = _blackboard.GetOrRegisterKey("CurrentTarget");
             if (_blackboard.TryGetValue(currentTarget, out TargetData data))
@@ -68,7 +65,7 @@ namespace CodeBase.Infrastructure.Services
                 _blackboard.Remove(currentTarget);
             }
 
-            Ray ray = _camera.ScreenPointToRay(screenPosition);
+            Ray ray = Camera.main.ScreenPointToRay(screenPosition);
             if (!Physics.Raycast(ray, out var hit, MAX_DIST, _layerMask))
             {
                 _blackboard.SetValue(currentTarget, new TargetData (TargetType.None, Vector3.zero));
