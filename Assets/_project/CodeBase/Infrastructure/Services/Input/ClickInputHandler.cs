@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace CodeBase.Infrastructure.Services
 {
-    public class ClickInputHandler : IDisposable
+    public class ClickInputHandler : IDisposable, IClickListener
     {
         private const float MAX_DIST = 200f;
 
