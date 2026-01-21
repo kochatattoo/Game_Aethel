@@ -26,7 +26,7 @@ MonoBehaviour:
   - Id: Level_1_a568b031-4b97-4ece-a250-1d6e3182c4d8
     MonsterTypeID: 0
     position: {x: 133.52, y: 17.73, z: -21.3}
-  InitialHeroPosition: {x: 79.68, y: 5.79, z: -28.44}
+  InitialHeroPosition: {x: 103.12, y: 11.39, z: -28.44}
   SaveTriggers:
   - Id: Level_1_65facfb3-b474-4e00-955f-d8ac0ce9b6dd
     Position: {x: 148.15, y: 16.72, z: -34.23}

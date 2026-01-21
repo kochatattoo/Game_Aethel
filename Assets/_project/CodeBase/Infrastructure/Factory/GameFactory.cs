@@ -31,7 +31,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly ISaveLoadService _saveLoad;
         private readonly IPoolService _poolService;
 
-        private GameObject HeroGameObject { get; set; }
+        private HeroFacade HeroFacade { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
@@ -87,16 +87,24 @@ namespace CodeBase.Infrastructure.Factory
             return hud;
         }
 
-        public async Task<GameObject> CreateHero(Vector3 at)
+        public async UniTask<HeroFacade> CreateHero(Vector3 at)
         {
-            HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
+            GameObject HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
-            HeroGameObject.GetComponent<HeroMove>()
-               .Construct(_inputService);
-            HeroGameObject.GetComponent<HeroAttack>() 
-               .Construct(_inputService);
+            HeroFacade = HeroGameObject.GetComponent<HeroFacade>();
+            HeroFacade.Construct(_inputService);
+            HeroFacade.Initialize();
 
-            return HeroGameObject;
+            //HeroGameObject.GetComponent<HeroMove>()
+            //   .Construct(_inputService);
+
+            //HeroGameObject .GetComponent<HeroPathFollower>()
+            //    .Construct(_inputService);
+
+            //HeroGameObject.GetComponent<HeroAttack>() 
+            //   .Construct(_inputService);
+
+            return HeroFacade;
         }
 
         public async Task<GameObject> CreateEnemies(MonsterTypeID typeId, Transform parent)
@@ -112,7 +120,7 @@ namespace CodeBase.Infrastructure.Factory
             health.Max = monsterData.Hp;
 
             monster.GetComponent<ActorUI>().Construct(health);
-            monster.GetComponent<AgentMoveToHero>().Construct(HeroGameObject.transform);
+            monster.GetComponent<AgentMoveToHero>().Construct(HeroFacade.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
             LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
@@ -120,14 +128,14 @@ namespace CodeBase.Infrastructure.Factory
             lootSpawner.Construct(this, _randomService);
 
             Attack attack = monster.GetComponent<Attack>();
-            attack.Construct(HeroGameObject.transform, HeroGameObject.GetComponent<HeroDeath>());
+            attack.Construct(HeroFacade.transform, HeroFacade.HeroDeath);
             attack.Damage = monsterData.Damage;
             attack.Radius = monsterData.Radius;
             attack.EffectiveDistance = monsterData.EffectiveDistance;
 
-            monster.GetComponent<RotateToHero>()?.Consturct(HeroGameObject.transform);
+            monster.GetComponent<RotateToHero>()?.Consturct(HeroFacade.transform);
 
-            FaceTarget(monster.transform, HeroGameObject.transform.position);
+            FaceTarget(monster.transform, HeroFacade.transform.position);
 
             return monster;
         }

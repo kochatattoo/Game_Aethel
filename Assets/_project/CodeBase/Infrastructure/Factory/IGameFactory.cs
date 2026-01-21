@@ -1,4 +1,5 @@
 ﻿using CodeBase.Enemies;
+using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.StaticData;
 using Cysharp.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace CodeBase.Infrastructure.Factory
     {
         List<ISavedProgressReader> ProgressReaders { get; }
         List<ISavedProgress> ProgressWriters { get; }
-        Task<GameObject> CreateHero(Vector3 at);
+        UniTask<HeroFacade> CreateHero(Vector3 at);
         Task<GameObject> CreateHud();
         Task<GameObject> CreateEnemies(MonsterTypeID ID, Transform parent);
         Task<LootPiece> CreateLoot();

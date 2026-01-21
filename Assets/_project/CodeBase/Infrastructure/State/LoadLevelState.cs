@@ -1,4 +1,5 @@
-﻿using CodeBase.Infrastructure.Factory;
+﻿using CodeBase.Hero;
+using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.StaticData;
 using CodeBase.Infrastructure.Utils;
@@ -71,22 +72,22 @@ namespace CodeBase.Infrastructure.State
             await InitSaveTrigger(levelData);
             await InitTransferToPoints(levelData);
 
-            GameObject hero = await InitHero(levelData);
+            HeroFacade hero = await InitHero(levelData);
             await InitHud(hero);
 
             Camera.main.GetComponent<CameraFollow>().Construct(hero.transform);
             Camera.main.GetComponent<CameraOcclusionFade>().Construct(hero.transform);
         }
 
-        private async Task<GameObject> InitHero(LevelStaticData levelData) =>
+        private async Task<HeroFacade> InitHero(LevelStaticData levelData) =>
             await _gameFactory.CreateHero(at: levelData.InitialHeroPosition);
 
-        private async Task InitHud(GameObject hero)
+        private async Task InitHud(HeroFacade hero)
         {
             GameObject hud = await _gameFactory.CreateHud();
 
             hud.GetComponentInChildren<ActorUI>()
-                .Construct(hero.GetComponent<IHealth>());
+                .Construct(hero.Health);
         }
 
         private async Task InitTransferToPoints(LevelStaticData levelData) =>
