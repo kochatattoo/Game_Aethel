@@ -1,4 +1,6 @@
-﻿using CodeBase.Hero.HeroBehaviour;
+﻿using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Assets._project.CodeBase.Infrastructure.Services.Input;
+using CodeBase.Hero.HeroBehaviour;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
 using UnityEngine;
@@ -23,18 +25,20 @@ namespace CodeBase.Hero
         [Header("Logic")]
         private HeroAction _action;
         private HeroDeath _death;
-        private Blackboard _blackboard; 
- 
-        private ClickInputHandler _clickInputHandler;
+        private Blackboard _blackboard;
+
+        //TODO - Логику обработчика стоит вынести в отдельный сервис или класс обработки всех данных, а передавать уже зависимостью в фасад
+        // Так же поступить с blackdoard героя
+        private ClickInputHandler _clickInputHandler; 
 
         private bool _isDie = false;
 
         public HeroHealth Health {  get { return _health; } }
         public HeroDeath HeroDeath { get { return _death; } }
 
-        public void Construct(IInputService input)
+        public void Construct(IInputHandlerService inputHandlerService, IBlackboardService blackboardService)
         {
-            ConstructControl(input);
+            ConstructControl(inputHandlerService, blackboardService);
             ConstructComponents();
         }
 
@@ -72,14 +76,14 @@ namespace CodeBase.Hero
             _isDie = true;
         }
 
-        private void ConstructControl(IInputService input)
+        private void ConstructControl(IInputHandlerService inputHandlerService, IBlackboardService blackboardService)
         {
             if (_move is HeroPathFollower follower) follower.Construct();
             _attack.Construct();
 
-            _blackboard = new Blackboard();
+            _blackboard = blackboardService.Blackboard;
             _action = new HeroAction(_blackboard, _move, _attack);
-            _clickInputHandler = new ClickInputHandler(input, _blackboard);
+            _clickInputHandler = inputHandlerService.ClickInputHandler;
         }
 
         private void ConstructComponents()

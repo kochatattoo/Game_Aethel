@@ -1,4 +1,6 @@
-﻿using CodeBase.Enemies;
+﻿using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Assets._project.CodeBase.Infrastructure.Services.Input;
+using CodeBase.Enemies;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
@@ -21,7 +23,6 @@ namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private readonly IInputService _inputService;
         private readonly IAsset _assets;
         private readonly IStaticDataService _staticDataService;
         private readonly IPersistentProgressService _progressService;
@@ -30,22 +31,24 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IWindowService _windowService;
         private readonly ISaveLoadService _saveLoad;
         private readonly IPoolService _poolService;
+        private readonly IBlackboardService _blackboardService;
+        private readonly IInputHandlerService _inputHandlerService;
 
         private HeroFacade HeroFacade { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
-        public GameFactory(IInputService inputService,
-                           IAsset asset,
+        public GameFactory(IAsset asset,
                            IStaticDataService staticData,
                            IPersistentProgressService progressService,
                            IRandomService randomService,
                            ILevelTransferService levelTransfer,
                            IWindowService windowService,
                            ISaveLoadService saveLoad,
-                           IPoolService poolService)
+                           IPoolService poolService,
+                           IBlackboardService blackboardService,
+                           IInputHandlerService inputHandlerService)
         {
-            _inputService = inputService;
             _assets = asset;
             _staticDataService = staticData;
             _progressService = progressService;
@@ -54,6 +57,8 @@ namespace CodeBase.Infrastructure.Factory
             _windowService = windowService;
             _saveLoad = saveLoad;
             _poolService = poolService;
+            _blackboardService = blackboardService;
+            _inputHandlerService = inputHandlerService;
         }
 
         public async UniTask WarmUpAsync()
@@ -92,7 +97,7 @@ namespace CodeBase.Infrastructure.Factory
             GameObject HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
             HeroFacade = HeroGameObject.GetComponent<HeroFacade>();
-            HeroFacade.Construct(_inputService);
+            HeroFacade.Construct(_inputHandlerService, _blackboardService);
             HeroFacade.Initialize();
 
             //HeroGameObject.GetComponent<HeroMove>()

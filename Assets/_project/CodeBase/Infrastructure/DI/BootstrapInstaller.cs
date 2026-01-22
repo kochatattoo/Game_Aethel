@@ -1,3 +1,5 @@
+using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Assets._project.CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
@@ -93,10 +95,12 @@ namespace CodeBase.DI
         private void BindServices()
         {
             BindLogDataService();
+            BindBlackboardService();
             BindAdsService();
             BindAssetProvider();
             BindStaticData();
             BindInputService();
+            BindInputHandlerService();
             BindRandom();
             BindPersistentProgress();
             BindIAPService();
@@ -114,10 +118,16 @@ namespace CodeBase.DI
                 .AsSingle()
                 .NonLazy();
 
+        private void BindBlackboardService() =>
+            Container.Bind<IBlackboardService>()
+                     .To<BlackboardService>()
+                     .AsSingle()
+                     .NonLazy();
+
         private void BindAdsService() =>
             Container.BindInterfacesTo<AdsService>()
-                .AsSingle()
-                .NonLazy();
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindAssetProvider() => 
             Container.BindInterfacesTo<AssetProvider>()
@@ -134,27 +144,33 @@ namespace CodeBase.DI
                      .AsSingle()
                      .NonLazy();
 
+        private void BindInputHandlerService() =>
+            Container.Bind<IInputHandlerService>()
+                     .To<InputHandlerService>()
+                     .AsSingle()
+                     .NonLazy();
+
         private void BindRandom() => 
             Container.Bind<IRandomService>()
-                                 .To<UnityRandomService>()
-                                 .AsSingle()
-                                 .NonLazy();
+                     .To<UnityRandomService>()
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindPersistentProgress() => 
             Container.Bind<IPersistentProgressService>()            
-                                .To<PersistentProgressService>()
-                                .AsSingle()
-                                .NonLazy();
+                     .To<PersistentProgressService>()
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindIAPService() =>
             Container.BindInterfacesTo<IAPService>()
-            .AsSingle()
-            .NonLazy();
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindWindowService() =>
             Container.BindInterfacesTo<WindowService>()
-               .AsSingle()
-               .NonLazy();
+                     .AsSingle()
+                     .NonLazy();
 
         private void BindLevelTransfer() =>
             Container.Bind<ILevelTransferService>()
@@ -170,8 +186,8 @@ namespace CodeBase.DI
 
         private void BindSaveLoad() =>
          Container.BindInterfacesTo<SaveLoadService>()
-                  .AsSingle()
-                  .NonLazy();
+                    .AsSingle()
+                    .NonLazy();
 
         private void BindPoolService() =>
             Container.Bind<IPoolService>()
@@ -203,7 +219,7 @@ namespace CodeBase.DI
 
         private void BindGame() =>
             Container.BindInterfacesTo<Game>()
-            .AsSingle()
-            .NonLazy();
+                     .AsSingle()
+                     .NonLazy();
     }
 }

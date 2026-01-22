@@ -1,14 +1,22 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Assets._project.CodeBase.Infrastructure.Services.Input;
+using Cysharp.Threading.Tasks;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Assets._project.CodeBase.Logic.CFXLogic
 {
     public class CFXFactory : ICFXFactory
     {
+        private readonly IInputHandlerService _inputHandlerService;
+        private readonly IBlackboardService _blackboardService;
+
+        public CFXFactory(IInputHandlerService inputHandlerService, 
+                          IBlackboardService blackboardService)
+        {
+            _inputHandlerService = inputHandlerService;
+            _blackboardService = blackboardService;
+        }
+
         public CFXClickEffect CreateCFXClick()
         {
             throw new NotImplementedException();
