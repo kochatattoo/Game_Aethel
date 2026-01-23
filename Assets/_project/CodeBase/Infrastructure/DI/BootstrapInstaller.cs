@@ -48,7 +48,8 @@ namespace CodeBase.DI
         }
 
         private void BindServiceFactory() => 
-            Container.Bind<IServiceFactory>().To<ServiceFactory>()
+            Container.Bind<IServiceFactory>()
+                     .To<ServiceFactory>()
                      .AsSingle()
                      .NonLazy();
 

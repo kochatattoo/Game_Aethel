@@ -167,7 +167,7 @@ namespace CodeBase.Infrastructure.Factory
         public async UniTask<LootPiece> CreateLootFromPool()
         {
             IPool<LootPiece> pool = _poolService.GetPool<LootPiece>();
-            LootPiece lootObject = await pool.SpawnExpandableAsync();
+            LootPiece lootObject = await pool.SpawnExpandableAsync(w => w.Construct(_progressService.Progress.WorldData, this));
             Register(lootObject);
 
             lootObject.Construct(_progressService.Progress.WorldData, this);
