@@ -7971,8 +7971,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26026275762e20f4da1e7ab2928ba75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroAttack
-  HeroAnimator: {fileID: -1781129031036669746}
-  AttackPoint: {fileID: 6992450490760242831}
+  _heroAnimator: {fileID: -1781129031036669746}
+  _attackPoint: {fileID: 6992450490760242831}
   _attackRange: 3
   _attackCooldown: 1
   _cleavage: 0.5
