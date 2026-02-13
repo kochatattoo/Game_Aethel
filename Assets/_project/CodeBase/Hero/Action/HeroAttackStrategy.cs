@@ -29,8 +29,8 @@ namespace CodeBase.Hero.HeroBehaviour
 
         public BehaviourNode.Status Process() //TODO: Разбить на мелкие методы для читабельности
         {
-            Debug.Log("Attack strategy process");
-            Debug.Log("State" + _state);
+           // Debug.Log("Attack strategy process");
+           // Debug.Log("State " + _state);
 
             if (!_hasStarted)
             {
@@ -43,7 +43,7 @@ namespace CodeBase.Hero.HeroBehaviour
                 _targetData = targetData;
                 _hasStarted = true;
 
-                Debug.Log("Object" + _targetData.HitObject);
+              //  Debug.Log("Object" + _targetData.HitObject);
             }
            
             switch (_state)
@@ -58,7 +58,7 @@ namespace CodeBase.Hero.HeroBehaviour
                     float distXz = new Vector2(delta.x, delta.z).magnitude;
 
                     float heightDiff = Mathf.Abs(delta.y);
-                    Debug.Log($"AttackRange = {_attack.AttackRange}"+ $"Distance = {distXz:F2}  Height = {heightDiff:F2}");
+                   // Debug.Log($"AttackRange = {_attack.AttackRange}"+ $"Distance = {distXz:F2}  Height = {heightDiff:F2}");
 
                     if (distXz > _attack.AttackRange || heightDiff > _follower.MaxHeightDifference)
                     {

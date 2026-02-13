@@ -948,6 +948,7 @@ Transform:
   - {fileID: 4804158751413516750}
   - {fileID: 5428652585721621038}
   - {fileID: 6030900086373724142}
+  - {fileID: 7741492474065999485}
   m_Father: {fileID: 7976577751021563360}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2218926236947810255
@@ -2064,6 +2065,37 @@ Transform:
   - {fileID: 7722006115910218902}
   m_Father: {fileID: 4870627502057375693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6960487076873401583
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7741492474065999485}
+  m_Layer: 0
+  m_Name: Eyes_Direction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7741492474065999485
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6960487076873401583}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0.003, y: 0.076, z: 0.154}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3009940105521483745}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &7164683949830670094
 GameObject:
   m_ObjectHideFlags: 0
@@ -3078,6 +3110,18 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3003855367110946254, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      propertyPath: ViewAngle
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003855367110946254, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      propertyPath: HeadTransform
+      value: 
+      objectReference: {fileID: 7741492474065999485}
+    - target: {fileID: 3003855367110946254, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      propertyPath: _headTransform
+      value: 
+      objectReference: {fileID: 7741492474065999485}
     - target: {fileID: 4769307470777656197, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.175
@@ -3137,6 +3181,9 @@ PrefabInstance:
       insertIndex: 0
       addedObject: {fileID: 5845676998929815330}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6299190620966313962, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6485579532313264145}
     - targetCorrespondingSourceObject: {fileID: 5511683357547329368, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2600216392161886478}
@@ -3146,6 +3193,29 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6281855846235723745, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
   m_PrefabInstance: {fileID: 5875179804221881926}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &496500528517931436 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6299190620966313962, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+  m_PrefabInstance: {fileID: 5875179804221881926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6485579532313264145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496500528517931436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcfd15cea523d3945a88a6bb38579d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroVisibilityPoints
+  _points:
+  - {fileID: 6779382531453526669}
+  - {fileID: 7815317279191347412}
+  - {fileID: 3009940105521483745}
+  - {fileID: 6113950046641178479}
+  <OriginOfRays>k__BackingField: {fileID: 7741492474065999485}
 --- !u!1 &2158836280161192222 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5511683357547329368, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}

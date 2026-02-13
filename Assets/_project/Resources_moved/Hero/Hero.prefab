@@ -7795,6 +7795,7 @@ GameObject:
   - component: {fileID: 4449543265963705239}
   - component: {fileID: 7552671208123744778}
   - component: {fileID: -145745790282939351}
+  - component: {fileID: 95787943915692043}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -7988,6 +7989,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bda6879c9babec4b89d2d76c44531f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroHealth
+--- !u!114 &95787943915692043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588233372288055087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcfd15cea523d3945a88a6bb38579d5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroVisibilityPoints
+  _points:
+  - {fileID: 5788373618411832228}
+  - {fileID: 8919315125530774098}
+  - {fileID: 374172815749988000}
+  - {fileID: 604463019861322532}
+  <OriginOfRays>k__BackingField: {fileID: 5788373618411832228}
 --- !u!1 &7670628211990218450
 GameObject:
   m_ObjectHideFlags: 0
