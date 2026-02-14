@@ -1,6 +1,4 @@
-﻿using CodeBase.Enemies;
-using System;
-using System.Collections;
+﻿using System;
 using UniRx;
 using UnityEngine;
 
@@ -12,7 +10,6 @@ namespace CodeBase.Enemies
         public EnemyHealth Health;
         public EnemyAnimator Animator;
         public Follow follow;
-
         public GameObject DeathFx;
 
         // Subject — это "излучатель" события в UniRx
@@ -20,48 +17,43 @@ namespace CodeBase.Enemies
         public IObservable<Unit> OnDeath => _deathSubject;
 
         public event Action Happened;
+        private bool _isDead;
+        private CompositeDisposable _disposables = new CompositeDisposable();
 
         private void Start()
         {
-            Health.HealthChanged += HealthChanged;
-        }
-
-        private void OnDestroy()
-        { 
-            Health.HealthChanged -= HealthChanged;
-            _deathSubject.Dispose();
-        }
-
-        private void HealthChanged()
-        {
-            if (Health.Current <= 0)
-            {
-                follow.IsDied = true;
-                Die();
-            }
+            // Подписываемся на здоровье: фильтруем значения <= 0 и берем только ПЕРВОЕ срабатывание
+            Health.Current
+                .Where(h => h <= 0)
+                .First()
+                .Subscribe(_ => Die())
+                .AddTo(_disposables);
         }
 
         private void Die()
         {
-            Health.HealthChanged -= HealthChanged;
+            if (follow != null) 
+                follow.IsDied = true;
 
             Animator.PlayDeath();
             SpawnDeathFx();
-            StartCoroutine(DestroyTimer());
 
             Happened?.Invoke();
+            _deathSubject.OnNext(Unit.Default);
+            _deathSubject.OnCompleted();
 
-            _deathSubject.OnNext(Unit.Default); // Рассылаем сигнал смерти
-            _deathSubject.OnCompleted();        // Закрываем поток
+            Observable.Timer(TimeSpan.FromSeconds(3f))
+                .Subscribe(_ => Destroy(gameObject))
+                .AddTo(_disposables);
         }
 
         private void SpawnDeathFx() =>
             Instantiate(DeathFx, transform.position, Quaternion.identity);
 
-        private IEnumerator DestroyTimer()
+        private void OnDestroy()
         {
-            yield return new WaitForSeconds(3f);
-            Destroy(gameObject);
+            _deathSubject.Dispose();
+            _disposables.Dispose();
         }
     }
 }

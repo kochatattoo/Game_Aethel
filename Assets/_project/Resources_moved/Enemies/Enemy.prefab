@@ -781,16 +781,17 @@ MonoBehaviour:
   _headTransform: {fileID: 0}
   _follow: {fileID: 3838018840256695582}
   _enemyDeath: {fileID: 9007729920035589162}
+  _sensor:
+    _horizontalAngle: 150
+    _verticalAngle: 45
+    _obstacleMask:
+      serializedVersion: 2
+      m_Bits: 65
   _viewDistance: 10
-  _viewAngle: 150
-  _viewHeightAngle: 45
-  _sleepDistance: 20
   _playerMask:
     serializedVersion: 2
     m_Bits: 4096
-  _obstacleMask:
-    serializedVersion: 2
-    m_Bits: 65
+  _sleepDistance: 20
   _cooldown: 2
 --- !u!1 &6871457611603973050
 GameObject:

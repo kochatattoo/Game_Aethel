@@ -1,7 +1,7 @@
-﻿using CodeBase.Hero;
-using UnityEngine;
+﻿using UnityEngine;
 using UniRx;
 using System;
+using CodeBase.Components;
 
 namespace CodeBase.Enemies
 {
@@ -16,25 +16,19 @@ namespace CodeBase.Enemies
         private EnemyDeath _enemyDeath;
 
         [Header("Vision Settings")]
+        [SerializeField, Tooltip("Настройки сенсора")]
+        private VisionSensor _sensor;
         [SerializeField]
         private float _viewDistance = 10f;
-        [SerializeField, Range(0, 180), Tooltip("Горизонтальный угол обзора (ширина)")]
-        private float _viewAngle = 150f;
-        [SerializeField, Range(0, 180), Tooltip("Вертикальный угол обзора (высота)")] 
-        private float _viewHeightAngle = 45f;
+        [SerializeField]
+        private LayerMask _playerMask;
 
         [Header("Optimization")]
         [SerializeField, Tooltip("Расстояние, после которого логика спит")] 
         private float _sleepDistance = 50f;
-
-        [SerializeField]
-        private LayerMask _playerMask;
-        [SerializeField]
-        private LayerMask _obstacleMask;
         [SerializeField]
         private float _cooldown = 2f;
 
-        private readonly Collider[] _overlapBuffer = new Collider[1];
         private bool _hasTarget;
         private Transform _heroTransform;
 
@@ -48,10 +42,8 @@ namespace CodeBase.Enemies
         {
             _heroTransform = transform;
 
-            // Очистка старых подписок (важно для пулинга)
             _disposables.Clear();
             _cooldownSubscription.Disposable = Disposable.Empty;
-
             _disposables.Add(_cooldownSubscription);
 
             if (_follow != null) 
@@ -76,14 +68,11 @@ namespace CodeBase.Enemies
 
            Observable.Timer(TimeSpan.FromSeconds(initialDelay))
                 .ContinueWith(Observable.Interval(TimeSpan.FromSeconds(interval)))
-                .Subscribe(_ => CheckVision())
+                .Subscribe(_ => Tick())
                 .AddTo(_disposables);
         }
 
-      
-        private void OnDestroy() => _disposables.Dispose();
-
-        private void CheckVision()
+        private void Tick()
         {
             if (_heroTransform == null)
                 return;
@@ -96,21 +85,10 @@ namespace CodeBase.Enemies
                 return;
             }
 
-            int count = Physics.OverlapSphereNonAlloc(_headTransform.position, _viewDistance, _overlapBuffer, _playerMask);
-            bool targetSpottedThisFrame = false;
+            int visibleCount = _sensor.Scan(_headTransform, _viewDistance, _playerMask, out _);
+            bool isSpotted = visibleCount > 0;
 
-            if (count > 0 && _overlapBuffer[0] != null)
-            {
-                if (_overlapBuffer[0].TryGetComponent(out IVisibilityPointsProvider visibilityProvider))
-                {
-                    if (IsAnyPointVisible(visibilityProvider))
-                    {
-                        targetSpottedThisFrame = true;
-                    }
-                }
-            }
-
-            if (targetSpottedThisFrame)
+            if (isSpotted)
             {
                 if (!_hasTarget) 
                     OnTargetSpotted();
@@ -122,44 +100,10 @@ namespace CodeBase.Enemies
             }
         }
 
-        private bool IsAnyPointVisible(IVisibilityPointsProvider provider)
-        {
-            foreach (var point in provider.Points)
-            {
-                if (point == null) 
-                    continue;
-
-                Vector3 directionToPoint = point.position - _headTransform.position;
-                float distanceToPoint = directionToPoint.magnitude;
-
-                Vector3 localDir = _headTransform.InverseTransformDirection(directionToPoint);
-
-                float horizontalAngle = Mathf.Atan2(localDir.x, localDir.z) * Mathf.Rad2Deg;
-                if (Mathf.Abs(horizontalAngle) > _viewAngle / 2f) 
-                    continue;
-
-                float verticalAngle = Mathf.Atan2(localDir.y, localDir.z) * Mathf.Rad2Deg;
-                if (Mathf.Abs(verticalAngle) > _viewHeightAngle / 2f) 
-                    continue;
-
-                if (!Physics.Raycast(_headTransform.position, directionToPoint.normalized, out RaycastHit hit, distanceToPoint, _obstacleMask))
-                {
-                    Debug.DrawLine(_headTransform.position, point.position, Color.green, 0.1f);
-                    return true;
-                }
-                else
-                {
-                    Debug.DrawLine(_headTransform.position, hit.point, Color.red, 0.1f);
-                }
-            }
-            return false;
-        }
-
         private void OnTargetSpotted()
         {
             _hasTarget = true;
 
-            // Прерываем таймер потери цели, если он шел
             _cooldownSubscription.Disposable = Disposable.Empty;
 
             if (_follow != null) 
@@ -170,19 +114,17 @@ namespace CodeBase.Enemies
         {
             _hasTarget = false;
 
-            // Запускаем таймер через SerialDisposable (автоматически отменит предыдущий, если был)
             _cooldownSubscription.Disposable = Observable.Timer(TimeSpan.FromSeconds(_cooldown))
                 .Subscribe(_ =>
                 {
                     if (_follow != null) _follow.enabled = false;
                     Debug.Log("<color=orange>[AGGRO]</color> Цель потеряна. Возврат в режим ожидания.");
                 })
-                .AddTo(_disposables); // Защита: очистится при смерти врага
+                .AddTo(_disposables);
         }
 
         private void HandleDeath()
         {
-            // Очищаем ВСЕ подписки (зрение и таймеры Cooldown сразу остановятся)
             _disposables.Clear();
 
             if (_follow != null)
@@ -191,18 +133,29 @@ namespace CodeBase.Enemies
             Debug.Log($"[Vision] {gameObject.name} мертв, зрение отключено.");
         }
 
+        private void OnDestroy() => _disposables.Dispose();
 
         private void OnDrawGizmosSelected()
         {
-            if (_headTransform == null) 
-                return;
+            if (_headTransform == null) return;
 
-            PhysicsDebug.DrawViewSector(_headTransform, _viewAngle, _viewHeightAngle, _viewDistance, Color.cyan);
+            Gizmos.color = new Color(0.5f, 0.5f, 0.5f, 0.2f);
+            Gizmos.DrawWireSphere(transform.position, _sleepDistance);
 
-            if (Application.isPlaying && _hasTarget && _overlapBuffer[0] != null)
+            PhysicsDebug.DrawViewSector(
+                _headTransform,
+                _sensor.HorizontalAngle, 
+                _sensor.VerticalAngle,  
+                _viewDistance,
+                Color.cyan
+            );
+
+            if (Application.isPlaying && _hasTarget && _heroTransform != null)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(_headTransform.position, _overlapBuffer[0].transform.position);
+                Gizmos.DrawLine(_headTransform.position, _heroTransform.position);
+
+                PhysicsDebug.DrawDebug(_heroTransform.position, 0.5f, 0.1f);
             }
         }
     }

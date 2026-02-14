@@ -3122,6 +3122,10 @@ PrefabInstance:
       propertyPath: _headTransform
       value: 
       objectReference: {fileID: 7741492474065999485}
+    - target: {fileID: 3003855367110946254, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      propertyPath: _sensor._verticalAngle
+      value: 56.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4769307470777656197, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.175

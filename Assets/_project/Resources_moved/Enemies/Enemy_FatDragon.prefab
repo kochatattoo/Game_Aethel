@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2628793019596205097}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.18301274, y: -0.6830127, z: 0.18301274, w: 0.6830127}
+  m_LocalRotation: {x: 0.12278779, y: -0.6963643, z: 0.12278779, w: 0.6963643}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4759174486574136229}
-  m_LocalEulerAnglesHint: {x: 30, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: -90, z: 0}
 --- !u!1001 &1796828367922533306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -94,6 +94,10 @@ PrefabInstance:
     - target: {fileID: 3003855367110946254, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       propertyPath: _viewHeightAngle
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003855367110946254, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      propertyPath: _sensor._verticalAngle
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 4685576567295585923, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       propertyPath: m_LocalScale.x
