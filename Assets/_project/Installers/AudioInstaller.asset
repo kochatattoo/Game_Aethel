@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b17e33b1325a99641a33508cf0cbdbc3, type: 3}
   m_Name: AudioInstaller
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Infrastructure.DI.AudioInstaller
-  _audioSourcePrefab: {fileID: 0}
+  _audioSourcePrefab: {fileID: 8859985891214403555, guid: 9b3556567a93fa44a96ffafc417df55a, type: 3}
