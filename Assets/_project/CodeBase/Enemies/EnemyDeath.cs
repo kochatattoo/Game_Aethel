@@ -1,6 +1,7 @@
 ﻿using CodeBase.Enemies;
 using System;
 using System.Collections;
+using UniRx;
 using UnityEngine;
 
 namespace CodeBase.Enemies
@@ -14,6 +15,10 @@ namespace CodeBase.Enemies
 
         public GameObject DeathFx;
 
+        // Subject — это "излучатель" события в UniRx
+        private readonly Subject<Unit> _deathSubject = new Subject<Unit>();
+        public IObservable<Unit> OnDeath => _deathSubject;
+
         public event Action Happened;
 
         private void Start()
@@ -21,8 +26,11 @@ namespace CodeBase.Enemies
             Health.HealthChanged += HealthChanged;
         }
 
-        private void OnDestroy() =>
+        private void OnDestroy()
+        { 
             Health.HealthChanged -= HealthChanged;
+            _deathSubject.Dispose();
+        }
 
         private void HealthChanged()
         {
@@ -42,6 +50,9 @@ namespace CodeBase.Enemies
             StartCoroutine(DestroyTimer());
 
             Happened?.Invoke();
+
+            _deathSubject.OnNext(Unit.Default); // Рассылаем сигнал смерти
+            _deathSubject.OnCompleted();        // Закрываем поток
         }
 
         private void SpawnDeathFx() =>

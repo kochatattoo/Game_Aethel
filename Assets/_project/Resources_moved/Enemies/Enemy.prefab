@@ -780,9 +780,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemies.EnemyVision
   _headTransform: {fileID: 0}
   _follow: {fileID: 3838018840256695582}
+  _enemyDeath: {fileID: 9007729920035589162}
   _viewDistance: 10
   _viewAngle: 150
   _viewHeightAngle: 45
+  _sleepDistance: 20
   _playerMask:
     serializedVersion: 2
     m_Bits: 4096

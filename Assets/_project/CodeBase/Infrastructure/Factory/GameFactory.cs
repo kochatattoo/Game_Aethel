@@ -126,6 +126,7 @@ namespace CodeBase.Infrastructure.Factory
 
             monster.GetComponent<ActorUI>().Construct(health);
             monster.GetComponent<AgentMoveToHero>().Construct(HeroFacade.transform);
+            monster.GetComponent<EnemyVision>().Construct(HeroFacade.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
             LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
