@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Zenject::Zenject.ProjectContext
-  _scriptableObjectInstallers: []
+  _scriptableObjectInstallers:
+  - {fileID: 11400000, guid: c708a6a16563cb245b409019cdf66b4e, type: 2}
   _monoInstallers:
   - {fileID: 5767206493558550491}
   _installerPrefabs: []
@@ -76,4 +77,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BootstrapInstaller
   CoroutineRunner: {fileID: 6185335028906658508, guid: 5e13d311ca1ac1d46a62a0247c83fbb8, type: 3}
   LoadingCurtain: {fileID: 8236979409719356722, guid: 9e66b2f1e187e8f419e6a4f1f84fff7e, type: 3}
-  PoolContainer: {fileID: 4407042154201373502, guid: c952518104c34084ca6f783fde76060b, type: 3}
