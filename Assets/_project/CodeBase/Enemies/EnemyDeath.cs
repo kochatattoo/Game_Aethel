@@ -12,7 +12,7 @@ namespace CodeBase.Enemies
         public Follow follow;
         public GameObject DeathFx;
 
-        // Subject — это "излучатель" события в UniRx
+        // Subject — это "излучатель" события в UniRx - сделать решение через Wraper - не отдавать в открытую
         private readonly Subject<Unit> _deathSubject = new Subject<Unit>();
         public IObservable<Unit> OnDeath => _deathSubject;
 
