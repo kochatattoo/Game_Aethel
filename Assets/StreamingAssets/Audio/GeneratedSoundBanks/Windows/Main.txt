@@ -2,5 +2,5 @@ Event	ID	Name			Wwise Object Path	Notes
 	1256202815	Play			\Default Work Unit\Play	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	850328166	Footsteps 1	.cache\BB\{BB366A8E-2492-200F-E20C-09418A5BAC82}.wem		\Containers\Default Work Unit\Footsteps 1		885624
+	850328166	Footsteps 1	.cache\F8\{F8B54DFC-2699-73B6-2112-19B6B9DC0CB3}.wem		\Containers\Default Work Unit\Footsteps 1		68576
 
