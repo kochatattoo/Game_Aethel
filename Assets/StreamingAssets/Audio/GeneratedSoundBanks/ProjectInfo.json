@@ -5,7 +5,7 @@
    "GUID": "{83F89EDC-AFB1-4D9F-9FFB-4EA7A10C2C63}",
    "Generator": "2025.1.5.9095"
   },
-  "CacheRoot": "../../../../../WisePetProject/.cache",
+  "CacheRoot": "../../../../Wwise/.cache",
   "Platforms": [
    {
     "Name": "Windows",
@@ -24,6 +24,6 @@
     "UseAsStandIn": "true"
    }
   ],
-  "FileHash": "{FE7E503B-7BD7-401E-6796-4E020B234ACA}"
+  "FileHash": "{88C30790-88C0-77FE-5771-349355261689}"
  }
 }
