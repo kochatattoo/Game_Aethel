@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="172">
 	<SoundBanks>
-		<SoundBank Id="3161908922" Type="User" GUID="{A0CA7415-AC1E-484A-A1F6-CAF4D2FA61F5}" Language="SFX" Hash="{F03DC237-8D19-609B-F3D1-B9A0AB3A8863}">
+		<SoundBank Id="3161908922" Type="User" GUID="{A0CA7415-AC1E-484A-A1F6-CAF4D2FA61F5}" Language="SFX" Hash="{3F33BB20-B4FC-87E0-F58F-59758D2787DF}">
 			<ObjectPath>\SoundBanks\New Work Unit\Main</ObjectPath>
 			<ShortName>Main</ShortName>
 			<Path>Main.bnk</Path>
 			<Media>
+				<File Id="312284798" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>Footsteps 2.wav</ShortName>
+					<CachePath>48/{485C8A77-91A3-CE2D-E160-1207F00890AC}.wem</CachePath>
+				</File>
 				<File Id="850328166" Language="SFX" Streaming="false" Location="Memory">
 					<ShortName>Footsteps 1.wav</ShortName>
 					<CachePath>F8/{F8B54DFC-2699-73B6-2112-19B6B9DC0CB3}.wem</CachePath>
@@ -17,8 +21,13 @@
 						<MediaRef Id="850328166"/>
 					</MediaRefs>
 				</Event>
+				<Event Id="621108255" Name="Step" ObjectPath="\Events\Default Work Unit\Step" GUID="{4D208DD2-8DB3-4142-B720-EDAA3C9AE898}" DurationType="OneShot" DurationMin="4.0066667" DurationMax="4.0066667">
+					<MediaRefs>
+						<MediaRef Id="312284798"/>
+					</MediaRefs>
+				</Event>
 			</Events>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{2B0D385D-43A7-8EE0-6892-D587E65B834A}</FileHash>
+	<FileHash>{D14A946D-D7BE-12A0-7DF4-EEFA67008114}</FileHash>
 </SoundBanksInfo>
