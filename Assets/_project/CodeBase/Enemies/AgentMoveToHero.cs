@@ -1,6 +1,7 @@
 ﻿using UnityEngine.AI;
 using UnityEngine;
 
+
 namespace CodeBase.Enemies
 {
     public class AgentMoveToHero : Follow

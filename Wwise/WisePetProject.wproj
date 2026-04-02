@@ -10,6 +10,7 @@
 				<Language Name="External" ID="{545C1040-17BD-4295-9667-77C2382DB642}" />
 				<Language Name="Mixed" ID="{467FDB49-70AF-4937-BB77-526755FDCBB6}" />
 				<Language Name="SFX" ID="{840CD5D1-B331-4197-9779-077152762E61}" />
+				<Language Name="SoundSeed Grain" ID="{4E469423-C933-4659-BEF5-FD6517B8C5FD}" />
 			</LanguageList>
 			<PropertyList>
 				<Property Name="ExternalSourcesInputPath" Type="string">

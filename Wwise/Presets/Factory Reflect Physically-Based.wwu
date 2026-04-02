@@ -17,11 +17,7 @@
 					<ObjectLists>
 						<ObjectList Name="Effects">
 							<EffectSlot Name="" ID="{F809FFF1-3416-4FC5-AA07-311A973DE61B}">
-								<ReferenceList>
-									<Reference Name="Effect" PluginName="Wwise Reflect" CompanyID="0" PluginID="171" PluginType="3">
-										<ObjectRef Name="Reflect_Physically_Based" ID="{C69F5865-C206-4B45-BC40-315F3F39151A}" WorkUnitID="{9A5AAF13-8275-479B-8D44-4B723CE5B2F9}"/>
-									</Reference>
-								</ReferenceList>
+								<ReferenceList/>
 							</EffectSlot>
 						</ObjectList>
 					</ObjectLists>

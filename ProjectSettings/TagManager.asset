@@ -8,6 +8,7 @@ TagManager:
   - FxTemporaire
   - TransferToPoint
   - SaveTrigger
+  - Ground
   layers:
   - Default
   - TransparentFX

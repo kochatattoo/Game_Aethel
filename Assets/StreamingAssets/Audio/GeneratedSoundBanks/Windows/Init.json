@@ -3,14 +3,14 @@
   "Platform": "Windows",
   "BasePlatform": "Windows",
   "SchemaVersion": "16",
-  "SoundBankVersion": "172",
+  "SoundBankVersion": "154",
   "SoundBanks": [
    {
     "Id": "1355168291",
     "Type": "User",
     "GUID": "{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}",
     "Language": "SFX",
-    "Hash": "{70CC51AE-0E0A-3B8C-C207-02B6DA2DE8DA}",
+    "Hash": "{8C195DD4-BF5A-F41F-4C7F-E8556E5612B3}",
     "ObjectPath": "Init",
     "ShortName": "Init",
     "Path": "Init.bnk",
@@ -19,16 +19,16 @@
       {
        "Id": "2317455096",
        "Name": "No_Output",
-       "ObjectPath": "\\Devices\\Default Work Unit\\No_Output",
-       "GUID": "{BF54CC22-AD01-44D4-B870-7E299D573662}",
+       "ObjectPath": "\\Audio Devices\\Default Work Unit\\No_Output",
+       "GUID": "{71AFF3C6-0F54-463D-A452-3CC1051C81CC}",
        "LibName": "No Output",
        "LibId": "11862023"
       },
       {
        "Id": "3859886410",
        "Name": "System",
-       "ObjectPath": "\\Devices\\Default Work Unit\\System",
-       "GUID": "{75A9C408-0D0F-47E4-8226-5F847F16F3FC}",
+       "ObjectPath": "\\Audio Devices\\Default Work Unit\\System",
+       "GUID": "{0164FE04-85D0-4CCD-9A02-61D364340FD5}",
        "LibName": "System",
        "LibId": "11403271"
       }
@@ -36,108 +36,10 @@
     },
     "Busses": [
      {
-      "Id": "2246998526",
-      "Name": "Main Audio Bus",
-      "ObjectPath": "\\Busses\\Default Work Unit\\Main Audio Bus",
+      "Id": "3803692087",
+      "Name": "Master Audio Bus",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus",
       "GUID": "{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"
-     }
-    ],
-    "GameParameters": [
-     {
-      "Id": "822163944",
-      "Name": "SS_Air_RPM",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_RPM",
-      "GUID": "{A34890AB-B9D5-4526-A64D-5290C43EF2DC}"
-     },
-     {
-      "Id": "1029930033",
-      "Name": "SS_Air_Fury",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Fury",
-      "GUID": "{A2AE79DC-CA3A-46BA-9652-9986C322A87B}"
-     },
-     {
-      "Id": "1351367891",
-      "Name": "SS_Air_Fear",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Fear",
-      "GUID": "{F72E0659-4346-4E1C-A1B1-DAB46A05101E}"
-     },
-     {
-      "Id": "1656280998",
-      "Name": "RPM_FA_SSGrain",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Grain\\RPM_FA_SSGrain",
-      "GUID": "{C092E65B-E5C4-4C55-8A68-576E98BBFF39}"
-     },
-     {
-      "Id": "1791284502",
-      "Name": "Proximity_FA_SSGrain",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Grain\\Proximity_FA_SSGrain",
-      "GUID": "{05F1ABB4-7338-42BC-A378-B1E2B12EE3CB}"
-     },
-     {
-      "Id": "2317409760",
-      "Name": "Instrument_FA_SSGrain",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Grain\\Instrument_FA_SSGrain",
-      "GUID": "{6279AF44-C082-4608-981E-9A63D1EE7555}"
-     },
-     {
-      "Id": "2428833394",
-      "Name": "Simulation_FA_SSGrain",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Grain\\Simulation_FA_SSGrain",
-      "GUID": "{71905071-0A79-42FE-9CD6-C631171DC3A4}"
-     },
-     {
-      "Id": "2481728872",
-      "Name": "Immersion_FA_SSGrain",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Grain\\Immersion_FA_SSGrain",
-      "GUID": "{3F41E622-166C-4532-BEF7-1DC9FF7EAB94}"
-     },
-     {
-      "Id": "2648548617",
-      "Name": "SS_Air_Month",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Month",
-      "GUID": "{09E2B445-C4A3-447F-B3CA-818A1D925EF7}"
-     },
-     {
-      "Id": "2715217995",
-      "Name": "Density_FA_SSGrain",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Grain\\Density_FA_SSGrain",
-      "GUID": "{63B3F29E-04F3-4887-BA1A-4D7694644B24}"
-     },
-     {
-      "Id": "3002758120",
-      "Name": "SS_Air_Freefall",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Freefall",
-      "GUID": "{2F2DFE37-4F9E-4D94-83D8-53CCA39781AD}"
-     },
-     {
-      "Id": "3074696722",
-      "Name": "SS_Air_Size",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Size",
-      "GUID": "{1329EBEF-A193-472E-A38C-64668B494879}"
-     },
-     {
-      "Id": "3203397129",
-      "Name": "SS_Air_TimeOfDay",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_TimeOfDay",
-      "GUID": "{536FA72C-8C7E-4C8B-AE03-EF34FDADC314}"
-     },
-     {
-      "Id": "3715662592",
-      "Name": "SS_Air_Storm",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Storm",
-      "GUID": "{E93F8CDB-06D1-4737-ACAF-7CD44BBED783}"
-     },
-     {
-      "Id": "3847924954",
-      "Name": "SS_Air_Presence",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Presence",
-      "GUID": "{E3B7811A-7B2F-490F-B44F-5FE51B468041}"
-     },
-     {
-      "Id": "4160247818",
-      "Name": "SS_Air_Turbulence",
-      "ObjectPath": "\\Game Parameters\\Factory Soundseed Air Game Syncs\\SS_Air_Turbulence",
-      "GUID": "{EDA87B19-73AA-40A0-9F19-2073606DB710}"
      }
     ],
     "AcousticTextures": [
@@ -619,6 +521,6 @@
     ]
    }
   ],
-  "FileHash": "{16F20D82-97E5-F25D-BEE3-EC40F6771326}"
+  "FileHash": "{2660C06D-5C83-0A7F-8953-10D16762C8F5}"
  }
 }

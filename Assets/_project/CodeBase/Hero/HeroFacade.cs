@@ -3,6 +3,9 @@ using Assets._project.CodeBase.Infrastructure.Services.Input;
 using CodeBase.Hero.HeroBehaviour;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Domain.Character.Core.Sfx;
+using Infrastructure.AudioSystem;
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,6 +30,10 @@ namespace CodeBase.Hero
         private HeroDeath _death;
         private Blackboard _blackboard;
 
+        //[Header("Sensors")]
+        //[SerializeField]
+        //private FootstepSensor _footstep;
+
         //TODO - Логику обработчика стоит вынести в отдельный сервис или класс обработки всех данных, а передавать уже зависимостью в фасад
         // Так же поступить с blackdoard героя
         private ClickInputHandler _clickInputHandler; 
@@ -36,10 +43,11 @@ namespace CodeBase.Hero
         public HeroHealth Health {  get { return _health; } }
         public HeroDeath HeroDeath { get { return _death; } }
 
-        public void Construct(IInputHandlerService inputHandlerService, IBlackboardService blackboardService)
+        public void Construct(IInputHandlerService inputHandlerService, IBlackboardService blackboardService, IAudioFacade audioFacade)
         {
             ConstructControl(inputHandlerService, blackboardService);
             ConstructComponents();
+            ConstructSensors(audioFacade);
         }
 
         public void Initialize()
@@ -90,6 +98,11 @@ namespace CodeBase.Hero
         {
             _health.Construct(_animator);
             _death = new HeroDeath(transform, _health, _attack, _move, _animator, _deathFx);
+        }
+
+        private void ConstructSensors(IAudioFacade audioFacade)
+        {
+            //_footstep.Construct(audioFacade);
         }
     }
 }

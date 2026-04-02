@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PlatformInfo>
-	<Platform Name="Windows" BasePlatform="Windows" Generator="2025.1.5.9095"/>
+	<Platform Name="Windows" BasePlatform="Windows" Generator="2024.1.11.9010"/>
 	<RootPaths>
-		<ProjectRoot>../../../../../Wwise</ProjectRoot>
-		<SourceFilesRoot>../../../../../Wwise/.cache</SourceFilesRoot>
+		<ProjectRoot>../../../../../../Attributes_exemple/Wwise/AttributeExmpl</ProjectRoot>
+		<SourceFilesRoot>../../../../../../Attributes_exemple/Wwise/AttributeExmpl/.cache</SourceFilesRoot>
 		<SoundBanksRoot>.</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>..</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>../../../../../../Attributes_exemple/Wwise/AttributeExmpl/GeneratedSoundBanks/Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DefaultAlign>16</DefaultAlign>
 	<Settings>
@@ -29,5 +29,5 @@
 		<PrintObjectPath>true</PrintObjectPath>
 		<PrintObjectColor>true</PrintObjectColor>
 	</Settings>
-	<FileHash>{6A97AC46-A83E-4897-9C5A-E3341BE6CB90}</FileHash>
+	<FileHash>{77E781CD-0ED0-DF90-68F3-820DC24E544C}</FileHash>
 </PlatformInfo>

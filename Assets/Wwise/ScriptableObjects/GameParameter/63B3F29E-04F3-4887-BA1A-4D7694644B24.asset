@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 055c7e79d142b5c44a21c90f4286abe0, type: 3}
+  m_Name: 63B3F29E-04F3-4887-BA1A-4D7694644B24
+  m_EditorClassIdentifier: AK.Wwise.Unity.API.WwiseTypes::WwiseRtpcReference
+  objectName: Density_FA_SSGrain
+  id: 2715217995
+  guid: 63B3F29E-04F3-4887-BA1A-4D7694644B24
