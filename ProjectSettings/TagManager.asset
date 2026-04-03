@@ -20,7 +20,7 @@ TagManager:
   - WallFade
   - Units
   - Interactable
-  - 
+  - Target
   - 
   - Player
   - Aggro

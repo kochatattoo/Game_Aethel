@@ -25,7 +25,7 @@ namespace VFXSystem.Factory
         private HitVFXDefinition _currentDefinition;
 
         // Храним ссылки на созданные объекты, чтобы не спавнить их каждый раз (кэширование)
-        private readonly Dictionary<ISubVFX, GameObject> _instantiatedPrefabs = new();
+        private readonly Dictionary<ISubVFX, ISubVFX> _instantiatedPrefabs = new();
         // Список интерфейсов текущих активных объектов для управления
         private readonly List<ISubVFX> _activeEffects = new();
 
@@ -89,7 +89,7 @@ namespace VFXSystem.Factory
             foreach (var instance in _instantiatedPrefabs.Values)
             {
                 if (instance != null) 
-                    instance.SetActive(false);
+                    instance.GameObject.SetActive(false);
             }
 
             _activeEffects.Clear();
@@ -100,27 +100,21 @@ namespace VFXSystem.Factory
         public void DespawnVFX() => _pool?.Despawn(this);
 
         [CanBeNull]
-        private GameObject PrepareEffect(ISubVFX prefab, Transform container)
+        private void PrepareEffect(ISubVFX prefab, Transform container)
         {
             if (prefab == null || prefab.GameObject == null) 
-                return null;
+                return;
 
             if (!_instantiatedPrefabs.TryGetValue(prefab, out var instance))
             {
-                instance = Instantiate(prefab.GameObject, container);
+                var go = Instantiate(prefab.GameObject, container);
+                instance = go.GetComponent<ISubVFX>();
                 _instantiatedPrefabs.Add(prefab, instance);
             }
 
-            instance.SetActive(true);
-            instance.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
-
-            //Под вопросом, поскольку мы вытаскием интерфейс из объекта клона - так надо
-            if (instance.TryGetComponent<ISubVFX>(out var subVfx))
-            {
-                _activeEffects.Add(subVfx);
-            }
-
-            return instance;
+            instance.GameObject.SetActive(true);
+            instance.GameObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            _activeEffects.Add(instance);
         }
 
         public class Pool: MonoPoolableMemoryPool<HitVFXDefinition, IMemoryPool, VFXEntity> { }

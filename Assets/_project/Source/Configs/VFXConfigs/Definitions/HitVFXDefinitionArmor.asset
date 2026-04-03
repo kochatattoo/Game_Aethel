@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HitVFXDefinitionArmor
   m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.Parameters.Definition.HitVFXDefinition
   <Key>k__BackingField: 1
-  <ParticlePrefab>k__BackingField: {fileID: 0}
+  <ParticlePrefab>k__BackingField: {fileID: 1076856076175835855, guid: db44320e3fe804a40a5fd60f0dabef56, type: 3}
   <DecalPrefab>k__BackingField: {fileID: 0}
   <AdditionalEffectPrefab>k__BackingField: {fileID: 0}

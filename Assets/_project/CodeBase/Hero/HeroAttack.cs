@@ -7,6 +7,7 @@ using VFXSystem.Processors;
 using VFXSystem.Resolver;
 using VFXSystem.Components;
 using VFXSystem.Service;
+using VFXSystem.Sensors;
 
 namespace CodeBase.Hero
 {
@@ -47,6 +48,8 @@ namespace CodeBase.Hero
             PhysicsDebug.DrawDebug(StartPosition(), _cleavage, 1f);
             Vector3 origin = StartPosition();
 
+            Vector3 attackDirection = transform.forward;
+
             for (int i = 0; i < Hit(); i++)
             {
                 Collider targetCollider = _hits[i];
@@ -56,7 +59,27 @@ namespace CodeBase.Hero
                     health.TakeDamage(_stats.Damage); 
                 }
 
-                CalculateHitData(targetCollider, origin, out Vector3 hitPoint, out Vector3 hitNormal);
+                // --- ПРИМЕНЕНИЕ СЕНСОРОВ ---
+                Vector3 hitPoint;
+                Vector3 hitNormal;
+
+                // Пытаемся получить точную точку через Raycast в сторону коллайдера
+                // Высчитываем направление от игрока к центру врага
+                Vector3 dirToTarget = (targetCollider.bounds.center - origin).normalized;
+
+                if (VFXHitSensor.GetPreciseHit(origin, dirToTarget, _cleavage + 1f, targetCollider.gameObject.layer, out RaycastHit preciseHit))
+                {
+                    // Если луч попал точно — берем данные из RaycastHit
+                    hitPoint = preciseHit.point;
+                    hitNormal = preciseHit.normal;
+                }
+                else
+                {
+                    // Фолбэк: если луч почему-то пролетел мимо, используем наш быстрый метод
+                    VFXHitSensor.GetContactData(targetCollider, origin, out hitPoint, out hitNormal);
+                }
+                // ---------------------------
+
                 GameObject hitObject = targetCollider.gameObject;
 
                 VFXPointData vFXPointData;
@@ -81,25 +104,5 @@ namespace CodeBase.Hero
 
         private Vector3 StartPosition() =>
             new Vector3(_attackPoint.position.x, _attackPoint.position.y, _attackPoint.position.z);
-
-        private void CalculateHitData(Collider targetCollider, Vector3 origin, out Vector3 hitPoint, out Vector3 hitNormal)
-        {
-            // Находим ближайшую точку на коллайдере относительно центра нашей атаки
-            hitPoint = targetCollider.ClosestPoint(origin);
-            hitNormal = Vector3.up; // Значение по умолчанию
-
-            Vector3 direction = hitPoint - origin;
-
-            if (direction != Vector3.zero)
-            {
-                // Пускаем луч из центра атаки в сторону найденной точки для получения нормали поверхности
-                Ray ray = new Ray(origin - direction.normalized * 0.1f, direction.normalized);
-                if (targetCollider.Raycast(ray, out RaycastHit hit, direction.magnitude + 0.2f))
-                {
-                    hitPoint = hit.point;
-                    hitNormal = hit.normal;
-                }
-            }
-        }
     }
 }

@@ -3,7 +3,6 @@ using VFXSystem.Parameters;
 using VFXSystem.Service;
 using Zenject;
 using VFXSystem.Factory;
-using VFXSystem.Processors;
 
 namespace Infrastructure.DI
 {
