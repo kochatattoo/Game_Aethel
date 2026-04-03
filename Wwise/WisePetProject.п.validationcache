@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ValidationCache Version="1" SchemaVersion="133">
-	<ValidationCacheItem File="C:\Users\п\AppData\Roaming\Audiokinetic\MediaPool\2\MediaPoolQuery.wsettings" DateLow="1773236826" DateHigh="0"/>
+	<ValidationCacheItem File="C:\Users\п\AppData\Roaming\Audiokinetic\MediaPool\2\MediaPoolQuery.wsettings" DateLow="1775205032" DateHigh="0"/>
 	<ValidationCacheItem File="C:\Users\п\UnityPetProject\PetProject\Wwise\Attenuations\Default Work Unit.wwu" DateLow="1772009637" DateHigh="0"/>
 	<ValidationCacheItem File="C:\Users\п\UnityPetProject\PetProject\Wwise\Attenuations\Factory Attenuations.wwu" DateLow="1772006810" DateHigh="0"/>
 	<ValidationCacheItem File="C:\Users\п\UnityPetProject\PetProject\Wwise\Busses\Default Work Unit.wwu" DateLow="1772009638" DateHigh="0"/>
@@ -92,6 +92,7 @@
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Containers\Factory Soundseed Air Objects.wwu" DateLow="1772007302" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Containers\Factory Soundseed Grain.wwu" DateLow="1773236816" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Containers\Factory Synth One.wwu" DateLow="1772006810" DateHigh="0"/>
+	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Containers\Footstep.wwu" DateLow="1775204920" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Control Surface Sessions\Default Work Unit.wwu" DateLow="1772009638" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Conversion Settings\Default Work Unit.wwu" DateLow="1772114353" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Conversion Settings\Factory Conversion Settings.wwu" DateLow="1772006810" DateHigh="0"/>
@@ -101,7 +102,7 @@
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Effects\Default Work Unit.wwu" DateLow="1772009637" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Effects\Factory Effects.wwu" DateLow="1772006810" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Effects\Factory Mastering Suite.wwu" DateLow="1772007297" DateHigh="0"/>
-	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Events\Default Work Unit.wwu" DateLow="1772114353" DateHigh="0"/>
+	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Events\Default Work Unit.wwu" DateLow="1775204936" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Game Parameters\Default Work Unit.wwu" DateLow="1772009638" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Game Parameters\Factory Soundseed Air Game Syncs.wwu" DateLow="1772007302" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Game Parameters\Factory Soundseed Grain.wwu" DateLow="1772007308" DateHigh="0"/>
@@ -124,5 +125,5 @@
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Virtual Acoustics\Default Work Unit.wwu" DateLow="1772009637" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\Virtual Acoustics\Factory Acoustic Textures.wwu" DateLow="1772006810" DateHigh="0"/>
 	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\WisePetProject.wproj" DateLow="1773236672" DateHigh="0"/>
-	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\WisePetProject.п.wsettings" DateLow="1773236825" DateHigh="0"/>
+	<ValidationCacheItem File="D:\UnityPetProject\PetProject\Wwise\WisePetProject.п.wsettings" DateLow="1775204812" DateHigh="0"/>
 </ValidationCache>

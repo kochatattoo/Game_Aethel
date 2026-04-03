@@ -19,7 +19,7 @@
 						<Action Name="" ID="{205CE8BC-5F1D-4DEA-9D86-1E4F3B3484A9}" ShortID="744618061">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="Footsteps 2" ID="{F7104579-802B-4F13-B2D2-1740564E4D1F}" WorkUnitID="{02D1E651-39A0-4BD4-8CAF-238F5BC6D81D}"/>
+									<ObjectRef Name="FootstepSequencer" ID="{DE95B3E4-CE10-4679-8EB9-ADF4F18B69AC}" WorkUnitID="{C1343523-AB75-41F7-955C-B23EF0A9F535}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>
