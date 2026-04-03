@@ -31,9 +31,13 @@ namespace VFXSystem.Factory
 
         public void OnSpawned(HitVFXDefinition definition, IMemoryPool pool)
         {
+            Debug.Log("Spawn");
+
             _pool = pool;
             _currentDefinition = definition;
+            Debug.Log($"Текущее определение и пул объектов: {_currentDefinition}, {_pool}");
             _activeEffects.Clear();
+            Debug.Log($"Очистка списка активных эффектов");
 
             PrepareEffect(_currentDefinition.ParticlePrefab, _particleContainer);
             PrepareEffect(_currentDefinition.DecalPrefab, _decalContainer);
@@ -45,13 +49,18 @@ namespace VFXSystem.Factory
         /// </summary>
         public void PlayAt(Vector3 position, Quaternion rotation, float impactScale = 1f)
         {
+            Debug.Log("PlayAt VFXEntity");
+
             transform.localScale = Vector3.one;
             transform.SetPositionAndRotation(position, rotation);
 
             float maxDuration = 0;
 
+            Debug.Log($"Цикл активных эффектов: {_activeEffects}");
             foreach (var effect in _activeEffects)
             {
+                Debug.Log("Проходим по активным эффектам");
+
                 // Вот тут можем передавать данные для наших различных VFX (можно подумать как настроить тексутуру)
                 effect.Play(impactScale); // Пока передаю только значение scale - Далее подумать над трансформом и объектом
 
@@ -71,7 +80,10 @@ namespace VFXSystem.Factory
 
             foreach (var effect in _activeEffects)
             {
-                effect.Stop();
+                if (effect != null && !ReferenceEquals(effect, null))
+                {
+                    effect.Stop();
+                }
             }
 
             foreach (var instance in _instantiatedPrefabs.Values)
@@ -90,7 +102,7 @@ namespace VFXSystem.Factory
         [CanBeNull]
         private GameObject PrepareEffect(ISubVFX prefab, Transform container)
         {
-            if (prefab == null) 
+            if (prefab == null || prefab.GameObject == null) 
                 return null;
 
             if (!_instantiatedPrefabs.TryGetValue(prefab, out var instance))
@@ -111,6 +123,6 @@ namespace VFXSystem.Factory
             return instance;
         }
 
-        public class Pool: MonoMemoryPool<HitVFXDefinition, VFXEntity> { }
+        public class Pool: MonoPoolableMemoryPool<HitVFXDefinition, IMemoryPool, VFXEntity> { }
     }
 }

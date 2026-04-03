@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5767206493558550491}
   - component: {fileID: -5865980629960638756}
   - component: {fileID: -3694246095291744325}
+  - component: {fileID: 7792540610869502134}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -53,6 +54,7 @@ MonoBehaviour:
   - {fileID: -5865980629960638756}
   - {fileID: 5767206493558550491}
   - {fileID: -3694246095291744325}
+  - {fileID: 7792540610869502134}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 0
   _editorReflectionBakingCoverageMode: 0
@@ -107,3 +109,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Infrastructure.DI.WwiseInstaller
   _wwiseInitializer: {fileID: 4867534927359713299, guid: 5bae0d73558175c4db1a5eebda464abb, type: 3}
+--- !u!114 &7792540610869502134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845161030547534902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b53953e36db1d6b47b2eb306276ed71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::Infrastructure.DI.VFXInstaller
+  _database: {fileID: 11400000, guid: cf2c7f2113df8a94095d0753c1c7895a, type: 2}

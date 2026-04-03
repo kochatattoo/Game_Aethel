@@ -515,6 +515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4418258365151318418}
   - component: {fileID: 2320386071573853919}
+  - component: {fileID: 2028863978964731199}
   m_Layer: 15
   m_Name: Hurtbox
   m_TagString: Untagged
@@ -558,6 +559,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.5, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2028863978964731199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059286214944014418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c817f3d528ec6741a3eb4f10a8f9180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Components.Vfx.Hitbox
+  <MaterialType>k__BackingField: 2
 --- !u!1 &6299190620966313962
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,7 @@ using VFXSystem.Parameters;
 using VFXSystem.Service;
 using Zenject;
 using VFXSystem.Factory;
+using VFXSystem.Processors;
 
 namespace Infrastructure.DI
 {
@@ -28,6 +29,7 @@ namespace Infrastructure.DI
             Container.Bind<IVFXFactory>().To<VFXFactory>().AsSingle();
 
             Container.BindInterfacesTo<VFXFacade>().AsSingle();
+
         }
     }
 }

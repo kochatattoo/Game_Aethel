@@ -17,6 +17,6 @@ MonoBehaviour:
   <VerticalOffset>k__BackingField: 0
   <LayerMask>k__BackingField:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   <Buffer>k__BackingField: 10
   <Min_Velocity>k__BackingField: 0.2

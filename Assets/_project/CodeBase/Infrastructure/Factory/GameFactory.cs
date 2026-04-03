@@ -19,6 +19,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using VFXSystem.Processors;
+using VFXSystem.Service;
 
 namespace CodeBase.Infrastructure.Factory
 {
@@ -35,6 +37,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IBlackboardService _blackboardService;
         private readonly IInputHandlerService _inputHandlerService;
         private readonly IAudioFacade _audioFacade;
+        private readonly IVFXFacade _vFXFacade;
 
         private HeroFacade HeroFacade { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
@@ -50,7 +53,8 @@ namespace CodeBase.Infrastructure.Factory
                            IPoolService poolService,
                            IBlackboardService blackboardService,
                            IInputHandlerService inputHandlerService,
-                           IAudioFacade audioFacade)
+                           IAudioFacade audioFacade,
+                           IVFXFacade vFXFacade)
         {
             _assets = asset;
             _staticDataService = staticData;
@@ -63,6 +67,7 @@ namespace CodeBase.Infrastructure.Factory
             _blackboardService = blackboardService;
             _inputHandlerService = inputHandlerService;
             _audioFacade = audioFacade;
+            _vFXFacade = vFXFacade;
         }
 
         public async UniTask WarmUpAsync()
@@ -101,7 +106,7 @@ namespace CodeBase.Infrastructure.Factory
             GameObject HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
             HeroFacade = HeroGameObject.GetComponent<HeroFacade>();
-            HeroFacade.Construct(_inputHandlerService, _blackboardService, _audioFacade);
+            HeroFacade.Construct(_inputHandlerService, _blackboardService, _audioFacade, _vFXFacade);
             HeroFacade.Initialize();
 
             //HeroGameObject.GetComponent<HeroMove>()

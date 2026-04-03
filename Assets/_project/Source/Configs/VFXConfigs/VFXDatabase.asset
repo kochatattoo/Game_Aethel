@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 491b56cef28cce2419e0023368ad3e85, type: 3}
+  m_Name: VFXDatabase
+  m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.Parameters.VFXDatabase
+  <VFXEntityPrefab>k__BackingField: {fileID: -8525568262914735540, guid: 1f5c91162aec69b4a8bbc6775700666b, type: 3}
+  <InitialSize>k__BackingField: 10
+  <VFXDefinitionsMapConfigs>k__BackingField: {fileID: 11400000, guid: 6e5e0c7812d37ef4f952931f68c1ed43, type: 2}
+  <VFXMapToMaterialConfigs>k__BackingField: {fileID: 11400000, guid: ac67259269d4f2d4d991054e05df7e40, type: 2}

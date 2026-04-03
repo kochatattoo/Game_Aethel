@@ -12,6 +12,6 @@ namespace VFXSystem.Factory
 
         public VFXFactory(VFXEntity.Pool pool) => _pool = pool;
 
-        public VFXEntity CreateVFXEntity(HitVFXDefinition definition) => _pool.Spawn(definition);
+        public VFXEntity CreateVFXEntity(HitVFXDefinition definition) => _pool.Spawn(definition, _pool);
     }
 }

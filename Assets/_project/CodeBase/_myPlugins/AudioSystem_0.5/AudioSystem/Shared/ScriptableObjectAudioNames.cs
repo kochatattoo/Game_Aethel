@@ -2,6 +2,6 @@
 {
     public static class ScriptableObjectAudioNames
     {
-        public const string AudioMenu = "Configs/Audio";
+        public const string AudioMenu = "Configs/Audio/";
     }
 }

@@ -8,6 +8,8 @@ using Infrastructure.AudioSystem;
 using System;
 using UnityEngine;
 using UnityEngine.AI;
+using VFXSystem.Processors;
+using VFXSystem.Service;
 
 namespace CodeBase.Hero
 {
@@ -43,9 +45,9 @@ namespace CodeBase.Hero
         public HeroHealth Health {  get { return _health; } }
         public HeroDeath HeroDeath { get { return _death; } }
 
-        public void Construct(IInputHandlerService inputHandlerService, IBlackboardService blackboardService, IAudioFacade audioFacade)
+        public void Construct(IInputHandlerService inputHandlerService, IBlackboardService blackboardService, IAudioFacade audioFacade, IVFXFacade facade)
         {
-            ConstructControl(inputHandlerService, blackboardService);
+            ConstructControl(inputHandlerService, blackboardService, facade);
             ConstructComponents();
             ConstructSensors(audioFacade);
         }
@@ -84,10 +86,10 @@ namespace CodeBase.Hero
             _isDie = true;
         }
 
-        private void ConstructControl(IInputHandlerService inputHandlerService, IBlackboardService blackboardService)
+        private void ConstructControl(IInputHandlerService inputHandlerService, IBlackboardService blackboardService, IVFXFacade facade)
         {
             if (_move is HeroPathFollower follower) follower.Construct();
-            _attack.Construct();
+            _attack.Construct(facade);
 
             _blackboard = blackboardService.Blackboard;
             _action = new HeroAction(_blackboard, _move, _attack);

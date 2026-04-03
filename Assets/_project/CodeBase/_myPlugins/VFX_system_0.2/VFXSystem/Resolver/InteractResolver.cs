@@ -1,49 +1,29 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace VFXSystem.Resolver
 {
     public class InteractResolver
     {
-        /// <summary>
-        /// Выполняет физический каст и возвращает данные о поверхности
-        /// </summary>
-        public static InteractionResult CastRay(Vector3 origin, Vector3 direction, float distance, LayerMask mask)
+        [CanBeNull]
+        public Material MaterialResolve(GameObject gameObject)
         {
-            InteractionResult result = new InteractionResult();
+            var renderer = gameObject.GetComponentInChildren<MeshRenderer>();
 
-            if (Physics.Raycast(origin, direction, out RaycastHit hit, distance, mask))
+            if (renderer == null)
+                renderer = gameObject.GetComponentInParent<MeshRenderer>();
+
+            if (renderer != null)
             {
-                result.IsHit = true;
-                result.Point = hit.point;
-                result.Normal = hit.normal;
-                result.HitObject = hit.collider.gameObject;
+                Material visualMat = renderer.sharedMaterial;
 
-                // Определяем материал (через тег, PhysicMaterial или кастомный скрипт)
-                result.MaterialTag = GetMaterialTag(hit);
+                if (visualMat != null)
+                { 
+                    return visualMat;
+                }
             }
 
-            return result;
+            return null;
         }
-
-        private static string GetMaterialTag(RaycastHit hit)
-        {
-            // Вариант А: Через PhysicMaterial (наиболее производительно)
-            if (hit.collider.sharedMaterial != null)
-            {
-                return hit.collider.sharedMaterial.name;
-            }
-
-            // Вариант Б: Через тег объекта
-            return hit.collider.tag;
-        }
-    }
-
-    public struct InteractionResult
-    {
-        public bool IsHit;
-        public Vector3 Point;
-        public Vector3 Normal;
-        public string MaterialTag; // Или перечисление/физический материал
-        public GameObject HitObject;
     }
 }

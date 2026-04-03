@@ -2,6 +2,6 @@
 {
     public static class ScriptableObjectVFXNames
     {
-        public const string VFXName = "Configs/VFX";
+        public const string VFXName = "Configs/VFX/";
     }
 }

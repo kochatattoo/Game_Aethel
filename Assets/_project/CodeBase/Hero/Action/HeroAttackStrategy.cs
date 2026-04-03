@@ -85,7 +85,7 @@ namespace CodeBase.Hero.HeroBehaviour
                 case State.Attack:
                     _attack.Attack(_targetTransform);
                     _state = State.Cooldown;
-                    _nextAttackTime = Time.time + _attack.AttackCooldown;
+                    _nextAttackTime = Time.time + _attack.AttackCooldown; //TODO: Зависает при быстрой смене цели и тупит
                     return BehaviourNode.Status.Running;
 
                 case State.Cooldown:
