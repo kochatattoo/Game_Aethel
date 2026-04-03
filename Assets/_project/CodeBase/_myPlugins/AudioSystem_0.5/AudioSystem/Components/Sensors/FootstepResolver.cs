@@ -19,7 +19,6 @@ namespace Infrastructure.AudioSystem.Components.Sensors
         protected readonly float _minVelocity;
 
         protected readonly IPhysicAudioMaker _physicAudioMaker;
-        protected readonly CharacterController _controller;
 
         private readonly List<ISurfaceResolver<T>> _resolvers;   //TODO: Конфиг или что то чем можно управлять чтоб заполнять
                                                                  // Или реализовать фабрику для заполнения
@@ -36,7 +35,6 @@ namespace Infrastructure.AudioSystem.Components.Sensors
             _data = data;
             _physicSurfaceRaycast = new(data.Config.CastSettings);
             _minVelocity = data.Config.CastSettings.Min_Velocity;
-            _controller = personPhysics.CharacterController;
             _physicAudioMaker = personPhysics;
 
             _resolvers = new()
@@ -54,7 +52,7 @@ namespace Infrastructure.AudioSystem.Components.Sensors
         {
             targetFoot = (footId == 0) ? _data.LeftFoot : _data.RightFoot;
 
-            if (_controller != null && (!_controller.isGrounded || _physicAudioMaker.CurrentSpeed < _minVelocity))
+            if (_physicAudioMaker != null && (!_physicAudioMaker.IsGrounded || _physicAudioMaker.CurrentSpeed < _minVelocity))
                 return default(T);
 
             if (targetFoot == null)

@@ -30,7 +30,8 @@ namespace CodeBase.Hero.HeroBehaviour
                 .Add(MoveSequence())
                 .Add(AttackSequence())
                 .Add(InteractSequence())
-                .Add(new BehaviourLeaf("Idle", new IdleStrategy(), priority: 0));
+                .Add(StopSequence())
+                .Add(new BehaviourLeaf("Idle", new IdleStrategy(), priority: -1));
         }
 
         private BehaviourNode MoveSequence()
@@ -54,14 +55,24 @@ namespace CodeBase.Hero.HeroBehaviour
                 .Add(Leaf("HeroInteractStrategy", new HeroInteractStrategy(_blackboard)));
         }
 
+        private BehaviourNode StopSequence()
+        {
+            return Sequence("Stop", priority: 0)
+                .Add(Leaf("Stop moving", new Condition(IsStopTarget)))
+                .Add(new BehaviourLeaf("Idle", new IdleStrategy()));
+        }
+
         private bool IsMoveTarget() => 
-            _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData.Type == TargetType.Move;
+            _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData?.Type == TargetType.Move;
 
         private bool IsAttackTarget() =>
-            _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData.Type == TargetType.Attack;
+            _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData?.Type == TargetType.Attack;
 
         private bool IsInteractTarget() =>
-             _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData.Type == TargetType.Interact;
+             _blackboard.TryGetValue(_currentTarget, out TargetData targetData) && targetData?.Type == TargetType.Interact;
+
+        private bool IsStopTarget() =>
+            !_blackboard.TryGetValue(_currentTarget, out TargetData targetData);
 
     }
 }

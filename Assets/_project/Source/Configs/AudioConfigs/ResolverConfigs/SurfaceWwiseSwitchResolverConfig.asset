@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a1683d994a4cec42bbb7c8ab0969b55, type: 3}
   m_Name: SurfaceWwiseSwitchResolverConfig
   m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Infrastructure.AudioSystem.Components.MaterialConfigs.SurfaceWwiseSwitchResolverConfig
-  <CastRadius>k__BackingField: 0.01
-  <CastDistance>k__BackingField: 1
-  <VerticalOffset>k__BackingField: 0
+  <CastSettings>k__BackingField: {fileID: 11400000, guid: 140c960d25b032a44b7c32d4298d96cf, type: 2}
   <WwiseToMaterial>k__BackingField: {fileID: 11400000, guid: 3f830e54e22bcc649a6345a72d82d990, type: 2}
   _defaultSwitch:
     idInternal: 0

@@ -5,7 +5,6 @@ using Infrastructure.AudioSystem.Components.Processors;
 using Infrastructure.AudioSystem.Components.Sensors;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
 
 namespace Domain.Character.Core.Sfx
 {
@@ -21,14 +20,16 @@ namespace Domain.Character.Core.Sfx
         private Transform _leftFoot;
         [SerializeField]
         private Transform _rightFoot;
+        [SerializeField]
+        private NavMeshAgent _agent;
+        [SerializeField]
+        private float _threshold = 0.3f;
 
         [Header("Settings")]
         [SerializeField]
         private SurfaceWwiseSwitchResolverConfig _config;
 
         private IAudioFacade _audioFacade;
-        private NavMeshAgent _agent;
-        private CharacterController _controller;
 
         private FootstepResolverData<AK.Wwise.Switch> _data;
         private IFootstepAudioProcessor _footstepAudioProcessor;
@@ -39,17 +40,24 @@ namespace Domain.Character.Core.Sfx
         /// </summary>
         public float CurrentSpeed => _agent.velocity.magnitude;
 
-        /// <summary>
-        /// Ссылка на контроллер персонажа для проверки состояния приземленности (Grounded).
-        /// </summary>
-        public CharacterController CharacterController => _controller;
+        public bool IsGrounded 
+        {  get
+            {
+                if (!_agent.isOnNavMesh) return false;
 
-        /// <summary>
-        /// Внедрение зависимостей и инициализация цепочки резолверов.
-        /// Создает контейнер данных <see cref="FootstepResolverData{T}"/> и привязывает конкретный <see cref="FootstepSwitchResolver"/>.
-        /// </summary>
-        [Inject]
-        private void Construct(IAudioFacade audioFacade)
+                // Проверяем, не подпрыгнул ли сам Transform слишком высоко над сеткой
+                // agent.nextPosition — это точка на сетке, где "должен" быть агент
+                float distanceToNavMesh = Mathf.Abs(transform.position.y - _agent.nextPosition.y);
+
+                return distanceToNavMesh < _threshold;
+            } 
+        }
+
+    /// <summary>
+    /// Внедрение зависимостей и инициализация цепочки резолверов.
+    /// Создает контейнер данных <see cref="FootstepResolverData{T}"/> и привязывает конкретный <see cref="FootstepSwitchResolver"/>.
+    /// </summary>
+    public void Construct(IAudioFacade audioFacade)
         {
             _audioFacade = audioFacade;
             _data = new FootstepResolverData<AK.Wwise.Switch> (transform, _leftFoot, _rightFoot, _config);

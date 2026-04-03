@@ -30,9 +30,9 @@ namespace CodeBase.Hero
         private HeroDeath _death;
         private Blackboard _blackboard;
 
-        //[Header("Sensors")]
-        //[SerializeField]
-        //private FootstepSensor _footstep;
+        [Header("Sensors")]
+        [SerializeField]
+        private FootstepMaker _footstep;
 
         //TODO - Логику обработчика стоит вынести в отдельный сервис или класс обработки всех данных, а передавать уже зависимостью в фасад
         // Так же поступить с blackdoard героя
@@ -102,7 +102,7 @@ namespace CodeBase.Hero
 
         private void ConstructSensors(IAudioFacade audioFacade)
         {
-            //_footstep.Construct(audioFacade);
+            _footstep.Construct(audioFacade);
         }
     }
 }

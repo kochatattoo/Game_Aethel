@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e6bd4faf1caf1b49a223f108542ba3f, type: 3}
   m_Name: SurfaceAudioKeyResolverConfig
   m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Infrastructure.AudioSystem.Components.MaterialConfigs.SurfaceAudioKeyResolverConfig
-  <CastRadius>k__BackingField: 0.01
-  <CastDistance>k__BackingField: 1
-  <VerticalOffset>k__BackingField: 0
+  <CastSettings>k__BackingField: {fileID: 11400000, guid: 140c960d25b032a44b7c32d4298d96cf, type: 2}
   <WwiseToMaterial>k__BackingField: {fileID: 11400000, guid: 3e4da14c4aafb224ea19bbaf5fad0a51, type: 2}
   _defaultSwitch: Default
   _tagFallback: []

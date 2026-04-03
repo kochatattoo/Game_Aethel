@@ -7,6 +7,8 @@ namespace CodeBase.Enemies
     [RequireComponent(typeof(EnemyHealth), typeof(EnemyAnimator), typeof(Follow))]
     public class EnemyDeath : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject _unitObject;
         public EnemyHealth Health;
         public EnemyAnimator Animator;
         public Follow follow;
@@ -34,6 +36,8 @@ namespace CodeBase.Enemies
         {
             if (follow != null) 
                 follow.IsDied = true;
+
+            _unitObject.SetActive(false);
 
             Animator.PlayDeath();
             SpawnDeathFx();

@@ -503,6 +503,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &6059286214944014418
 GameObject:
@@ -735,8 +736,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemy.EnemyHealth
   Animator: {fileID: 5084750759125617955}
   Attack: {fileID: 2824771914543389005}
-  _current: 4
-  _max: 4
 --- !u!114 &9007729920035589162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -749,6 +748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b573f7fa18cc949976f700c242cece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemy.EnemyDeath
+  _unitObject: {fileID: 468569053967634609}
   Health: {fileID: 3348194293326440460}
   Animator: {fileID: 5084750759125617955}
   follow: {fileID: 3838018840256695582}

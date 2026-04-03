@@ -7839,6 +7839,7 @@ GameObject:
   - component: {fileID: 7552671208123744778}
   - component: {fileID: -145745790282939351}
   - component: {fileID: 95787943915692043}
+  - component: {fileID: 8407671334706894008}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -7973,6 +7974,7 @@ MonoBehaviour:
   _attack: {fileID: 7552671208123744778}
   _health: {fileID: -145745790282939351}
   _deathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
+  _footstep: {fileID: 8407671334706894008}
 --- !u!114 &-1781129031036669746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8050,6 +8052,23 @@ MonoBehaviour:
   - {fileID: 374172815749988000}
   - {fileID: 604463019861322532}
   <OriginOfRays>k__BackingField: {fileID: 5788373618411832228}
+--- !u!114 &8407671334706894008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588233372288055087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35afe686f508dbe4e80c25776ed8f877, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Domain.Character.Core.Sfx.FootstepMaker
+  _leftFoot: {fileID: 6350293024116392757}
+  _rightFoot: {fileID: 112195160963483368}
+  _agent: {fileID: 5978339594781275438}
+  _controller: {fileID: 0}
+  _config: {fileID: 11400000, guid: 983a022354390c34f884611e8704d9fc, type: 2}
 --- !u!1 &7670628211990218450
 GameObject:
   m_ObjectHideFlags: 0
