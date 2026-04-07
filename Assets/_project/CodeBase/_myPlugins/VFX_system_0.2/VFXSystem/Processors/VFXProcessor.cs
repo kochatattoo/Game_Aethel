@@ -34,16 +34,19 @@ namespace VFXSystem.Processors
 
             Vector3 point = data.Position;
             Vector3 normal = data.Normal;
+            Transform parent = data.Parent;
+            Quaternion rotation = data.HitRotation;
             float interact = data.Interact;
 
-            if (data.MaterialType == BaseTypes.MaterialType.NoneDetected)
+            if (data.MaterialType != BaseTypes.MaterialType.NoneDetected)
             {
-                Material type = _resolver.MaterialResolve(data.GameObject);
-                _facade.CreateVFX(type, point, normal, interact);
+                // _facade.CreateVFX(data.MaterialType, point, normal, data.Parent, interact);
+                _facade.CreateVFX(data);
             }
             else
             {
-                _facade.CreateVFX(data.MaterialType, point, normal, interact);
+                Material type = _resolver.MaterialResolve(data.GameObject);
+                _facade.CreateVFX(type, point, normal, data.Parent, interact);
             }
         }
     }

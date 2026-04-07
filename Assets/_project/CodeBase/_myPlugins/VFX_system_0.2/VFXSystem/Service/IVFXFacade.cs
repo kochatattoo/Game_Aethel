@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using VFXSystem.BaseTypes;
+using VFXSystem.Resolver;
+using static UnityEngine.GraphicsBuffer;
 
 namespace VFXSystem.Service
 {
@@ -15,7 +17,8 @@ namespace VFXSystem.Service
         /// <param name="point">Точка взаимодействия</param>
         /// <param name="normal">Нормаль взаимодействия</param>
         /// <param name="impactStrenght">Сила взаимодействия</param>
-        void CreateVFX(MaterialType materialType, Vector3 point, Vector3 normal, float impactStrenght = 1);
-        void CreateVFX(Material material, Vector3 point, Vector3 normal, float impactStrenght = 1);
+        void CreateVFX(MaterialType materialType, Vector3 point, Vector3 normal, Transform target, float impactStrenght = 1);
+        void CreateVFX(Material material, Vector3 point, Vector3 normal, Transform target, float impactStrenght = 1);
+        void CreateVFX(VFXPointData data);
     }
 }

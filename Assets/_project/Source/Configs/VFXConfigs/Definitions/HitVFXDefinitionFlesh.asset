@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.Parameters.Definition.HitVFXDefinition
   <Key>k__BackingField: 2
   <ParticlePrefab>k__BackingField: {fileID: 9043412904177304056, guid: a34660e48e97edd4baa1bf99eeec065a, type: 3}
-  <DecalPrefab>k__BackingField: {fileID: 0}
+  <DecalPrefab>k__BackingField: {fileID: 2062794242566110002, guid: a5624fa28ddac1f4fb3dde00236b45a8, type: 3}
   <AdditionalEffectPrefab>k__BackingField: {fileID: 0}

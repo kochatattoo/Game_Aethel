@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HitVFXDefinitionStone
   m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.Parameters.Definition.HitVFXDefinition
   <Key>k__BackingField: 4
-  <ParticlePrefab>k__BackingField: {fileID: 0}
-  <DecalPrefab>k__BackingField: {fileID: 0}
+  <ParticlePrefab>k__BackingField: {fileID: 8071990803298268747, guid: dcf66d0ca590e664ea3a7d36ebc1c1ac, type: 3}
+  <DecalPrefab>k__BackingField: {fileID: 560237558002914311, guid: 47ce0fc1e9ee6ab49a579050358aa9f9, type: 3}
   <AdditionalEffectPrefab>k__BackingField: {fileID: 0}

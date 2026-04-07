@@ -29,6 +29,16 @@ namespace VFXSystem.Factory
         // Список интерфейсов текущих активных объектов для управления
         private readonly List<ISubVFX> _activeEffects = new();
 
+        private void Update()
+        {
+            // Если родитель (враг) внезапно исчез (был уничтожен), 
+            // но эффект еще должен жить — отцепляемся и доживаем свое время
+            if (transform.parent != null && !transform.parent.gameObject.activeInHierarchy)
+            {
+                transform.SetParent(null);
+            }
+        }
+
         public void OnSpawned(HitVFXDefinition definition, IMemoryPool pool)
         {
             Debug.Log("Spawn");
@@ -47,9 +57,10 @@ namespace VFXSystem.Factory
         /// <summary>
         /// Активирует все эффекты в заданной точке.
         /// </summary>
-        public void PlayAt(Vector3 position, Quaternion rotation, float impactScale = 1f)
+        public void PlayAt(Vector3 position, Quaternion rotation, Transform target = null, float impactScale = 1f)
         {
             Debug.Log("PlayAt VFXEntity");
+            transform.SetParent(target);
 
             transform.localScale = Vector3.one;
             transform.SetPositionAndRotation(position, rotation);
@@ -88,16 +99,28 @@ namespace VFXSystem.Factory
 
             foreach (var instance in _instantiatedPrefabs.Values)
             {
-                if (instance != null) 
-                    instance.GameObject.SetActive(false);
+                instance?.GameObject.SetActive(false);
             }
 
             _activeEffects.Clear();
+
             _currentDefinition = null;
             _pool = null;
         }
 
-        public void DespawnVFX() => _pool?.Despawn(this);
+        public void DespawnVFX()
+        {
+            if (_pool == null) return;
+
+            // 1. Отвязываем от врага, чтобы не удалиться вместе с ним
+            transform.SetParent(null);
+
+            // 2. Сбрасываем масштаб (важно для пула, чтобы следующий спавн не был гигантским)
+            transform.localScale = Vector3.one;
+
+            // 3. Возвращаем в пул (это вызовет OnDespawned)
+            _pool.Despawn(this);
+        }
 
         [CanBeNull]
         private void PrepareEffect(ISubVFX prefab, Transform container)

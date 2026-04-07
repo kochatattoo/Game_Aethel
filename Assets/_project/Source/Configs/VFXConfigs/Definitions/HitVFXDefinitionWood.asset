@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: HitVFXDefinitionWood
   m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.Parameters.Definition.HitVFXDefinition
   <Key>k__BackingField: 3
-  <ParticlePrefab>k__BackingField: {fileID: 0}
-  <DecalPrefab>k__BackingField: {fileID: 0}
+  <ParticlePrefab>k__BackingField: {fileID: 4030354469468946569, guid: 02fa102aff12bfc42ae5b8b05046d31f, type: 3}
+  <DecalPrefab>k__BackingField: {fileID: 8367002907353669825, guid: 93f6aaebc1ebc3544abc29c88fa0268f, type: 3}
   <AdditionalEffectPrefab>k__BackingField: {fileID: 0}

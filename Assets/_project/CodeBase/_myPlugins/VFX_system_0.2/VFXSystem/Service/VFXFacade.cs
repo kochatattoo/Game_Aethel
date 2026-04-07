@@ -2,6 +2,7 @@
 using VFXSystem.BaseTypes;
 using VFXSystem.Factory;
 using VFXSystem.Parameters.Definition;
+using VFXSystem.Resolver;
 
 namespace VFXSystem.Service
 {
@@ -20,33 +21,49 @@ namespace VFXSystem.Service
         }
 
         //Вызываем с помощью фабрики VFX
-        public void CreateVFX(MaterialType materialType, Vector3 point, Vector3 normal, float impactStrenght = 1)
+        public void CreateVFX(MaterialType materialType, Vector3 point, Vector3 normal, Transform target, float impactStrenght = 1)
         {
             //Надо Обработка в случае null
             var definition = _vFXSystemService.GetVFXfromMap(materialType);
             if (definition == null)
                 return;
 
-            PlayVFX(point, normal, impactStrenght, definition);
+            PlayVFX(point, normal, impactStrenght, target, definition);
         }
 
-        public void CreateVFX(Material material, Vector3 point, Vector3 normal, float impactStrenght = 1)
+        public void CreateVFX(Material material, Vector3 point, Vector3 normal, Transform target, float impactStrenght = 1)
         {
             var definition = _vFXSystemService.GetVFXfromMap(material);
             if (definition == null)
                 return;
 
-            PlayVFX(point, normal, impactStrenght, definition);
+            PlayVFX(point, normal, impactStrenght, target, definition);
         }
 
-        private void PlayVFX(Vector3 point, Vector3 normal, float impactStrenght, HitVFXDefinition definition)
+        public void CreateVFX(VFXPointData data)
+        {
+            var definition = _vFXSystemService.GetVFXfromMap(data.MaterialType);
+            if (definition == null) 
+                return;
+
+            PlayVFX(data, definition);
+        }
+
+        private void PlayVFX(Vector3 point, Vector3 normal, float impactStrenght, Transform target, HitVFXDefinition definition)
         {
             var entity = _vFXFactory.CreateVFXEntity(definition);
             // Поворачиваем эффект «от поверхности» по нормали
             var rotation = Quaternion.LookRotation(normal);
 
             //Вот тут мы передаем параметры и вызываем наши VFX'ы
-            entity.PlayAt(point, rotation, impactStrenght);
+            entity.PlayAt(point, rotation, target, impactStrenght);
+        }
+
+        private void PlayVFX(VFXPointData data, HitVFXDefinition definition)
+        {
+            var entity = _vFXFactory.CreateVFXEntity(definition);
+
+            entity.PlayAt(data.Position, data.HitRotation, data.Parent, data.Interact);
         }
     }
 }
