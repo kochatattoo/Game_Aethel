@@ -26,19 +26,15 @@ namespace VFXSystem.VFXTypes
         {
             Stop();
 
-            // Декаль становится больше от сильного удара
             transform.localScale = Vector3.one * impactScale;
             gameObject.SetActive(true);
 
-            // Сбрасываем прозрачность в 1
             if (_projector != null)
             {
                 _projector.fadeFactor = 1f;
-                // Устанавливаем размер проектора на основе силы удара
                 _projector.size = new Vector3(impactScale, impactScale, _projector.size.z);
             }
 
-            // Запускаем цикл жизни
             _fadeCoroutine = StartCoroutine(DecalLifeCycle());
         }
 
@@ -51,11 +47,9 @@ namespace VFXSystem.VFXTypes
 
         private IEnumerator DecalLifeCycle()
         {
-            // Ждем основное время жизни минус время затухания
             float waitTime = Mathf.Max(0, _duration - _fadeOutTime);
             yield return new WaitForSeconds(waitTime);
 
-            // Плавное затухание
             if (_projector != null)
             {
                 float elapsed = 0;

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using VFXSystem.Parameters.Definition;
+﻿using VFXSystem.Parameters.Definition;
 
 namespace VFXSystem.Factory
 {
@@ -12,6 +11,7 @@ namespace VFXSystem.Factory
 
         public VFXFactory(VFXEntity.Pool pool) => _pool = pool;
 
-        public VFXEntity CreateVFXEntity(HitVFXDefinition definition) => _pool.Spawn(definition, _pool);
+        public VFXEntity CreateVFXEntity(HitVFXDefinition definition) => 
+            _pool.Spawn(definition, _pool);
     }
 }

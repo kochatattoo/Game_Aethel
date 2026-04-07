@@ -22,12 +22,10 @@ namespace VFXSystem.VFXTypes
                 return;
             }
 
-            // Очищаем старые частицы, если они вдруг остались
             _particleSystem.Clear();
 
-            // Опционально: применяем масштаб удара к размеру частиц
             var main = _particleSystem.main;
-            // main.startSizeMultiplier = impactScale; 
+            main.startSizeMultiplier = impactScale;
 
             _particleSystem.Play(true); // true — проигрывать включая дочерние системы
         }

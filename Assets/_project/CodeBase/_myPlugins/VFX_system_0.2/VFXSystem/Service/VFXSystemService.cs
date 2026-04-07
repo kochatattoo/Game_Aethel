@@ -16,7 +16,7 @@ namespace VFXSystem.Service
     public class VFXSystemService : IVFXSystemService
     {
         //TODO - класс должен содержать логику управления
-        private readonly InteractResolver _interactionResolver;
+        private readonly InteractResolver _interactionResolver; // ?? А нужен ли он вообще
 
         private readonly IMap<MaterialType, HitVFXDefinition> _hitMap;
         private readonly VFXToMaterialMap _vFXToMaterialMap;
@@ -48,7 +48,8 @@ namespace VFXSystem.Service
         }
 
         [CanBeNull]
-        public HitVFXDefinition GetVFXfromMap(Material material) => GetVFXfromMap(GetMaterialType(material));
+        public HitVFXDefinition GetVFXfromMap(Material material) =>
+            GetVFXfromMap(GetMaterialType(material));
 
         private MaterialType GetMaterialType(Material material)
         {

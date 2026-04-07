@@ -3108,13 +3108,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8055904020073888615, guid: 13251fa65556cef4baa8a6aa88b9203f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2898052813556880549}
   m_SourcePrefab: {fileID: 100100000, guid: 13251fa65556cef4baa8a6aa88b9203f, type: 3}
 --- !u!4 &2831655090002929322 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7243902195250586077, guid: 13251fa65556cef4baa8a6aa88b9203f, type: 3}
   m_PrefabInstance: {fileID: 4885154246667290487}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3172750622864538640 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8055904020073888615, guid: 13251fa65556cef4baa8a6aa88b9203f, type: 3}
+  m_PrefabInstance: {fileID: 4885154246667290487}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2898052813556880549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3172750622864538640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8838bc72132aec4498401e7b8736106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Sensors.BladeSensor
+  _attackConfig: {fileID: 11400000, guid: 1c42861ab37e3fc48b3878151314c11c, type: 2}
 --- !u!1001 &5875179804221881926
 PrefabInstance:
   m_ObjectHideFlags: 0

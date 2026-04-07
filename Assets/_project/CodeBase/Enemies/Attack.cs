@@ -1,19 +1,24 @@
-﻿using CodeBase.Hero;
+﻿using CodeBase.Configs;
+using CodeBase.Hero;
 using CodeBase.Logic;
+using CodeBase.Sensors;
 using System.Linq;
 using UnityEngine;
+using VFXSystem.Processors;
+using VFXSystem.Service;
 
 namespace CodeBase.Enemies
 {
     [RequireComponent(typeof(EnemyAnimator))]
     public class Attack : MonoBehaviour
     {
-        public EnemyAnimator Animator;
+        [SerializeField]
+        private EnemyAttackConfig _config;
+        [SerializeField]
+        private EnemyAnimator _animator;
+        [SerializeField]
+        private BladeSensor _bladeSensor;
 
-        public float AttackCooldown = 3f;
-        public float Damage = 10;
-        public float Radius = 1f;
-        public float EffectiveDistance = 1f;
         public Transform AttackPoint;
 
         private Transform _heroTransform;
@@ -24,6 +29,8 @@ namespace CodeBase.Enemies
         private float _attackCooldown;
         private bool _isAttacking;
         private bool _attackIsActive;
+
+        public float Damage => _config.Damage;
 
         public void Construct(Transform heroTransform, HeroDeath heroDeath)
         {
@@ -60,7 +67,7 @@ namespace CodeBase.Enemies
 
         private void OnPlayerDie()
         {
-            Animator.PlayWin();
+            _animator.PlayWin();
             this.enabled = false;
         }
 
@@ -68,21 +75,21 @@ namespace CodeBase.Enemies
         {
             if (Hit(out Collider hit))
             {
-                PhysicsDebug.DrawDebug(StartPosition(), Radius, 1f);
+                PhysicsDebug.DrawDebug(StartPosition(), _config.Radius, 1f);
 
-                hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
+                hit.transform.GetComponent<IHealth>().TakeDamage(_config.Damage);
             }
         }
 
         private void OnAttackEnded()
         {
-            _attackCooldown = AttackCooldown;
+            _attackCooldown = _config.AttackCooldown;
             _isAttacking = false;
         }
 
         private bool Hit(out Collider hit)
         {
-            int hitcount = Physics.OverlapSphereNonAlloc(StartPosition(), Radius, _hits, _layerMask);
+            int hitcount = Physics.OverlapSphereNonAlloc(StartPosition(), _config.Radius, _hits, _layerMask);
 
             hit = _hits.FirstOrDefault();
 
@@ -107,8 +114,44 @@ namespace CodeBase.Enemies
         private void StartAttack()
         {
             transform.LookAt(_heroTransform);
-            Animator.PlayAttack1();
+            _animator.PlayAttack1();
             _isAttacking = true;
+        }
+    }
+
+    public class EnemyAttackRuntime : MonoBehaviour
+    {
+        [SerializeField] //TODO: Сделать для правой и для левой руки, можно передавать ID руки при ивенте
+        private BladeSensor _bladeSensor;
+
+        private IVFXProcessor _vFXProcessor;
+        private Attack _attack;
+        private readonly float _impactStrenght = 1.0f;
+
+        public void Construct(IVFXFacade facade, Attack attack)
+        {
+            _vFXProcessor = new VFXProcessor(facade);
+            _attack = attack;
+
+            _bladeSensor.StopSensing();
+        }
+
+        public void OpenAttackWindow() => _bladeSensor.StartSensing(ProcessHit);
+
+        public void CloseAttackWindow()
+        {
+            if (_bladeSensor != null)
+            {
+                _bladeSensor.StopSensing();
+            }
+        }
+
+        private void ProcessHit(Collider targetCollider, Vector3 bladePos)
+        {
+            if (targetCollider.transform.parent.TryGetComponent<IHealth>(out IHealth health))
+                health.TakeDamage(_attack.Damage);
+
+            _vFXProcessor?.PlayVFX(targetCollider, bladePos, _impactStrenght);
         }
     }
 }

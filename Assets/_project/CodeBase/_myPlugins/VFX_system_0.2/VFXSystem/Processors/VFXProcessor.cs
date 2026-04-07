@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
+using VFXSystem.Components;
 using VFXSystem.Resolver;
+using VFXSystem.Sensors;
 using VFXSystem.Service;
+
 namespace VFXSystem.Processors
 {
     public class VFXProcessor : IVFXProcessor
@@ -16,20 +19,6 @@ namespace VFXSystem.Processors
 
         public void PlayVFX(VFXPointData data)
         {
-            // Вот такие 2 API есть в фасаде
-            //_facade.CreateVFX(MaterialType materialType, Vector3 point, Vector3 normal, float impactStrenght = 1);
-            //_facade.CreateVFX(Material material, Vector3 point, Vector3 normal, float impactStrenght = 1);
-
-            // Резолв 2мя методами, поиск сразу / если его нет, то по материалу обращение
-
-            // Значит необходимо из полученного коллайдера - вытащить нужные данные 
-            // Скорее всего нужна новая структура - которая будет отвечать за предоставление информации в VFX
-            // Нам нужно определить следующие вещи
-            // 1. Материал интеракта - возьмем его с самого Collider
-            // 2. Точку - необходимо получить из точки хита
-            // 3. Нормаль, вообще хз откуда достаем
-            // 4. Сила удара / импакта, это параметр который передается от атаки
-
             Debug.Log($"{data.MaterialType}, {data.GameObject}, {data.Position}, {data.Normal}, {data.Interact}");
 
             Vector3 point = data.Position;
@@ -40,7 +29,6 @@ namespace VFXSystem.Processors
 
             if (data.MaterialType != BaseTypes.MaterialType.NoneDetected)
             {
-                // _facade.CreateVFX(data.MaterialType, point, normal, data.Parent, interact);
                 _facade.CreateVFX(data);
             }
             else
@@ -49,5 +37,31 @@ namespace VFXSystem.Processors
                 _facade.CreateVFX(type, point, normal, data.Parent, interact);
             }
         }
+
+        public VFXPointData ResolveVFX(Collider targetCollider, Vector3 bladePos, float impactStrenght = 1f)
+        {
+            VFXHitSensor.GetSurfacePoint(targetCollider, bladePos,
+                out Vector3 hitPoint,
+                out Vector3 hitNormal,
+                out Quaternion hitRotation);
+
+            GameObject hitObject = targetCollider.gameObject;
+
+            VFXPointData vFXPointData;
+            if (targetCollider.TryGetComponent<IHitbox>(out IHitbox hitbox))
+            {
+                vFXPointData = new VFXPointData(hitObject, hitPoint, hitNormal, hitRotation, impactStrenght, hitbox.MaterialType);
+            }
+            else
+            {
+                vFXPointData = new VFXPointData(hitObject, hitPoint, hitNormal, hitRotation, impactStrenght);
+            }
+
+            return vFXPointData;
+        }
+
+        public void PlayVFX(Collider targetCollider, Vector3 bladePos, float impactStrenght = 1f) => 
+            PlayVFX(ResolveVFX(targetCollider, bladePos, impactStrenght));
+
     }
 }

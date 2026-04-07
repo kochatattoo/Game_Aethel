@@ -8048,7 +8048,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroAttack
   _heroAnimator: {fileID: -1781129031036669746}
   _heroAttackRuntime: {fileID: 2594033981173806498}
-  _heroAttackConfig: {fileID: 0}
+  _heroAttackConfig: {fileID: 11400000, guid: f84b70f3672b2334e8ac8364d53464d4, type: 2}
 --- !u!114 &2594033981173806498
 MonoBehaviour:
   m_ObjectHideFlags: 0

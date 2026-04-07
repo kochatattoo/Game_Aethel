@@ -1,6 +1,7 @@
 ﻿using CodeBase.Configs;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
+using CodeBase.Logic.Animate;
 using UnityEngine;
 using VFXSystem.Service;
 
@@ -22,8 +23,19 @@ namespace CodeBase.Hero
         public float AttackRange { get => _heroAttackConfig.AttackRange; }
         public float Damage => _stats.Damage;
 
-        public void Construct(IVFXFacade facade) =>
+        public void Construct(IVFXFacade facade)
+        { 
             _heroAttackRuntime.Construct(facade, this);
+            _heroAnimator.StateExited += OnAnimatorStateExited;
+        }
+
+        private void OnAnimatorStateExited(AnimatorState state)
+        {
+            if (state == AnimatorState.Attack)
+            {
+                EndAttack();
+            }
+        }
 
         public void Attack(Transform enemy)
         {
@@ -41,5 +53,17 @@ namespace CodeBase.Hero
 
         public void LoadProgress(PlayerProgress progress) => 
             _stats = progress.HeroStats;
+
+        private void OnDisable()
+        {
+            EndAttack();
+        }
+
+        private void OnDestroy()
+        {
+            // Не забываем отписаться при уничтожении объекта
+            if (_heroAnimator != null)
+                _heroAnimator.StateExited -= OnAnimatorStateExited;
+        }
     }
 }

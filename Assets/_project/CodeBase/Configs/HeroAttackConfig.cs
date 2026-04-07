@@ -11,6 +11,5 @@ namespace CodeBase.Configs
 
         [field: SerializeField]
         public float AttackCooldown { get; private set; } = 1f;
-
     }
 }

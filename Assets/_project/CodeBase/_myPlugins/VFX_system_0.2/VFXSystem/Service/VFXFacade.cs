@@ -21,6 +21,15 @@ namespace VFXSystem.Service
         }
 
         //Вызываем с помощью фабрики VFX
+        public void CreateVFX(VFXPointData data)
+        {
+            var definition = _vFXSystemService.GetVFXfromMap(data.MaterialType);
+            if (definition == null) 
+                return;
+
+            PlayVFX(data, definition);
+        }
+
         public void CreateVFX(MaterialType materialType, Vector3 point, Vector3 normal, Transform target, float impactStrenght = 1)
         {
             //Надо Обработка в случае null
@@ -38,15 +47,6 @@ namespace VFXSystem.Service
                 return;
 
             PlayVFX(point, normal, impactStrenght, target, definition);
-        }
-
-        public void CreateVFX(VFXPointData data)
-        {
-            var definition = _vFXSystemService.GetVFXfromMap(data.MaterialType);
-            if (definition == null) 
-                return;
-
-            PlayVFX(data, definition);
         }
 
         private void PlayVFX(Vector3 point, Vector3 normal, float impactStrenght, Transform target, HitVFXDefinition definition)

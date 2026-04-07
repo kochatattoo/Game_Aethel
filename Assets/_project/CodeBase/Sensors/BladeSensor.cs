@@ -58,12 +58,10 @@ namespace CodeBase.Sensors
 
             Gizmos.color = _isActive ? _attackConfig.GizmoColor : new Color(_attackConfig.GizmoColor.r, _attackConfig.GizmoColor.g, _attackConfig.GizmoColor.b, 0.2f);
 
-            // Рисуем линию-ось лезвия
             Vector3 p0 = transform.TransformPoint(_attackConfig.Offset);
             Vector3 p1 = transform.TransformPoint(_attackConfig.Offset + Vector3.up * _attackConfig.BladeLength);
             Gizmos.DrawLine(p0, p1);
 
-            // Рисуем упрощенный "цилиндр" через сферу на концах и линии
             DrawWireCapsule(p0, p1, _attackConfig.Radius);
         }
 
