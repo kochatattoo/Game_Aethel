@@ -1,0 +1,47 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "4072029455",
+    "Type": "User",
+    "GUID": "{0269CB43-AAA8-464D-B531-E4BB17FD1155}",
+    "Language": "SFX",
+    "Hash": "{091B5E52-B7F7-918C-30A2-6B886032AB14}",
+    "ObjectPath": "\\SoundBanks\\Default Work Unit\\New_SoundBank",
+    "ShortName": "New_SoundBank",
+    "Path": "New_SoundBank.bnk",
+    "Media": [
+     {
+      "Id": "851113958",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "General RPG SFX Pack\\Footsteps SFX\\Footsteps 1.wav",
+      "CachePath": "BB/{BB366A8E-2492-200F-E20C-09418A5BAC82}.wem"
+     }
+    ],
+    "Events": [
+     {
+      "Id": "3157003241",
+      "Name": "Test",
+      "ObjectPath": "\\Events\\Default Work Unit\\Test",
+      "GUID": "{855BCB06-B0F0-46C3-AABB-E94AA8D8602A}",
+      "DurationType": "OneShot",
+      "DurationMin": "5.02",
+      "DurationMax": "5.02",
+      "MediaRefs": [
+       {
+        "Id": "851113958"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "FileHash": "{5B2619D2-97D8-0872-0137-23E7928249AE}"
+ }
+}
