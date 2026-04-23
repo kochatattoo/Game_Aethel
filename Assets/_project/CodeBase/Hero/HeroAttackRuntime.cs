@@ -23,10 +23,8 @@ namespace CodeBase.Hero
             _bladeSensor.StopSensing();
         }
 
-        // Вызывается из Animation Event в начале взмаха
         public void OpenAttackWindow() => _bladeSensor.StartSensing(ProcessHit);
 
-        // Вызывается из Animation Event в конце взмаха
         public void CloseAttackWindow()
         {
             if (_bladeSensor != null)

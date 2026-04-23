@@ -143,10 +143,8 @@ namespace CodeBase.Infrastructure.Factory
             lootSpawner.Construct(this, _randomService);
 
             Attack attack = monster.GetComponent<Attack>();
-            attack.Construct(HeroFacade.transform, HeroFacade.HeroDeath);
-            attack.Damage = monsterData.Damage;
-            attack.Radius = monsterData.Radius;
-            attack.EffectiveDistance = monsterData.EffectiveDistance;
+            attack.Construct(HeroFacade.transform, HeroFacade.HeroDeath, _vFXFacade);
+            //TODO: Вот тут я еще конфиг передавал MonsterStaticData - полдумать как объединить с конфигом EnemyAttackConfig
 
             monster.GetComponent<RotateToHero>()?.Consturct(HeroFacade.transform);
 

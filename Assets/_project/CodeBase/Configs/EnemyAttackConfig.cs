@@ -1,6 +1,4 @@
-﻿using CodeBase.Enemies;
-using CodeBase.Hero;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace CodeBase.Configs
 {

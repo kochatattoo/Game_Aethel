@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Infrastructure.DI.WwiseInstaller
   _wwiseInitializer: {fileID: 4867534927359713299, guid: 5bae0d73558175c4db1a5eebda464abb, type: 3}
+  _initBank: {fileID: 11400000, guid: 40bcd90b285b69f46806a90ad168bdd8, type: 2}
 --- !u!114 &7792540610869502134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4845161030547534902}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b53953e36db1d6b47b2eb306276ed71e, type: 3}
+  m_Script: {fileID: 11500000, guid: ccb7ec24065d10347871d5a5716cd42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::Infrastructure.DI.VFXInstaller
   _database: {fileID: 11400000, guid: cf2c7f2113df8a94095d0753c1c7895a, type: 2}

@@ -1233,6 +1233,75 @@ Transform:
   - {fileID: 1540958745371590242}
   m_Father: {fileID: 8124175261992045468}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1679381811796872077
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 445337756340923335}
+  - component: {fileID: 1587573702564899696}
+  - component: {fileID: 8338994327346452875}
+  m_Layer: 12
+  m_Name: Hitbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &445337756340923335
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679381811796872077}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2611548327767575309}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1587573702564899696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679381811796872077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c817f3d528ec6741a3eb4f10a8f9180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Components.Vfx.Hitbox
+  <MaterialType>k__BackingField: 2
+--- !u!136 &8338994327346452875
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1679381811796872077}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.8, z: 0}
 --- !u!1 &1780049474744498924
 GameObject:
   m_ObjectHideFlags: 0
@@ -7865,7 +7934,7 @@ GameObject:
   - component: {fileID: -1781129031036669746}
   - component: {fileID: 4449543265963705239}
   - component: {fileID: 7552671208123744778}
-  - component: {fileID: 2594033981173806498}
+  - component: {fileID: 2918309980439229268}
   - component: {fileID: -145745790282939351}
   - component: {fileID: 95787943915692043}
   - component: {fileID: 8407671334706894008}
@@ -7891,6 +7960,7 @@ Transform:
   m_Children:
   - {fileID: 8757995591266292280}
   - {fileID: 6992450490760242831}
+  - {fileID: 445337756340923335}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &656229737754803323
@@ -7961,7 +8031,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 3, z: 2}
+  m_Size: {x: 1.8, y: 3.5, z: 1}
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!195 &5978339594781275438
 NavMeshAgent:
@@ -8047,9 +8117,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroAttack
   _heroAnimator: {fileID: -1781129031036669746}
-  _heroAttackRuntime: {fileID: 2594033981173806498}
+  _heroAttackRuntime: {fileID: 2918309980439229268}
   _heroAttackConfig: {fileID: 11400000, guid: f84b70f3672b2334e8ac8364d53464d4, type: 2}
---- !u!114 &2594033981173806498
+--- !u!114 &2918309980439229268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8058,7 +8128,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7588233372288055087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7cc306986ea0eb488fe776dac4d233f, type: 3}
+  m_Script: {fileID: 11500000, guid: 7a4167bf0a405d74e9da5546fb1a09f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroAttackRuntime
   _bladeSensor: {fileID: 2919776533456435173}

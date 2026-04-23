@@ -587,6 +587,7 @@ GameObject:
   - component: {fileID: 3838018840256695582}
   - component: {fileID: 177803062584783602}
   - component: {fileID: 2824771914543389005}
+  - component: {fileID: 6093746773622666093}
   - component: {fileID: 249763969819922918}
   - component: {fileID: 3348194293326440460}
   - component: {fileID: 9007729920035589162}
@@ -716,12 +717,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8de7dedbc572246a37dcf3cde6fcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemy.Attack
-  Animator: {fileID: 5084750759125617955}
-  AttackCooldown: 3
-  Damage: 10
-  Radius: 1
-  EffectiveDistance: 0.5
-  AttackPoint: {fileID: 4769307470777656197}
+  _config: {fileID: 0}
+  _animator: {fileID: 5084750759125617955}
+  _attackRuntime: {fileID: 6093746773622666093}
+--- !u!114 &6093746773622666093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299190620966313962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78725b76a65a028428a90f2b599be214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemies.AttackRuntime
+  _bladeSensor: {fileID: 0}
 --- !u!114 &249763969819922918
 MonoBehaviour:
   m_ObjectHideFlags: 0

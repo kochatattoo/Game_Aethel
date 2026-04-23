@@ -57,6 +57,9 @@ namespace CodeBase.Hero
         private void OnDisable()
         {
             EndAttack();
+
+            if (_heroAnimator != null)
+                _heroAnimator.StateExited -= OnAnimatorStateExited;
         }
 
         private void OnDestroy()

@@ -3152,6 +3152,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2824771914543389005, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      propertyPath: _config
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d37e2c4611ce1443a971388b3e4aa6b, type: 2}
     - target: {fileID: 3003855367110946254, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       propertyPath: ViewAngle
       value: 150
@@ -3180,6 +3184,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6093746773622666093, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
+      propertyPath: _bladeSensor
+      value: 
+      objectReference: {fileID: 2898052813556880549}
     - target: {fileID: 6281855846235723745, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       propertyPath: m_LocalPosition.x
       value: 96.48

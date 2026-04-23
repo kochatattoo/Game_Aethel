@@ -11,6 +11,10 @@ namespace CodeBase.Enemies
         public EnemyAnimator Animator;
         public Attack Attack;
 
+        [Header("Settings")]
+        [SerializeField] private float _invulnerabilityDuration = 0.5f; // Длительность заморозки
+        private float _nextAllowedDamageTime;
+
         private readonly FloatReactiveProperty _current = new();
         private readonly FloatReactiveProperty _max = new();
 
@@ -25,6 +29,13 @@ namespace CodeBase.Enemies
 
         public void TakeDamage(float damage)
         {
+            // 1. Если HP уже 0 или мы в режиме "заморозки" — выходим
+            if (_current.Value <= 0 || Time.time < _nextAllowedDamageTime)
+                return;
+
+            // 2. Устанавливаем время следующего возможного получения урона
+            _nextAllowedDamageTime = Time.time + _invulnerabilityDuration;
+
             _current.Value = Mathf.Max(0, _current.Value - damage);
 
             Animator.PlayHit();

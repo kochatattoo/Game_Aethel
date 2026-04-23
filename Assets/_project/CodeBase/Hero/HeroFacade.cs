@@ -104,7 +104,7 @@ namespace CodeBase.Hero
 
         private void ConstructSensors(IAudioFacade audioFacade)
         {
-            _footstep.Construct(audioFacade);
+            //_footstep.Construct(audioFacade);
         }
     }
 }
