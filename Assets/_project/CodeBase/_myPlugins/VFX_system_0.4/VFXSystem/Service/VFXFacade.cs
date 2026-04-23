@@ -76,7 +76,7 @@ namespace VFXSystem.Service
                 Position = data.Position
             };
 
-            Debug.Log($"Validator is: {_compositeValidator}");
+            Debug.Log($"Validator is: {_compositeValidator.CanSpawn(spawnContext)} with definition {definition}");
 
             if (!_compositeValidator.CanSpawn(spawnContext))
                 return;

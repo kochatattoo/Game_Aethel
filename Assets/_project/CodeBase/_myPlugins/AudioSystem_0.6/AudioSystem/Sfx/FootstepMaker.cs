@@ -37,7 +37,7 @@ namespace Domain.Character.Core.Sfx
         [SerializeField]
         private BootsMapConfig _bootsConfig;
 
-        private BootsType _bootsType;
+        private BootsType _bootsType = BootsType.None;
 
         private IAudioFacade _audioFacade;
         //private IMovementService _movementService;
@@ -79,10 +79,10 @@ namespace Domain.Character.Core.Sfx
         /// Создает контейнер данных <see cref="FootstepResolverData{T}"/> и привязывает конкретный <see cref="FootstepSwitchResolver"/>.
         /// </summary>
         [Inject]
-        private void Construct(IAudioFacade audioFacade)
+        public void Construct(IAudioFacade audioFacade)
         {
             _audioFacade = audioFacade;
-            // _controller = personPhysics.CharacterController;
+            // _isGrounded = personPhysics.CharacterController;
             // _movementService = movementService;
 
             // _equipmentModel = equipmentModel;

@@ -5,10 +5,8 @@ using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
 using Domain.Character.Core.Sfx;
 using Infrastructure.AudioSystem;
-using System;
 using UnityEngine;
 using UnityEngine.AI;
-using VFXSystem.Processors;
 using VFXSystem.Service;
 
 namespace CodeBase.Hero
@@ -35,6 +33,8 @@ namespace CodeBase.Hero
         [Header("Sensors")]
         [SerializeField]
         private FootstepMaker _footstep;
+        [SerializeField]
+        private AudioMaker _audioMaker;
 
         //TODO - Логику обработчика стоит вынести в отдельный сервис или класс обработки всех данных, а передавать уже зависимостью в фасад
         // Так же поступить с blackdoard героя
@@ -104,7 +104,8 @@ namespace CodeBase.Hero
 
         private void ConstructSensors(IAudioFacade audioFacade)
         {
-            //_footstep.Construct(audioFacade);
+            _footstep.Construct(audioFacade);
+            _audioMaker.Construct(audioFacade);
         }
     }
 }

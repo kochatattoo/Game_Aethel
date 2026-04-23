@@ -1,4 +1,6 @@
-﻿namespace VFXSystem.Resolver
+﻿using UnityEngine;
+
+namespace VFXSystem.Resolver
 {
     public class VFXCompositeValidator<T> : IVFXValidator<T>
     {
@@ -28,7 +30,10 @@
             for (int i = 0; i < _length; i++)
             {
                 if (!_validators[i].CanSpawn(context))
-                    return false;
+                {
+                    Debug.Log($"Validators: {_validators[i]} cann't spawn VFX");
+                    return false; 
+                }
             }
             return true;
         }

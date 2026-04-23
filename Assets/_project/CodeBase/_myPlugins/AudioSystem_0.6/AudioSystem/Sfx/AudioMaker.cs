@@ -12,10 +12,10 @@ namespace Domain.Character.Core.Sfx
     {
         // TODO: Расширить компонет
         private IAudioFacade _audioFacade;
-       // private IMovementService _movementService;
-        private CharacterController _controller;
         private EnviromentResolver _enviromentResolver;
         private PortalResolver _portalResolver;
+
+        [SerializeField]
         private NavMeshAgent _agent;
         public float CurrentSpeed => _agent.velocity.magnitude;
 
@@ -24,11 +24,9 @@ namespace Domain.Character.Core.Sfx
         public PortalResolver PortalResolver => _portalResolver;
 
         [Inject]
-        private void Construct(IAudioFacade audioFacade)
+        public void Construct(IAudioFacade audioFacade)
         {
             _audioFacade = audioFacade;
-            //_controller = personPhysics.CharacterController;
-           // _movementService = movementService;
             _enviromentResolver = new(gameObject, _audioFacade);
             _portalResolver = new(this.transform);
         }

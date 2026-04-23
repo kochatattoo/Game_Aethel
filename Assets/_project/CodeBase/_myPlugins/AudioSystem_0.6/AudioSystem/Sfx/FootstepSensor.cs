@@ -40,7 +40,7 @@ namespace Domain.Character.Core.Sfx
         private void Construct(IAudioFacade audioFacade)
         {
             _audioFacade = audioFacade;
-            //_controller = personPhysics.CharacterController;
+            //_isGrounded = personPhysics.CharacterController;
             //_movementService = movementService; 
             _raycast = new(_config.CastSettings);
 
@@ -64,7 +64,7 @@ namespace Domain.Character.Core.Sfx
             if (_audioFacade == null) 
                 return;
 
-           // if (_controller != null && (!_controller.isGrounded || _movementService.CurrentSpeed01 < _minVelocity)) 
+           // if (_isGrounded != null && (!_isGrounded.isGrounded || _movementService.CurrentSpeed01 < _minVelocity)) 
             //   return;
 
             int footId = evt.intParameter;

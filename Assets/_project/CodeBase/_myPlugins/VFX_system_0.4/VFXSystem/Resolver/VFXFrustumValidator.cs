@@ -5,17 +5,18 @@ namespace VFXSystem.Resolver
     public class VFXFrustumValidator<T> : IVFXValidator<T>
     {
         private const float Margin = 0.1f;
-        private readonly Camera _camera;
+        private  Camera _camera;
 
-        public VFXFrustumValidator(Camera camera)  
+        public VFXFrustumValidator()  
         { 
-            _camera = camera; 
+            //_camera = camera;  вернут ьпозже через DI
+            _camera = Camera.main;
         }
 
         public bool CanSpawn(VFXSpawnContext<T> context)
         {
             if (_camera == null) 
-                return false;
+                _camera = Camera.main;
 
             Vector3 viewportPoint = _camera.WorldToViewportPoint(context.Position);
 
