@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 458fcd4be8e5b3940a8c72348611ab43, type: 3}
+  m_Name: HitVFXDefinitionWood
+  m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.Parameters.Definition.HitVFXDefinition
+  <Key>k__BackingField: 3
+  <ParticlePrefab>k__BackingField: {fileID: 4030354469468946569, guid: 02fa102aff12bfc42ae5b8b05046d31f, type: 3}
+  <DecalPrefab>k__BackingField: {fileID: 8367002907353669825, guid: 93f6aaebc1ebc3544abc29c88fa0268f, type: 3}
+  <AdditionalEffectPrefab>k__BackingField: {fileID: 0}

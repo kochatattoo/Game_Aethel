@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace CodeBase.Infrastructure.Services
 {
-    public class ClickInputHandler : IDisposable
+    public class ClickInputHandler : IDisposable, IClickListener
     {
         private const float MAX_DIST = 200f;
 
@@ -79,10 +79,15 @@ namespace CodeBase.Infrastructure.Services
                 targetData = new TargetData(TargetType.Attack, hit.point, targetGameObject);
             else if ((LayerInteract & (1 << targetGameObject.layer)) != 0)
                 targetData = new TargetData(TargetType.Interact, hit.point, targetGameObject);
-            else // ground
+            else if ((LayerGround & (1 << targetGameObject.layer)) != 0) // ground
                 targetData = new TargetData(TargetType.Move, hit.point, null);
+            else
+            {
+                targetData = null;
+                Debug.Log(TargetType.None);
+            }
 
-            Debug.Log(targetData.Type);
+            Debug.Log(targetData?.Type);
 
             _blackboard.SetValue(currentTarget, targetData);
         }

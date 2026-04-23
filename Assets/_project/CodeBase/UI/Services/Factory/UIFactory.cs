@@ -63,12 +63,30 @@ namespace CodeBase.UI.Services.Factory
                         _inputService));
         }
 
+        public async UniTask CreateOptionAsync()
+        {
+           OptionWindow optWindow =await CreateWindowAsync<OptionWindow>(w =>
+           w.Construct(_progressService,
+                       _saveLoadService,
+                       _reloadService,
+                       _inputService));
+        }
+
         public void CreateShop()
         {
             ShopWindow window = CreateWindow<ShopWindow>(w =>
             w.Construct(_progressService,  
                         _adsService,
                         _iapService, 
+                        _assets));
+        }
+
+        public async UniTask CreateShopAsync()
+        {
+            ShopWindow window = await CreateWindowAsync<ShopWindow>(w =>
+            w.Construct(_progressService,
+                        _adsService,
+                        _iapService,
                         _assets));
         }
 
@@ -142,6 +160,13 @@ namespace CodeBase.UI.Services.Factory
         {
             WindowConfig config = _staticData.ForWindow(ind);
             T window = Object.Instantiate(config.prefab, _uiRoot) as T;
+            return window;
+        }
+
+        private async UniTask<T> CreateWindowAsync<T>(Action<T> initializer) where T : WindowBase
+        {
+            var pool = _poolService.GetPool<T>();
+            T window = await pool.SpawnAsync(_uiRoot, initializer);
             return window;
         }
     }

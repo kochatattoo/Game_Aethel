@@ -1,0 +1,29 @@
+{
+ "ProjectInfo": {
+  "Project": {
+   "Name": "WisePetProject",
+   "GUID": "{83F89EDC-AFB1-4D9F-9FFB-4EA7A10C2C63}",
+   "Generator": "2025.1.5.9095"
+  },
+  "CacheRoot": "../.cache",
+  "Platforms": [
+   {
+    "Name": "Windows",
+    "GUID": "{0D940B9B-D5F1-4DFA-A51E-0B438CBD629B}",
+    "BasePlatform": "Windows",
+    "BasePlatformGUID": "{6E0CB257-C6C8-4C5C-8366-2740DFC441EB}",
+    "Path": "Windows"
+   }
+  ],
+  "Languages": [
+   {
+    "Name": "English(US)",
+    "Id": "684519430",
+    "GUID": "{233DB885-90C6-4555-B969-3968624085EF}",
+    "Default": "true",
+    "UseAsStandIn": "true"
+   }
+  ],
+  "FileHash": "{41A43795-5CB2-4F54-01DB-6C752C4BBD8D}"
+ }
+}

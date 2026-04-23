@@ -8,6 +8,7 @@ TagManager:
   - FxTemporaire
   - TransferToPoint
   - SaveTrigger
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - WallFade
   - Units
   - Interactable
-  - 
+  - Target
   - 
   - Player
   - Aggro

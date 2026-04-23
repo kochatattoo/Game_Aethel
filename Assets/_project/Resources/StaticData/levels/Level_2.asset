@@ -20,13 +20,13 @@ MonoBehaviour:
   - Id: Level_2_ba7dc699-fba1-4c6c-bcb8-a158e07c5040
     MonsterTypeID: 0
     position: {x: 59.91798, y: -0.09000015, z: 82.00381}
-  - Id: Level_2_e586e1a1-dc97-456c-8f7f-fa58febeb984
-    MonsterTypeID: 0
-    position: {x: 27.887623, y: -0.089998245, z: 81.79219}
   - Id: Level_2_8a36eff5-3696-4191-901e-6e6b5309e7f0
     MonsterTypeID: 0
     position: {x: 27.783573, y: -0.09000206, z: 114.24934}
-  InitialHeroPosition: {x: 45.42, y: -0.089998245, z: 98.39}
+  - Id: Level_2_e586e1a1-dc97-456c-8f7f-fa58febeb984
+    MonsterTypeID: 0
+    position: {x: 27.887623, y: -0.089998245, z: 81.79219}
+  InitialHeroPosition: {x: 45.42, y: 0.44291997, z: 98.39}
   SaveTriggers: []
   LevelTransferData:
     LevelTo: Level_1

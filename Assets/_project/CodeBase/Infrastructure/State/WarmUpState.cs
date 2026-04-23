@@ -1,9 +1,6 @@
 ﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.UI.Services.Factory;
 using Cysharp.Threading.Tasks;
-using System;
-using System.Threading.Tasks;
-
 
 namespace CodeBase.Infrastructure.State
 {
@@ -26,10 +23,7 @@ namespace CodeBase.Infrastructure.State
             _gameStateMachine.Enter<LoadProgressState>();
         }
 
-        public void Exit()
-        {
-
-        }
+        public void Exit(){ }
 
         private async void  WarmUpAsync()
         {

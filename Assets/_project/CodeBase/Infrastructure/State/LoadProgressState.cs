@@ -24,10 +24,7 @@ namespace CodeBase.Infrastructure.State
             _gameStateMachine.Enter<LoadLevelState, string>(_progressService.Progress.WorldData.PositionOnLevel.Level);
         }
 
-        public void Exit()
-        {
-
-        }
+        public void Exit() { }
 
         private void LoadProgressOrInitNew() =>
             _progressService.Progress =

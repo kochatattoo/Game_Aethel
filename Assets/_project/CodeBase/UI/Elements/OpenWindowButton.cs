@@ -14,14 +14,19 @@ namespace CodeBase.UI.Elements
             _windowService = windowService;
 
         private void Awake() =>
-            Button.AddListener(Open);
+            Button.AddListener(OpenAsync);
 
         private void OnDisable() => 
-            Button.RemoveListener(Open);
+            Button.RemoveListener(OpenAsync);
 
         private void Open()
         {
             _windowService.Open(WindowId);
+        }
+
+        private async void OpenAsync()
+        {
+           await _windowService.OpenAsync(WindowId);
         }
     }
 }
