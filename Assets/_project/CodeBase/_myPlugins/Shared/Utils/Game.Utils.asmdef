@@ -1,0 +1,19 @@
+{
+    "name": "Game.Utils",
+    "rootNamespace": "",
+    "references": [
+        "UniRx",
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

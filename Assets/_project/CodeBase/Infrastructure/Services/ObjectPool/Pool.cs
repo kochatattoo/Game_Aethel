@@ -131,6 +131,9 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
             return SpawnExpandable(parent, initializer);
         }
 
+        public async UniTask<T> SpawnExpandableAsync(Action<T> initializer = null, Transform parent = null, bool spreadOverFrames = true)
+            => await SpawnExpandableAsync(parent, initializer, spreadOverFrames);
+
         public void Despawn(T obj)
         {
             obj.OnDespawned();

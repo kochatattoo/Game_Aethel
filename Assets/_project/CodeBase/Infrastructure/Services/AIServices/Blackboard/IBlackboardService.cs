@@ -1,8 +1,9 @@
-﻿using CodeBase.Infrastructure.Services.AIServices.ArbiterLogic;
-namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem
+﻿using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+
+namespace Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem
 {
-    public interface IBlackboardService : IService, IRegisterExpert
+    public interface IBlackboardService
     {
-        Blackboard GetBlackboard();
+        public Blackboard Blackboard {get;}
     }
 }

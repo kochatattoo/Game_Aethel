@@ -19,7 +19,7 @@ namespace CodeBase.Hero.HeroBehaviour
 
         public BehaviourNode.Status Process()
         {
-            Debug.Log("Hero Move Stratey Process");
+           // Debug.Log("Hero Move Stratey Process");
 
             BlackboardKey currentTarget = _blackboard.GetOrRegisterKey("CurrentTarget");
             if (!_blackboard.TryGetValue(currentTarget, out TargetData targetData) || targetData.Type != TargetType.Move)

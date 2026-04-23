@@ -18,6 +18,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
         T SpawnExpandable(Transform parent = null, Action<T> initializer = null);
         UniTask<T> SpawnAsync(Transform parent = null, Action<T> initializer = null, bool spreadOverFrames = true);
         UniTask<T> SpawnExpandableAsync(Transform parent = null, Action<T> initializer = null, bool spreadOverFrames = true);
+        UniTask<T> SpawnExpandableAsync(Action<T> initializer = null, Transform parent = null, bool spreadOverFrames = true);
     }
 
 }

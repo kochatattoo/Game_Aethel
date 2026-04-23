@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeSettings">
+    <configurations />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8616aab4-4196-4422-9874-9fd27bd3d93c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.changes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Configs/EnemyAttackConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Configs/EnemyAttackConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Enemies/Attack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Enemies/Attack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Enemies/EnemyHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Enemies/EnemyHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroAttack.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroAttack.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroAttackRuntime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroAttackRuntime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroAttackRuntime.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroAttackRuntime.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroFacade.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroFacade.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroHealth.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Hero/HeroHealth.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Infrastructure/Factory/GameFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Infrastructure/Factory/GameFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/AmbientAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/AmbientAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/BaseAudioEventComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/BaseAudioEventComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Interfaces.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Interfaces/IAudioMaker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Interfaces/IAudioMaker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Interfaces/IPhysicAudioMaker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Interfaces/IPhysicAudioMaker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/BaseSurfaceResolverConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/BaseSurfaceResolverConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/CastSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/CastSettings.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/SurfaceAudioKeyResolverConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/SurfaceAudioKeyResolverConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/SurfaceWwiseSwitchResolverConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MaterialConfigs/SurfaceWwiseSwitchResolverConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Materials.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Materials/ISurfaceMaterial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Materials/ISurfaceMaterial.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Materials/SurfaceMaterialAudioKey.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Materials/SurfaceMaterialAudioKey.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Materials/SurfaceMaterialWwiseSwitch.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Materials/SurfaceMaterialWwiseSwitch.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MultiPositionAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/MultiPositionAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Processors.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Processors/FootstepSwitchAudioProcessor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Processors/FootstepSwitchAudioProcessor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Processors/IFootstepAudioProcessor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Processors/IFootstepAudioProcessor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Sensors.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Sensors/FootstepResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Sensors/FootstepResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Sensors/FootstepResolverData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Sensors/FootstepResolverData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Sensors/IFootstepResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Sensors/IFootstepResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Test.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Test/TestSoundAttached.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Test/TestSoundAttached.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Base.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Base/BaseSwitchTriggerAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Base/BaseSwitchTriggerAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Component.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Component/BushAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Component/BushAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Component/SwitchTriggerAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Component/SwitchTriggerAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Component/TriggerAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Component/TriggerAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/SurfaceAudioTrigger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/SurfaceAudioTrigger.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Tag.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Tag/TagBushAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Tag/TagBushAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Tag/TagSwitchTriggerAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Tag/TagSwitchTriggerAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Tag/TagTriggerAudioComponent.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/Triggers/Tag/TagTriggerAudioComponent.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/WwiseBackgroundAudio.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Components/WwiseBackgroundAudio.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/AudioSystem.Editor.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/AudioSystem.Editor.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/Resolver.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/Resolver/AudioKeyDrawer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/Resolver/AudioKeyDrawer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/Windows.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/Windows/AudioDatabaseEditorWindow.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Editor/Audio/Editor/Windows/AudioDatabaseEditorWindow.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioEventAsset.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioEventAsset.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioParameterAsset.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioParameterAsset.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioStateAsset.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioStateAsset.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioSwitchAsset.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/AudioSwitchAsset.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/WwiseBankAsset.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Events/WwiseBankAsset.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Factory.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Factory/AudioComponentFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Factory/AudioComponentFactory.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Factory/AudioEntity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Factory/AudioEntity.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Factory/IAudioComponentFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Factory/IAudioComponentFactory.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Game.Infrastructure.AudioSystem.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Game.Infrastructure.AudioSystem.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/AudioDatabase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/AudioDatabase.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/DTO.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/DTO/AudioKey.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/DTO/AudioKey.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/AudioKeyToMaterialConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/AudioKeyToMaterialConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/BaseWwiseToMaterialConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/BaseWwiseToMaterialConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/WwiseAudioConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/WwiseAudioConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/WwiseToMaterialConfig.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/Configs/WwiseToMaterialConfig.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/WwiseSwitchMaping.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/WwiseSwitchMaping.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/WwiseToMaterial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/WwiseToMaterial.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/WwiseValueMaping.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Parameters/Maping/WwiseValueMaping.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/BaseSurfaceResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/BaseSurfaceResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/ISurfaceResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/ISurfaceResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/PhysicSurfaceRaycast.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/PhysicSurfaceRaycast.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceComponentResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceComponentResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceDefaultResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceDefaultResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceMaterialResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceMaterialResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceTagResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceTagResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceTerrainResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Resolvers/SurfaceTerrainResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/AudioFacade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/AudioFacade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/AudioService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/AudioService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/AudioStateModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/AudioStateModel.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/IAudioFacade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/IAudioFacade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/IAudioService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Service/IAudioService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/EventWrapper.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/EventWrapper.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/MultiBoolDominance.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/MultiBoolDominance.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/MultiSourceBool.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/MultiSourceBool.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/ScriptableObjectAudioNames.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Shared/ScriptableObjectAudioNames.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Utils.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Utils/AudioKeyAttribute.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Utils/AudioKeyAttribute.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Utils/AudioKeyType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Utils/AudioKeyType.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Utils/AudioValidator.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/Utils/AudioValidator.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseEngineInitializer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseEngineInitializer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseInitializer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseInitializer.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseEventsKeys.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseEventsKeys.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseParameterKeys.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseParameterKeys.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseStateKeys.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseStateKeys.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseSwitchKeys.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/AudioSystem/WwiseSystem/WwiseKeys/WwiseSwitchKeys.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/DI.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/DI/SoundInstaller.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/DI/SoundInstaller.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/DI/WwiseInstaller.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/DI/WwiseInstaller.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/Sfx.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/Sfx/AudioMaker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/Sfx/AudioMaker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/Sfx/FootstepMaker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/AudioSystem_0.5/Sfx/FootstepMaker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/BaseTypes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/BaseTypes/MaterialType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/BaseTypes/MaterialType.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Components.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Components/IHitbox.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Components/IHitbox.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/DI.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/DI/VFXInstaller.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/DI/VFXInstaller.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Factory.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Factory/IVFXFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Factory/IVFXFactory.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Factory/VFXEntity.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Factory/VFXEntity.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Factory/VFXFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Factory/VFXFactory.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Game.Infrastructure.VFXSystem.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Game.Infrastructure.VFXSystem.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Definition.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Definition/HitVFXDefinition.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Definition/HitVFXDefinition.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Definition/VFXDefinitionsMapConfigs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Definition/VFXDefinitionsMapConfigs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/IMap.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/IMap.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/IMapConfigs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/IMapConfigs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/IValue.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/IValue.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/Mapping.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Mapping/Mapping.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/MaterialMap.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/MaterialMap/VFXMapToMaterialConfigs.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/MaterialMap/VFXMapToMaterialConfigs.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/MaterialMap/VFXToMaterial.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/MaterialMap/VFXToMaterial.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/MaterialMap/VFXToMaterialMap.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/MaterialMap/VFXToMaterialMap.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Settings.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Settings/VFXHitSensorSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/Settings/VFXHitSensorSettings.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/VFXDatabase.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Parameters/VFXDatabase.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Processors.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Processors/IVFXProcessor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Processors/IVFXProcessor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Processors/VFXProcessor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Processors/VFXProcessor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Resolver.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Resolver/InteractResolver.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Resolver/InteractResolver.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Resolver/VFXPointData.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Resolver/VFXPointData.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Sensors.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Sensors/VFXHitSensor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Sensors/VFXHitSensor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Sensors/VFXSensor.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Sensors/VFXSensor.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/IVFXFacade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/IVFXFacade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/IVFXSystemService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/IVFXSystemService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/VFXFacade.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/VFXFacade.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/VFXSystemService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Service/VFXSystemService.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Shared.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Shared/ScriptableObjectVFXNames.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/Shared/ScriptableObjectVFXNames.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/AdditionalSubVFX.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/AdditionalSubVFX.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/DecalSubVFX.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/DecalSubVFX.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/ISubVFX.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/ISubVFX.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/ParticleSubVFX.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/_myPlugins/VFX_system_0.2/VFXSystem/VFXTypes/ParticleSubVFX.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Resources/ProjectContext.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Resources/ProjectContext.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Resources_moved/Enemies/Enemy.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Resources_moved/Enemies/Enemy.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Resources_moved/Enemies/Enemy_Skeleton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Resources_moved/Enemies/Enemy_Skeleton.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Resources_moved/Hero/Hero.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Resources_moved/Hero/Hero.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Source/Audio/Components/AudioEntity.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Source/Audio/Components/AudioEntity.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Source/Configs/Settings/SkeletonAttackConfig.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Source/Configs/Settings/SkeletonAttackConfig.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/Source/Configs/Settings/SkeletonAttackConfig.asset.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Source/Configs/Settings/SkeletonAttackConfig.asset.meta" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="cachedIndexableFilesCount" value="2" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3CL0YP8Vh4w8M3nY3WoEZyNKeVm" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Device#class com.jetbrains.rider.plugins.unity.run.devices.UnityEditorDeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider#Unity Attach To: Attach to": "Unity Editor",
+    "DeviceKind#com.jetbrains.rider.plugins.unity.run.devices.UnityDevicesProvider": "Unity Editor",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "Unity Attach To.Attach to.executor": "Debug",
+    "cidr.known.project.marker": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "ref/added-my-plugins",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "ml.llm.LLMThirdPartyAiProvidersConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager" selected="Unity Attach To.Attach to">
+    <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\unity\6000.3.5f2\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-projectPath D:\UnityPetProject\PetProject -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="D:\UnityPetProject\PetProject" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\unity\6000.3.5f2\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath D:\UnityPetProject\PetProject -testResults Logs/results.xml -logFile Logs/Editor.log -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="D:\UnityPetProject\PetProject" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="ENV_FILE_PATHS" value="" />
+      <option name="REDIRECT_INPUT_PATH" value="" />
+      <option name="MIXED_MODE_DEBUG" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" useMixedMode="false">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="runtimes">
+        <list />
+      </option>
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to" type="UnityDevicePlayer" factoryName="UnityAttachToDevicePlayer">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8616aab4-4196-4422-9874-9fd27bd3d93c" name="Changes" comment="" />
+      <created>1776149592589</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1776149592589</updated>
+      <workItem from="1776149597915" duration="287000" />
+      <workItem from="1776151885287" duration="191000" />
+      <workItem from="1776152115567" duration="141000" />
+      <workItem from="1776152747600" duration="150000" />
+      <workItem from="1776157776105" duration="252000" />
+      <workItem from="1776869967390" duration="61000" />
+      <workItem from="1776951542885" duration="1198000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityProjectDiscoverer">
+    <option name="hasUnityReference" value="true" />
+    <option name="unityProject" value="true" />
+    <option name="unityProjectFolder" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="3" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>

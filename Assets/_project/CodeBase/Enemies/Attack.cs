@@ -1,43 +1,51 @@
-﻿using CodeBase.Hero;
-using CodeBase.Logic;
-using System.Linq;
+﻿using CodeBase.Configs;
+using CodeBase.Hero;
+using CodeBase.Logic.Animate;
 using UnityEngine;
+using VFXSystem.Service;
 
 namespace CodeBase.Enemies
 {
     [RequireComponent(typeof(EnemyAnimator))]
-    public class Attack : MonoBehaviour
+    public class Attack : MonoBehaviour, IAttack
     {
-        public EnemyAnimator Animator;
-
-        public float AttackCooldown = 3f;
-        public float Damage = 10;
-        public float Radius = 1f;
-        public float EffectiveDistance = 1f;
-        public Transform AttackPoint;
+        [SerializeField]
+        private EnemyAttackConfig _config;
+        [SerializeField]
+        private EnemyAnimator _animator;
+        [SerializeField]
+        private AttackRuntime _attackRuntime;
 
         private Transform _heroTransform;
         private HeroDeath _heroDeath;
 
-        private readonly Collider[] _hits = new Collider[1];
-        private int _layerMask;
         private float _attackCooldown;
         private bool _isAttacking;
         private bool _attackIsActive;
 
-        public void Construct(Transform heroTransform, HeroDeath heroDeath)
+        public float Damage => _config.Damage;
+
+        public void Construct(Transform heroTransform, HeroDeath heroDeath, IVFXFacade facade)
         {
-            _layerMask = 1 << LayerMask.NameToLayer("Player");
             _heroTransform = heroTransform;
 
             _heroDeath = heroDeath;
             _heroDeath.PlayerDie += OnPlayerDie;
+            _animator.StateExited += OnAnimatorStateExited;
+
+            _attackRuntime.Construct(facade, this);
         }
 
-        public void ResetAttack()
+        private void OnAnimatorStateExited(AnimatorState state)
         {
-            OnAttackEnded();
+            if (state == AnimatorState.Attack)
+            {
+                OnAttackEnded();
+            }
         }
+
+        public void ResetAttack() => 
+            OnAttackEnded();
 
         public void DisableAttack() =>
             _attackIsActive = false;
@@ -56,41 +64,27 @@ namespace CodeBase.Enemies
         private void OnDisable()
         {
             _heroDeath.PlayerDie -= OnPlayerDie;
+            _animator.StateExited -= OnAnimatorStateExited;
         }
 
         private void OnPlayerDie()
         {
-            Animator.PlayWin();
+            _animator.PlayWin();
             this.enabled = false;
         }
 
         private void OnAttack()
         {
-            if (Hit(out Collider hit))
-            {
-                PhysicsDebug.DrawDebug(StartPosition(), Radius, 1f);
-
-                hit.transform.GetComponent<IHealth>().TakeDamage(Damage);
-            }
+           _attackRuntime.OpenAttackWindow();
         }
 
         private void OnAttackEnded()
         {
-            _attackCooldown = AttackCooldown;
+            _attackRuntime.CloseAttackWindow();
+
+            _attackCooldown = _config.AttackCooldown;
             _isAttacking = false;
         }
-
-        private bool Hit(out Collider hit)
-        {
-            int hitcount = Physics.OverlapSphereNonAlloc(StartPosition(), Radius, _hits, _layerMask);
-
-            hit = _hits.FirstOrDefault();
-
-            return hitcount > 0;
-        }
-
-        private Vector3 StartPosition() =>
-            new Vector3(AttackPoint.position.x, AttackPoint.position.y, AttackPoint.position.z);
 
         private void UpdateCooldown()
         {
@@ -107,7 +101,7 @@ namespace CodeBase.Enemies
         private void StartAttack()
         {
             transform.LookAt(_heroTransform);
-            Animator.PlayAttack1();
+            _animator.PlayAttack1();
             _isAttacking = true;
         }
     }
