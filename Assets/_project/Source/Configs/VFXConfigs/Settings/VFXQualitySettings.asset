@@ -15,4 +15,10 @@ MonoBehaviour:
   DefaultLowQualityEffect: {fileID: 11400000, guid: 5d9e0e680e5b6634988b3064dfab951e, type: 2}
   _vfxList:
   - <Key>k__BackingField: 0
-    <Value>k__BackingField: {fileID: 0}
+    <Value>k__BackingField: {fileID: 11400000, guid: 38fb89452c8bf1049bfa5025e5b197db, type: 2}
+  - <Key>k__BackingField: 1
+    <Value>k__BackingField: {fileID: 11400000, guid: 6e5e0c7812d37ef4f952931f68c1ed43, type: 2}
+  - <Key>k__BackingField: 2
+    <Value>k__BackingField: {fileID: 11400000, guid: 6e5e0c7812d37ef4f952931f68c1ed43, type: 2}
+  - <Key>k__BackingField: 0
+    <Value>k__BackingField: {fileID: 11400000, guid: 3b9ab16171d1fdf44970f67eb7e43e68, type: 2}

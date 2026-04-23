@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::AudioSystem.Components.EquipmentConfigs.BootsMapConfig
   _equipmentAudioDatas:
   - Value: 1
-    Switch: {fileID: 0}
-  <DefaultSwitch>k__BackingField: {fileID: 0}
+    Switch: {fileID: 11400000, guid: d12d2ab4d4009d345b0ef6135564058d, type: 2}
+  <DefaultSwitch>k__BackingField: {fileID: 11400000, guid: d12d2ab4d4009d345b0ef6135564058d, type: 2}
