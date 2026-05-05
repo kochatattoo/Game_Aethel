@@ -7937,8 +7937,8 @@ GameObject:
   - component: {fileID: 2918309980439229268}
   - component: {fileID: -145745790282939351}
   - component: {fileID: 95787943915692043}
-  - component: {fileID: 8407671334706894008}
-  - component: {fileID: 8495979489376999187}
+  - component: {fileID: 2265190440677676366}
+  - component: {fileID: 2795519573117100644}
   m_Layer: 12
   m_Name: Hero
   m_TagString: Player
@@ -8074,8 +8074,8 @@ MonoBehaviour:
   _attack: {fileID: 7552671208123744778}
   _health: {fileID: -145745790282939351}
   _deathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
-  _footstep: {fileID: 8407671334706894008}
-  _audioMaker: {fileID: 8495979489376999187}
+  _footstep: {fileID: 2795519573117100644}
+  _audioMaker: {fileID: 2265190440677676366}
 --- !u!114 &-1781129031036669746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8165,7 +8165,7 @@ MonoBehaviour:
   - {fileID: 374172815749988000}
   - {fileID: 604463019861322532}
   <OriginOfRays>k__BackingField: {fileID: 5788373618411832228}
---- !u!114 &8407671334706894008
+--- !u!114 &2265190440677676366
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8174,29 +8174,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 7588233372288055087}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35afe686f508dbe4e80c25776ed8f877, type: 3}
+  m_Script: {fileID: 11500000, guid: dd17a001b863ab74f852a73f2c4c1dc3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Domain.Character.Core.Sfx.FootstepMaker
-  _audioMaker: {fileID: 8495979489376999187}
+  m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Domain.Character.Core.Sfx.AudioMaker
+  _agent: {fileID: 5978339594781275438}
+--- !u!114 &2795519573117100644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7588233372288055087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e2b269f6b051b84ba7b0c385eaab27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Domain.Character.Core.Sfx.FootstepMaker
+  _audioMaker: {fileID: 2265190440677676366}
   _leftFoot: {fileID: 6350293024116392757}
   _rightFoot: {fileID: 112195160963483368}
   _agent: {fileID: 5978339594781275438}
   _threshold: 0.3
   _config: {fileID: 11400000, guid: 983a022354390c34f884611e8704d9fc, type: 2}
   _bootsConfig: {fileID: 11400000, guid: a4852efefee47b94993b7feaab5202d8, type: 2}
---- !u!114 &8495979489376999187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588233372288055087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39d01243255c30a4fa0fd756de2c285a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Domain.Character.Core.Sfx.AudioMaker
-  _agent: {fileID: 5978339594781275438}
 --- !u!1 &7670628211990218450
 GameObject:
   m_ObjectHideFlags: 0
