@@ -247,6 +247,18 @@ namespace Infrastructure.AudioSystem
         }
         #endregion
 
+        #region System
+        public void Register(GameObject gameObject)
+        {
+            _audioService.RegisterGameObject(gameObject);
+        }
+
+        public void UnRegister(GameObject gameObject)
+        {
+            _audioService.UnregisterGameObject(gameObject);
+        }
+        #endregion
+
         private void ApplyEnvironmentToRequest(AudioRequest request, IAudioEnviromentMaker source)
         {
             if (source == null)

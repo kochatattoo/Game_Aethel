@@ -16,11 +16,6 @@ namespace Infrastructure.AudioSystem.Components
 
         private bool _isPlayerInside;
 
-        public override void Play()
-        {
-            base.Play();
-        }
-
         protected override void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent<IAudioMaker>(out IAudioMaker maker))
@@ -35,29 +30,25 @@ namespace Infrastructure.AudioSystem.Components
 
         private void Update()
         {
-            if (!_isUpdating || !_isPlayerInside || _audioMaker == null)
-                return;
-
-            SetParameter();
+            if (_isUpdating && _isPlayerInside && _audioMaker != null)
+            {
+                SetParameter();
+            }
         }
 
         private void SetParameter()
         {
-            if (_audioMaker == null || _speedRtpc?.WwiseParameter == null)
+            if (_audioMaker == null || _speedRtpc.WwiseParameter == null)
                 return;
 
             float speed = _audioMaker.CurrentSpeed;
             float finalSpeed = speed > _minSpeedToSound ? speed : 0;
-            Debug.Log($"Final speed{finalSpeed}");
 
             _audioFacade.SetParameter(_speedRtpc.WwiseParameter, finalSpeed, gameObject);
         }
 
         protected override void OnTriggerExit(Collider other)
         {
-            if (_audioMaker != null && _speedRtpc?.WwiseParameter != null)
-                _audioFacade.SetParameter(_speedRtpc.WwiseParameter, 0, gameObject);
-
             _isPlayerInside = false;
 
             base.OnTriggerExit(other);

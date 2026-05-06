@@ -15,7 +15,7 @@ namespace Infrastructure.AudioSystem
     /// Управляет жизненным циклом звуков через билдеры, контролирует глобальные параметры 
     /// и предоставляет прямой доступ к модификации звуковых объектов в движке Wwise.
     /// </summary>
-    public interface IAudioFacade: IAudioFacadeAbstr
+    public interface IAudioFacade: IAudioFacadeAbstr, IAudioRegistrator
     {
         /// <summary> Глобальный уровень громкости всей системы. </summary>
         IReadOnlyReactiveProperty<float> GlobalVolume { get; }

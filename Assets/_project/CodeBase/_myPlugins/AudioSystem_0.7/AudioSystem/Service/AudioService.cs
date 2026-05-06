@@ -18,7 +18,7 @@ namespace Infrastructure.AudioSystem
     /// </summary>
     public class AudioService : IAudioService, IInitializable, IDisposable
     {
-        private readonly AudioStateModel _model; 
+        private readonly AudioStateModel _model;
         private readonly AudioDatabase _database;
         private readonly WwiseValueMaping _wwiseValueMaping;
         private readonly AkAuxSendArray _auxSendBuffer = new AkAuxSendArray();
@@ -128,9 +128,9 @@ namespace Infrastructure.AudioSystem
 
             AK.Wwise.Event wwiseEvent = _wwiseValueMaping.GetEvent(eventKey);
 
-            return PostEvent(wwiseEvent,target, callback,callbackType);
+            return PostEvent(wwiseEvent, target, callback, callbackType);
         }
-       
+
         public void SetRtpc(AK.Wwise.RTPC rTPC, float value, GameObject target = null)
         {
             //Если бьем по врагу и передаем силу удара — используем SetRtpc.
@@ -139,6 +139,9 @@ namespace Infrastructure.AudioSystem
                 Debug.LogWarning($"[AudioService] Parameter for {rTPC.Name} is not assigned in AudioDatabase!");
                 return;
             }
+
+            if (!AudioValidator.IsGameObjectReady(target, $"RTCP({rTPC.Name})"))
+                return;
 
             float clampedValue = AudioValidator.ClampRtpc(value);
             rTPC.SetValue(target, clampedValue);
@@ -153,7 +156,7 @@ namespace Infrastructure.AudioSystem
 
             AK.Wwise.RTPC wwiseParam = _wwiseValueMaping.GetParameter(rtpcName);
 
-           SetRtpc(wwiseParam,value,target);
+            SetRtpc(wwiseParam, value, target);
         }
 
         public void SetParameter(AudioParameterAsset parameter, float value, GameObject target = null)
@@ -174,6 +177,9 @@ namespace Infrastructure.AudioSystem
                 Debug.LogWarning("[AudioService] Attempted to set Switch on a null GameObject.");
                 return;
             }
+
+            if (!AudioValidator.IsGameObjectReady(target, $"Switch({switchValue.Name})"))
+                return;
 
             if (switchValue != null && switchValue.IsValid())
             {
@@ -210,7 +216,7 @@ namespace Infrastructure.AudioSystem
 
         public void SetMultiPosition(GameObject target, List<Transform> positions, AkMultiPositionType type)
         {
-            if (positions == null || positions.Count == 0) 
+            if (positions == null || positions.Count == 0)
                 return;
 
             if (!AudioValidator.IsGameObjectReady(target, "MultiPosition Update"))
@@ -236,7 +242,10 @@ namespace Infrastructure.AudioSystem
 
         public void ClearPositions(GameObject target)
         {
-            if (target == null) 
+            if (target == null)
+                return;
+
+            if (!AudioValidator.IsGameObjectReady(target, "MultiPosition"))
                 return;
 
             AkUnitySoundEngine.SetMultiplePositions(target, (AkPositionArray)null, 0, AkMultiPositionType.AkMultiPositionType_MultiDirections);
@@ -246,7 +255,10 @@ namespace Infrastructure.AudioSystem
 
         public void SetGameObjectAuxSend(GameObject target, AK.Wwise.AuxBus auxBus)
         {
-            if (target == null) 
+            if (target == null)
+                return;
+
+            if (!AudioValidator.IsGameObjectReady(target, "AuxSend"))
                 return;
 
             _auxSendBuffer.Reset();
@@ -264,9 +276,13 @@ namespace Infrastructure.AudioSystem
             AK.Wwise.AuxBus auxBasValue = _wwiseValueMaping.GetAuxBus(auxBus);
             SetGameObjectAuxSend(target, auxBasValue);
         }
+
         public void SetBlendedAuxSends(GameObject target, AK.Wwise.AuxBus auxBusIdA, float volumeA, AK.Wwise.AuxBus auxBusIdB, float volumeB)
         {
             if (target == null)
+                return;
+
+            if (!AudioValidator.IsGameObjectReady(target, "BlendedAuxSends"))
                 return;
 
             _auxSendBuffer.Reset();
@@ -279,6 +295,10 @@ namespace Infrastructure.AudioSystem
         public void ResetGameObjectAuxSend(GameObject target)
         {
             _auxSendBuffer.Reset();
+
+            if (!AudioValidator.IsGameObjectReady(target, "Reset AuxSend"))
+                return;
+
             AkUnitySoundEngine.SetGameObjectAuxSendValues(target, _auxSendBuffer, 0);
         }
 

@@ -24,6 +24,8 @@ namespace Infrastructure.AudioSystem.Components
 
         protected virtual void Start()
         {
+            _audioFacade.Register(gameObject);
+
             if (_playOnStart) 
                 Play();
         }
@@ -41,6 +43,11 @@ namespace Infrastructure.AudioSystem.Components
         protected virtual void OnDisable()
         {
             Stop();
+        }
+
+        private void OnDestroy()
+        {
+            _audioFacade.UnRegister(gameObject);
         }
     }
 }
