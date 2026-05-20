@@ -1,0 +1,26 @@
+<Solution>
+  <Folder Name="/root/">
+    <File Path="README.md" />
+    <File Path="Directory.Build.props" />
+    <File Path=".gitignore" />
+    <File Path="exclusion.dic" />
+    <File Path=".editorconfig" />
+  </Folder>
+  <Folder Name="/sandbox/">
+    <Project Path="sandbox/Benchmark/Benchmark.csproj" />
+    <Project Path="sandbox/ConsoleApp/ConsoleApp.csproj" />
+    <Project Path="sandbox/ConsoleAppNativeAOT/ConsoleAppNativeAOT.csproj" />
+    <Project Path="sandbox/ConsoleAppNet6/ConsoleAppNet6.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/FileGen/FileGen.csproj" />
+    <Project Path="src/ZLinq.DropInGenerator/ZLinq.DropInGenerator.csproj" />
+    <Project Path="src/ZLinq.FileSystem/ZLinq.FileSystem.csproj" />
+    <Project Path="src/ZLinq.Godot/ZLinq.Godot.csproj" />
+    <Project Path="src/ZLinq.Json/ZLinq.Json.csproj" />
+    <Project Path="src/ZLinq/ZLinq.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ZLinq.Tests/ZLinq.Tests.csproj" />
+  </Folder>
+</Solution>

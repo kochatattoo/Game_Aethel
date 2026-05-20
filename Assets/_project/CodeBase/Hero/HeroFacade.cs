@@ -5,6 +5,7 @@ using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
 using Domain.Character.Core.Sfx;
 using Infrastructure.AudioSystem;
+using Infrastructure.AudioSystem.Factory.GameComponents;
 using UnityEngine;
 using UnityEngine.AI;
 using VFXSystem.Service;
@@ -45,11 +46,15 @@ namespace CodeBase.Hero
         public HeroHealth Health {  get { return _health; } }
         public HeroDeath HeroDeath { get { return _death; } }
 
-        public void Construct(IInputHandlerService inputHandlerService, IBlackboardService blackboardService, IAudioFacade audioFacade, IVFXFacade facade)
+        public void Construct(IInputHandlerService inputHandlerService,
+            IBlackboardService blackboardService, 
+            IAudioFacade audioFacade,
+            IFootstepAudioProcessorFactory processorFactory,
+            IVFXFacade facade)
         {
             ConstructControl(inputHandlerService, blackboardService, facade);
             ConstructComponents();
-            ConstructSensors(audioFacade);
+            ConstructSensors(audioFacade, processorFactory);
         }
 
         public void Initialize()
@@ -102,9 +107,9 @@ namespace CodeBase.Hero
             _death = new HeroDeath(transform, _health, _attack, _move, _animator, _deathFx);
         }
 
-        private void ConstructSensors(IAudioFacade audioFacade)
+        private void ConstructSensors(IAudioFacade audioFacade, IFootstepAudioProcessorFactory processorFactory)
         {
-            _footstep.Construct(audioFacade);
+            _footstep.Construct(audioFacade, processorFactory);
             _audioMaker.Construct(audioFacade);
         }
     }

@@ -15,6 +15,7 @@ using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
 using Cysharp.Threading.Tasks;
 using Infrastructure.AudioSystem;
+using Infrastructure.AudioSystem.Factory.GameComponents;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -37,6 +38,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IBlackboardService _blackboardService;
         private readonly IInputHandlerService _inputHandlerService;
         private readonly IAudioFacade _audioFacade;
+        private readonly IFootstepAudioProcessorFactory _processorFactory;
         private readonly IVFXFacade _vFXFacade;
 
         private HeroFacade HeroFacade { get; set; }
@@ -54,6 +56,7 @@ namespace CodeBase.Infrastructure.Factory
                            IBlackboardService blackboardService,
                            IInputHandlerService inputHandlerService,
                            IAudioFacade audioFacade,
+                           IFootstepAudioProcessorFactory processorFactory,
                            IVFXFacade vFXFacade)
         {
             _assets = asset;
@@ -67,6 +70,7 @@ namespace CodeBase.Infrastructure.Factory
             _blackboardService = blackboardService;
             _inputHandlerService = inputHandlerService;
             _audioFacade = audioFacade;
+            _processorFactory = processorFactory;
             _vFXFacade = vFXFacade;
         }
 
@@ -106,7 +110,7 @@ namespace CodeBase.Infrastructure.Factory
             GameObject HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
             HeroFacade = HeroGameObject.GetComponent<HeroFacade>();
-            HeroFacade.Construct(_inputHandlerService, _blackboardService, _audioFacade, _vFXFacade);
+            HeroFacade.Construct(_inputHandlerService, _blackboardService, _audioFacade, _processorFactory, _vFXFacade);
             HeroFacade.Initialize();
 
             //HeroGameObject.GetComponent<HeroMove>()

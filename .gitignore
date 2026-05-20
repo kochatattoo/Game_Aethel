@@ -95,9 +95,12 @@ crashlytics-build.properties
 Assets/StreamingAssets/Audio/GeneratedSoundBanks/
 
 # --- Unity-Wwise Integration ---
-# Этот файл часто вызывает конфликты слияния (Merge Conflicts), 
+# Этот файл часто вызывает конфликты слияния (Merge Conflicts),
 # но если его игнорировать, у других разработчиков могут "отвалиться" связи.
 # Если работаете в команде, лучше оставить под контролем, но если он постоянно мешает:
-# AkWwiseProjectData.asset 
+# AkWwiseProjectData.asset
+
+/[Aa]ssets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Misc/GoogleSecret.cs
+
 
 # End of https://www.toptal.com/developers/gitignore/api/unity

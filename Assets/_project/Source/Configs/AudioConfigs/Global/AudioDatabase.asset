@@ -16,9 +16,9 @@ MonoBehaviour:
   <InitialSize>k__BackingField: 10
   <DefaultGlobalVolume>k__BackingField: 75
   <AudioConfig>k__BackingField: {fileID: 11400000, guid: 825b3663b65b519468f7975f5ae5d432, type: 2}
-  <DefaultFadeSettings>k__BackingField: {fileID: 11400000, guid: 219261701dbb787469627c080f55fdb0, type: 2}
   _allParameters:
   - {fileID: 11400000, guid: 3e8d12f0e446e0e42b7c515f9961e36c, type: 2}
   <GlobalEvents>k__BackingField:
   - {fileID: 11400000, guid: a831eb8dbea29c047aa139873844c69f, type: 2}
-  <EnableSpatialization>k__BackingField: 1
+  <SurfaceResolverConfig>k__BackingField: {fileID: 11400000, guid: 983a022354390c34f884611e8704d9fc, type: 2}
+  <BootsMapConfig>k__BackingField: {fileID: 11400000, guid: a4852efefee47b94993b7feaab5202d8, type: 2}

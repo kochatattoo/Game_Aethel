@@ -406,7 +406,7 @@ MonoBehaviour:
     initialListenerList: []
     useDefaultListeners: 1
   isEnvironmentAware: 0
-  isStaticObject: 0
+  isStaticObject: 1
   usePositionOffsetData: 0
   m_positionOffsetData:
     KeepMe: 0

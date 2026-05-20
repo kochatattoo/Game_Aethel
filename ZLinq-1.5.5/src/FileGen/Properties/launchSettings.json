@@ -1,0 +1,23 @@
+{
+  "profiles": {
+    "Default": {
+      "commandName": "Project",
+      "commandLineArgs": "dropin",
+      "workingDirectory": "."
+    },
+    "Sequence": {
+      "commandName": "Project",
+      "commandLineArgs": "sequence",
+      "workingDirectory": "."
+    },
+    "AppendFormatted": {
+      "commandName": "Project",
+      "commandLineArgs": "interpolated-string-handler-append-formatted",
+      "workingDirectory": "."
+    },
+    "Help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    }
+  }
+}

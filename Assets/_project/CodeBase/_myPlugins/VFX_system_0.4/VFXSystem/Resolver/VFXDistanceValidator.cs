@@ -11,7 +11,6 @@ namespace VFXSystem.Resolver
 
         public VFXDistanceValidator(VFXRestrictionSettings config)  
         { 
-
             _config = config;
             // _mainCamera = camera; вернуть на присваивание камеры из DI
             _mainCamera = Camera.main;
