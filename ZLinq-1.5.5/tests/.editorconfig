@@ -1,0 +1,6 @@
+﻿root = false
+
+[*.{cs}]
+dotnet_diagnostic.CA1806.severity = silent # CA1806: Do not ignore method results
+dotnet_diagnostic.CA1861.severity = silent # CA1861: Avoid constant arrays as arguments
+

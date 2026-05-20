@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "Default": {
+      "commandName": "Project",
+      "commandLineArgs": "--filter-method 'ZLinq.Tests.SelectManyTests.ParameterizedTests*'",
+      "workingDirectory": "."
+    },
+    "Run all tests": {
+      "commandName": "Project",
+      "commandLineArgs": "",
+      "workingDirectory": "."
+    },
+    "Run ZLinq tests with HTML report": {
+      "commandName": "Project",
+      "commandLineArgs": "--filter-namespace 'ZLinq.Tests' --results-directory ./TestResults --report-xunit-html --report-xunit-html-filename TestResults-ZLinq.html",
+      "workingDirectory": "."
+    },
+    "Run System.Linq tests with HTML report": {
+      "commandName": "Project",
+      "commandLineArgs": "--filter-namespace 'System.Linq.Tests' --results-directory ./TestResults --report-xunit-html --report-xunit-html-filename TestResults-SystemLinq.html",
+      "workingDirectory": "."
+    },
+    "Show test names": {
+      "commandName": "Project",
+      "commandLineArgs": "--list-tests --pre-enumerate-theories off",
+      "workingDirectory": "."
+    },
+    "Show Help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help",
+      "workingDirectory": "."
+    }
+  }
+}
