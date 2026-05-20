@@ -1,4 +1,6 @@
-﻿using CodeBase.Enemies;
+﻿using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Assets._project.CodeBase.Infrastructure.Services.Input;
+using CodeBase.Enemies;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Services;
@@ -12,16 +14,19 @@ using CodeBase.StaticData;
 using CodeBase.UI.Elements;
 using CodeBase.UI.Services.Windows;
 using Cysharp.Threading.Tasks;
+using Infrastructure.AudioSystem;
+using Infrastructure.AudioSystem.Factory.GameComponents;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using VFXSystem.Processors;
+using VFXSystem.Service;
 
 namespace CodeBase.Infrastructure.Factory
 {
     public class GameFactory : IGameFactory
     {
-        private readonly IInputService _inputService;
         private readonly IAsset _assets;
         private readonly IStaticDataService _staticDataService;
         private readonly IPersistentProgressService _progressService;
@@ -30,22 +35,30 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IWindowService _windowService;
         private readonly ISaveLoadService _saveLoad;
         private readonly IPoolService _poolService;
+        private readonly IBlackboardService _blackboardService;
+        private readonly IInputHandlerService _inputHandlerService;
+        private readonly IAudioFacade _audioFacade;
+        private readonly IFootstepAudioProcessorFactory _processorFactory;
+        private readonly IVFXFacade _vFXFacade;
 
         private HeroFacade HeroFacade { get; set; }
         public List<ISavedProgressReader> ProgressReaders { get; } = new List<ISavedProgressReader>();
         public List<ISavedProgress> ProgressWriters { get; } = new List<ISavedProgress>();
 
-        public GameFactory(IInputService inputService,
-                           IAsset asset,
+        public GameFactory(IAsset asset,
                            IStaticDataService staticData,
                            IPersistentProgressService progressService,
                            IRandomService randomService,
                            ILevelTransferService levelTransfer,
                            IWindowService windowService,
                            ISaveLoadService saveLoad,
-                           IPoolService poolService)
+                           IPoolService poolService,
+                           IBlackboardService blackboardService,
+                           IInputHandlerService inputHandlerService,
+                           IAudioFacade audioFacade,
+                           IFootstepAudioProcessorFactory processorFactory,
+                           IVFXFacade vFXFacade)
         {
-            _inputService = inputService;
             _assets = asset;
             _staticDataService = staticData;
             _progressService = progressService;
@@ -54,6 +67,11 @@ namespace CodeBase.Infrastructure.Factory
             _windowService = windowService;
             _saveLoad = saveLoad;
             _poolService = poolService;
+            _blackboardService = blackboardService;
+            _inputHandlerService = inputHandlerService;
+            _audioFacade = audioFacade;
+            _processorFactory = processorFactory;
+            _vFXFacade = vFXFacade;
         }
 
         public async UniTask WarmUpAsync()
@@ -92,7 +110,7 @@ namespace CodeBase.Infrastructure.Factory
             GameObject HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
             HeroFacade = HeroGameObject.GetComponent<HeroFacade>();
-            HeroFacade.Construct(_inputService);
+            HeroFacade.Construct(_inputHandlerService, _blackboardService, _audioFacade, _processorFactory, _vFXFacade);
             HeroFacade.Initialize();
 
             //HeroGameObject.GetComponent<HeroMove>()
@@ -121,6 +139,7 @@ namespace CodeBase.Infrastructure.Factory
 
             monster.GetComponent<ActorUI>().Construct(health);
             monster.GetComponent<AgentMoveToHero>().Construct(HeroFacade.transform);
+            monster.GetComponent<EnemyVision>().Construct(HeroFacade.transform);
             monster.GetComponent<NavMeshAgent>().speed = monsterData.MoveSpeed;
 
             LootSpawner lootSpawner = monster.GetComponentInChildren<LootSpawner>();
@@ -128,10 +147,8 @@ namespace CodeBase.Infrastructure.Factory
             lootSpawner.Construct(this, _randomService);
 
             Attack attack = monster.GetComponent<Attack>();
-            attack.Construct(HeroFacade.transform, HeroFacade.HeroDeath);
-            attack.Damage = monsterData.Damage;
-            attack.Radius = monsterData.Radius;
-            attack.EffectiveDistance = monsterData.EffectiveDistance;
+            attack.Construct(HeroFacade.transform, HeroFacade.HeroDeath, _vFXFacade);
+            //TODO: Вот тут я еще конфиг передавал MonsterStaticData - полдумать как объединить с конфигом EnemyAttackConfig
 
             monster.GetComponent<RotateToHero>()?.Consturct(HeroFacade.transform);
 
@@ -162,7 +179,7 @@ namespace CodeBase.Infrastructure.Factory
         public async UniTask<LootPiece> CreateLootFromPool()
         {
             IPool<LootPiece> pool = _poolService.GetPool<LootPiece>();
-            LootPiece lootObject = await pool.SpawnExpandableAsync();
+            LootPiece lootObject = await pool.SpawnExpandableAsync(w => w.Construct(_progressService.Progress.WorldData, this));
             Register(lootObject);
 
             lootObject.Construct(_progressService.Progress.WorldData, this);

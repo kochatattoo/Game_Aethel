@@ -11,5 +11,6 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
     public interface IPoolable<T>: IPoolable where T: Component, IPoolable
     {
         void SetPool(IPool<T> pool);
+       // IPool<T> Pool { get; set; }
     }
 }

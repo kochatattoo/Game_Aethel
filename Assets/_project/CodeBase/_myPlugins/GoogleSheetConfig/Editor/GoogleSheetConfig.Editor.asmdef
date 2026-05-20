@@ -1,0 +1,33 @@
+{
+    "name": "GoogleSheetConfig.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:178e44472bf53ee4591af02b903f5f59",
+        "GUID:2aae566e8ea9f424ea45002fd29f5815"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "Google.Apis.dll",
+        "Google.Apis.Auth.dll",
+        "Google.Apis.Core.dll",
+        "Google.Apis.PlatformServices.dll",
+        "Google.Apis.Sheets.v4.dll",
+        "Newtonsoft.Json.dll",
+        "Sirenix.OdinInspector.Attributes.dll",
+        "Sirenix.OdinInspector.Editor.dll",
+        "Sirenix.Utilities.dll",
+        "Sirenix.Utilities.Editor.dll",
+        "Sirenix.Reflection.Editor.dll",
+        "Sirenix.Serialization.Config.dll",
+        "Sirenix.Serialization.dll"
+    ],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

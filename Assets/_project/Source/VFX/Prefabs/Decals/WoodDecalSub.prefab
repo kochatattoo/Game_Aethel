@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9199333996541393203
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1613670067127475212}
+  - component: {fileID: 8367002907353669825}
+  m_Layer: 0
+  m_Name: WoodDecalSub
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1613670067127475212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199333996541393203}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 44.35, y: 2.43, z: 100.75}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3457378999951362173}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8367002907353669825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9199333996541393203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044df6f2583d7e643961827c0b304dd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.VFXTypes.DecalSubVFX
+  _duration: 5
+  _fadeOutTime: 1.5
+  _projector: {fileID: 591556870568429790}
+--- !u!1001 &2943388785215803410
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1613670067127475212}
+    m_Modifications:
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3599304564264236459, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+      propertyPath: m_Name
+      value: WoodDMG_Decals
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+--- !u!114 &591556870568429790 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2372452899147241676, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+  m_PrefabInstance: {fileID: 2943388785215803410}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.DecalProjector
+--- !u!4 &3457378999951362173 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 513999010895698031, guid: ff24d7fbd7f63284195c233c198515be, type: 3}
+  m_PrefabInstance: {fileID: 2943388785215803410}
+  m_PrefabAsset: {fileID: 0}

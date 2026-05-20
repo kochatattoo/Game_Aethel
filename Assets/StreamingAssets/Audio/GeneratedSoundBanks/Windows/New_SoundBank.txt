@@ -1,0 +1,6 @@
+Event	ID	Name			Wwise Object Path	Notes
+	3157003241	Test			\Default Work Unit\Test	
+
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	851113958	Footsteps 1	D:\UnityPetProject\Attributes_exemple\Wwise\AttributeExmpl\.cache\BB\{BB366A8E-2492-200F-E20C-09418A5BAC82}.wem		\Actor-Mixer Hierarchy\Default Work Unit\General RPG SFX Pack\Footsteps SFX\Footsteps 1		885624
+

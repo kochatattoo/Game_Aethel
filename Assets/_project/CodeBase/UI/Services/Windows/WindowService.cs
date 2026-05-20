@@ -1,5 +1,6 @@
 ﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.UI.Services.Factory;
+using Cysharp.Threading.Tasks;
 using Zenject;
 
 namespace CodeBase.UI.Services.Windows
@@ -30,6 +31,21 @@ namespace CodeBase.UI.Services.Windows
                     break;
                 case WindowId.Option:
                     _uiFactory.CreateOption();
+                    break;
+            }
+        }
+
+        public async UniTask OpenAsync(WindowId windowId)
+        {
+            switch (windowId)
+            {
+                case WindowId.Unknow:
+                    break;
+                case WindowId.Shop:
+                    await _uiFactory.CreateShopAsync();
+                    break;
+                case WindowId.Option:
+                    await _uiFactory.CreateOptionAsync();
                     break;
             }
         }

@@ -1,60 +1,72 @@
-﻿using CodeBase.Data;
+﻿using CodeBase.Configs;
+using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
-using CodeBase.Logic;
+using CodeBase.Logic.Animate;
 using UnityEngine;
-using CodeBase.Enemies;
+using VFXSystem.Service;
 
 namespace CodeBase.Hero
 {
     [RequireComponent(typeof(HeroAnimator))]
     public class HeroAttack : MonoBehaviour, ISavedProgressReader
     {
-        [SerializeField] private HeroAnimator _heroAnimator;
-        [SerializeField] private Transform _attackPoint;
-        [SerializeField] private float _attackRange = 3f;
-        [SerializeField] private float _attackCooldown = 1f;
-        [SerializeField] private float _cleavage = 0.5f;
+        [SerializeField] 
+        private HeroAnimator _heroAnimator;
+        [SerializeField] 
+        private HeroAttackRuntime _heroAttackRuntime;
+        [SerializeField]
+        private HeroAttackConfig _heroAttackConfig;
 
-        public float Cleavage { get => _cleavage; }
-        public float AttackCooldown { get => _attackCooldown; }
-        public float AttackRange { get => _attackRange; }
-
-        private readonly Collider[] _hits = new Collider[3];
         private Stats _stats;
 
-        private static int _layerMask;
+        public float AttackCooldown { get => _heroAttackConfig.AttackCooldown; }
+        public float AttackRange { get => _heroAttackConfig.AttackRange; }
+        public float Damage => _stats.Damage;
 
-        public void Construct()
+        public void Construct(IVFXFacade facade)
+        { 
+            _heroAttackRuntime.Construct(facade, this);
+            _heroAnimator.StateExited += OnAnimatorStateExited;
+        }
+
+        private void OnAnimatorStateExited(AnimatorState state)
         {
-            _layerMask = 1 << LayerMask.NameToLayer("Hittable");
+            if (state == AnimatorState.Attack)
+            {
+                EndAttack();
+            }
         }
 
         public void Attack(Transform enemy)
         {
             transform.LookAt(enemy);
+
             if (!_heroAnimator.IsAttacking)
                 _heroAnimator.PlayAttack();
         }
 
-        public void OnAttack()
-        {
-            PhysicsDebug.DrawDebug(StartPosition(), _cleavage, 1f);
+        public void OnAttack() => 
+            _heroAttackRuntime.OpenAttackWindow();
 
-            for (int i = 0; i < Hit(); i++)
-            {
-                _hits[i].transform.parent.GetComponent<IHealth>().TakeDamage(_stats.Damage);
-            }
-        }
+        public void EndAttack() => 
+            _heroAttackRuntime.CloseAttackWindow(); //TODO: Обработка отмены атаки - вызов закрытия окна
 
-        public void LoadProgress(PlayerProgress progress)
-        {
+        public void LoadProgress(PlayerProgress progress) => 
             _stats = progress.HeroStats;
+
+        private void OnDisable()
+        {
+            EndAttack();
+
+            if (_heroAnimator != null)
+                _heroAnimator.StateExited -= OnAnimatorStateExited;
         }
 
-        private int Hit() =>
-            Physics.OverlapSphereNonAlloc(StartPosition(), _stats.DamageRadius, _hits, _layerMask);
-
-        private Vector3 StartPosition() =>
-            new Vector3(_attackPoint.position.x, _attackPoint.position.y, _attackPoint.position.z);
+        private void OnDestroy()
+        {
+            // Не забываем отписаться при уничтожении объекта
+            if (_heroAnimator != null)
+                _heroAnimator.StateExited -= OnAnimatorStateExited;
+        }
     }
 }

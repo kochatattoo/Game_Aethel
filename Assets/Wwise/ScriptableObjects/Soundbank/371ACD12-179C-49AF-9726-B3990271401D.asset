@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa8b4ea66c6c084fbe73598b4cdbda5, type: 3}
+  m_Name: 371ACD12-179C-49AF-9726-B3990271401D
+  m_EditorClassIdentifier: AK.Wwise.Unity.API.WwiseTypes::WwiseBankReference
+  objectName: Main
+  id: 3161908922
+  guid: 371ACD12-179C-49AF-9726-B3990271401D
+  bank: {fileID: 11400000, guid: ac0f5a6a504518a4c9e87f347f972313, type: 2}

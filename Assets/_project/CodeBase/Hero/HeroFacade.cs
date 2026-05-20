@@ -1,8 +1,14 @@
-﻿using CodeBase.Hero.HeroBehaviour;
+﻿using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Assets._project.CodeBase.Infrastructure.Services.Input;
+using CodeBase.Hero.HeroBehaviour;
 using CodeBase.Infrastructure.Services;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using Domain.Character.Core.Sfx;
+using Infrastructure.AudioSystem;
+using Infrastructure.AudioSystem.Factory.GameComponents;
 using UnityEngine;
 using UnityEngine.AI;
+using VFXSystem.Service;
 
 namespace CodeBase.Hero
 {
@@ -23,19 +29,32 @@ namespace CodeBase.Hero
         [Header("Logic")]
         private HeroAction _action;
         private HeroDeath _death;
-        private Blackboard _blackboard; 
- 
-        private ClickInputHandler _clickInputHandler;
+        private Blackboard _blackboard;
+
+        [Header("Sensors")]
+        [SerializeField]
+        private FootstepMaker _footstep;
+        [SerializeField]
+        private AudioMaker _audioMaker;
+
+        //TODO - Логику обработчика стоит вынести в отдельный сервис или класс обработки всех данных, а передавать уже зависимостью в фасад
+        // Так же поступить с blackdoard героя
+        private ClickInputHandler _clickInputHandler; 
 
         private bool _isDie = false;
 
         public HeroHealth Health {  get { return _health; } }
         public HeroDeath HeroDeath { get { return _death; } }
 
-        public void Construct(IInputService input)
+        public void Construct(IInputHandlerService inputHandlerService,
+            IBlackboardService blackboardService, 
+            IAudioFacade audioFacade,
+            IFootstepAudioProcessorFactory processorFactory,
+            IVFXFacade facade)
         {
-            ConstructControl(input);
+            ConstructControl(inputHandlerService, blackboardService, facade);
             ConstructComponents();
+            ConstructSensors(audioFacade, processorFactory);
         }
 
         public void Initialize()
@@ -72,20 +91,26 @@ namespace CodeBase.Hero
             _isDie = true;
         }
 
-        private void ConstructControl(IInputService input)
+        private void ConstructControl(IInputHandlerService inputHandlerService, IBlackboardService blackboardService, IVFXFacade facade)
         {
             if (_move is HeroPathFollower follower) follower.Construct();
-            _attack.Construct();
+            _attack.Construct(facade);
 
-            _blackboard = new Blackboard();
+            _blackboard = blackboardService.Blackboard;
             _action = new HeroAction(_blackboard, _move, _attack);
-            _clickInputHandler = new ClickInputHandler(input, _blackboard);
+            _clickInputHandler = inputHandlerService.ClickInputHandler;
         }
 
         private void ConstructComponents()
         {
             _health.Construct(_animator);
             _death = new HeroDeath(transform, _health, _attack, _move, _animator, _deathFx);
+        }
+
+        private void ConstructSensors(IAudioFacade audioFacade, IFootstepAudioProcessorFactory processorFactory)
+        {
+            _footstep.Construct(audioFacade, processorFactory);
+            _audioMaker.Construct(audioFacade);
         }
     }
 }

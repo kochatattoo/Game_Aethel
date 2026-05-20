@@ -503,73 +503,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5851342585744085957
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5986574150346088405}
-  - component: {fileID: 8452740850546130343}
-  - component: {fileID: 4291062643221633224}
-  m_Layer: 13
-  m_Name: Aggro_Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5986574150346088405
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5851342585744085957}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6281855846235723745}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8452740850546130343
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5851342585744085957}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 6
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4291062643221633224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5851342585744085957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 150bf6d57671178498222a7d7f69d1be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemies.TriggerObserver
 --- !u!1 &6059286214944014418
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4418258365151318418}
   - component: {fileID: 2320386071573853919}
+  - component: {fileID: 2028863978964731199}
   m_Layer: 15
   m_Name: Hurtbox
   m_TagString: Untagged
@@ -623,6 +559,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8, y: 1.5, z: 0.8}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2028863978964731199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6059286214944014418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c817f3d528ec6741a3eb4f10a8f9180, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Components.Vfx.Hitbox
+  <MaterialType>k__BackingField: 2
 --- !u!1 &6299190620966313962
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,12 +586,13 @@ GameObject:
   - component: {fileID: 5084750759125617955}
   - component: {fileID: 3838018840256695582}
   - component: {fileID: 177803062584783602}
-  - component: {fileID: 2206001689571710746}
   - component: {fileID: 2824771914543389005}
+  - component: {fileID: 6093746773622666093}
   - component: {fileID: 249763969819922918}
   - component: {fileID: 3348194293326440460}
   - component: {fileID: 9007729920035589162}
   - component: {fileID: 2813193825861776429}
+  - component: {fileID: 3003855367110946254}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -663,7 +613,6 @@ Transform:
   m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5986574150346088405}
   - {fileID: 4437197314522261918}
   - {fileID: 4418258365151318418}
   - {fileID: 4948122263366214776}
@@ -756,21 +705,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemy.AnimateAlongAgent
   Agent: {fileID: 551937675669613282}
   Animator: {fileID: 5084750759125617955}
---- !u!114 &2206001689571710746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6299190620966313962}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f2182c0b45fd3949bc854682ab67a0c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemies.Aggro
-  TriggerObserver: {fileID: 4291062643221633224}
-  Follow: {fileID: 3838018840256695582}
-  Cooldown: 1
 --- !u!114 &2824771914543389005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -783,12 +717,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee8de7dedbc572246a37dcf3cde6fcae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemy.Attack
-  Animator: {fileID: 5084750759125617955}
-  AttackCooldown: 3
-  Damage: 10
-  Radius: 1
-  EffectiveDistance: 0.5
-  AttackPoint: {fileID: 4769307470777656197}
+  _config: {fileID: 0}
+  _animator: {fileID: 5084750759125617955}
+  _attackRuntime: {fileID: 6093746773622666093}
+--- !u!114 &6093746773622666093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299190620966313962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78725b76a65a028428a90f2b599be214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemies.AttackRuntime
+  _bladeSensor: {fileID: 0}
 --- !u!114 &249763969819922918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -817,8 +761,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemy.EnemyHealth
   Animator: {fileID: 5084750759125617955}
   Attack: {fileID: 2824771914543389005}
-  _current: 4
-  _max: 4
 --- !u!114 &9007729920035589162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -831,6 +773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14b573f7fa18cc949976f700c242cece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemy.EnemyDeath
+  _unitObject: {fileID: 468569053967634609}
   Health: {fileID: 3348194293326440460}
   Animator: {fileID: 5084750759125617955}
   follow: {fileID: 3838018840256695582}
@@ -848,6 +791,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.UI.Elements.ActorUI
   HpBar: {fileID: 8709167689743433037}
+--- !u!114 &3003855367110946254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6299190620966313962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 265f1891fdceeea488f1030047fd52cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Enemies.EnemyVision
+  _headTransform: {fileID: 0}
+  _follow: {fileID: 3838018840256695582}
+  _enemyDeath: {fileID: 9007729920035589162}
+  _sensor:
+    _horizontalAngle: 150
+    _verticalAngle: 45
+    _obstacleMask:
+      serializedVersion: 2
+      m_Bits: 65
+  _viewDistance: 10
+  _playerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  _sleepDistance: 20
+  _cooldown: 2
 --- !u!1 &6871457611603973050
 GameObject:
   m_ObjectHideFlags: 0

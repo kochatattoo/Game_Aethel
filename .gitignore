@@ -78,4 +78,29 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# --- Wwise Project Specifics ---
+# Игнорируем временные файлы и кэш проекта Wwise
+[Ww]wise/AudioCache/
+[Ww]wise/.cache/
+[Ww]wise/Originals/Cache/
+[Ww]wise/Restoration/
+[Ww]wise/*.prof
+[Ww]wise/*.akd
+[Ww]wise/*.bak
+[Ww]wise/*.wsettings
+[Ww]wise/IncrementalSoundBankData.xml
+
+# --- SoundBanks (Важный выбор!) ---
+# Если вы генерируете банки локально и НЕ хотите хранить бинарники в гите (рекомендуется):
+Assets/StreamingAssets/Audio/GeneratedSoundBanks/
+
+# --- Unity-Wwise Integration ---
+# Этот файл часто вызывает конфликты слияния (Merge Conflicts),
+# но если его игнорировать, у других разработчиков могут "отвалиться" связи.
+# Если работаете в команде, лучше оставить под контролем, но если он постоянно мешает:
+# AkWwiseProjectData.asset
+
+/[Aa]ssets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Misc/GoogleSecret.cs
+
+
 # End of https://www.toptal.com/developers/gitignore/api/unity

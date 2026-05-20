@@ -1,0 +1,8 @@
+<Solution>
+
+  <Project Path="System.Linq.Tests.csproj" />
+  <Folder Name="/refs/">
+    <Project Path="../../src/ZLinq.DropInGenerator/ZLinq.DropInGenerator.csproj" />
+    <Project Path="../../src/ZLinq/ZLinq.csproj" />
+  </Folder>
+</Solution>
