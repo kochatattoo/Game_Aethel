@@ -14,12 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::VFXSystem.Parameters.MaterialMap.VFXMapToMaterialConfigs
   _vfxList:
   - _material: 1
-    _materials: []
+    _materials:
+    - {fileID: 2100000, guid: 273d7a38e9af4ce4a8f33100c205e209, type: 2}
   - _material: 2
-    _materials: []
+    _materials:
+    - {fileID: 2100000, guid: 50051ce50dc820f44a1d55647552af67, type: 2}
   - _material: 3
-    _materials: []
+    _materials:
+    - {fileID: 2100000, guid: 6214a1f81c1071548b939e5b1533ad24, type: 2}
   - _material: 4
-    _materials: []
+    _materials:
+    - {fileID: 2100000, guid: 7b0026e75c14e1f40a213af47a2b3e28, type: 2}
   - _material: 5
-    _materials: []
+    _materials:
+    - {fileID: 2100000, guid: d24a3a2ecfa0c6d4f926a9445727d363, type: 2}

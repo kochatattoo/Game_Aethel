@@ -1,6 +1,4 @@
-﻿
-
-namespace GoogleSheetConfig
+﻿namespace GoogleSheetConfig
 {
     public static class ParserConfig
     {

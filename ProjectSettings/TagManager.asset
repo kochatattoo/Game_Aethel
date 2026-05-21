@@ -21,13 +21,13 @@ TagManager:
   - Units
   - Interactable
   - Target
-  - 
+  - Environment
   - Player
   - Aggro
   - AttackZone
   - Hittable
   - PickUp
-  - 
+  - DialogueInteract
   - 
   - 
   - 
