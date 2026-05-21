@@ -14,18 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.StaticData.LevelStaticData
   LevelKey: Level_2
   EnemySpawners:
-  - Id: Level_2_2b09f880-4803-4e4c-8551-ec245d55d04a
-    MonsterTypeID: 0
-    position: {x: 59.79, y: 0.06, z: 113.584564}
-  - Id: Level_2_ba7dc699-fba1-4c6c-bcb8-a158e07c5040
-    MonsterTypeID: 0
-    position: {x: 59.91798, y: -0.09000015, z: 82.00381}
   - Id: Level_2_8a36eff5-3696-4191-901e-6e6b5309e7f0
     MonsterTypeID: 0
-    position: {x: 27.783573, y: -0.09000206, z: 114.24934}
+    position: {x: 116.343094, y: -0.09000206, z: 89.36799}
   - Id: Level_2_e586e1a1-dc97-456c-8f7f-fa58febeb984
     MonsterTypeID: 0
-    position: {x: 27.887623, y: -0.089998245, z: 81.79219}
+    position: {x: 116.6131, y: -0.089998245, z: 100.10799}
+  - Id: Level_2_ba7dc699-fba1-4c6c-bcb8-a158e07c5040
+    MonsterTypeID: 0
+    position: {x: 102.22309, y: -0.09000015, z: 104.277985}
+  - Id: Level_2_2b09f880-4803-4e4c-8551-ec245d55d04a
+    MonsterTypeID: 0
+    position: {x: 76.913086, y: 0.059999943, z: 104.777985}
   InitialHeroPosition: {x: 45.42, y: 0.44291997, z: 98.39}
   SaveTriggers: []
   LevelTransferData:

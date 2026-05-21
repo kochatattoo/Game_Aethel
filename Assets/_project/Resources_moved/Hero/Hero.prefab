@@ -8195,8 +8195,6 @@ MonoBehaviour:
   _rightFoot: {fileID: 112195160963483368}
   _agent: {fileID: 5978339594781275438}
   _threshold: 0.3
-  _config: {fileID: 11400000, guid: 983a022354390c34f884611e8704d9fc, type: 2}
-  _bootsConfig: {fileID: 11400000, guid: a4852efefee47b94993b7feaab5202d8, type: 2}
 --- !u!1 &7670628211990218450
 GameObject:
   m_ObjectHideFlags: 0
