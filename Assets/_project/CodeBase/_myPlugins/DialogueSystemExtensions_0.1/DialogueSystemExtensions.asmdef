@@ -1,0 +1,28 @@
+{
+    "name": "DialogueSystemExtensions",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b64e9bf6c548c3d44b3b02dcb06b6ae8",
+        "GUID:294c415bde9ea804b8b9eb98d0a6df49",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:71799519d12379b49b6b53aea974bea5",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:593a5b492d29ac6448b1ebf7f035ef33",
+        "GUID:029c1c1b674aaae47a6841a0b89ad80e",
+        "GUID:4129704b5a1a13841ba16f230bf24a57",
+        "GUID:5c01796d064528144a599661eaab93a6",
+        "GUID:dc47925d1a5fa2946bdd37746b2b5d48",
+        "GUID:09dcc9c0126b6b34ab2a877b8f2277f5",
+        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+        "GUID:71747feda1cfa634686086b1914eacb6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

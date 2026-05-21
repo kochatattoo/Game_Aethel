@@ -52,7 +52,7 @@ namespace CodeBase.Hero.HeroBehaviour
         {
             return Sequence("Interact", priority: 15)
                 .Add(Leaf("HasInteractTarget", new Condition(IsInteractTarget)))
-                .Add(Leaf("HeroInteractStrategy", new HeroInteractStrategy(_blackboard)));
+                .Add(Leaf("HeroInteractStrategy", new HeroInteractStrategy(_blackboard, _heroPathFollower)));
         }
 
         private BehaviourNode StopSequence()
