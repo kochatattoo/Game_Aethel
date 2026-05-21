@@ -8,6 +8,7 @@ namespace DialogueSystemExtensions.Components.Sensors
     {
         [SerializeField]
         private Collider _collider;
+        protected IDialogueMaker _dialogueMaker;
 
         private void Awake()
         {
@@ -19,13 +20,18 @@ namespace DialogueSystemExtensions.Components.Sensors
         protected void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent<IDialogueMaker>(out IDialogueMaker maker))
+            {
+                _dialogueMaker = maker;
                 OnEnter(maker);
+            }
         }
 
         protected void OnTriggerExit(Collider other)
         {
             if (other.TryGetComponent<IDialogueMaker>(out IDialogueMaker maker))
                 OnExit(maker);
+
+            _dialogueMaker = null;
         }
 
         protected abstract void OnEnter(IDialogueMaker maker);

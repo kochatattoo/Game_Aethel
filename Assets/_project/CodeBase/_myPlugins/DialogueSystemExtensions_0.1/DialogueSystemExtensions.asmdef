@@ -14,13 +14,22 @@
         "GUID:dc47925d1a5fa2946bdd37746b2b5d48",
         "GUID:09dcc9c0126b6b34ab2a877b8f2277f5",
         "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
-        "GUID:71747feda1cfa634686086b1914eacb6"
+        "GUID:71747feda1cfa634686086b1914eacb6",
+        "GUID:cd0624525ae0db442b9d3d7f27953406",
+        "GUID:f5a2021862fe4a44693e71ee10df660e",
+        "GUID:71c4ae7573588cc4c9e9ee859ce3512d",
+        "Assembly-CSharp-firstpass",
+        "Assembly-CSharp",
+        "GUID:25bb11dd35c063e4aa2c7cccc0212586",
+        "GUID:5c9dd9ae39c835049901cf3e9a3c9fd0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        ""
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
