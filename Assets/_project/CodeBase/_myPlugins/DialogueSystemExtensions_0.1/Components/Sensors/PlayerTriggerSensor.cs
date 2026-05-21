@@ -5,7 +5,7 @@ namespace DialogueSystemExtensions.Components.Sensors
 {
     public class PlayerTriggerSensor : TriggerSensor
     {
-       // private DialogueSystemTrigger jjh;
+       // private DialogueSystemTrigger jj;
         protected override void OnEnter(IDialogueMaker maker)
         {
 
