@@ -16,6 +16,7 @@ using CodeBase.UI.Services.Windows;
 using Cysharp.Threading.Tasks;
 using Infrastructure.AudioSystem;
 using Infrastructure.AudioSystem.Factory.GameComponents;
+using Infrastructure.AudioSystem.Zones;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -39,6 +40,7 @@ namespace CodeBase.Infrastructure.Factory
         private readonly IInputHandlerService _inputHandlerService;
         private readonly IAudioFacade _audioFacade;
         private readonly IFootstepAudioProcessorFactory _processorFactory;
+        private readonly IAudioZoneRegistry _zoneRegistry;
         private readonly IVFXFacade _vFXFacade;
 
         private HeroFacade HeroFacade { get; set; }
@@ -57,6 +59,7 @@ namespace CodeBase.Infrastructure.Factory
                            IInputHandlerService inputHandlerService,
                            IAudioFacade audioFacade,
                            IFootstepAudioProcessorFactory processorFactory,
+                           IAudioZoneRegistry zoneRegistry,
                            IVFXFacade vFXFacade)
         {
             _assets = asset;
@@ -71,6 +74,7 @@ namespace CodeBase.Infrastructure.Factory
             _inputHandlerService = inputHandlerService;
             _audioFacade = audioFacade;
             _processorFactory = processorFactory;
+            _zoneRegistry = zoneRegistry;
             _vFXFacade = vFXFacade;
         }
 
@@ -110,7 +114,7 @@ namespace CodeBase.Infrastructure.Factory
             GameObject HeroGameObject = await InstantiateRegisteredAsync(AssetAddress.HeroPath, at);
 
             HeroFacade = HeroGameObject.GetComponent<HeroFacade>();
-            HeroFacade.Construct(_inputHandlerService, _blackboardService, _audioFacade, _processorFactory, _vFXFacade);
+            HeroFacade.Construct(_inputHandlerService, _blackboardService, _audioFacade, _processorFactory, _zoneRegistry, _vFXFacade);
             HeroFacade.Initialize();
 
             //HeroGameObject.GetComponent<HeroMove>()
@@ -119,7 +123,7 @@ namespace CodeBase.Infrastructure.Factory
             //HeroGameObject .GetComponent<HeroPathFollower>()
             //    .Construct(_inputService);
 
-            //HeroGameObject.GetComponent<HeroAttack>() 
+            //HeroGameObject.GetComponent<HeroAttack>()
             //   .Construct(_inputService);
 
             return HeroFacade;
@@ -131,7 +135,7 @@ namespace CodeBase.Infrastructure.Factory
 
             GameObject prefab = await _assets.Load<GameObject>(monsterData.PrefabReference);
             GameObject monster = Object.Instantiate(prefab, parent.position, Quaternion.identity, parent);
-            
+
 
             IHealth health = monster.GetComponent<EnemyHealth>();
             health.Current = monsterData.Hp;
