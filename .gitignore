@@ -100,7 +100,5 @@ Assets/StreamingAssets/Audio/GeneratedSoundBanks/
 # Если работаете в команде, лучше оставить под контролем, но если он постоянно мешает:
 # AkWwiseProjectData.asset
 
-/[Aa]ssets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Misc/GoogleSecret.cs
-
 
 # End of https://www.toptal.com/developers/gitignore/api/unity
