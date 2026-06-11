@@ -110,7 +110,8 @@ namespace AudioSystem.Room
                     pos.OverridePosition(portal.Position);
                 else if (portal == null || !portal.IsOpen)
                 {
-                    if (emitter is BaseAudioEventComponent baseComp) baseComp.Stop();
+                    if (emitter is BaseAudioEventComponent baseComp)
+                        baseComp.Stop();
                 }
             }
         }
