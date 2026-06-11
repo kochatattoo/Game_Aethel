@@ -51,7 +51,7 @@ namespace GoogleSheetConfig
             progressMessage = "";
             ServicePointManager.ServerCertificateValidationCallback = MyRemoteCertificateValidationCallback;
         }
-        
+
         public Dictionary<string, JArray> DownloadSheets(string spreadSheetKey, string[] wantedSheetNames)
         {
             //Validate input
@@ -78,7 +78,7 @@ namespace GoogleSheetConfig
 
             Spreadsheet spreadSheetData = service.Spreadsheets.Get(spreadSheetKey).Execute();
             IList<Sheet> sheets = spreadSheetData.Sheets;
-            
+
             //if((feed == null)||(feed.Entries.Count <= 0))
             if ((sheets == null) || (sheets.Count <= 0))
             {

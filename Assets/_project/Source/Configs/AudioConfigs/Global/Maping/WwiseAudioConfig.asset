@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e384fec4e826645914339ac64ff8c9, type: 3}
   m_Name: WwiseAudioConfig
   m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Infrastructure.AudioSystem.Parameters.WwiseAudioConfig
-  _events: []
+  _events:
+  - Id: 
+    WwiseEvent:
+      idInternal: 0
+      valueGuidInternal: 
+      WwiseObjectReference: {fileID: 11400000, guid: b5d3b524128981347a53343c81b8da51, type: 2}
   _rtpcs: []
   _switches: []
   _states: []
+  _auxBuses: []

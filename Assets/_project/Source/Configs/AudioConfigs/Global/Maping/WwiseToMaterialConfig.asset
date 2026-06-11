@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7bb9d475bfa6640bfc4342c22c98a4, type: 3}
   m_Name: WwiseToMaterialConfig
   m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Infrastructure.AudioSystem.Parameters.WwiseToMaterialConfig
-  _materials: []
+  _materials:
+  - _switchValue:
+      idInternal: 0
+      valueGuidInternal: 
+      groupIdInternal: 0
+      groupGuidInternal: 
+      WwiseObjectReference: {fileID: 0}
+    _materials: []
