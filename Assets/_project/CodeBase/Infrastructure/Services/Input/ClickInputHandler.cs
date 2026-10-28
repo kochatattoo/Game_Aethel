@@ -16,6 +16,7 @@ namespace CodeBase.Infrastructure.Services
         private readonly List<RaycastResult> _uiRaycastResults = new List<RaycastResult>();
 
         private PointerEventData _uiPointerEventData;
+        private bool _subscribed;
 
         private static readonly int LayerGround = 1 << LayerMask.NameToLayer("Ground");
         private static readonly int LayerUnits = 1 << LayerMask.NameToLayer("Units");
@@ -31,16 +32,26 @@ namespace CodeBase.Infrastructure.Services
         public event Action OnProcessed;
 
         public ClickInputHandler(
-            IInputService inputService, 
+            IInputService inputService,
             Blackboard blackboard)
         {
             _inputService = inputService;
             _blackboard = blackboard;
         }
 
-        public void Initialize() => Subscribe();
+        public void Initialize()
+        {
+            if (_subscribed) return;
+            Subscribe();
+            _subscribed = true;
+        }
 
-        public void Dispose() => UnSubscribe();
+        public void Dispose()
+        {
+            if (!_subscribed) return;
+            UnSubscribe();
+            _subscribed = false;
+        }
 
         private void Subscribe() => _inputService.Click += OnClick;
 
@@ -48,6 +59,7 @@ namespace CodeBase.Infrastructure.Services
 
         private void OnClick(Vector3 screenPosition)
         {
+            if (CodeBase.CharacterIntegration.MenuInputScope.IsBlocked) return;
             // TODO: Сделать логику передачи ID устройства (мобильное : 0 / ПК : -1)
             //if (EventSystem.current.IsPointerOverGameObject(pointerId: -1))
             //    return;
@@ -86,8 +98,6 @@ namespace CodeBase.Infrastructure.Services
                 targetData = null;
                 Debug.Log(TargetType.None);
             }
-
-            Debug.Log(targetData?.Type);
 
             _blackboard.SetValue(currentTarget, targetData);
         }

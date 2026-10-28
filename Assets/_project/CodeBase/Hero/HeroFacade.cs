@@ -79,8 +79,12 @@ namespace CodeBase.Hero
 
         private void OnDisable()
         {
-            _death.Dispose();
-            _clickInputHandler.OnProcessed -= OnProcessed;
+            _death?.Dispose();
+            if (_clickInputHandler != null)
+            {
+                _clickInputHandler.OnProcessed -= OnProcessed;
+                _clickInputHandler.Dispose();
+            }
         }
 
         private void OnProcessed()

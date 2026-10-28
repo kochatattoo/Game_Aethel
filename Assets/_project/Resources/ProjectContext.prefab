@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1172135783559517749}
   - component: {fileID: 5170419064806289460}
   - component: {fileID: 5767206493558550491}
-  - component: {fileID: -5865980629960638756}
   - component: {fileID: -3694246095291744325}
-  - component: {fileID: 7792540610869502134}
+  - component: {fileID: 4928446959682893769}
+  - component: {fileID: 4090885902547893405}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -51,12 +51,12 @@ MonoBehaviour:
   _scriptableObjectInstallers:
   - {fileID: 11400000, guid: c708a6a16563cb245b409019cdf66b4e, type: 2}
   _monoInstallers:
-  - {fileID: -5865980629960638756}
   - {fileID: 5767206493558550491}
   - {fileID: -3694246095291744325}
-  - {fileID: 7792540610869502134}
+  - {fileID: 4928446959682893769}
+  - {fileID: 4090885902547893405}
   _installerPrefabs: []
-  _parentNewObjectsUnderContext: 0
+  _parentNewObjectsUnderContext: 1
   _editorReflectionBakingCoverageMode: 0
   _buildsReflectionBakingCoverageMode: 0
   _settings:
@@ -82,20 +82,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BootstrapInstaller
   CoroutineRunner: {fileID: 6185335028906658508, guid: 5e13d311ca1ac1d46a62a0247c83fbb8, type: 3}
-  LoadingCurtain: {fileID: 8236979409719356722, guid: 9e66b2f1e187e8f419e6a4f1f84fff7e, type: 3}
---- !u!114 &-5865980629960638756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4845161030547534902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 712134d424bf2774583b311cbd673b43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Infrastructure.DI.SoundInstaller
-  _audioDatabase: {fileID: 11400000, guid: 914e644887f9cfd488f5ab8c9f9ead82, type: 2}
+  LoadingCurtain: {fileID: 1285770907932750103, guid: 3b86ded1adf095a42b6c8eb1ab7fa1fc, type: 3}
 --- !u!114 &-3694246095291744325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +97,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Infrastructure.DI.WwiseInstaller
   _wwiseInitializer: {fileID: 4867534927359713299, guid: 5bae0d73558175c4db1a5eebda464abb, type: 3}
   _initBank: {fileID: 11400000, guid: 40bcd90b285b69f46806a90ad168bdd8, type: 2}
---- !u!114 &7792540610869502134
+--- !u!114 &4928446959682893769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4845161030547534902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 712134d424bf2774583b311cbd673b43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.Infrastructure.AudioSystem::Infrastructure.DI.SoundInstaller
+  _audioDatabase: {fileID: 11400000, guid: 914e644887f9cfd488f5ab8c9f9ead82, type: 2}
+--- !u!114 &4090885902547893405
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

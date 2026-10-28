@@ -1,0 +1,8 @@
+{
+  "name": "PetProject.Character",
+  "references": [
+    "UniRx",
+    "UniTask"
+  ],
+  "autoReferenced": true
+}

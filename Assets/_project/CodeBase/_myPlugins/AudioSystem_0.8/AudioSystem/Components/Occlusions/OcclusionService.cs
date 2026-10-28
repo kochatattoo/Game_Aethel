@@ -14,8 +14,8 @@ namespace Infrastructure.AudioSystem.Components.Occlusions
     {
         private readonly IAudioService _audioService;
         private readonly HashSet<IOcclusionEmitter> _emitters = new();
-        private readonly Transform _listenerTransform;
-        private readonly GameObject _mainListener;
+        private Transform _listenerTransform;
+        private GameObject _mainListener;
         private readonly RaycastHit[] _hitBuffer = new RaycastHit[16];
         private IDisposable _updateSubscription;
 
@@ -60,6 +60,11 @@ namespace Infrastructure.AudioSystem.Components.Occlusions
 
         private void UpdateOcclusion(long _)
         {
+            if (_listenerTransform == null && Camera.main != null)
+            {
+                _listenerTransform = Camera.main.transform;
+                _mainListener = Camera.main.gameObject;
+            }
             if (_listenerTransform == null || _mainListener == null || _emitters.Count == 0)
                 return;
 

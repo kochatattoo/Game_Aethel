@@ -1,0 +1,11 @@
+[mcp_servers.mcp-unity-petproject]
+command = 'C:/Program Files/nodejs/node.exe'
+args = ['Packages/com.gamelovers.mcp-unity/Server~/build/index.js']
+cwd = 'D:/UnityPetProject/PetProject'
+startup_timeout_sec = 30
+tool_timeout_sec = 120
+
+[mcp_servers.mcp-unity-petproject.env]
+MCP_UNITY_SETTINGS_PATH = 'D:/UnityPetProject/PetProject/ProjectSettings/McpUnitySettings.json'
+MCP_UNITY_AUTH_TOKEN_PATH = 'D:/UnityPetProject/PetProject/Library/McpUnity/bridge-token'
+UNITY_HOST = '[::1]'

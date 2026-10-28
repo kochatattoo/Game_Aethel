@@ -3,12 +3,23 @@ using CodeBase.Infrastructure.Factory;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using UnityEngine;
 using Zenject;
+using System;
 
 namespace CodeBase.Infrastructure.Services.SaveLoad
 {
     public class SaveLoadService : ISaveLoadService, IInitializable
     {
-        private const string ProgressKey = "Progress";
+        private static string ProgressKey
+        {
+            get
+            {
+#if UNITY_EDITOR
+                if (UnityEditor.SessionState.GetBool("PetProject.CharacterMenu.Smoke", false))
+                    return "PetProject.CharacterMigration.Smoke";
+#endif
+                return "Progress";
+            }
+        }
 
         private readonly IServiceFactory _serviceFactory;
         private readonly IPersistentProgressService _progressServices;
@@ -31,12 +42,17 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
                 progressWritet.UpdateProgress(_progressServices.Progress);
 
             PlayerPrefs.SetString(ProgressKey, _progressServices.Progress.ToJson());
+            PlayerPrefs.Save();
 
             Debug.Log("Progress Saved by service");
         }
 
-        public PlayerProgress LoadProgress() =>
-            PlayerPrefs.GetString(ProgressKey)?
-            .ToDeserialized<PlayerProgress>();
+        public PlayerProgress LoadProgress()
+        {
+            var json = PlayerPrefs.GetString(ProgressKey, string.Empty);
+            if (string.IsNullOrWhiteSpace(json)) return null;
+            try { return json.ToDeserialized<PlayerProgress>(); }
+            catch (ArgumentException) { return null; }
+        }
     }
 }

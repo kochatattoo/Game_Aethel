@@ -147,10 +147,7 @@ namespace CodeBase.Infrastructure.Services.ObjectPool
 
         public void DespawnAllActive()
         {
-            foreach (var inst in _inUse)
-            {
-                inst.OnDespawned();
-            }
+            while (_inUse.Count > 0) Despawn(_inUse.Peek());
         }
 
         private void SetParent(Transform parent, T gameObject)

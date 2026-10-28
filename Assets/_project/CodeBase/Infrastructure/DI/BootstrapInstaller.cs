@@ -18,6 +18,7 @@ using CodeBase.UI.Services.Factory;
 using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
+using CodeBase.CharacterIntegration;
 
 namespace CodeBase.DI
 {
@@ -95,6 +96,9 @@ namespace CodeBase.DI
 
         private void BindServices()
         {
+            Container.BindInterfacesAndSelfTo<CharacterAssets>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Code.Hero.Data.HeroDataService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<CharacterMenuService>().AsSingle();
             BindLogDataService();
             BindBlackboardService();
             BindAdsService();
@@ -210,6 +214,7 @@ namespace CodeBase.DI
 
         private void BindStates()
         {
+            Container.Bind<MainMenuState>().AsSingle().NonLazy();
             Container.Bind<BootstrapState>().AsSingle().NonLazy();
             Container.Bind<WarmUpState>().AsSingle().NonLazy();
             Container.Bind<LoadProgressState>().AsSingle().NonLazy();

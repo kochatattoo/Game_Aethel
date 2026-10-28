@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: CharacterMenu
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: CharacterMenu
+  m_GUID: 63cf22058f35efc48b5456c378b50680
+  m_SerializeEntries:
+  - m_GUID: 030c55114d6708241b805a2174865dba
+    m_Address: PetProject/HeroIcons/Wizard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14fa23ed0fe3d994395606bc5ef4095f
+    m_Address: PetProject/HeroIcons/Sorcerer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1ffb0befb257e0b4b82c08d198a1dfab
+    m_Address: PetProject/HeroIcons/Cleric
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 24a6208e0afb3ae4c893fb4c3761b447
+    m_Address: PetProject/HeroIcons/Druid
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3dd2edf657958454d9a32e832afc6900
+    m_Address: PetProject/UI/Attributes
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6beeacb095e56854d8648c79f378e00f
+    m_Address: PetProject/HeroIcons/Ranger
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 83a0b47a71a06f044837458732d37365
+    m_Address: PetProject/HeroIcons/Barbarian
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8602d4873fb08d7439e5035983f051c6
+    m_Address: PetProject/HeroIcons/Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 96710833c2294b74da44f505aef8ea18
+    m_Address: PetProject/UI/CharacterCreation
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 97dd5b2abc1bbee4fb2010145fc3774b
+    m_Address: PetProject/HeroIcons/Warlock
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9a047929edeb3184d8f0f24c3f781d6f
+    m_Address: PetProject/HeroIcons/Monk
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c13706dc1a8576145bdb02c53516200d
+    m_Address: PetProject/HeroIcons/Bard
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb303d697d98a764cb4c7ff9deafd3e2
+    m_Address: PetProject/HeroIcons/Paladin
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc26de7bb9d7b2642acac0440b99e493
+    m_Address: PetProject/Data/HeroClasses
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e9c5817cf1b2f654b8122958eb8967df
+    m_Address: PetProject/UI/MainMenu
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f22fb8462b5b1774b8d20c4c77afad9c
+    m_Address: PetProject/HeroIcons/Rogue
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: d0ca6940b154fce40920afd27c8bd935, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 8f6435f4812d1fb42a9695668bbbf22a, type: 2}
+    - {fileID: 11400000, guid: d59bab9175b92da4ea647e63a39ed7a3, type: 2}

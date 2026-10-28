@@ -17,6 +17,7 @@ namespace VFXSystem.Resolver
         {
             if (_camera == null) 
                 _camera = Camera.main;
+            if (_camera == null) return false;
 
             Vector3 viewportPoint = _camera.WorldToViewportPoint(context.Position);
 

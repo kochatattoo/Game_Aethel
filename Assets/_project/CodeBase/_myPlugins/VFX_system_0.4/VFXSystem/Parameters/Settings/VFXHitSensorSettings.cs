@@ -4,7 +4,7 @@ using UnityEngine;
 namespace VFXSystem.Parameters.Settings
 {
     [CreateAssetMenu(fileName = nameof(VFXHitSensorSettings), menuName = ScriptableObjectNames.VFXName + "Setting/" + nameof(VFXHitSensorSettings))]
-    public class VFXHitSensorSettings
+    public class VFXHitSensorSettings : ScriptableObject
     {
         [field: SerializeField]
         public float NormilizedMultiplier { get; private set; } = 0.1f;

@@ -29,9 +29,6 @@ namespace CodeBase.Hero.HeroBehaviour
 
         public BehaviourNode.Status Process() //TODO: Разбить на мелкие методы для читабельности
         {
-            Debug.Log("Attack strategy process");
-            Debug.Log("State " + _state);
-
             // 1. Валидация цели КАЖДЫЙ кадр
             if (!IsTargetValid())
             {

@@ -107,7 +107,7 @@ namespace CodeBase.Enemies
 
         private string GenerateId()
         {
-            return $"{gameObject.scene.name}_{Guid.NewGuid().ToString()}";
+            return $"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}_{Guid.NewGuid().ToString()}";
         }
 
         private void PickUp()

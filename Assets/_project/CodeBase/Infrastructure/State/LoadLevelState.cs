@@ -9,6 +9,8 @@ using CodeBase.UI.Elements;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
+using CodeBase.CharacterIntegration;
 
 
 namespace CodeBase.Infrastructure.State
@@ -21,13 +23,14 @@ namespace CodeBase.Infrastructure.State
         private readonly IGameFactory _gameFactory;
         private readonly IPersistentProgressService _progressService;
         private readonly IStaticDataService _staticDataService;
+        private readonly CharacterMenuService _menu;
 
         public LoadLevelState(IGameStateMachine stateMachine,
             LoadingCurtain curtain,
             SceneLoader sceneLoader,
             IGameFactory gameFactory,
             IPersistentProgressService progressService,
-            IStaticDataService staticDataService)
+            IStaticDataService staticDataService, CharacterMenuService menu)
         {
             _stateMachine = stateMachine;
             _curtain = curtain;
@@ -35,10 +38,12 @@ namespace CodeBase.Infrastructure.State
             _gameFactory = gameFactory;
             _staticDataService = staticDataService;
             _progressService = progressService;
+            _menu = menu;
         }
 
         public void Enter(string sceneName)
         {
+            _menu.BeforeWorldLoad();
             _curtain.Show();
             _gameFactory.CleanUp();
             _sceneLoader.Load(sceneName, OnLoaded);
@@ -48,11 +53,15 @@ namespace CodeBase.Infrastructure.State
 
         private async void OnLoaded()
         {
-            await InitGameWorld();
-            InformProgressReaders();
-
-            _curtain.Hide();
-            _stateMachine.Enter<GameLoopState>();
+            try
+            {
+                await InitGameWorld();
+                InformProgressReaders();
+                _menu.WorldLoaded();
+                _curtain.Hide();
+                _stateMachine.Enter<GameLoopState>();
+            }
+            catch (Exception error) { _menu.LoadingFailed(error); }
         }
 
         private void InformProgressReaders()
@@ -73,6 +82,7 @@ namespace CodeBase.Infrastructure.State
             await InitTransferToPoints(levelData);
 
             HeroFacade hero = await InitHero(levelData);
+            hero.Health.BindStats(_menu);
             await InitHud(hero);
 
             Camera.main.GetComponent<CameraFollow>().Construct(hero.transform);
@@ -90,14 +100,18 @@ namespace CodeBase.Infrastructure.State
                 .Construct(hero.Health);
         }
 
-        private async Task InitTransferToPoints(LevelStaticData levelData) =>
-           await _gameFactory.CreateTransferToPoint(levelData.LevelTransferData);
+        private async Task InitTransferToPoints(LevelStaticData levelData)
+        {
+            if (!string.IsNullOrWhiteSpace(levelData.LevelTransferData.LevelTo))
+                await _gameFactory.CreateTransferToPoint(levelData.LevelTransferData);
+        }
 
         private async Task InitLoots()
         {
             foreach (var id in _progressService.Progress.WorldData.LootData.LootsOnGround.Dict)
             {
-                await _gameFactory.CreateLootFromPool(id.Key);
+                if (id.Key.StartsWith(SceneManager.GetActiveScene().name + "_", StringComparison.Ordinal))
+                    await _gameFactory.CreateLootFromPool(id.Key);
             }
         }
 

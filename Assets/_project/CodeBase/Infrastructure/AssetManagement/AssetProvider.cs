@@ -1,82 +1,49 @@
-﻿using System.Collections.Generic;
+
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine;
 using Zenject;
-
 namespace CodeBase.Infrastructure.AssetManagement
 {
-    public class AssetProvider: IAsset, IInitializable
+    /// <summary>Кеш ассетов принадлежит приложению, экземпляры — текущему уровню.</summary>
+    public class AssetProvider : IAsset,IInitializable,IDisposable
     {
-        private readonly Dictionary<string, AsyncOperationHandle> _completedCache = new Dictionary<string, AsyncOperationHandle>();
-        private readonly Dictionary<string, List<AsyncOperationHandle>> _handles = new Dictionary<string, List<AsyncOperationHandle>>();
-
-        public void Initialize()
+        private readonly Dictionary<string,AsyncOperationHandle> _loads=new();
+        private readonly List<AsyncOperationHandle<GameObject>> _instances=new();
+        private int _generation;
+        public void Initialize(){Addressables.InitializeAsync();}
+        public Task<T> Load<T>(AssetReference reference) where T:class=>LoadInternal<T>(reference.AssetGUID,reference);
+        public Task<T> Load<T>(string address) where T:class=>LoadInternal<T>(address,address);
+        private async Task<T> LoadInternal<T>(string key,object address) where T:class
         {
-            Addressables.InitializeAsync();
+            if(!_loads.TryGetValue(key,out var handle)){handle=Addressables.LoadAssetAsync<T>(address);_loads.Add(key,handle);}
+            await handle.Task;
+            if(handle.Status!=AsyncOperationStatus.Succeeded)throw new InvalidOperationException("Ошибка загрузки "+key,handle.OperationException);
+            return handle.Result as T ?? throw new InvalidOperationException("Неверный тип ассета "+key);
         }
-
-        public async Task<T> Load<T>(AssetReference assetReference) where T : class
+        public Task<GameObject> Instantiate(string address)=>Track(Addressables.InstantiateAsync(address));
+        public Task<GameObject> Instantiate(string address,Vector3 at)=>Track(Addressables.InstantiateAsync(address,at,Quaternion.identity));
+        public Task<GameObject> Instantiate(string address,Transform parent)=>Track(Addressables.InstantiateAsync(address,parent));
+        private async Task<GameObject> Track(AsyncOperationHandle<GameObject> handle)
         {
-            if (_completedCache.TryGetValue(assetReference.AssetGUID, out AsyncOperationHandle completeHanlde))
-                return completeHanlde.Result as T;
-
-            return await RunWithCacheOnComplete(
-                Addressables.LoadAssetAsync<T>(assetReference),
-                cachKey: assetReference.AssetGUID);
+            var generation=_generation;
+            GameObject instance;
+            try{instance=await handle.Task;}catch{if(handle.IsValid())Addressables.Release(handle);throw;}
+            if(generation!=_generation){Addressables.ReleaseInstance(handle);throw new OperationCanceledException("Уровень уже закрыт");}
+            _instances.Add(handle);return instance;
         }
-
-        public async Task<T> Load<T>(string address) where T : class
-        {
-            if (_completedCache.TryGetValue(address, out AsyncOperationHandle completeHanlde))
-                return completeHanlde.Result as T;
-
-            return await RunWithCacheOnComplete(
-                Addressables.LoadAssetAsync<T>(address),
-                cachKey: address);
-        }
-
-        public Task<GameObject> Instantiate(string address) =>
-            Addressables.InstantiateAsync(address).Task;
-
-        public Task<GameObject> Instantiate(string address, Vector3 at) =>
-            Addressables.InstantiateAsync(address, at, Quaternion.identity).Task;
-
-        public Task<GameObject> Instantiate(string address, Transform parent) =>
-            Addressables.InstantiateAsync(address, parent).Task;
-
         public void CleanUp()
         {
-            foreach (List<AsyncOperationHandle> resourceHandles in _handles.Values)
-                foreach (AsyncOperationHandle handle in resourceHandles)
-                    Addressables.Release(handle);
-
-            _completedCache.Clear();
-            _handles.Clear();
+            _generation++;
+            foreach(var handle in _instances)if(handle.IsValid())Addressables.ReleaseInstance(handle);
+            _instances.Clear();
         }
-
-        private async Task<T> RunWithCacheOnComplete<T>(AsyncOperationHandle<T> handle, string cachKey) where T : class
+        public void Dispose()
         {
-            handle.Completed += completeHandle =>
-            {
-                _completedCache[cachKey] = completeHandle;
-            };
-
-            AddHandle(cachKey, handle);
-
-            return await handle.Task;
-        }
-
-        private void AddHandle<T>(string key, AsyncOperationHandle<T> handle) where T : class
-        {
-            if (!_handles.TryGetValue(key, out List<AsyncOperationHandle> resourceHandles))
-            {
-                resourceHandles = new List<AsyncOperationHandle>();
-                _handles[key] = resourceHandles;
-            }
-
-            resourceHandles.Add(handle);
+            CleanUp();foreach(var handle in _loads.Values)if(handle.IsValid())Addressables.Release(handle);_loads.Clear();
         }
     }
 }

@@ -10,6 +10,15 @@ namespace CodeBase.Hero
     {
         private HeroAnimator _animator;
         private State _state;
+        private CodeBase.CharacterIntegration.CharacterMenuService _character;
+        public void BindStats(CodeBase.CharacterIntegration.CharacterMenuService character)
+        {
+            if (_character != null) _character.StatsChanged -= NotifyStats;
+            _character = character;
+            _character.StatsChanged += NotifyStats;
+        }
+        private void NotifyStats() { if (_state != null) HealthChanged?.Invoke(); }
+        private void OnDestroy() { if (_character != null) _character.StatsChanged -= NotifyStats; }
 
         [Header("Settings")]
         [SerializeField] 

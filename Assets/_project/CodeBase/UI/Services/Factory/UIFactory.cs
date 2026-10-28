@@ -10,7 +10,6 @@ using CodeBase.StaticData.Windows;
 using CodeBase.UI.Services.Windows;
 using CodeBase.UI.Windows;
 using Cysharp.Threading.Tasks;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -32,6 +31,7 @@ namespace CodeBase.UI.Services.Factory
         private readonly IIAPService _iapService;
         private readonly IPoolService _poolService;
         private Transform _uiRoot;
+        public Transform Root => _uiRoot;
 
         public UIFactory(IAsset assets,
                     IStaticDataService staticData,

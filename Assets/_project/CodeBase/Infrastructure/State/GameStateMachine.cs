@@ -30,6 +30,7 @@ namespace CodeBase.Infrastructure.State
         {
             _states = new Dictionary<Type, IExitableState>
             {
+                [typeof(MainMenuState)] = _stateFactory.CreateState<MainMenuState>(),
                 [typeof(BootstrapState)] = _stateFactory
                 .CreateState<BootstrapState>(),
                 [typeof(WarmUpState)] = _stateFactory

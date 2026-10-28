@@ -3,5 +3,6 @@
     public interface IReloadService : IService
     {
         void Reload();
+        void NewGame();
     }
 }

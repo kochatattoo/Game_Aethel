@@ -1,0 +1,6 @@
+{
+  "name": "PetProject.Character.Tests",
+  "references": ["PetProject.Character", "UniRx", "UniTask"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}

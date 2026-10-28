@@ -26,7 +26,7 @@ namespace CodeBase.Sensors
 
         private void Update()
         {
-            if (!_isActive) 
+            if (!_isActive)
                 return;
 
             // Используем SphereCast или просто проверку дистанции от кончика меча
@@ -51,9 +51,10 @@ namespace CodeBase.Sensors
             }
         }
 
+#if UNITY_EDITOR_WIN
         private void OnDrawGizmos()
         {
-            if (!_attackConfig.DrawGizmos) 
+            if (!_attackConfig.DrawGizmos)
                 return;
 
             Gizmos.color = _isActive ? _attackConfig.GizmoColor : new Color(_attackConfig.GizmoColor.r, _attackConfig.GizmoColor.g, _attackConfig.GizmoColor.b, 0.2f);
@@ -75,5 +76,6 @@ namespace CodeBase.Sensors
             Gizmos.DrawLine(p0 + transform.forward * radius, p1 + transform.forward * radius);
             Gizmos.DrawLine(p0 - transform.forward * radius, p1 - transform.forward * radius);
         }
+#endif
     }
 }

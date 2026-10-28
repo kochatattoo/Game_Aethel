@@ -6,6 +6,7 @@ namespace CodeBase.UI.Services.Factory
 {
    public interface IUIFactory: IService
     {
+        UnityEngine.Transform Root { get; }
         void CreateOption();
         UniTask CreateOptionAsync();
         void CreateShop();

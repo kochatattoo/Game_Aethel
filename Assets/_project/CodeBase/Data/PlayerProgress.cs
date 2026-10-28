@@ -5,6 +5,8 @@ namespace CodeBase.Data
     [Serializable]
     public class PlayerProgress
     {
+        public int CharacterSchemaVersion;
+        public Code.Hero.Data.CharacterProfileData Character;
         public State HeroState;
         public KillData KillData;
         public WorldData WorldData;

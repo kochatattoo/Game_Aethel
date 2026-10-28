@@ -3,13 +3,19 @@ using CodeBase.Infrastructure.Services.ObjectPool;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using CodeBase.UI.Elements;
+using UnityEngine;
 
 namespace CodeBase.UI.Windows
 {
     public class OptionWindow : WindowBase, IPoolable<OptionWindow>
     {
-        public SaveUI saveUI;
-        public LoadUI loadUI;
+        [SerializeField]
+        private SaveUI saveUI;
+        [SerializeField]
+        private LoadUI loadUI;
+        [SerializeField]
+        private NewGameUI newGameUI;
+
         private IPool<OptionWindow> _pool;
 
         public void Construct(IPersistentProgressService persistentProgress,
@@ -20,6 +26,7 @@ namespace CodeBase.UI.Windows
             base.Construct(persistentProgress);
             saveUI.Construct(saveLoadService, inputService);
             loadUI.Construct(reloadService, inputService, Close);
+            newGameUI.Construct(reloadService, Close);
         }
 
         public void SetPool(IPool<OptionWindow> pool)

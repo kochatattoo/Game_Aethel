@@ -228,6 +228,7 @@ namespace CodeBase.Infrastructure.Factory
 
         public void CleanUp()
         {
+            _poolService.GetPool<LootPiece>()?.DespawnAllActive();
             ProgressReaders.Clear();
             ProgressWriters.Clear();
 
