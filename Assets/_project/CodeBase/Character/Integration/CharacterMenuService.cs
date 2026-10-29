@@ -24,6 +24,7 @@ namespace CodeBase.CharacterIntegration
         private readonly IHeroDataService _hero;
         private readonly IPersistentProgressService _progress;
         private readonly ISaveLoadService _save;
+        private readonly ISaveSlotService _slots;
         private readonly IGameStateMachine _states;
         private readonly IUIFactory _ui;
         private readonly LoadingCurtain _curtain;
@@ -41,8 +42,8 @@ namespace CodeBase.CharacterIntegration
 
         public CharacterMenuService(CharacterAssets assets, IHeroDataService hero,
             IPersistentProgressService progress, ISaveLoadService save, IGameStateMachine states,
-            IUIFactory ui, LoadingCurtain curtain)
-        { _assets=assets; _hero=hero; _progress=progress; _save=save; _states=states; _ui=ui; _curtain=curtain; }
+            IUIFactory ui, LoadingCurtain curtain, ISaveSlotService slots)
+        { _assets=assets; _hero=hero; _progress=progress; _save=save; _states=states; _ui=ui; _curtain=curtain; _slots=slots; }
 
         public UniTask InitializeAsync() => LoadAsync(_lifetime.Token);
         public async UniTask LoadAsync(CancellationToken token)
@@ -58,6 +59,7 @@ namespace CodeBase.CharacterIntegration
             await _assets.LoadAsync<GameObject>(CharacterAssets.Menu, token);
             await _assets.LoadAsync<GameObject>(CharacterAssets.Creation, token);
             await _assets.LoadAsync<GameObject>(CharacterAssets.Attributes, token);
+            _slots.InitializeStorage(IsValid, _config.InitialLevel);
             _initialized = true;
         }
 
@@ -73,12 +75,38 @@ namespace CodeBase.CharacterIntegration
                 var menu=_view.GetComponent<CharacterMainMenuView>();
                 var saved=_save.LoadProgress();
                 menu.Bind(this,_worldReady,IsValid(saved),_hero.CurrentHero.Value!=null);
+                if(!string.IsNullOrEmpty(_slots.Notice))menu.Status.text=_slots.Notice;
                 _curtain.Hide();
             }
             finally{_opening=false;}
         }
 
-        public void OpenCreation() => OpenCreationAsync().Forget(HandleError);
+        public void StartNewGame()=>OpenSlots(true);
+        public void OpenSlots(bool newGame=false)
+        {
+            if(_opening)return;
+            var go=new GameObject("SaveSlots",typeof(RectTransform));
+            ReplaceView(go);
+            go.AddComponent<SaveSlotsView>().Construct(_slots,_worldReady,newGame,BeginProfile,LoadSlot,
+                ()=>ShowMainMenuAsync().Forget(HandleError),_classes);
+        }
+        private void BeginProfile(string id){_slots.PrepareNewProfile(id);OpenCreation();}
+        private void LoadSlot(string id)
+        {
+            try
+            {
+                if(_worldReady && _slots.ActiveSlotId!=id)_save.SaveProgress();
+                _slots.SelectSlot(id);
+                HasPendingNewGame=false;
+                StartLoading();_states.Enter<ReloadGameState>();
+            }
+            catch(Exception error){HandleError(error);}
+        }
+        public void OpenCreation()
+        {
+            if(!_slots.HasPendingProfile){OpenSlots(true);return;}
+            OpenCreationAsync().Forget(HandleError);
+        }
         private async UniTask OpenCreationAsync()
         {
             if(_opening)return; _opening=true;
@@ -87,7 +115,7 @@ namespace CodeBase.CharacterIntegration
                 var prefab=await _assets.LoadAsync<GameObject>(CharacterAssets.Creation,_lifetime.Token);
                 ReplaceView(UnityEngine.Object.Instantiate(prefab));
                 var window=_view.GetComponent<NewGameWindow>();
-                window.Closed+=()=>ShowMainMenuAsync().Forget(HandleError);
+                window.Closed+=()=>{_slots.CancelPendingProfile();ShowMainMenuAsync().Forget(HandleError);};
                 window.Construct(this,_assets,_config.Balance,Commit);
             }
             finally{_opening=false;}
@@ -114,8 +142,8 @@ namespace CodeBase.CharacterIntegration
         public void Continue()
         {
             if(_worldReady){Resume();return;}
-            if(!IsValid(_save.LoadProgress()))return;
-            StartLoading();_states.Enter<ReloadGameState>();
+            if(_slots.ActiveSlotId==null)return;
+            LoadSlot(_slots.ActiveSlotId);
         }
 
         public bool IsValid(PlayerProgress data)
@@ -123,12 +151,17 @@ namespace CodeBase.CharacterIntegration
             if(data?.HeroState==null || data.HeroStats==null || data.WorldData?.PositionOnLevel==null ||
                data.WorldData.LootData==null || data.KillData==null || data.PurchaseData==null ||
                !Application.CanStreamedLevelBeLoaded(data.WorldData.PositionOnLevel.Level) ||
-               float.IsNaN(data.HeroState.CurrentHP) || float.IsNaN(data.HeroState.MaxHP) || data.HeroState.MaxHP<=0)
+               !Finite(data.HeroState.CurrentHP) || !Finite(data.HeroState.MaxHP) || data.HeroState.MaxHP<=0 ||
+               data.HeroState.CurrentHP<0 || data.HeroState.CurrentHP>data.HeroState.MaxHP ||
+               !Finite(data.HeroStats.Damage) || data.HeroStats.Damage<0 ||
+               data.WorldData.LootData.Collected<0 || data.KillData.ClaeredSpawners==null ||
+               data.WorldData.LootData.LootsOnGround?.Dict==null || data.PurchaseData.BoughtIAPs?.Dict==null)
                 return false;
             if(data.Character==null)return true;
             if(data.CharacterSchemaVersion!=1 || !_classes.TryGetValue(data.Character.ClassId,out var definition))return false;
             try{using var restored=data.Character.Restore(definition);return true;}catch(ArgumentException){return false;}
         }
+        private static bool Finite(float value)=>!float.IsNaN(value)&&!float.IsInfinity(value);
 
         public void RestoreProfile(PlayerProgress progress)
         {
@@ -170,6 +203,8 @@ namespace CodeBase.CharacterIntegration
         private void HandleError(Exception error)
         {
             if(error is OperationCanceledException)return;
+            HasPendingNewGame=false;
+            _slots.CancelPendingProfile();
             Debug.LogException(error);_loadingScope?.Dispose();_loadingScope=null;
             _curtain.ShowError("Не удалось загрузить игру. "+error.Message,()=>ShowMainMenuAsync().Forget(Debug.LogException));
         }

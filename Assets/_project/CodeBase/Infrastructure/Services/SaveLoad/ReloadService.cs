@@ -17,6 +17,6 @@ namespace CodeBase.Infrastructure.Services.SaveLoad
         {
             _gameStateMachine.Enter<ReloadGameState>();
         }
-        public void NewGame() => _services.CreateService<CodeBase.CharacterIntegration.CharacterMenuService>().OpenCreation();
+        public void NewGame() => _services.CreateService<CodeBase.CharacterIntegration.CharacterMenuService>().StartNewGame();
     }
 }

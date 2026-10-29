@@ -9,7 +9,7 @@ namespace Code.UI.Elements
         [SerializeField] private int WindowId;
         private CharacterMenuService _service;
         public void Construct(CharacterMenuService service){_service=service;Button.onClick.RemoveListener(Open);Button.onClick.AddListener(Open);}
-        private void Open(){if(WindowId==2)_service.OpenCreation();else if(WindowId==3)_service.Quit();}
+        private void Open(){if(WindowId==2)_service.StartNewGame();else if(WindowId==3)_service.Quit();}
         private void OnDestroy(){if(Button!=null)Button.onClick.RemoveListener(Open);}
     }
 }

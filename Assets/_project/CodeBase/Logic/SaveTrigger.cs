@@ -26,8 +26,8 @@ namespace CodeBase.Logic
 
             if (other.CompareTag(PlayerTag))
             {
-                _triggered = true;
                 _saveLoadService.SaveProgress();
+                _triggered = true;
                 //StartCoroutine(ResetTimer());
             }
         }

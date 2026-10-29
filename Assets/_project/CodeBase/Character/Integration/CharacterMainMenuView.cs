@@ -17,6 +17,13 @@ namespace CodeBase.CharacterIntegration
             AttributesButton.gameObject.SetActive(worldReady);
             AttributesButton.interactable=hasCharacter;
             AttributesButton.onClick.AddListener(service.OpenAttributes);
+            var slots=Instantiate(ContinueButton,ContinueButton.transform.parent);
+            slots.name="SaveSlots_Button";
+            slots.transform.SetSiblingIndex(3);
+            slots.onClick=new Button.ButtonClickedEvent();
+            slots.interactable=true;
+            slots.GetComponentInChildren<TMP_Text>().text="Сохранения";
+            slots.onClick.AddListener(()=>service.OpenSlots());
             Status.text=worldReady?"Пауза":canContinue?"Найдено сохранение":"Начните новую игру";
         }
     }

@@ -27,6 +27,8 @@ namespace CodeBase.Hero
 
         private void Update()
         {
+            if(_agent==null || !_agent.isActiveAndEnabled || !_agent.isOnNavMesh)
+            { IsMove=false;PlayMove();return; }
             if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
                 IsMove = false;
             else
@@ -37,6 +39,7 @@ namespace CodeBase.Hero
 
         public void MoveTo(Vector3 worldPoint)
         {
+            if(_agent==null || !_agent.isActiveAndEnabled || !_agent.isOnNavMesh)return;
            // Debug.Log("Установка дистанции для агента" + worldPoint.x + " " + worldPoint.y + " " + worldPoint.z);
             _agent.isStopped = false;
             _agent.SetDestination(worldPoint);
@@ -45,6 +48,7 @@ namespace CodeBase.Hero
 
         public void Stop()
         {
+            if(_agent==null || !_agent.isActiveAndEnabled || !_agent.isOnNavMesh){IsMove=false;return;}
             _agent.ResetPath();
             _agent.isStopped = true;
             IsMove = false;
@@ -78,9 +82,11 @@ namespace CodeBase.Hero
 
         private void Warp(Vector3Data to)
         {
-            _agent.enabled = false;
-            transform.position = to.AsUnityVector().AddY(_agent.height / 2);
-            _agent.enabled = true;
+            // Absolute positions must not gain agent height on every load.
+            if(NavMesh.SamplePosition(to.AsUnityVector(),out var hit,3f,_agent.areaMask))
+                _agent.Warp(hit.position);
+            else
+                Debug.LogWarning("Позиция сохранения вне NavMesh: герой оставлен в стартовой точке уровня");
         }
 
         private static string CurrentLevel() => SceneManager.GetActiveScene().name;

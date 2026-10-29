@@ -1,0 +1,6 @@
+{
+  "name": "PetProject.SaveStorage.Tests",
+  "references": ["PetProject.SaveStorage"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"]
+}
