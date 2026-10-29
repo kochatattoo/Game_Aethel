@@ -1,0 +1,35 @@
+{
+  "baseline": "fa8698456e5113a04ee91c821daa9424bb579269",
+  "entries": [
+    {
+      "guid": "ed39f2b237e573f4f85990bb5d1440ac",
+      "type": "Wwise InitBankHolder",
+      "locations": [
+        "Reload/WwiseGlobal",
+        "Level_1/WwiseGlobal",
+        "Level_3/WwiseGlobal",
+        "Level_4/WwiseGlobal"
+      ],
+      "presentInBaselineGitMeta": false,
+      "baselineMetaMatches": []
+    },
+    {
+      "guid": "9289c9e765809ec408877f7c7b8d296d",
+      "type": "WwiseInitBankReference",
+      "locations": [
+        "Assets/Wwise/ScriptableObjects/InitBank.asset"
+      ],
+      "presentInBaselineGitMeta": false,
+      "baselineMetaMatches": []
+    },
+    {
+      "guid": "6fd9ebf1401392e4bbd47fea32f47642",
+      "type": "SteamAudioListener",
+      "locations": [
+        "Level_2/Main Camera"
+      ],
+      "presentInBaselineGitMeta": false,
+      "baselineMetaMatches": []
+    }
+  ]
+}

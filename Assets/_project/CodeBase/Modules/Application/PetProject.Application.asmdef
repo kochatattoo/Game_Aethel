@@ -1,0 +1,14 @@
+{
+  "name": "PetProject.Application",
+  "references": [
+    "GUID:7beb6af7fa83439489d8b305b2d9663a",
+    "GUID:5cd118ad42ba95743aced52580055b28",
+    "GUID:3f094c1204c0ec04f990fbcb0f6a4dae",
+    "GUID:e5de24f572a2e574da727ddde5321f98",
+    "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23",
+    "GUID:75469ad4d38634e559750d17036d5f7c",
+    "GUID:9b5640642a758944da163d62bfee39af"
+  ],
+  "autoReferenced": true
+}

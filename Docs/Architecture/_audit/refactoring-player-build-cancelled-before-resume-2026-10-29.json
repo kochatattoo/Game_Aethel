@@ -1,0 +1,11 @@
+{
+    "utc": "2026-10-29T08:33:36.4758619Z",
+    "result": "Cancelled",
+    "errors": 2,
+    "warnings": 0,
+    "seconds": 53.566967,
+    "messages": [
+        "Building Player was cancelled",
+        "TaskCanceledException: A task was canceled."
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "utc": "2026-10-29T19:19:27.3243041Z",
+    "result": "Succeeded",
+    "errors": 2,
+    "warnings": 13,
+    "seconds": 104.31667859999999,
+    "messages": [
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Init.bnk",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Init.json",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Init.txt",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Init.xml",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Main.bnk",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Main.json",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Main.txt",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\Main.xml",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\PlatformInfo.json",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\PlatformInfo.xml",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\PluginInfo.json",
+        "WwiseUnity: (WARNING) Destination file path will be overwritten: D:\\UnityPetProject\\PetProject\\Assets\\StreamingAssets\\Audio\\GeneratedSoundBanks\\Windows\\PluginInfo.xml",
+        "PPtr cast failed when dereferencing! Casting from PluginImporter to MonoScript!",
+        "PPtr cast failed when dereferencing! Casting from PluginImporter to MonoScript!",
+        "A meta data file (.meta) exists but its folder 'Assets/StreamingAssets/Audio/GeneratedSoundBanks/Windows' can't be found, and has been created. Empty directories cannot be stored in version control, so it's assumed that the meta data file is for an empty directory in version control. When moving or deleting folders outside of Unity, please ensure that the corresponding .meta file is moved or deleted along with it."
+    ]
+}

@@ -15,7 +15,6 @@ namespace CodeBase.Editor
         private const string TransferToPositionTag = "TransferToPoint";
         private const string SaveTriggerTag = "SaveTrigger";
 
-        [System.Obsolete]
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -24,10 +23,11 @@ namespace CodeBase.Editor
 
             if (GUILayout.Button("Collect"))
             {
-                levelData.EnemySpawners =
-                    FindObjectsOfType<SpawnMarker>()
+                var spawners = FindObjectsByType<SpawnMarker>(FindObjectsSortMode.None)
                     .Select(x => new EnemySpawnerData(x.GetComponent<UniqueId>().Id, x.MonsterTypeID, x.transform.position))
                     .ToList();
+                Undo.RecordObject(levelData, "Collect level data");
+                levelData.EnemySpawners = LevelDataValidation.UniqueSpawners(spawners).ToList();
 
                 levelData.LevelKey = SceneManager.GetActiveScene().name;
 
@@ -40,9 +40,8 @@ namespace CodeBase.Editor
                 var transferToPoint = GameObject.FindGameObjectWithTag(TransferToPositionTag).GetComponent<LevelTransferTrigger>();
                 levelData.LevelTransferData.TransferToPosition = transferToPoint.transform.position;
                 levelData.LevelTransferData.LevelTo = transferToPoint.TransferTo;
+                EditorUtility.SetDirty(target);
             }
-
-            EditorUtility.SetDirty(target);
         }
     }
 }

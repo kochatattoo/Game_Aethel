@@ -1,6 +1,12 @@
 {
   "name": "PetProject.SaveStorage.Tests",
-  "references": ["PetProject.SaveStorage"],
-  "includePlatforms": ["Editor"],
-  "optionalUnityReferences": ["TestAssemblies"]
+  "references": [
+    "GUID:f2e8a1ccca00517408f44127e5e3aaf1"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

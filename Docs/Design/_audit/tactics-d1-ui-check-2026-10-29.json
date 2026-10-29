@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-29",
+  "method": "Native Unity window inspection and one real mouse click through computer-use",
+  "scene": "TacticsSandbox",
+  "playMode": true,
+  "commandWindowVisible": true,
+  "floatingWindowPositionFixed": true,
+  "observedBefore": {
+    "actor": "hero",
+    "cell": [
+      1,
+      1
+    ],
+    "actionPoints": 3,
+    "revision": 0
+  },
+  "action": "Clicked Переместить активного with destination (2,1)",
+  "observedAfter": {
+    "actor": "hero",
+    "cell": [
+      2,
+      1
+    ],
+    "actionPoints": 2,
+    "revision": 1,
+    "result": "Команда принята"
+  },
+  "viewMovedWithModel": true,
+  "scope": "Technical prototype controls and visible meshes only; no claim of final art or production HUD quality"
+}

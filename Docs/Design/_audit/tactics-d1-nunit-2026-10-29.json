@@ -1,0 +1,12 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "PetProject test run completed: 24/24 passed - 0/24 failed - 0/24 skipped"
+    },
+    {
+      "type": "text",
+      "text": "{\n  \"testCount\": 32,\n  \"passCount\": 24,\n  \"failCount\": 0,\n  \"skipCount\": 0,\n  \"results\": []\n}"
+    }
+  ]
+}

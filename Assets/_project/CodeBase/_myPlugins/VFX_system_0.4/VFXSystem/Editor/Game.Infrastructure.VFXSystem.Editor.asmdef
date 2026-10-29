@@ -1,0 +1,10 @@
+{
+  "name": "Game.Infrastructure.VFXSystem.Editor",
+  "references": [
+    "GUID:294c415bde9ea804b8b9eb98d0a6df49"
+  ],
+  "autoReferenced": true,
+  "includePlatforms": [
+    "Editor"
+  ]
+}

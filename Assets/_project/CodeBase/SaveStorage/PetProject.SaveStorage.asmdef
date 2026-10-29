@@ -1,4 +1,5 @@
 {
   "name": "PetProject.SaveStorage",
-  "autoReferenced": true
+  "autoReferenced": true,
+  "references": []
 }

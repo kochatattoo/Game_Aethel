@@ -1,0 +1,23 @@
+{
+  "name": "PetProject.Gameplay",
+  "references": [
+    "GUID:7beb6af7fa83439489d8b305b2d9663a",
+    "GUID:5cd118ad42ba95743aced52580055b28",
+    "GUID:3f094c1204c0ec04f990fbcb0f6a4dae",
+    "GUID:f1341bf49f9f6f24cbb0263239e478e3",
+    "GUID:e5de24f572a2e574da727ddde5321f98",
+    "GUID:9b5640642a758944da163d62bfee39af",
+    "GUID:885f4f48a75a75e428571abf46a79b0b",
+    "GUID:2aae566e8ea9f424ea45002fd29f5815",
+    "GUID:294c415bde9ea804b8b9eb98d0a6df49",
+    "GUID:b1e925b2f18bee3408decb79e4c1de7d",
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+    "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23",
+    "GUID:6055be8ebefd69e48b49212b09b47b2f",
+    "GUID:9e24947de15b9834991c9d8411ea37cf",
+    "GUID:84651a3751eca9349aac36a66bba901b",
+    "GUID:f03962106f38998408c86e9739a19fdf"
+  ],
+  "autoReferenced": true
+}

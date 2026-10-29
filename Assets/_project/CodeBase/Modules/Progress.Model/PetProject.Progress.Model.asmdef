@@ -1,0 +1,7 @@
+{
+  "name": "PetProject.Progress.Model",
+  "references": [
+    "GUID:3f094c1204c0ec04f990fbcb0f6a4dae"
+  ],
+  "autoReferenced": true
+}

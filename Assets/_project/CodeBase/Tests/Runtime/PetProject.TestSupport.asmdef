@@ -1,0 +1,9 @@
+{
+  "name": "PetProject.TestSupport",
+  "references": [
+    "GUID:9b5640642a758944da163d62bfee39af"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

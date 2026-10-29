@@ -1,0 +1,12 @@
+{
+  "name": "PetProject.Tactics.Tests",
+  "references": [
+    "GUID:f03962106f38998408c86e9739a19fdf"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

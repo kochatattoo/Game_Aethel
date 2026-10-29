@@ -1,6 +1,14 @@
 {
   "name": "PetProject.Character.Tests",
-  "references": ["PetProject.Character", "UniRx", "UniTask"],
-  "includePlatforms": ["Editor"],
-  "optionalUnityReferences": ["TestAssemblies"]
+  "references": [
+    "GUID:3f094c1204c0ec04f990fbcb0f6a4dae",
+    "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
 }

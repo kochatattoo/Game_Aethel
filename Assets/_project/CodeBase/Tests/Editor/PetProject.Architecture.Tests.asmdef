@@ -1,0 +1,19 @@
+{
+  "name": "PetProject.Architecture.Tests",
+  "references": [
+    "GUID:7beb6af7fa83439489d8b305b2d9663a",
+    "GUID:5cd118ad42ba95743aced52580055b28",
+    "GUID:1ec5cc24f71c26343a48566683d39ee3",
+    "GUID:3f094c1204c0ec04f990fbcb0f6a4dae",
+    "GUID:9b5640642a758944da163d62bfee39af",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23",
+    "GUID:5b90c0e315c04c04b910907e040a5187",
+    "GUID:5ef972048b7d34f4e9fb8fe19d2fd352"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

@@ -58,7 +58,7 @@ namespace CodeBase.EditorTools
             Press(view.transform.Find("Panel/slot-3/Создать").GetComponent<Button>());
             await UniTask.Yield();
             UnityEngine.Object.FindFirstObjectByType<NewGameWindow>().Close();await UniTask.Yield();
-            if(Slots.HasPendingProfile || Slots.GetSlots().Single(s=>s.Id=="slot-3").State!=SaveSlotState.Empty ||
+            if(Slots.HasPendingProfile || Slots.GetSlots().Single(s=>s.Id=="slot-3").State!=SaveSlotStatus.Empty ||
                 before!=Hash(File.ReadAllText(Path.Combine(SaveLoadService.StorageRoot,"slot-2.json"))))throw new InvalidOperationException("Отмена изменила сохранение");
             Report("ui-cancel");
             menu.StartNewGame();await UniTask.Yield();
@@ -67,7 +67,7 @@ namespace CodeBase.EditorTools
             var window=UnityEngine.Object.FindFirstObjectByType<NewGameWindow>();
             window.Draft.SelectClass(1);for(var i=0;i<10;i++)if(!window.Draft.TryAllocate("str",1))throw new InvalidOperationException("Не распределены очки");
             Press((Button)new SerializedObject(window).FindProperty("_acceptButton").objectReferenceValue);
-            await UniTask.WaitUntil(()=>!menu.HasPendingNewGame).Timeout(TimeSpan.FromSeconds(60));
+            await UniTask.WaitUntil(()=>!menu.HasPendingNewGame).Timeout(TimeSpan.FromSeconds(60), DelayType.Realtime);
             if(Slots.ActiveSlotId!="slot-3" || !Slots.GetSlots().Single(s=>s.Id=="slot-3").CanLoad)throw new InvalidOperationException("Новый герой не записан в слот 3");
             var hero=UnityEngine.Object.FindFirstObjectByType<CodeBase.Hero.HeroFacade>();
             if(hero==null || !hero.GetComponent<UnityEngine.AI.NavMeshAgent>().isOnNavMesh || Math.Abs(hero.Health.Max-50)>.001f || Math.Abs(hero.GetComponent<CodeBase.Hero.HeroAttack>().Damage-7)>.001f)throw new InvalidOperationException("Мир/позиция/характеристики не восстановлены");
@@ -159,11 +159,11 @@ namespace CodeBase.EditorTools
             var path=Path.Combine(SaveLoadService.StorageRoot,"slot-2.json");
             if(!File.Exists(path+".bak"))throw new InvalidOperationException("Нет backup");
             File.WriteAllText(path,"{corrupt");
-            if(Slots.GetSlots().Single(s=>s.Id=="slot-2").State!=SaveSlotState.Recovered)throw new InvalidOperationException("Backup не прочитан");
+            if(Slots.GetSlots().Single(s=>s.Id=="slot-2").State!=SaveSlotStatus.Recovered)throw new InvalidOperationException("Backup не прочитан");
             Slots.SelectSlot("slot-2");
             if(Math.Abs(Saves.LoadProgress().HeroStats.Damage-7)>0.001f)throw new InvalidOperationException("Профиль изменился");
             Saves.SaveProgress();Slots.DeleteSlot("slot-1");
-            if(Slots.GetSlots().Single(s=>s.Id=="slot-1").State!=SaveSlotState.Empty)throw new InvalidOperationException("Слот не удалён");
+            if(Slots.GetSlots().Single(s=>s.Id=="slot-1").State!=SaveSlotStatus.Empty)throw new InvalidOperationException("Слот не удалён");
             if(!File.Exists(Path.Combine(SaveLoadService.StorageRoot,"legacy-playerprefs.json")))throw new InvalidOperationException("Потеряна копия legacy");
             CheckLegacyKey();Report("save-recovery-delete");
         }
@@ -180,7 +180,7 @@ namespace CodeBase.EditorTools
         public static void RestartCheck()
         {
             RequirePlay();
-            if(Slots.ActiveSlotId!="slot-2"||Slots.GetSlots().Single(s=>s.Id=="slot-1").State!=SaveSlotState.Empty)throw new InvalidOperationException("Выбор слота/маркер импорта не восстановлен");
+            if(Slots.ActiveSlotId!="slot-2"||Slots.GetSlots().Single(s=>s.Id=="slot-1").State!=SaveSlotStatus.Empty)throw new InvalidOperationException("Выбор слота/маркер импорта не восстановлен");
             if(Math.Abs(Saves.LoadProgress().HeroStats.Damage-7)>0.001f)throw new InvalidOperationException("Профиль не восстановлен");
             CheckLegacyKey();Report("restart");
         }
