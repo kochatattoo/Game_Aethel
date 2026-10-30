@@ -1,0 +1,37 @@
+{
+  "utc": "2026-10-30T16:00:09.332Z",
+  "baseCommit": "1c5dbbb849f18b84d068dd0f6e3331ce26214bea",
+  "branch": "refactore/systems",
+  "baselineWorkingTree": "clean",
+  "testsBefore": {
+    "passed": 39,
+    "total": 39
+  },
+  "testsAfter": {
+    "passed": 39,
+    "total": 39
+  },
+  "runner": ".NET 9 offline reflection runner (not Unity)",
+  "publicApiUnchanged": true,
+  "publicApiEntries": 227,
+  "unityRoslynNetStandard21": {
+    "before": true,
+    "after": true
+  },
+  "unityEditorCompilation": "not run: MCP queue expired",
+  "nativeUnityTests": "not run: MCP queue expired",
+  "runtimeSmoke": "not run: MCP queue expired",
+  "playerBuild": "not run; no new build claimed",
+  "assemblyCount": 28,
+  "codebaseScriptCount": 559,
+  "sourceScriptCount": 561,
+  "scriptMetasPresent": true,
+  "duplicateScriptGuids": false,
+  "existingMetasUnchanged": true,
+  "serializedAssetsPackagesSettingsUnchanged": true,
+  "fullNoteBlocks": 594,
+  "noteSourceFingerprint": "cc980d3783870dd709785e930b42019c23a00bcfdff57eaebecb91cfe7cb9813",
+  "noteSha256": "99b510e24da156e7970e41d0a3658f854fab56dc0b6ad341b48a80d211499ba1",
+  "noteBytes": 1579801,
+  "validationStatus": "Domain checks passed; Unity Editor import and runtime validation remain blocked"
+}

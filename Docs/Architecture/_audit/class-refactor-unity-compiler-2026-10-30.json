@@ -1,0 +1,22 @@
+{
+  "before": {
+    "utc": "2026-10-30T15:57:19.237Z",
+    "compiler": "C:\\Program Files\\Unity\\6000.3.5f2\\Editor\\Data\\DotNetSdkRoslyn\\csc.dll",
+    "reference": "C:\\Program Files\\Unity\\6000.3.5f2\\Editor\\Data\\NetStandard\\ref\\2.1.0\\netstandard.dll",
+    "sourceCount": 12,
+    "exitCode": 0,
+    "success": true,
+    "stdout": "",
+    "stderr": ""
+  },
+  "after": {
+    "utc": "2026-10-30T16:00:01.689Z",
+    "compiler": "C:\\Program Files\\Unity\\6000.3.5f2\\Editor\\Data\\DotNetSdkRoslyn\\csc.dll",
+    "reference": "C:\\Program Files\\Unity\\6000.3.5f2\\Editor\\Data\\NetStandard\\ref\\2.1.0\\netstandard.dll",
+    "sourceCount": 24,
+    "exitCode": 0,
+    "success": true,
+    "stdout": "",
+    "stderr": ""
+  }
+}
