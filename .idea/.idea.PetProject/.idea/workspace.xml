@@ -11,15 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8616aab4-4196-4422-9874-9fd27bd3d93c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.PetProject/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.PetProject/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.changes" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.changes" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.plastic/plastic.wktree" beforeDir="false" afterPath="$PROJECT_DIR$/.plastic/plastic.wktree" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Wwise/API/Runtime/Plugins/Windows/x86/Profile/AkUnitySoundEngine.dll.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Wwise/API/Runtime/Plugins/Windows/x86/Profile/AkUnitySoundEngine.dll.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Editor/PetProject.Editor.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Editor/PetProject.Editor.asmdef" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Gameplay/PetProject.Gameplay.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Gameplay/PetProject.Gameplay.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Commands/CommandResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Commands/CommandResult.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Encounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Encounter.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridBoard.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridPathfinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridPathfinder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/Scenes/Prototypes/TacticsSandbox.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/Scenes/Prototypes/TacticsSandbox.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/MotionTestSession.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/MotionTestSession.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Rules/DeterministicRandom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Rules/DeterministicRandom.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/State/EncounterSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/State/EncounterSnapshot.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Tests/Editor/EncounterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Tests/Editor/EncounterTests.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Architecture/Architecture-Current.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Architecture/Architecture-Current.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Docs/Architecture/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Architecture/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -150,8 +151,17 @@
       <workItem from="1776157776105" duration="252000" />
       <workItem from="1776869967390" duration="61000" />
       <workItem from="1776951542885" duration="1198000" />
-      <workItem from="1793347959513" duration="2055000" />
+      <workItem from="1793347959513" duration="4405000" />
     </task>
+    <task id="LOCAL-00001" summary="added TestMotion scene and logic for hero">
+      <option name="closed" value="true" />
+      <created>1793352248886</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1793352248886</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +176,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+    <MESSAGE value="added TestMotion scene and logic for hero" />
+    <option name="LAST_COMMIT_MESSAGE" value="added TestMotion scene and logic for hero" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

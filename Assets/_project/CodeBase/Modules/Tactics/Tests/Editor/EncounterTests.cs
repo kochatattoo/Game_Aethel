@@ -155,5 +155,102 @@ namespace PetProject.Tactics.Tests
             Assert.Throws<ArgumentOutOfRangeException>(() => new EncounterRules(0));
             Assert.Throws<ArgumentOutOfRangeException>(() => new EncounterRules(3, 4));
         }
+
+        [Test] public void ReplayAfterAnotherTurnKeepsOriginalRevisionWithoutEvents()
+        {
+            var e = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(4, 0)));
+            var command = TacticalCommand.EndTurn("first", "hero");
+            var original = e.Execute(command);
+            e.Execute(TacticalCommand.EndTurn("second", "enemy"));
+            var before = Fingerprint(e);
+            var replay = e.Execute(command);
+            Assert.That(replay.IsReplay, Is.True);
+            Assert.That(replay.Revision, Is.EqualTo(original.Revision));
+            Assert.That(replay.Events, Is.Empty);
+            Assert.That(Fingerprint(e), Is.EqualTo(before));
+        }
+
+        [Test] public void RejectedCommandIdDoesNotReserveAnEntry()
+        {
+            var e = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(4, 0)));
+            var command = TacticalCommand.EndTurn("retry", "enemy");
+            RejectsWithoutMutation(e, command, CommandError.WrongTurn);
+            e.Execute(TacticalCommand.EndTurn("hero-end", "hero"));
+            var result = e.Execute(command);
+            Assert.That(result.Accepted, Is.True);
+            Assert.That(result.IsReplay, Is.False);
+            Assert.That(e.GetSnapshot().Round, Is.EqualTo(2));
+        }
+
+        [Test] public void DefeatingOneOfThreeFactionsDoesNotCompleteEncounter()
+        {
+            var third = new ActorDefinition("third", "neutral", new GridPosition(2, 0), initiativeBonus: -100);
+            var e = Create(Hero(new GridPosition(0, 0), 100), Enemy(new GridPosition(1, 0), 1), third);
+            var result = e.Execute(TacticalCommand.Attack("kill", "hero", "enemy"));
+            Assert.That(result.Events.Select(x => x.Kind), Is.EqualTo(new[]
+                { TacticalEventKind.AttackHit, TacticalEventKind.ActorDefeated }));
+            Assert.That(e.GetSnapshot().IsCompleted, Is.False);
+            Assert.That(e.CurrentActorId, Is.EqualTo("hero"));
+            e.Execute(TacticalCommand.EndTurn("end", "hero"));
+            Assert.That(e.CurrentActorId, Is.EqualTo("third"));
+        }
+
+        [Test] public void InitiativeTiesUseOrdinalIds()
+        {
+            var b = new ActorDefinition("b", "one", new GridPosition(0, 0));
+            var a = new ActorDefinition("a", "two", new GridPosition(1, 0));
+            var e = new Encounter(new GridBoard(2, 1), new[] { b, a }, new FixedRandom());
+            Assert.That(e.GetSnapshot().Actors.Select(x => x.Id), Is.EqualTo(new[] { "a", "b" }));
+            Assert.That(e.CurrentActorId, Is.EqualTo("a"));
+        }
+
+        [Test] public void InvalidAttackRollDoesNotPartiallyApplyAttack()
+        {
+            var random = new FixedRandom();
+            var e = new Encounter(new GridBoard(2, 1), new[]
+                { Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 0)) }, random);
+            var before = e.GetSnapshot();
+            random.Roll = 21;
+            Assert.Throws<InvalidOperationException>(() => e.Execute(TacticalCommand.Attack("bad", "hero", "enemy")));
+            Assert.That(Actor(e, "hero").ActionPoints, Is.EqualTo(3));
+            Assert.That(Actor(e, "enemy").Health, Is.EqualTo(12));
+            Assert.That(e.GetSnapshot().Revision, Is.EqualTo(before.Revision));
+        }
+
+        [Test] public void InitiativeBonusDoesNotOverflowIntegerRange()
+        {
+            var high = new ActorDefinition("high", "one", new GridPosition(0, 0), initiativeBonus: int.MaxValue);
+            var low = new ActorDefinition("low", "two", new GridPosition(1, 0), initiativeBonus: int.MinValue);
+            var e = new Encounter(new GridBoard(2, 1), new[] { low, high }, new FixedRandom());
+            Assert.That(e.CurrentActorId, Is.EqualTo("high"));
+            Assert.That(Actor(e, "high").Initiative, Is.EqualTo((long)int.MaxValue + 10));
+        }
+
+        [Test] public void EncounterMovementPreservesDirectedTerrainTransitions()
+        {
+            var start = new GridPosition(0, 0);
+            var destination = new GridPosition(1, 0);
+            var board = new GridBoard(3, 2, blockedTransitions: new[] { new GridTransition(start, destination) });
+            var e = new Encounter(board, new[] { Hero(start), Enemy(new GridPosition(2, 1)) }, new FixedRandom());
+            Assert.That(e.PreviewMove("hero", destination).Cost, Is.EqualTo(3));
+            Assert.That(e.Execute(TacticalCommand.Move("detour", "hero", destination)).Accepted, Is.True);
+            Assert.That(Actor(e, "hero").ActionPoints, Is.Zero);
+        }
+
+        [Test] public void InvalidRosterDoesNotConsumeInitiativeRolls()
+        {
+            var random = new FixedRandom();
+            var board = new GridBoard(2, 1, new[] { new GridCell(new GridPosition(1, 0), false) });
+            Assert.Throws<ArgumentException>(() => new Encounter(board, new[]
+                { Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 0)) }, random));
+            Assert.That(random.State, Is.Zero);
+        }
+
+        private sealed class FixedRandom : IRandomSource
+        {
+            public uint State { get; private set; }
+            public int Roll { get; set; } = 10;
+            public int NextInt(int minimumInclusive, int maximumExclusive) { ++State; return Roll; }
+        }
     }
 }

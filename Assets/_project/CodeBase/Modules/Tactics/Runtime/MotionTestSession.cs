@@ -48,17 +48,4 @@ namespace PetProject.Tactics
         private static MotionMoveResult Reject(GridPosition destination, long revision, string error) =>
             new MotionMoveResult(destination, revision, GridPath.Unreachable, error, false);
     }
-
-    public sealed class MotionMoveResult
-    {
-        public GridPosition Destination { get; }
-        public long ExpectedRevision { get; }
-        public GridPath Path { get; }
-        public string Error { get; }
-        public bool Accepted => Error == null;
-        public bool IsReplay { get; }
-        internal MotionMoveResult(GridPosition destination, long revision, GridPath path, string error, bool replay)
-        { Destination = destination; ExpectedRevision = revision; Path = path; Error = error; IsReplay = replay; }
-        internal MotionMoveResult Replay() => new MotionMoveResult(Destination, ExpectedRevision, Path, Error, true);
-    }
 }

@@ -2,12 +2,6 @@ using System;
 
 namespace PetProject.Tactics
 {
-    public interface IRandomSource
-    {
-        uint State { get; }
-        int NextInt(int minimumInclusive, int maximumExclusive);
-    }
-
     /// <summary>xorshift32-v1. Its stream is independent of Unity and presentation randomness.</summary>
     public sealed class DeterministicRandom : IRandomSource
     {
