@@ -1,6 +1,9 @@
 {
   "name": "PetProject.Editor",
   "references": [
+    "GUID:75469ad4d38634e559750d17036d5f7c",
+    "GUID:4307f53044263cf4b835bd812fc161a4",
+    "GUID:8c4dd21966739024fbd72155091d199e",
     "GUID:36d14031de37d3c439b029a7fdd71373",
     "GUID:780bf2ffdc47b8a42b158fb086cecf27",
     "GUID:7beb6af7fa83439489d8b305b2d9663a",

@@ -1,6 +1,9 @@
 {
   "name": "PetProject.Gameplay",
   "references": [
+    "GUID:75469ad4d38634e559750d17036d5f7c",
+    "GUID:4307f53044263cf4b835bd812fc161a4",
+    "GUID:8c4dd21966739024fbd72155091d199e",
     "GUID:7beb6af7fa83439489d8b305b2d9663a",
     "GUID:5cd118ad42ba95743aced52580055b28",
     "GUID:3f094c1204c0ec04f990fbcb0f6a4dae",

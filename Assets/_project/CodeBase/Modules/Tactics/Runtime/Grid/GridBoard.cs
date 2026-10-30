@@ -24,15 +24,22 @@ namespace PetProject.Tactics
     public sealed class GridBoard
     {
         private readonly GridCell[] _cells;
+        private readonly HashSet<GridTransition> _blockedTransitions;
         public int Width { get; }
         public int Height { get; }
 
-        public GridBoard(int width, int height, IEnumerable<GridCell> overrides = null)
+        public GridBoard(int width, int height, IEnumerable<GridCell> overrides = null,
+            IEnumerable<GridTransition> blockedTransitions = null)
         {
             if (width < 1 || height < 1 || (long)width * height > 1_000_000)
                 throw new ArgumentOutOfRangeException(nameof(width), "Board must contain 1..1,000,000 cells");
             Width = width;
             Height = height;
+            _blockedTransitions = blockedTransitions == null
+                ? new HashSet<GridTransition>() : new HashSet<GridTransition>(blockedTransitions);
+            foreach (var edge in _blockedTransitions)
+                if (!Contains(edge.From) || !Contains(edge.To) || edge.From.DistanceTo(edge.To) != 1)
+                    throw new ArgumentException("Blocked transitions must join adjacent board cells", nameof(blockedTransitions));
             _cells = new GridCell[width * height];
             for (var y = 0; y < height; ++y)
                 for (var x = 0; x < width; ++x)
@@ -48,6 +55,14 @@ namespace PetProject.Tactics
         }
 
         public bool Contains(GridPosition position) => position.X >= 0 && position.Y >= 0 && position.X < Width && position.Y < Height;
+        public bool CanTraverse(GridPosition from, GridPosition to, int maxHeightStep)
+        {
+            if (maxHeightStep < 0) throw new ArgumentOutOfRangeException(nameof(maxHeightStep));
+            return Contains(from) && Contains(to) && from.DistanceTo(to) == 1 &&
+                GetCell(from).Walkable && GetCell(to).Walkable &&
+                Math.Abs((long)GetCell(from).Height - GetCell(to).Height) <= maxHeightStep &&
+                !_blockedTransitions.Contains(new GridTransition(from, to));
+        }
         public GridCell GetCell(GridPosition position)
         {
             if (!Contains(position)) throw new ArgumentOutOfRangeException(nameof(position));

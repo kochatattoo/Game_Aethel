@@ -45,13 +45,12 @@ namespace PetProject.Tactics
                 var current = new GridPosition(item.x, item.y);
                 if (costs[current] != item.cost) continue;
                 if (current == goal) return BuildPath(start, goal, item.cost, previous);
-                var from = board.GetCell(current);
                 foreach (var direction in Directions)
                 {
                     var next = new GridPosition(current.X + direction.X, current.Y + direction.Y);
                     if (!board.Contains(next) || blocked.Contains(next)) continue;
                     var tile = board.GetCell(next);
-                    if (!tile.Walkable || Math.Abs((long)tile.Height - from.Height) > maxHeightStep) continue;
+                    if (!board.CanTraverse(current, next, maxHeightStep)) continue;
                     var cost = item.cost + tile.MoveCost;
                     if (costs.TryGetValue(next, out var known) && known <= cost) continue;
                     costs[next] = cost;
