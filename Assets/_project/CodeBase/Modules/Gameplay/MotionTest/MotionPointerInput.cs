@@ -37,7 +37,7 @@ namespace CodeBase.MotionTest
             }
 
             return Physics.Raycast(camera.ScreenPointToRay(cursor), out hit, 300, ~(1 << 2),
-                QueryTriggerInteraction.Ignore);
+                QueryTriggerInteraction.Collide);
         }
 
         public void Dispose()

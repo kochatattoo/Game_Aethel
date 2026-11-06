@@ -1,5 +1,6 @@
 using System;
 using CodeBase.Hero;
+using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
 using PetProject.Tactics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -61,6 +62,7 @@ namespace CodeBase.MotionTest
         GridPath Preview { get; }
         GameObject Hero { get; }
         GameObject EnemyPrefab { get; }
+        MeleeTacticsAIConfig EnemyAI { get; }
         NavMeshAgent HeroAgent { get; }
         HeroAnimator HeroAnimator { get; }
         Camera GameCamera { get; }

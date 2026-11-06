@@ -1,5 +1,6 @@
 using System;
 using CodeBase.Hero;
+using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
 using PetProject.Tactics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,6 +14,7 @@ namespace CodeBase.MotionTest
         public MotionTestWorld World;
         public GameObject HeroPrefab;
         public GameObject EnemyPrefab;
+        public MeleeTacticsAIConfig EnemyAI;
         public Vector3 EnemySpawn = new Vector3(-4.5f, 0, -15.5f);
         public Camera GameCamera;
         public MotionCameraController CameraRig;
@@ -72,6 +74,7 @@ namespace CodeBase.MotionTest
         MotionTestWorld IMotionEncounterContext.World => World;
         MotionCameraController IMotionEncounterContext.CameraRig => CameraRig;
         GameObject IMotionEncounterContext.EnemyPrefab => EnemyPrefab;
+        MeleeTacticsAIConfig IMotionEncounterContext.EnemyAI => EnemyAI;
         Camera IMotionEncounterContext.GameCamera => GameCamera;
         Vector3 IMotionEncounterContext.EnemySpawn => EnemySpawn;
         int IMotionEncounterContext.TestBudget => TestBudget;
@@ -125,7 +128,7 @@ namespace CodeBase.MotionTest
                 ClearHover();
                 return;
             }
-            if (EncounterDirector != null && EncounterDirector.HandleExplorationClick(hit.collider)) return;
+            if (MovePressed && EncounterDirector != null && EncounterDirector.HandleExplorationClick(hit.collider)) return;
             var surface = hit.collider.GetComponent<MotionSurface>();
             if (surface == null || !surface.Walkable || !Map.Cell(hit.point, out var cell))
             {

@@ -38,9 +38,17 @@ namespace CodeBase.MotionTest
             {
                 if (component is AgentMoveToHero || component is RotateToHero || component is AnimateAlongAgent ||
                     component is Attack || component is AttackRuntime || component is CheckAttackRange ||
-                    component is EnemyVision || component is EnemyHealth || component is EnemyDeath ||
-                    component is LootSpawner) component.enabled = false;
+                    component is CodeBase.Sensors.BladeSensor || component is EnemyVision ||
+                    component is EnemyHealth || component is EnemyDeath || component is LootSpawner)
+                    component.enabled = false;
             }
+            foreach (var oldCollider in instance.GetComponentsInChildren<Collider>(true))
+                oldCollider.enabled = false;
+            var selectionCollider = instance.AddComponent<CapsuleCollider>();
+            selectionCollider.isTrigger = true;
+            selectionCollider.center = new Vector3(0, config.AgentHeight * .5f, 0);
+            selectionCollider.height = config.AgentHeight;
+            selectionCollider.radius = Mathf.Max(config.AgentRadius, .45f);
 
             instance.AddComponent<MotionEnemyTarget>();
             var detection = instance.AddComponent<SkeletonDetectionAdapter>();

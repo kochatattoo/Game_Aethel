@@ -49,6 +49,50 @@ namespace PetProject.Tactics.Tests
             Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(3));
         }
 
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void InitialActionBudgetAppliesToEachParticipantsFirstTurn()
+        {
+            var hero = new ActorDefinition("hero", "allies", new GridPosition(0, 0),
+                initiativeBonus: 20, initialActionPoints: 2);
+            var enemy = new ActorDefinition("enemy", "enemies", new GridPosition(4, 0), initialActionPoints: 4);
+            var encounter = Create(hero, enemy);
+            encounter.Execute(TacticalCommand.EndTurn("hero-end", "hero"));
+            Assert.That(Actor(encounter, "enemy").ActionPoints, Is.EqualTo(4));
+            encounter.Execute(TacticalCommand.EndTurn("enemy-end", "enemy"));
+            Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(3));
+        }
+
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void OpeningActorActsFirstWithoutChangingInitiativeOrder()
+        {
+            var encounter = new Encounter(new GridBoard(8, 5), new[]
+            {
+                Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 0))
+            }, new FixedRandom(), openingActorId: "enemy");
+            Assert.That(encounter.CurrentActorId, Is.EqualTo("enemy"));
+            encounter.Execute(TacticalCommand.EndTurn("enemy-end", "enemy"));
+            Assert.That(encounter.CurrentActorId, Is.EqualTo("hero"));
+            Assert.That(encounter.GetSnapshot().Round, Is.EqualTo(1));
+            encounter.Execute(TacticalCommand.EndTurn("hero-end", "hero"));
+            Assert.That(encounter.CurrentActorId, Is.EqualTo("enemy"));
+            Assert.That(encounter.GetSnapshot().Round, Is.EqualTo(2));
+        }
+
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void UnknownOpeningActorIsRejected()
+        {
+            Assert.Throws<ArgumentException>(() => new Encounter(new GridBoard(2, 1), new[]
+            {
+                Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 0))
+            }, new FixedRandom(), openingActorId: "unknown"));
+        }
+
         [Test] public void MovementChargesEntirePathAndLeavesOldSnapshotImmutable()
         {
             var e = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(4, 0)));
@@ -111,6 +155,25 @@ namespace PetProject.Tactics.Tests
             Assert.That(Actor(e, "enemy").Health, Is.EqualTo(12));
             Assert.That(Actor(e, "hero").ActionPoints, Is.EqualTo(2));
             Assert.That(e.GetSnapshot().RandomState, Is.Not.EqualTo(before.RandomState));
+        }
+
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void AttackUsesD20BonusAndDefinitionDamage()
+        {
+            var random = new FixedRandom { Roll = 9 };
+            var hero = new ActorDefinition("hero", "allies", new GridPosition(0, 0),
+                initiativeBonus: 20, attackBonus: 3, defense: 12, damage: 2);
+            var encounter = new Encounter(new GridBoard(2, 1), new[]
+            {
+                hero, Enemy(new GridPosition(1, 0))
+            }, random);
+            var result = encounter.Execute(TacticalCommand.Attack("attack", "hero", "enemy"));
+            Assert.That(result.Events[0].Roll, Is.EqualTo(9));
+            Assert.That(result.Events[0].Amount, Is.EqualTo(2));
+            Assert.That(Actor(encounter, "enemy").Health, Is.EqualTo(10));
+            Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(2));
         }
 
         [Test] public void InvalidAttacksDoNotSpendActionsOrRandomness()

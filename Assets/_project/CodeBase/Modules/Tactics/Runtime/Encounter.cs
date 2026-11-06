@@ -21,13 +21,13 @@ namespace PetProject.Tactics
         public string CurrentActorId => _roster.WinningFactionId == null ? _turns.Current.Definition.Id : null;
 
         public Encounter(GridBoard board, IEnumerable<ActorDefinition> actors, IRandomSource random,
-            EncounterRules rules = null)
+            EncounterRules rules = null, string openingActorId = null)
         {
             Board = board ?? throw new ArgumentNullException(nameof(board));
             _random = random ?? throw new ArgumentNullException(nameof(random));
             Rules = rules ?? new EncounterRules();
             _roster = new EncounterRoster(board, actors);
-            _turns = new InitiativeOrder(_roster.Actors, Rules.ActionsPerTurn, RollD20);
+            _turns = new InitiativeOrder(_roster.Actors, Rules.ActionsPerTurn, RollD20, openingActorId);
             _movement = new MovementResolver(board, Rules, _roster);
             _attacks = new MeleeAttackResolver(board, Rules, _roster, RollD20);
         }
