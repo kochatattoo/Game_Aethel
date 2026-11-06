@@ -137,6 +137,7 @@ namespace CodeBase.MotionTest
             }
             if (Combat && !Busy) SetPreview(cell);
             if (!MovePressed || Busy) return;
+            EncounterDirector?.ClearTargetSelection();
             if (Combat) TryMove(cell);
             else MoveNormally(hit.point);
         }

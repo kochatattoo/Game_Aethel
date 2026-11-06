@@ -1,4 +1,4 @@
-﻿using CodeBase.Logic.Animate;
+using CodeBase.Logic.Animate;
 using System;
 using UnityEngine;
 
@@ -33,6 +33,14 @@ namespace CodeBase.Enemies
         public event Action<AnimatorState> StateExited;
 
         public AnimatorState State {  get; private set; }
+        public bool DeathAnimationCompleted
+        {
+            get
+            {
+                var state = _animator.GetCurrentAnimatorStateInfo(0);
+                return state.shortNameHash == _deathStateHash && state.normalizedTime >= 1f;
+            }
+        }
 
         private void Awake() => 
             _animator = GetComponent<Animator>();

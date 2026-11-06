@@ -30,6 +30,9 @@ namespace CodeBase.MotionTest
             Snapshot?.GetActor(MotionTestController.HeroActorId).Position ?? default;
         public int HeroActions =>
             Snapshot?.GetActor(MotionTestController.HeroActorId).ActionPoints ?? 0;
+        public int HeroHealth => Snapshot?.GetActor(MotionTestController.HeroActorId).Health ?? 12;
+        public int EnemyHealth => Snapshot?.GetActor(MotionEnemyTarget.SkeletonActorId).Health ?? 5;
+        public bool IsEnemySelected { get; private set; }
 
         private IMotionEncounterContext _host;
         private State _state = State.Exploration;
@@ -66,6 +69,7 @@ namespace CodeBase.MotionTest
         public void ResetEncounterState()
         {
             ++_presentationVersion;
+            ClearTargetSelection();
             Pending = false;
             Active = false;
             PresentationBusy = false;
@@ -88,10 +92,26 @@ namespace CodeBase.MotionTest
             _host.SetNotice("Тестовый бой сброшен");
         }
 
+        public void ClearTargetSelection()
+        {
+            if (!IsEnemySelected) return;
+            IsEnemySelected = false;
+            _enemy?.SetSelected(false);
+            _host.RefreshTacticalView();
+        }
+
+        private void SelectEnemy()
+        {
+            IsEnemySelected = true;
+            _enemy.SetSelected(true);
+            _host.RefreshTacticalView();
+        }
+
         public bool HandleExplorationClick(Collider collider)
         {
             if (!_enabled || Active || Pending || _host.Combat || _enemy == null) return false;
             if (collider.GetComponentInParent<MotionEnemyTarget>() == null) return false;
+            SelectEnemy();
             if (AreAdjacent())
             {
                 RequestOpeningAttack();
@@ -112,13 +132,8 @@ namespace CodeBase.MotionTest
         private bool TryMoveToSkeleton()
         {
             if (!_host.Map.Cell(_enemy.Instance.transform.position, out var enemyCell)) return false;
-            var candidates = new[]
-            {
-                new GridPosition(enemyCell.X - 1, enemyCell.Y),
-                new GridPosition(enemyCell.X + 1, enemyCell.Y),
-                new GridPosition(enemyCell.X, enemyCell.Y - 1),
-                new GridPosition(enemyCell.X, enemyCell.Y + 1)
-            };
+            var candidates = new System.Collections.Generic.List<GridPosition>(
+                GridAdjacency.GetNeighbors(enemyCell)).ToArray();
             var heroPosition = _host.Hero.transform.position;
             var attempted = new bool[candidates.Length];
             for (var attempt = 0; attempt < candidates.Length; ++attempt)
@@ -193,7 +208,7 @@ namespace CodeBase.MotionTest
         private bool AreAdjacent() =>
             _host.Map.Cell(_host.Hero.transform.position, out var heroCell) &&
             _host.Map.Cell(_enemy.Instance.transform.position, out var enemyCell) &&
-            heroCell.DistanceTo(enemyCell) == 1;
+            GridAdjacency.IsAdjacent(heroCell, enemyCell);
 
         private void RequestOpeningAttack()
         {
@@ -304,6 +319,7 @@ namespace CodeBase.MotionTest
             if (!_host.MotionInput.TryRaycast(_host.GameCamera, out var hit)) return;
             if (_host.MovePressed && hit.collider.GetComponentInParent<MotionEnemyTarget>() != null)
             {
+                SelectEnemy();
                 Execute(TacticalCommand.Attack(NextId(), MotionTestController.HeroActorId,
                     MotionEnemyTarget.SkeletonActorId));
                 return;
@@ -317,7 +333,10 @@ namespace CodeBase.MotionTest
                 _host.SetEncounterPreview(_encounter.PreviewMove(MotionTestController.HeroActorId, cell), cell);
             }
             if (_host.MovePressed)
+            {
+                ClearTargetSelection();
                 Execute(TacticalCommand.Move(NextId(), MotionTestController.HeroActorId, cell), _host.Preview);
+            }
         }
 
         private void RunEnemyTurn() =>
@@ -372,6 +391,7 @@ namespace CodeBase.MotionTest
             var hero = snapshot.GetActor(MotionTestController.HeroActorId);
             var budget = Mathf.Max(1, _host.TestBudget);
             _host.WorldActions.Set(MotionTestController.HeroActorId, hero.ActionPoints, budget);
+            ClearTargetSelection();
             Active = false;
             _state = State.Exploration;
             _encounter = null;

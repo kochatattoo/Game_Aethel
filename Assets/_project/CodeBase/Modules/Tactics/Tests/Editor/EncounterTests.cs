@@ -176,9 +176,20 @@ namespace PetProject.Tactics.Tests
             Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(2));
         }
 
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void DiagonalNeighborCanBeAttacked()
+        {
+            var encounter = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 1)));
+            var result = encounter.Execute(TacticalCommand.Attack("diagonal", "hero", "enemy"));
+            Assert.That(result.Accepted, Is.True);
+            Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(2));
+        }
+
         [Test] public void InvalidAttacksDoNotSpendActionsOrRandomness()
         {
-            var e = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 1)));
+            var e = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 2)));
             RejectsWithoutMutation(e, TacticalCommand.Attack("far", "hero", "enemy"), CommandError.TargetOutOfRange);
             RejectsWithoutMutation(e, TacticalCommand.Attack("friend", "hero", "hero"), CommandError.FriendlyTarget);
             RejectsWithoutMutation(e, TacticalCommand.Attack("unknown", "hero", "other"), CommandError.UnknownTarget);

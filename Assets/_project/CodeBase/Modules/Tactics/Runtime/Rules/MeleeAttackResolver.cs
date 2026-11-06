@@ -24,7 +24,7 @@ namespace PetProject.Tactics
             if (!_roster.TryGet(targetId, out var target)) return CommandError.UnknownTarget;
             if (!target.IsAlive) return CommandError.TargetDefeated;
             if (target.Definition.FactionId == actor.Definition.FactionId) return CommandError.FriendlyTarget;
-            if (actor.Position.DistanceTo(target.Position) != 1 ||
+            if (!GridAdjacency.IsAdjacent(actor.Position, target.Position) ||
                 Math.Abs((long)_board.GetCell(actor.Position).Height - _board.GetCell(target.Position).Height) > _rules.MaxHeightStep)
                 return CommandError.TargetOutOfRange;
             if (actor.ActionPoints < _rules.AttackCost) return CommandError.NotEnoughActions;

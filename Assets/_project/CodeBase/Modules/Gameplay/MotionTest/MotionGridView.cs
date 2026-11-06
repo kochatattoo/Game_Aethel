@@ -55,12 +55,14 @@ namespace CodeBase.MotionTest
                 for (var i = 1; i < path.Cells.Count; ++i)
                 {
                     cost += map.Board.GetCell(path.Cells[i]).MoveCost;
-                    var color = _host.Busy ? new Color(.3f, .85f, 1, 1) : cost <= _host.TacticalActions ? new Color(.25f, 1, .65f, 1) : new Color(1, .25f, .25f, 1);
+                    var color = _host.Busy ? config.PathExecutingColor :
+                        cost <= _host.TacticalActions ? config.PathAvailableColor : config.PathUnavailableColor;
                     Strip(map.World(path.Cells[i - 1]) + Vector3.up * .16f, map.World(path.Cells[i]) + Vector3.up * .16f, .09f, color);
                 }
             }
             if (_host.Hover.HasValue && map.Board.Contains(_host.Hover.Value))
-                Outline(map.World(_host.Hover.Value), config.CellSize * .4f, .07f, path.Found ? Color.yellow : new Color(1, .2f, .2f));
+                Outline(map.World(_host.Hover.Value), config.CellSize * .4f, .07f,
+                    path.Found ? config.HoverColor : config.PathUnavailableColor);
             _mesh.SetVertices(_vertices); _mesh.SetColors(_colors); _mesh.SetTriangles(_indices, 0); _mesh.RecalculateBounds();
         }
         private void RefreshGrid()
@@ -78,8 +80,8 @@ namespace CodeBase.MotionTest
             {
                 var cell = new GridPosition(x, z);
                 if (!map.Board.GetCell(cell).Walkable) continue;
-                var color = map.Board.GetCell(cell).MoveCost > 1 ? new Color(1, .65f, .2f, .4f) : new Color(.3f, .8f, .95f, .28f);
-                if (cell == _host.TacticalPosition) color = new Color(.2f, 1, .7f, .9f);
+                var color = map.Board.GetCell(cell).MoveCost > 1 ? config.ExpensiveCellColor : config.GridColor;
+                if (cell == _host.TacticalPosition) color = config.CurrentCellColor;
                 Outline(map.World(cell), config.CellSize * .47f, .04f, color);
             }
             _gridMesh.SetVertices(_vertices); _gridMesh.SetColors(_colors); _gridMesh.SetTriangles(_indices, 0); _gridMesh.RecalculateBounds();

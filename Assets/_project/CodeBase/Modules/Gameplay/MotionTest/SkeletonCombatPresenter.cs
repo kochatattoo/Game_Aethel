@@ -85,11 +85,24 @@ namespace CodeBase.MotionTest
             if (version != currentVersion()) return;
             foreach (var defeated in result.Events.Where(e => e.Kind == TacticalEventKind.ActorDefeated))
             {
-                if (defeated.ActorId == MotionTestController.HeroActorId) _host.HeroAnimator.PlayDeath();
-                else _enemy.Animator.PlayDeath();
-                await UniTask.Delay(TimeSpan.FromSeconds(.7));
-                if (version != currentVersion()) return;
-                if (defeated.ActorId != MotionTestController.HeroActorId) _enemy.Instance.SetActive(false);
+                if (defeated.ActorId == MotionTestController.HeroActorId)
+                {
+                    _host.HeroAnimator.PlayDeath();
+                    await UniTask.Delay(TimeSpan.FromSeconds(.7));
+                    if (version != currentVersion()) return;
+                    continue;
+                }
+                _enemy.Animator.PlayDeath();
+                var elapsed = 0f;
+                while (!_enemy.Animator.DeathAnimationCompleted && elapsed < 10f)
+                {
+                    if (version != currentVersion()) return;
+                    elapsed += Time.deltaTime;
+                    await UniTask.Yield();
+                }
+                _enemy.MarkDead();
+                if (!_enemy.Animator.DeathAnimationCompleted)
+                    _host.SetNotice("Анимация смерти скелета не завершилась; труп сохранён");
             }
         }
 

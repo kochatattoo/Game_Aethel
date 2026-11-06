@@ -31,3 +31,11 @@ MonoBehaviour:
   Expensive: {fileID: 2100000, guid: 986a06505f620b44b8696dea285c9cff, type: 2}
   Decoration: {fileID: 2100000, guid: e8a917b13b2eba943991b41ba83d5957, type: 2}
   GridMaterial: {fileID: 2100000, guid: 9b43a014ffd663243ae9edf47801da94, type: 2}
+  GridColor: {r: 0.3, g: 0.8, b: 0.95, a: 0.28}
+  ExpensiveCellColor: {r: 1, g: 0.65, b: 0.2, a: 0.4}
+  CurrentCellColor: {r: 0.2, g: 1, b: 0.7, a: 0.9}
+  PathAvailableColor: {r: 0.25, g: 1, b: 0.65, a: 1}
+  PathUnavailableColor: {r: 1, g: 0.25, b: 0.25, a: 1}
+  PathExecutingColor: {r: 0.3, g: 0.85, b: 1, a: 1}
+  HoverColor: {r: 1, g: 1, b: 0, a: 1}
+  TargetHighlightColor: {r: 1, g: 0.85, b: 0.1, a: 1}

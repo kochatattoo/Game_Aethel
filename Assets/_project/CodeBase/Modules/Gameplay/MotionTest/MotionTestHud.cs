@@ -10,11 +10,16 @@ namespace CodeBase.MotionTest
         public Button ModeButton { get; private set; }
         public Button EndTurnButton { get; private set; }
         public bool PointerOver => EventSystem.current != null && EventSystem.current.IsPointerOverGameObject();
+        public bool TargetHealthVisible => _targetHealthText != null && _targetHealthText.gameObject.activeSelf;
+        public string HeroHealthValue => _heroHealthText != null ? _heroHealthText.text : string.Empty;
+        public string TargetHealthValue => _targetHealthText != null ? _targetHealthText.text : string.Empty;
 
         private IMotionHudContext _host;
         private Text _modeText;
         private Text _modeButtonText;
         private Text _actionsText;
+        private Text _heroHealthText;
+        private Text _targetHealthText;
         private Text _noticeText;
         private Font _font;
 
@@ -35,7 +40,11 @@ namespace CodeBase.MotionTest
             endTurnText.text = "Завершить ход — обновить ОД";
             _actionsText = CreateText("Action points", panel, new Vector2(12, -133),
                 new Vector2(436, 25), 18, TextAnchor.MiddleLeft);
-            _noticeText = CreateText("Notice", panel, new Vector2(12, -161),
+            _heroHealthText = CreateText("Hero health", panel, new Vector2(12, -158),
+                new Vector2(436, 22), 16, TextAnchor.MiddleLeft);
+            _targetHealthText = CreateText("Target health", panel, new Vector2(12, -180),
+                new Vector2(436, 22), 16, TextAnchor.MiddleLeft);
+            _noticeText = CreateText("Notice", panel, new Vector2(12, -204),
                 new Vector2(436, 30), 15, TextAnchor.MiddleLeft);
             ModeButton.onClick.AddListener(() =>
             {
@@ -76,7 +85,6 @@ namespace CodeBase.MotionTest
         private void RefreshEncounter(SkeletonCombatDirector director, PetProject.Tactics.EncounterSnapshot snapshot)
         {
             var hero = snapshot.GetActor(MotionTestController.HeroActorId);
-            var enemy = snapshot.GetActor(MotionEnemyTarget.SkeletonActorId);
             _modeText.text = director.IsDefeated
                 ? "Поражение"
                 : $"Бой · {snapshot.CurrentActorId} · раунд {snapshot.Round}";
@@ -85,9 +93,9 @@ namespace CodeBase.MotionTest
             EndTurnButton.gameObject.SetActive(!director.IsDefeated);
             EndTurnButton.interactable = director.PlayerTurnReady && hero.ActionPoints > 0;
             _actionsText.gameObject.SetActive(true);
-            _actionsText.text = $"HP {hero.Health}/{hero.Definition.MaxHealth} · " +
-                $"Враг {enemy.Health}/{enemy.Definition.MaxHealth} · ОД {hero.ActionPoints}";
+            _actionsText.text = $"ОД {hero.ActionPoints}";
             _actionsText.color = Color.white;
+            RefreshHealth();
             _noticeText.text = _host.Notice ?? string.Empty;
         }
 
@@ -116,7 +124,18 @@ namespace CodeBase.MotionTest
                     $"новый мировой ход: {_host.WorldTurn.SecondsToNextRound:F1} c";
                 _actionsText.color = Color.white;
             }
+            RefreshHealth();
             _noticeText.text = _host.Notice ?? string.Empty;
+        }
+
+        private void RefreshHealth()
+        {
+            var director = _host.EncounterDirector;
+            if (director == null) return;
+            _heroHealthText.text = $"HP героя: {director.HeroHealth}/12";
+            _targetHealthText.gameObject.SetActive(director.IsEnemySelected);
+            if (director.IsEnemySelected)
+                _targetHealthText.text = $"Цель: скелет · HP {director.EnemyHealth}/5";
         }
 
         private Transform CreateCanvas()
@@ -144,7 +163,7 @@ namespace CodeBase.MotionTest
 
         private static RectTransform CreatePanel(Transform parent)
         {
-            var panel = CreateRect("Mode panel", parent, new Vector2(16, -16), new Vector2(460, 202));
+            var panel = CreateRect("Mode panel", parent, new Vector2(16, -16), new Vector2(460, 246));
             var image = panel.gameObject.AddComponent<Image>();
             image.color = new Color(.025f, .035f, .05f, .9f);
             return panel;

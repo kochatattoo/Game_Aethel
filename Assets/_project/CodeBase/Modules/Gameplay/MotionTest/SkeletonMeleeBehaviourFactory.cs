@@ -42,7 +42,7 @@ namespace CodeBase.MotionTest
             var enemy = Enemy;
             var hero = Hero;
             return enemy.ActionPoints >= _encounter.Rules.AttackCost &&
-                enemy.Position.DistanceTo(hero.Position) == 1 &&
+                GridAdjacency.IsAdjacent(enemy.Position, hero.Position) &&
                 Math.Abs((long)_encounter.Board.GetCell(enemy.Position).Height -
                     _encounter.Board.GetCell(hero.Position).Height) <= _encounter.Rules.MaxHeightStep;
         }
@@ -50,15 +50,7 @@ namespace CodeBase.MotionTest
         private bool FindApproachPath()
         {
             GridPath best = null;
-            var hero = Hero.Position;
-            var candidates = new[]
-            {
-                new GridPosition(hero.X - 1, hero.Y),
-                new GridPosition(hero.X + 1, hero.Y),
-                new GridPosition(hero.X, hero.Y - 1),
-                new GridPosition(hero.X, hero.Y + 1)
-            };
-            foreach (var candidate in candidates)
+            foreach (var candidate in GridAdjacency.GetNeighbors(Hero.Position))
             {
                 if (!_encounter.Board.Contains(candidate) || !_encounter.Board.GetCell(candidate).Walkable) continue;
                 var path = _encounter.PreviewMove(Enemy.Id, candidate);

@@ -12,6 +12,9 @@ namespace CodeBase.MotionTest
         public EnemyAnimator Animator { get; }
         public NavMeshAgent Agent { get; }
         public SkeletonDetectionAdapter Detection { get; }
+        public MotionTargetHighlighter Highlighter { get; }
+
+        private readonly CapsuleCollider _selectionCollider;
 
         private SkeletonEnemyActor(GameObject instance)
         {
@@ -19,6 +22,8 @@ namespace CodeBase.MotionTest
             Animator = instance.GetComponent<EnemyAnimator>();
             Agent = instance.GetComponent<NavMeshAgent>();
             Detection = instance.GetComponent<SkeletonDetectionAdapter>();
+            Highlighter = instance.GetComponent<MotionTargetHighlighter>();
+            _selectionCollider = instance.GetComponent<CapsuleCollider>();
         }
 
         public static SkeletonEnemyActor Create(GameObject prefab, Vector3 spawn, MotionHero hero,
@@ -51,6 +56,7 @@ namespace CodeBase.MotionTest
             selectionCollider.radius = Mathf.Max(config.AgentRadius, .45f);
 
             instance.AddComponent<MotionEnemyTarget>();
+            instance.AddComponent<MotionTargetHighlighter>().Initialize(config);
             var detection = instance.AddComponent<SkeletonDetectionAdapter>();
             var enemy = new SkeletonEnemyActor(instance);
             enemy.Agent.agentTypeID = config.AgentTypeId;
@@ -68,6 +74,15 @@ namespace CodeBase.MotionTest
         {
             Detection.enabled = value;
             Instance.SetActive(value);
+        }
+
+        public void SetSelected(bool value) => Highlighter.SetVisible(value);
+
+        public void MarkDead()
+        {
+            Detection.enabled = false;
+            _selectionCollider.enabled = false;
+            Highlighter.SetVisible(false);
         }
 
         public void Dispose()

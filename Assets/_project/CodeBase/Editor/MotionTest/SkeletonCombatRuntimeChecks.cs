@@ -88,7 +88,12 @@ namespace CodeBase.EditorTools
                     InputSystem.RemoveDevice(explorationMouse);
                     MotionEditorInputGate.InputFixtureActive = false;
                 }
-                report.checks.Add("Real pointer click on skeleton capsule starts approach");
+                Require(director.IsEnemySelected && target.GetComponent<MotionTargetHighlighter>().IsVisible,
+                    "Attack target selection enables skeleton highlighter");
+                Require(host.Hud.TargetHealthVisible && host.Hud.TargetHealthValue.Contains("5/5"),
+                    "Target HUD shows selected skeleton health");
+                Require(host.Hud.HeroHealthValue.Contains("12/12"), "HUD shows hero health");
+                report.checks.Add("Real pointer click enables target highlighter and health HUD");
                 await WaitFor(() => director.Active && director.Snapshot != null, "Detection creates Encounter", 20000);
                 Require(director.Snapshot.Actors.Single(a => a.Id == MotionTestController.HeroActorId).ActionPoints == 4,
                     "Initial hero AP comes from world budget");
@@ -140,7 +145,14 @@ namespace CodeBase.EditorTools
                     {
                         decided = true;
                         Require(host.HeroAgent.enabled, "Victory restores NavMesh exploration");
-                        report.checks.Add("Skeleton defeat completes Encounter and restores normal movement");
+                        Require(target.gameObject.activeSelf, "Skeleton corpse stays in the scene");
+                        Require(!target.GetComponent<CapsuleCollider>().enabled,
+                            "Corpse no longer participates in target selection");
+                        Require(target.GetComponent<CodeBase.Enemies.EnemyAnimator>().DeathAnimationCompleted,
+                            "Skeleton death animation plays to completion");
+                        Require(!target.GetComponent<MotionTargetHighlighter>().IsVisible,
+                            "Corpse is not highlighted as an attack target");
+                        report.checks.Add("Death animation completes; corpse stays visible with a free logical cell");
                         break;
                     }
                     if (director.PresentationBusy || director.Snapshot == null)
@@ -171,7 +183,7 @@ namespace CodeBase.EditorTools
                         await UniTask.Yield();
                         continue;
                     }
-                    if (hero.Position.DistanceTo(enemy.Position) == 1)
+                    if (GridAdjacency.IsAdjacent(hero.Position, enemy.Position))
                     {
                         director.TryHeroAttack();
                     }
