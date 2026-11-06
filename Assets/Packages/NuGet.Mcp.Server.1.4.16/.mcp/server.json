@@ -1,0 +1,25 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "com.microsoft/nuget",
+  "title": "Microsoft NuGet",
+  "description": "A Model Context Protocol (MCP) server for NuGet.",
+  "version": "1.4.16",
+  "packages": [
+    {
+      "registryType": "nuget",
+      "registryBaseUrl": "https://api.nuget.org/v3/index.json",
+      "identifier": "NuGet.Mcp.Server",
+      "version": "1.4.16",
+      "transport": {
+        "type": "stdio"
+      },
+      "packageArguments": [],
+      "environmentVariables": []
+    }
+  ],
+  "repository": {
+        "url": "https://github.com/NuGet/Home",
+        "source": "github",
+        "subfolder": "mcp"
+  }
+}

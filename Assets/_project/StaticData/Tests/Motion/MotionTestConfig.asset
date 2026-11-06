@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7adb2576a257062469f18070117cbf27, type: 3}
+  m_Name: MotionTestConfig
+  m_EditorClassIdentifier: PetProject.Gameplay::CodeBase.MotionTest.MotionTestConfig
+  WorldSize: 100
+  CellSize: 1
+  Seed: 718
+  ActionBudget: 6
+  VisibleRadius: 12
+  AgentTypeId: 1479372276
+  AgentRadius: 0.5
+  AgentHeight: 3.56
+  Speed: 5
+  HeightUnit: 0.25
+  MaxHeightStep: 4
+  Spawn: {x: -16.5, y: 0, z: -15.5}
+  Floor: {fileID: 2100000, guid: 62fa7c76de9187744b107db06d91a0c0, type: 2}
+  Obstacle: {fileID: 2100000, guid: fae88e9f610c108409fc7f5d6b3bc1a6, type: 2}
+  Ramp: {fileID: 2100000, guid: 7541abd4f5b5c3f40b864108deb20403, type: 2}
+  Platform: {fileID: 2100000, guid: 6c07dcf5b50b90f4a92bdf1b854ca853, type: 2}
+  Expensive: {fileID: 2100000, guid: 986a06505f620b44b8696dea285c9cff, type: 2}
+  Decoration: {fileID: 2100000, guid: e8a917b13b2eba943991b41ba83d5957, type: 2}
+  GridMaterial: {fileID: 2100000, guid: 9b43a014ffd663243ae9edf47801da94, type: 2}

@@ -1,0 +1,19 @@
+{
+    "pending": false,
+    "success": true,
+    "saveIsolation": true,
+    "error": "",
+    "checks": [
+        "100x100 scene, existing hero and independent input initialized without campaign bootstrap",
+        "Input System keyboard yaw, right-button orbit, wheel zoom and focus reset drive Cinemachine",
+        "NavMesh movement reaches destination; existing Move animation turns on and off",
+        "Unreachable room and outside-world destinations fail without teleporting",
+        "Grid preview, exact animated path, single AP charge, busy gate, budget refusal and new turn pass",
+        "Mode exit during accepted movement waits and restores normal navigation",
+        "Normal navigation climbs platform; tactical path descends along actual ramp surface",
+        "Twenty mode cycles keep a single controller and valid movement state"
+    ],
+    "gridMilliseconds": 58.24370000000001,
+    "previewMilliseconds": 0.12,
+    "walkableCells": 9293
+}

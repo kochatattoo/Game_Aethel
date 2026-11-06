@@ -1,0 +1,7 @@
+{
+  "name": "PetProject.Tactics",
+  "rootNamespace": "PetProject.Tactics",
+  "references": [],
+  "autoReferenced": false,
+  "noEngineReferences": true
+}

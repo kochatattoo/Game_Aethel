@@ -51,9 +51,7 @@ MonoBehaviour:
     MonsterTypeID: 0
     position: {x: 53.802017, y: -15.877894, z: -0.11425114}
   InitialHeroPosition: {x: 39.26021, y: -15.877893, z: -17.837101}
-  SaveTriggers:
-  - Id: Level_3_c6f9c057-718a-4774-91b5-8480ad1c4155
-    Position: {x: 39.371185, y: -15.877894, z: -17.604221}
+  SaveTriggers: []
   LevelTransferData:
     LevelTo: 
     TransferToPosition: {x: 0, y: 0, z: 0}

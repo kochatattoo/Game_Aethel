@@ -1,0 +1,12 @@
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "Successfully recompiled all scripts with 0 warning(s) (returnWithLogs: True, logsLimit: 20)"
+    },
+    {
+      "type": "text",
+      "text": "{\n  \"logs\": []\n}"
+    }
+  ]
+}

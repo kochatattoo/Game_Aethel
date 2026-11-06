@@ -1,0 +1,433 @@
+{
+  "utc": "2026-10-30T16:00:04.1700102Z",
+  "runner": ".NET 9 offline reflection runner (not Unity)",
+  "passed": 39,
+  "failed": 0,
+  "total": 39,
+  "publicApi": [
+    "PetProject.Tactics.ActorDefinition :: Int32 AttackBonus",
+    "PetProject.Tactics.ActorDefinition :: Int32 Damage",
+    "PetProject.Tactics.ActorDefinition :: Int32 Defense",
+    "PetProject.Tactics.ActorDefinition :: Int32 InitiativeBonus",
+    "PetProject.Tactics.ActorDefinition :: Int32 MaxHealth",
+    "PetProject.Tactics.ActorDefinition :: Int32 get_AttackBonus()",
+    "PetProject.Tactics.ActorDefinition :: Int32 get_Damage()",
+    "PetProject.Tactics.ActorDefinition :: Int32 get_Defense()",
+    "PetProject.Tactics.ActorDefinition :: Int32 get_InitiativeBonus()",
+    "PetProject.Tactics.ActorDefinition :: Int32 get_MaxHealth()",
+    "PetProject.Tactics.ActorDefinition :: PetProject.Tactics.GridPosition Position",
+    "PetProject.Tactics.ActorDefinition :: PetProject.Tactics.GridPosition get_Position()",
+    "PetProject.Tactics.ActorDefinition :: System.String FactionId",
+    "PetProject.Tactics.ActorDefinition :: System.String Id",
+    "PetProject.Tactics.ActorDefinition :: System.String get_FactionId()",
+    "PetProject.Tactics.ActorDefinition :: System.String get_Id()",
+    "PetProject.Tactics.ActorDefinition :: Void .ctor(System.String, System.String, PetProject.Tactics.GridPosition, Int32, Int32, Int32, Int32, Int32)",
+    "PetProject.Tactics.ActorSnapshot :: Boolean IsAlive",
+    "PetProject.Tactics.ActorSnapshot :: Boolean get_IsAlive()",
+    "PetProject.Tactics.ActorSnapshot :: Int32 ActionPoints",
+    "PetProject.Tactics.ActorSnapshot :: Int32 Health",
+    "PetProject.Tactics.ActorSnapshot :: Int32 get_ActionPoints()",
+    "PetProject.Tactics.ActorSnapshot :: Int32 get_Health()",
+    "PetProject.Tactics.ActorSnapshot :: Int64 Initiative",
+    "PetProject.Tactics.ActorSnapshot :: Int64 get_Initiative()",
+    "PetProject.Tactics.ActorSnapshot :: PetProject.Tactics.ActorDefinition Definition",
+    "PetProject.Tactics.ActorSnapshot :: PetProject.Tactics.ActorDefinition get_Definition()",
+    "PetProject.Tactics.ActorSnapshot :: PetProject.Tactics.GridPosition Position",
+    "PetProject.Tactics.ActorSnapshot :: PetProject.Tactics.GridPosition get_Position()",
+    "PetProject.Tactics.ActorSnapshot :: System.String FactionId",
+    "PetProject.Tactics.ActorSnapshot :: System.String Id",
+    "PetProject.Tactics.ActorSnapshot :: System.String get_FactionId()",
+    "PetProject.Tactics.ActorSnapshot :: System.String get_Id()",
+    "PetProject.Tactics.CommandError :: Int32 value__",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError ActorDefeated",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError AlreadyAtDestination",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError CommandIdConflict",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError EncounterCompleted",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError FriendlyTarget",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError InvalidDestination",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError NoPath",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError None",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError NotEnoughActions",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError TargetDefeated",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError TargetOutOfRange",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError UnknownActor",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError UnknownTarget",
+    "PetProject.Tactics.CommandError :: PetProject.Tactics.CommandError WrongTurn",
+    "PetProject.Tactics.CommandResult :: Boolean Accepted",
+    "PetProject.Tactics.CommandResult :: Boolean IsReplay",
+    "PetProject.Tactics.CommandResult :: Boolean get_Accepted()",
+    "PetProject.Tactics.CommandResult :: Boolean get_IsReplay()",
+    "PetProject.Tactics.CommandResult :: Int64 Revision",
+    "PetProject.Tactics.CommandResult :: Int64 get_Revision()",
+    "PetProject.Tactics.CommandResult :: PetProject.Tactics.CommandError Error",
+    "PetProject.Tactics.CommandResult :: PetProject.Tactics.CommandError get_Error()",
+    "PetProject.Tactics.CommandResult :: System.Collections.Generic.IReadOnlyList`1[PetProject.Tactics.TacticalEvent] Events",
+    "PetProject.Tactics.CommandResult :: System.Collections.Generic.IReadOnlyList`1[PetProject.Tactics.TacticalEvent] get_Events()",
+    "PetProject.Tactics.DeterministicRandom :: Int32 NextInt(Int32, Int32)",
+    "PetProject.Tactics.DeterministicRandom :: UInt32 State",
+    "PetProject.Tactics.DeterministicRandom :: UInt32 get_State()",
+    "PetProject.Tactics.DeterministicRandom :: Void .ctor(UInt32)",
+    "PetProject.Tactics.Encounter :: PetProject.Tactics.CommandResult Execute(PetProject.Tactics.TacticalCommand)",
+    "PetProject.Tactics.Encounter :: PetProject.Tactics.EncounterRules Rules",
+    "PetProject.Tactics.Encounter :: PetProject.Tactics.EncounterRules get_Rules()",
+    "PetProject.Tactics.Encounter :: PetProject.Tactics.EncounterSnapshot GetSnapshot()",
+    "PetProject.Tactics.Encounter :: PetProject.Tactics.GridBoard Board",
+    "PetProject.Tactics.Encounter :: PetProject.Tactics.GridBoard get_Board()",
+    "PetProject.Tactics.Encounter :: PetProject.Tactics.GridPath PreviewMove(System.String, PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.Encounter :: System.String CurrentActorId",
+    "PetProject.Tactics.Encounter :: System.String get_CurrentActorId()",
+    "PetProject.Tactics.Encounter :: Void .ctor(PetProject.Tactics.GridBoard, System.Collections.Generic.IEnumerable`1[PetProject.Tactics.ActorDefinition], PetProject.Tactics.IRandomSource, PetProject.Tactics.EncounterRules)",
+    "PetProject.Tactics.EncounterRules :: Int32 ActionsPerTurn",
+    "PetProject.Tactics.EncounterRules :: Int32 AttackCost",
+    "PetProject.Tactics.EncounterRules :: Int32 MaxHeightStep",
+    "PetProject.Tactics.EncounterRules :: Int32 get_ActionsPerTurn()",
+    "PetProject.Tactics.EncounterRules :: Int32 get_AttackCost()",
+    "PetProject.Tactics.EncounterRules :: Int32 get_MaxHeightStep()",
+    "PetProject.Tactics.EncounterRules :: Void .ctor(Int32, Int32, Int32)",
+    "PetProject.Tactics.EncounterSnapshot :: Boolean IsCompleted",
+    "PetProject.Tactics.EncounterSnapshot :: Boolean get_IsCompleted()",
+    "PetProject.Tactics.EncounterSnapshot :: Int32 Round",
+    "PetProject.Tactics.EncounterSnapshot :: Int32 get_Round()",
+    "PetProject.Tactics.EncounterSnapshot :: Int64 Revision",
+    "PetProject.Tactics.EncounterSnapshot :: Int64 get_Revision()",
+    "PetProject.Tactics.EncounterSnapshot :: System.Collections.Generic.IReadOnlyList`1[PetProject.Tactics.ActorSnapshot] Actors",
+    "PetProject.Tactics.EncounterSnapshot :: System.Collections.Generic.IReadOnlyList`1[PetProject.Tactics.ActorSnapshot] get_Actors()",
+    "PetProject.Tactics.EncounterSnapshot :: System.String CurrentActorId",
+    "PetProject.Tactics.EncounterSnapshot :: System.String WinningFactionId",
+    "PetProject.Tactics.EncounterSnapshot :: System.String get_CurrentActorId()",
+    "PetProject.Tactics.EncounterSnapshot :: System.String get_WinningFactionId()",
+    "PetProject.Tactics.EncounterSnapshot :: UInt32 RandomState",
+    "PetProject.Tactics.EncounterSnapshot :: UInt32 get_RandomState()",
+    "PetProject.Tactics.GridBoard :: Boolean CanTraverse(PetProject.Tactics.GridPosition, PetProject.Tactics.GridPosition, Int32)",
+    "PetProject.Tactics.GridBoard :: Boolean Contains(PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.GridBoard :: Int32 Height",
+    "PetProject.Tactics.GridBoard :: Int32 Width",
+    "PetProject.Tactics.GridBoard :: Int32 get_Height()",
+    "PetProject.Tactics.GridBoard :: Int32 get_Width()",
+    "PetProject.Tactics.GridBoard :: PetProject.Tactics.GridCell GetCell(PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.GridBoard :: Void .ctor(Int32, Int32, System.Collections.Generic.IEnumerable`1[PetProject.Tactics.GridCell], System.Collections.Generic.IEnumerable`1[PetProject.Tactics.GridTransition])",
+    "PetProject.Tactics.GridCell :: Boolean Walkable",
+    "PetProject.Tactics.GridCell :: Boolean get_Walkable()",
+    "PetProject.Tactics.GridCell :: Int32 Height",
+    "PetProject.Tactics.GridCell :: Int32 MoveCost",
+    "PetProject.Tactics.GridCell :: Int32 get_Height()",
+    "PetProject.Tactics.GridCell :: Int32 get_MoveCost()",
+    "PetProject.Tactics.GridCell :: PetProject.Tactics.GridPosition Position",
+    "PetProject.Tactics.GridCell :: PetProject.Tactics.GridPosition get_Position()",
+    "PetProject.Tactics.GridCell :: Void .ctor(PetProject.Tactics.GridPosition, Boolean, Int32, Int32)",
+    "PetProject.Tactics.GridPath :: Boolean Found",
+    "PetProject.Tactics.GridPath :: Boolean get_Found()",
+    "PetProject.Tactics.GridPath :: Int64 Cost",
+    "PetProject.Tactics.GridPath :: Int64 get_Cost()",
+    "PetProject.Tactics.GridPath :: PetProject.Tactics.GridPath Unreachable",
+    "PetProject.Tactics.GridPath :: PetProject.Tactics.GridPath get_Unreachable()",
+    "PetProject.Tactics.GridPath :: System.Collections.Generic.IReadOnlyList`1[PetProject.Tactics.GridPosition] Cells",
+    "PetProject.Tactics.GridPath :: System.Collections.Generic.IReadOnlyList`1[PetProject.Tactics.GridPosition] get_Cells()",
+    "PetProject.Tactics.GridPathfinder :: PetProject.Tactics.GridPath FindPath(PetProject.Tactics.GridBoard, PetProject.Tactics.GridPosition, PetProject.Tactics.GridPosition, System.Collections.Generic.IEnumerable`1[PetProject.Tactics.GridPosition], Int32)",
+    "PetProject.Tactics.GridPosition :: Boolean Equals(PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.GridPosition :: Boolean Equals(System.Object)",
+    "PetProject.Tactics.GridPosition :: Boolean op_Equality(PetProject.Tactics.GridPosition, PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.GridPosition :: Boolean op_Inequality(PetProject.Tactics.GridPosition, PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.GridPosition :: Int32 GetHashCode()",
+    "PetProject.Tactics.GridPosition :: Int32 X",
+    "PetProject.Tactics.GridPosition :: Int32 Y",
+    "PetProject.Tactics.GridPosition :: Int32 get_X()",
+    "PetProject.Tactics.GridPosition :: Int32 get_Y()",
+    "PetProject.Tactics.GridPosition :: Int64 DistanceTo(PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.GridPosition :: System.String ToString()",
+    "PetProject.Tactics.GridPosition :: Void .ctor(Int32, Int32)",
+    "PetProject.Tactics.GridTransition :: Boolean Equals(PetProject.Tactics.GridTransition)",
+    "PetProject.Tactics.GridTransition :: Boolean Equals(System.Object)",
+    "PetProject.Tactics.GridTransition :: Int32 GetHashCode()",
+    "PetProject.Tactics.GridTransition :: PetProject.Tactics.GridPosition From",
+    "PetProject.Tactics.GridTransition :: PetProject.Tactics.GridPosition To",
+    "PetProject.Tactics.GridTransition :: PetProject.Tactics.GridPosition get_From()",
+    "PetProject.Tactics.GridTransition :: PetProject.Tactics.GridPosition get_To()",
+    "PetProject.Tactics.GridTransition :: Void .ctor(PetProject.Tactics.GridPosition, PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.IRandomSource :: Int32 NextInt(Int32, Int32)",
+    "PetProject.Tactics.IRandomSource :: UInt32 State",
+    "PetProject.Tactics.IRandomSource :: UInt32 get_State()",
+    "PetProject.Tactics.MotionMoveResult :: Boolean Accepted",
+    "PetProject.Tactics.MotionMoveResult :: Boolean IsReplay",
+    "PetProject.Tactics.MotionMoveResult :: Boolean get_Accepted()",
+    "PetProject.Tactics.MotionMoveResult :: Boolean get_IsReplay()",
+    "PetProject.Tactics.MotionMoveResult :: Int64 ExpectedRevision",
+    "PetProject.Tactics.MotionMoveResult :: Int64 get_ExpectedRevision()",
+    "PetProject.Tactics.MotionMoveResult :: PetProject.Tactics.GridPath Path",
+    "PetProject.Tactics.MotionMoveResult :: PetProject.Tactics.GridPath get_Path()",
+    "PetProject.Tactics.MotionMoveResult :: PetProject.Tactics.GridPosition Destination",
+    "PetProject.Tactics.MotionMoveResult :: PetProject.Tactics.GridPosition get_Destination()",
+    "PetProject.Tactics.MotionMoveResult :: System.String Error",
+    "PetProject.Tactics.MotionMoveResult :: System.String get_Error()",
+    "PetProject.Tactics.MotionTestSession :: Int32 Actions",
+    "PetProject.Tactics.MotionTestSession :: Int32 Budget",
+    "PetProject.Tactics.MotionTestSession :: Int32 get_Actions()",
+    "PetProject.Tactics.MotionTestSession :: Int32 get_Budget()",
+    "PetProject.Tactics.MotionTestSession :: Int64 Revision",
+    "PetProject.Tactics.MotionTestSession :: Int64 get_Revision()",
+    "PetProject.Tactics.MotionTestSession :: PetProject.Tactics.GridPath Preview(PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.MotionTestSession :: PetProject.Tactics.GridPosition Position",
+    "PetProject.Tactics.MotionTestSession :: PetProject.Tactics.GridPosition get_Position()",
+    "PetProject.Tactics.MotionTestSession :: PetProject.Tactics.MotionMoveResult Move(System.String, PetProject.Tactics.GridPosition, Int64)",
+    "PetProject.Tactics.MotionTestSession :: Void .ctor(PetProject.Tactics.GridBoard, PetProject.Tactics.GridPosition, Int32, Int32)",
+    "PetProject.Tactics.MotionTestSession :: Void NewTurn()",
+    "PetProject.Tactics.TacticalCommand :: Boolean Equals(PetProject.Tactics.TacticalCommand)",
+    "PetProject.Tactics.TacticalCommand :: Boolean Equals(System.Object)",
+    "PetProject.Tactics.TacticalCommand :: Int32 GetHashCode()",
+    "PetProject.Tactics.TacticalCommand :: PetProject.Tactics.GridPosition Destination",
+    "PetProject.Tactics.TacticalCommand :: PetProject.Tactics.GridPosition get_Destination()",
+    "PetProject.Tactics.TacticalCommand :: PetProject.Tactics.TacticalCommand Attack(System.String, System.String, System.String)",
+    "PetProject.Tactics.TacticalCommand :: PetProject.Tactics.TacticalCommand EndTurn(System.String, System.String)",
+    "PetProject.Tactics.TacticalCommand :: PetProject.Tactics.TacticalCommand Move(System.String, System.String, PetProject.Tactics.GridPosition)",
+    "PetProject.Tactics.TacticalCommand :: PetProject.Tactics.TacticalCommandKind Kind",
+    "PetProject.Tactics.TacticalCommand :: PetProject.Tactics.TacticalCommandKind get_Kind()",
+    "PetProject.Tactics.TacticalCommand :: System.String ActorId",
+    "PetProject.Tactics.TacticalCommand :: System.String Id",
+    "PetProject.Tactics.TacticalCommand :: System.String TargetId",
+    "PetProject.Tactics.TacticalCommand :: System.String get_ActorId()",
+    "PetProject.Tactics.TacticalCommand :: System.String get_Id()",
+    "PetProject.Tactics.TacticalCommand :: System.String get_TargetId()",
+    "PetProject.Tactics.TacticalCommandKind :: Int32 value__",
+    "PetProject.Tactics.TacticalCommandKind :: PetProject.Tactics.TacticalCommandKind Attack",
+    "PetProject.Tactics.TacticalCommandKind :: PetProject.Tactics.TacticalCommandKind EndTurn",
+    "PetProject.Tactics.TacticalCommandKind :: PetProject.Tactics.TacticalCommandKind Move",
+    "PetProject.Tactics.TacticalEvent :: Int32 Amount",
+    "PetProject.Tactics.TacticalEvent :: Int32 Roll",
+    "PetProject.Tactics.TacticalEvent :: Int32 get_Amount()",
+    "PetProject.Tactics.TacticalEvent :: Int32 get_Roll()",
+    "PetProject.Tactics.TacticalEvent :: PetProject.Tactics.GridPosition Position",
+    "PetProject.Tactics.TacticalEvent :: PetProject.Tactics.GridPosition get_Position()",
+    "PetProject.Tactics.TacticalEvent :: PetProject.Tactics.TacticalEventKind Kind",
+    "PetProject.Tactics.TacticalEvent :: PetProject.Tactics.TacticalEventKind get_Kind()",
+    "PetProject.Tactics.TacticalEvent :: System.String ActorId",
+    "PetProject.Tactics.TacticalEvent :: System.String TargetId",
+    "PetProject.Tactics.TacticalEvent :: System.String get_ActorId()",
+    "PetProject.Tactics.TacticalEvent :: System.String get_TargetId()",
+    "PetProject.Tactics.TacticalEventKind :: Int32 value__",
+    "PetProject.Tactics.TacticalEventKind :: PetProject.Tactics.TacticalEventKind ActorDefeated",
+    "PetProject.Tactics.TacticalEventKind :: PetProject.Tactics.TacticalEventKind AttackHit",
+    "PetProject.Tactics.TacticalEventKind :: PetProject.Tactics.TacticalEventKind AttackMiss",
+    "PetProject.Tactics.TacticalEventKind :: PetProject.Tactics.TacticalEventKind EncounterCompleted",
+    "PetProject.Tactics.TacticalEventKind :: PetProject.Tactics.TacticalEventKind Moved",
+    "PetProject.Tactics.TacticalEventKind :: PetProject.Tactics.TacticalEventKind TurnEnded",
+    "PetProject.Tactics.TacticalEventKind :: PetProject.Tactics.TacticalEventKind TurnStarted",
+    "TYPE PetProject.Tactics.ActorDefinition",
+    "TYPE PetProject.Tactics.ActorSnapshot",
+    "TYPE PetProject.Tactics.CommandError",
+    "TYPE PetProject.Tactics.CommandResult",
+    "TYPE PetProject.Tactics.DeterministicRandom",
+    "TYPE PetProject.Tactics.Encounter",
+    "TYPE PetProject.Tactics.EncounterRules",
+    "TYPE PetProject.Tactics.EncounterSnapshot",
+    "TYPE PetProject.Tactics.GridBoard",
+    "TYPE PetProject.Tactics.GridCell",
+    "TYPE PetProject.Tactics.GridPath",
+    "TYPE PetProject.Tactics.GridPathfinder",
+    "TYPE PetProject.Tactics.GridPosition",
+    "TYPE PetProject.Tactics.GridTransition",
+    "TYPE PetProject.Tactics.IRandomSource",
+    "TYPE PetProject.Tactics.MotionMoveResult",
+    "TYPE PetProject.Tactics.MotionTestSession",
+    "TYPE PetProject.Tactics.TacticalCommand",
+    "TYPE PetProject.Tactics.TacticalCommandKind",
+    "TYPE PetProject.Tactics.TacticalEvent",
+    "TYPE PetProject.Tactics.TacticalEventKind"
+  ],
+  "results": [
+    {
+      "name": "EncounterTests.AcceptedCommandRetryHasNoEventsOrSecondCost",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.DefeatedActorsDoNotOccupyCellsOrReceiveTurns",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.DefeatingOneOfThreeFactionsDoesNotCompleteEncounter",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.EncounterMovementPreservesDirectedTerrainTransitions",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.HitClampsHealthAndCompletesEncounter",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.ImpossibleAndUnaffordableMovesDoNotChangeState",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.InitiativeBonusDoesNotOverflowIntegerRange",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.InitiativeTiesUseOrdinalIds",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.InvalidAttackRollDoesNotPartiallyApplyAttack",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.InvalidAttacksDoNotSpendActionsOrRandomness",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.InvalidRosterAndRulesAreRejected",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.InvalidRosterDoesNotConsumeInitiativeRolls",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.MissStillCostsActionsAndConsumesOneD20",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.MovementChargesEntirePathAndLeavesOldSnapshotImmutable",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.OnlyCurrentActorCanAct",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.ReadingSnapshotNeverAdvancesSimulation",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.RejectedCommandIdDoesNotReserveAnEntry",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.ReplayAfterAnotherTurnKeepsOriginalRevisionWithoutEvents",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.ReusedCommandIdWithDifferentPayloadIsRejected",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.RoundAdvancesAfterEveryLivingParticipant",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.SceneEnumerationDoesNotChangeInitiativeOrRandomStream",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "EncounterTests.ZeroActionsDoesNotAutomaticallyAdvanceTurn",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "GridRulesTests.BoardRejectsAmbiguousOrInvalidTerrain",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "GridRulesTests.DiagonalMovementUsesTwoCardinalSteps",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "GridRulesTests.HeightLimitIsAppliedWithoutIntegerOverflow",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "GridRulesTests.InvalidEndpointsReturnNoPathAndStartHasZeroCost",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "GridRulesTests.OccupiedGoalAndBlockedColumnAreUnreachable",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "GridRulesTests.WeightedPathChoosesCheaperDetour",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "MotionRulesTests.DirectedEdgeDoesNotBlockReverseStep",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "MotionRulesTests.EdgeDataIsCopiedAndInvalidEdgesAreRejected",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "MotionRulesTests.NewTurnInvalidatesOldPreview",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "MotionRulesTests.OverBudgetAndUnreachableMovesAreAtomic",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "MotionRulesTests.PreviewHasNoMutationAndMoveChargesWeightedCells",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "MotionRulesTests.RetryAndConflictingIdDoNotSpendTwice",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "MotionRulesTests.WallBetweenWalkableCellsRequiresDetour",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "RandomRulesTests.CapturedStateContinuesSameStream",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "RandomRulesTests.FullSignedRangeIsSafe",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "RandomRulesTests.InvalidRangeDoesNotConsumeRandomness",
+      "passed": true,
+      "error": null
+    },
+    {
+      "name": "RandomRulesTests.VersionOneReferenceStreamIsStable",
+      "passed": true,
+      "error": null
+    }
+  ]
+}

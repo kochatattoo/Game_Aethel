@@ -16,11 +16,9 @@ MonoBehaviour:
   EnemySpawners:
   - Id: Level_4_0aa0cc4e-14cf-4981-82e9-a066af358fcc
     MonsterTypeID: 2
-    position: {x: -6.8155727, y: 1.3674799, z: 48.35711}
-  InitialHeroPosition: {x: 20.66, y: 9.26, z: -41.2}
-  SaveTriggers:
-  - Id: Level_4_17762079-9a44-450e-89e9-15a046137c55
-    Position: {x: 47.227203, y: 15.44, z: 70.87}
+    position: {x: -6.8155727, y: 1.36748, z: 48.357113}
+  InitialHeroPosition: {x: 13.8971615, y: 1.2164801, z: -25.956024}
+  SaveTriggers: []
   LevelTransferData:
     LevelTo: Level_3
     TransferToPosition: {x: 47.227203, y: 15.44, z: 70.87}

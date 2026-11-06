@@ -1,0 +1,11 @@
+{
+  "name": "PetProject.Progress.Runtime",
+  "references": [
+    "GUID:7beb6af7fa83439489d8b305b2d9663a",
+    "GUID:5cd118ad42ba95743aced52580055b28",
+    "GUID:3f094c1204c0ec04f990fbcb0f6a4dae",
+    "GUID:f2e8a1ccca00517408f44127e5e3aaf1",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23"
+  ],
+  "autoReferenced": true
+}

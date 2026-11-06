@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>NuGet.Mcp.Server</id>
+    <version>1.4.16</version>
+    <authors>Microsoft</authors>
+    <license type="file">LICENSE.txt</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/NuGet/Home</projectUrl>
+    <description>A Model Context Protocol (MCP) server for NuGet.</description>
+    <copyright>(c) Microsoft Corporation. All rights reserved.</copyright>
+    <tags>nuget mcp</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+      <packageType name="McpServer" />
+    </packageTypes>
+    <repository type="git" commit="71a9bf09c6444049f45a81ee09cc654b1a1e9d06" />
+  </metadata>
+</package>

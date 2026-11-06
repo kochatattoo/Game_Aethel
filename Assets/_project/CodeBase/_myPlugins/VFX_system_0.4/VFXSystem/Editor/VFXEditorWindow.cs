@@ -7,6 +7,8 @@ using VFXSystem.Parameters.Settings;
 using VFXSystem.Parameters;
 using System.Linq;
 
+#if UNITY_EDITOR_WIN
+
 namespace VFXSystem.Editor
 {
     public class VFXEditorWindow : EditorWindow
@@ -136,7 +138,7 @@ namespace VFXSystem.Editor
                     EditorGUILayout.ObjectField(asset, typeof(T), false);
 
                     if (GUILayout.Button(EditorGUIUtility.IconContent("SettingsIcon"), EditorStyles.iconButton, GUILayout.Width(25)))
-                        Selection.activeObject = asset; 
+                        Selection.activeObject = asset;
 
                     EditorGUILayout.EndHorizontal();
                 }
@@ -202,3 +204,5 @@ namespace VFXSystem.Editor
         #endregion
     }
 }
+
+#endif

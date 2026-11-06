@@ -1,0 +1,15 @@
+{
+    "success": true,
+    "utc": "2026-10-29T08:06:04.0811251Z",
+    "error": "",
+    "clearedSpawner": "Level_2_ba7dc699-fba1-4c6c-bcb8-a158e07c5040",
+    "lootValue": 4,
+    "checks": [
+        "Active slot and new profile restored across Play mode restart",
+        "Hero, navigation, stats and all living spawners restored before world readiness",
+        "10 attribute open/close cycles: one view, no retained input blocks or progress readers",
+        "10 pooled option window cycles with stable available instance count",
+        "Enemy death creates one drop; picking saved loot removes its progress entry",
+        "World reload preserves slain spawner and one drop without duplicate registrations"
+    ]
+}

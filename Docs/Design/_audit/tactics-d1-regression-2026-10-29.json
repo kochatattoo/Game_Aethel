@@ -1,0 +1,1290 @@
+{
+    "utc": "2026-10-29T20:07:28.0303250Z",
+    "passed": 62,
+    "total": 62,
+    "checks": [
+        {
+            "name": "CharacterMigrationTests.DonorPercentagePolicyIsPreserved",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "CharacterMigrationTests.ReplacingSourceDoesNotStackOrRemoveAnotherSource",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "CharacterMigrationTests.CancelledDraftDoesNotMutateCatalog",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "CharacterMigrationTests.PlusMinusDoesNotAccumulateModifiersOrPoints",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "CharacterMigrationTests.DraftCannotOverspendAndCommittedHeroSurvivesDraftDisposal",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "CharacterMigrationTests.ProfileRoundTripRestoresBaseWithoutTransientBuffs",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "CharacterMigrationTests.DerivedStatsPreserveBaselineAndReactToAttributes",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "CharacterMigrationTests.IncompleteProfileIsRejected",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.EmptyStoreListsThreeEmptySlots",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.RoundTripIsDetachedAndRetainsProfileIdentity",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.CorruptPrimaryRecoversLastGoodBackup",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.MissingPrimaryCanRecoverBackup",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.CorruptPrimaryAndBackupCannotLoad",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.FutureSchemaDoesNotSilentlyLoadOlderBackup",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.PayloadTamperingIsDetected",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.AutosaveCannotOverwriteFutureSchemaWithoutExplicitReplacement",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.FailedTemporaryWriteLeavesCommittedFileUntouched",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.SlotIdCannotEscapeRoot",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.InvalidDataCannotReplaceGoodSave",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.ArchiveRemovesSlotAndKeepsRecoverableFilesAndLegacyCopy",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.LegacySnapshotIsImmutable",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "JsonSlotStoreTests.OversizedWriteCannotReplaceReadableSave",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.DoubleReturnDoesNotDuplicateAvailableInstance",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.BoundedPoolRecyclesOldestActiveObject",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.ExpandablePoolPreservesActiveObjects",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.FailedInitializerReturnsAcquiredObject",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.ReturningToWrongPoolHasNoEffect",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.DisposedPoolCannotSpawnAndReleasesOwnedRoot",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.PrewarmDoesNotInvokeGameplayCallbacks",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.RegistryDeduplicatesAndUnregistersReaders",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.RegistryAllowsUnregisterDuringCapture",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.AsyncRestoreUsesAsyncContractExactlyOnce",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "ArchitectureRegressionTests.RegistryClearDisconnectsPreviousWorld",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "LevelDataValidationTests.ExactDuplicateSpawnersKeepOriginalSaveIdentity",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "LevelDataValidationTests.ConflictingIdsCannotHideAnotherSpawner",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "LevelDataValidationTests.EmptyIdIsRejected",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "GridRulesTests.WeightedPathChoosesCheaperDetour",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "GridRulesTests.OccupiedGoalAndBlockedColumnAreUnreachable",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "GridRulesTests.HeightLimitIsAppliedWithoutIntegerOverflow",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "GridRulesTests.DiagonalMovementUsesTwoCardinalSteps",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "GridRulesTests.InvalidEndpointsReturnNoPathAndStartHasZeroCost",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "GridRulesTests.BoardRejectsAmbiguousOrInvalidTerrain",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "RandomRulesTests.VersionOneReferenceStreamIsStable",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "RandomRulesTests.CapturedStateContinuesSameStream",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "RandomRulesTests.InvalidRangeDoesNotConsumeRandomness",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "RandomRulesTests.FullSignedRangeIsSafe",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.SceneEnumerationDoesNotChangeInitiativeOrRandomStream",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.OnlyCurrentActorCanAct",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.MovementChargesEntirePathAndLeavesOldSnapshotImmutable",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.ImpossibleAndUnaffordableMovesDoNotChangeState",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.AcceptedCommandRetryHasNoEventsOrSecondCost",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.ReusedCommandIdWithDifferentPayloadIsRejected",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.HitClampsHealthAndCompletesEncounter",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.MissStillCostsActionsAndConsumesOneD20",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.InvalidAttacksDoNotSpendActionsOrRandomness",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.ZeroActionsDoesNotAutomaticallyAdvanceTurn",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.RoundAdvancesAfterEveryLivingParticipant",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.DefeatedActorsDoNotOccupyCellsOrReceiveTurns",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.ReadingSnapshotNeverAdvancesSimulation",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "EncounterTests.InvalidRosterAndRulesAreRejected",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "Save adapters (4 assertions)",
+            "error": "",
+            "success": true
+        },
+        {
+            "name": "Own prefab script references",
+            "error": "",
+            "success": true
+        }
+    ],
+    "assemblies": [
+        {
+            "name": "AudioSystem.Editor",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Editor/Resolver/AudioKeyDrawer.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Editor/Windows/AudioDatabaseEditorWindow.cs"
+            ],
+            "references": [
+                "Game.Infrastructure.AudioSystem",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "DialogueSystemExtensions",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/_myPlugins/DialogueSystemExtensions_0.1/Components/Makers/DialogueMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/DialogueSystemExtensions_0.1/Components/Makers/IDialogueMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/DialogueSystemExtensions_0.1/Components/Sensors/PlayerTriggerSensor.cs",
+                "Assets/_project/CodeBase/_myPlugins/DialogueSystemExtensions_0.1/Components/Sensors/TriggerSensor.cs",
+                "Assets/_project/CodeBase/_myPlugins/DialogueSystemExtensions_0.1/Components/Test/StartSceneDialogueTEST.cs"
+            ],
+            "references": [
+                "DialogueSystem",
+                "PixelCrushers",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "Game.Infrastructure.AudioSystem",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Abstractions/IAudioAuxBus.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Abstractions/IAudioBank.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Abstractions/IAudioEvent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Abstractions/IAudioRtpc.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Abstractions/IAudioState.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Abstractions/IAudioSwitch.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Abstractions/IWwiseWrapper.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Banks/BankLoaderService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Banks/BankSceneMapping.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Banks/BankSceneMappingData.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Banks/IBankLoader.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Banks/SceneBankLoader.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/AmbientAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/AmbientEnvironmentBinder.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/BaseAudioEventComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EnvironmentAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EnvironmentPortalComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/BootsMapConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/BootsType.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentAudioData.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentMapConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentMapData.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentMapping.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentMapResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentMaterialMapper.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentMaterialType.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentResolver/BootsEquipmentResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/EquipmentConfigs/EquipmentResolver/IEquipmentResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/Components/IEnvironmentComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/Components/IIndoorRoom.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/Components/IOcclusionEmitter.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/Components/IPortalComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/Components/IPortalOpening.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/Components/IRoomComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/Components/ISurfaceReflector.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/IAudioEnviromentMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/IAudioMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/IAudioMakerStateService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/IEquipmentAudioMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Interfaces/IPhysicAudioMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/MaterialConfigs/BaseSurfaceResolverConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/MaterialConfigs/CastSettings.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/MaterialConfigs/SurfaceAudioKeyResolverConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/MaterialConfigs/SurfaceWwiseSwitchResolverConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Materials/ISurfaceMaterial.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Materials/SurfaceMaterialAudioKey.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Materials/SurfaceMaterialWwiseSwitch.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/MultiPositionAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Occlusions/IOcclusionService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Occlusions/OcclusionService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Processors/AudioMakerStateController.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Processors/FootstepSwitchAudioProcessor.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Processors/IFootstepAudioProcessor.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Sensors/EnviromentResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Sensors/FootstepResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Sensors/FootstepResolverData.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Sensors/IFootstepResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Sensors/PortalResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Test/TestSoundAttached.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Base/BaseSwitchTriggerAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/BushAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/IndoorRoomComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/IndoorRoomListener.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/OcclusionAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/OcclusionObstructionComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/OrchestrtaAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/PortalOpeningComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/RoomComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/RoomPortalComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/SwitchTriggerAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Component/TriggerAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/SurfaceAudioTrigger.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Tag/TagBushAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Tag/TagSwitchTriggerAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/Triggers/Tag/TagTriggerAudioComponent.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Components/WwiseBackgroundAudio.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Debug/AudioEnvironmentDebugger.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Debug/OcclusionDebugEntry.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Debug/OcclusionDebugVisualizer.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/DI/SoundInstaller.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/DI/WwiseInstaller.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Events/AudioAuxBusAsset.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Events/AudioEventAsset.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Events/AudioParameterAsset.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Events/AudioStateAsset.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Events/AudioSwitchAsset.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Events/WwiseBankAsset.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Extensions/AudioEditorGizmos.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Extensions/AudioRequestExtensions.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/AudioBatchRequest.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/AudioComponentFactory.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/AudioEntity.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/AudioKeyRequest.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/AudioKeyRTPC.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/AudioRequest.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/AudioRTPC.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/GameComponents/IFootstepAudioProcessorFactory.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/GameComponents/WwiseFootstepAudioProcessorFactory.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Factory/IAudioComponentFactory.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/AudioDatabase.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/DTO/AudioKey.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/DTO/AuxSendData.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/Maping/Configs/AudioKeyToMaterialConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/Maping/Configs/BaseWwiseToMaterialConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/Maping/Configs/WwiseAudioConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/Maping/Configs/WwiseToMaterialConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/Maping/WwiseSwitchMaping.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/Maping/WwiseToMaterial.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Parameters/Maping/WwiseValueMaping.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/BaseSurfaceResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/ISurfaceResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/PhysicSurfaceRaycast.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/SurfaceComponentResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/SurfaceDefaultResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/SurfaceMaterialResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/SurfaceTagResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Resolvers/SurfaceTerrainResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Room/IIndoorRoomService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Room/IndoorRoomService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/RuntimeComponents/Sfx/AudioMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/RuntimeComponents/Sfx/FootstepMaker.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/AudioFacade.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/AudioMakerStateService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/AudioService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/AudioStateModel.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/IAudioFacade.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/IAudioFacadeAbstr.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/IAudioRegistrator.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Service/IAudioService.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Utils/AudioKeyAttribute.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Utils/AudioKeyType.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Utils/AudioValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/WwiseSystem/WwiseEngineInitializer.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/WwiseSystem/WwiseInitializer.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/WwiseSystem/WwiseKeys/WwiseAuxBusKeys.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/WwiseSystem/WwiseKeys/WwiseEventsKeys.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/WwiseSystem/WwiseKeys/WwiseParameterKeys.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/WwiseSystem/WwiseKeys/WwiseStateKeys.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/WwiseSystem/WwiseKeys/WwiseSwitchKeys.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Zones/AudioZoneInitializer.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Zones/AudioZoneRegistry.cs",
+                "Assets/_project/CodeBase/_myPlugins/AudioSystem_0.8/AudioSystem/Zones/IAudioZoneRegistry.cs"
+            ],
+            "references": [
+                "AK.Wwise.Unity.API",
+                "AK.Wwise.Unity.API.WwiseTypes",
+                "AK.Wwise.Unity.MonoBehaviour",
+                "AK.Wwise.Unity.ProjectDatabase",
+                "AK.Wwise.Unity.Utilities",
+                "Game.Utils",
+                "UniRx",
+                "UniTask",
+                "UniTask.Linq",
+                "UnityEditor.UI",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "Game.Infrastructure.VFXSystem",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/BaseTypes/MaterialType.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Components/IHitbox.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/DI/VFXInstaller.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Factory/IVFXFactory.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Factory/VFXEntity.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Factory/VFXFactory.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Definition/HitVFXDefinition.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Definition/VFXDefinitionsMapConfigs.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Mapping/IMap.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Mapping/IMapConfigs.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Mapping/IValue.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Mapping/Mapping.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/MaterialMap/VFXMapToMaterialConfigs.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/MaterialMap/VFXToMaterial.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/MaterialMap/VFXToMaterialMap.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Settings/VFXHitSensorSettings.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Settings/VFXQualitySettings.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/Settings/VFXRestrictionSettings.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Parameters/VFXDatabase.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Processors/IVFXProcessor.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Processors/VFXProcessor.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Quality/IVFXSettingsProvider.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Quality/VFXQuality.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Quality/VFXQualityDefinition.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Quality/VFXSettingsProvider.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/InteractResolver.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/IVFXValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXCompositeValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXCooldownValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXCountValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXDistanceValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXFrustumValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXPerformanceValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXPointData.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXPriorityValidator.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Resolver/VFXSpawnContext.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Sensors/VFXHitSensor.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Service/IVFXFacade.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Service/IVFXSystemService.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Service/VFXFacade.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Service/VFXSystemService.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/VFXTypes/AdditionalSubVFX.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/VFXTypes/DecalSubVFX.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/VFXTypes/ISubVFX.cs",
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/VFXTypes/ParticleSubVFX.cs"
+            ],
+            "references": [
+                "Game.Utils",
+                "UniRx",
+                "UniTask",
+                "Unity.RenderPipelines.Core.Runtime",
+                "Unity.RenderPipelines.Universal.Runtime",
+                "UnityEditor.UI",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "Game.Infrastructure.VFXSystem.Editor",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/_myPlugins/VFX_system_0.4/VFXSystem/Editor/VFXEditorWindow.cs"
+            ],
+            "references": [
+                "Game.Infrastructure.VFXSystem",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "Game.Utils",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/_myPlugins/Shared/Utils/Constants/ScriptableObjectNames.cs",
+                "Assets/_project/CodeBase/_myPlugins/Shared/Utils/EventWrapper.cs",
+                "Assets/_project/CodeBase/_myPlugins/Shared/Utils/MultiBool/IReadOnlyMultiSourceBool.cs",
+                "Assets/_project/CodeBase/_myPlugins/Shared/Utils/MultiBool/MultiBoolDominance.cs",
+                "Assets/_project/CodeBase/_myPlugins/Shared/Utils/MultiBool/MultiSourceBool.cs"
+            ],
+            "references": [
+                "UniRx",
+                "UniTask",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "GoogleSheetConfig.Editor",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Misc/AssetUtility.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Misc/GoogleSecret.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Misc/GoogleSheetLoader.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Parsers/BaseParser.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Parsers/Config/ParserConfig.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Parsers/ISettingsParser.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Parsers/MultiParser.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Parsers/SingleParser.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Window/GoogleSheetImporterWindow.cs",
+                "Assets/_project/CodeBase/_myPlugins/GoogleSheetConfig/Editor/Window/ParserEntry.cs"
+            ],
+            "references": [
+                "Game.Infrastructure.AudioSystem",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.AI",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/AI/ArbiterLogic/IArbiter.cs",
+                "Assets/_project/CodeBase/Modules/AI/ArbiterLogic/IExpert.cs",
+                "Assets/_project/CodeBase/Modules/AI/ArbiterLogic/IRegisterExpert.cs",
+                "Assets/_project/CodeBase/Modules/AI/ArbiterLogic/Listeners/Arbiter.cs",
+                "Assets/_project/CodeBase/Modules/AI/ArbiterLogic/Listeners/Scout.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/BehaviourTreeExtansions/BehaviourNodeExtensions.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/BehaviourTreeExtansions/ListExtensions.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Core/BehaviourLeaf.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Core/BehaviourNode.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Core/BehaviourTree.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Core/IBehaviourNode.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Core/IStrategy.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Factories/BehaviourFactory.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Composite/BehaviourParallel.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Composite/BehaviourPrioritySelector.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Composite/BehaviourRandomSelector.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Composite/BehaviourSelector.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Composite/BehaviourSequence.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourCooldown.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourFailer.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourInverter.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourRateLimiter.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourRepeater.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourSucceeder.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourTimeout.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourUntilFail.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourUntilSuccess.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Decorators/BehaviourWait.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Leaf/ActionStrategy.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Leaf/Condition.cs",
+                "Assets/_project/CodeBase/Modules/AI/BehaviourTree/Nodes/Leaf/WaitForCondition.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/ArbiterBlackboardService.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/Blackboard.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/BlackboardEntry.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/BlackboardExtensions/GameObjectExtensions.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/BlackboardExtensions/Preconditions.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/BlackboardExtensions/StringExtensions.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/BlackboardKey.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/BlackboardService.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/Data/AnyValue.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/Data/BlackboardData.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/Data/BlackboardEntryData.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/IArbiterBlackboardService.cs",
+                "Assets/_project/CodeBase/Modules/AI/Blackboard/IBlackboardService.cs"
+            ],
+            "references": [
+                "Game.Utils",
+                "UniRx",
+                "UniTask",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.App.Contracts",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/App.Contracts/AnimatorState.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ApplicationContracts.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IAdsService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IAnimationStateReader.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ICoroutineRunner.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IHealth.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IIAPService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ILevelTransferService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ILogDataService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IPersistentProgressService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IRandomService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IReloadService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ISavedProgress.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ISaveLoadService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ISaveSlotService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/IService.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/LogData.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ProductDescription.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ProgressContracts.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/SaveSlotInfo.cs",
+                "Assets/_project/CodeBase/Modules/App.Contracts/ShopProductInfo.cs"
+            ],
+            "references": [
+                "PetProject.Character",
+                "PetProject.Progress.Model",
+                "UniRx",
+                "UniTask",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Application",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Application/CharacterMenuConfig.cs",
+                "Assets/_project/CodeBase/Modules/Application/CharacterMenuService.cs",
+                "Assets/_project/CodeBase/Modules/Application/CharacterSession.cs",
+                "Assets/_project/CodeBase/Modules/Application/IStateFactory.cs",
+                "Assets/_project/CodeBase/Modules/Application/LevelTransferService.cs",
+                "Assets/_project/CodeBase/Modules/Application/ReloadService.cs",
+                "Assets/_project/CodeBase/Modules/Application/SceneLoader.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/BootstrapState.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/GameLoopState.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/GameStateMachine.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/IGameStateMachine.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/IState.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/LoadLevelState.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/LoadProgressState.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/MainMenuState.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/ReloadGameState.cs",
+                "Assets/_project/CodeBase/Modules/Application/State/WarmUpState.cs"
+            ],
+            "references": [
+                "PetProject.App.Contracts",
+                "PetProject.Character",
+                "PetProject.Input",
+                "PetProject.Pooling",
+                "PetProject.Progress.Model",
+                "UniRx",
+                "UniTask",
+                "Unity.InputSystem",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Architecture.Tests",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/Tests/Editor/ArchitectureRegressionTests.cs",
+                "Assets/_project/CodeBase/Tests/Editor/LevelDataValidationTests.cs"
+            ],
+            "references": [
+                "PetProject.App.Contracts",
+                "PetProject.Character",
+                "PetProject.Gameplay",
+                "PetProject.Pooling",
+                "PetProject.Progress.Model",
+                "PetProject.Progress.Runtime",
+                "PetProject.TestSupport",
+                "UniTask",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Assets",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Assets/AssetAddress.cs",
+                "Assets/_project/CodeBase/Modules/Assets/AssetProvider.cs",
+                "Assets/_project/CodeBase/Modules/Assets/IAsset.cs"
+            ],
+            "references": [
+                "UniTask",
+                "Unity.Addressables",
+                "Unity.ResourceManager",
+                "UnityEditor.UI",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "PetProject.Character",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Character/Domain/Attributes/Attribute.cs",
+                "Assets/_project/CodeBase/Character/Domain/Attributes/AttributeConstants.cs",
+                "Assets/_project/CodeBase/Character/Domain/Attributes/AttributeModifier.cs",
+                "Assets/_project/CodeBase/Character/Domain/Attributes/HeroAttributes.cs",
+                "Assets/_project/CodeBase/Character/Domain/Attributes/ModifierType.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/CharacterBalance.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/CharacterProfileData.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/HeroClass.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/HeroClassDTO.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/HeroClassesRoot.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/HeroData.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/HeroDataFabric.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/HeroDataService.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/HeroDerivedStats.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/IHeroDataProvider.cs",
+                "Assets/_project/CodeBase/Character/Domain/Data/IHeroDataService.cs",
+                "Assets/_project/CodeBase/Character/Domain/Items/ActiveBuff.cs",
+                "Assets/_project/CodeBase/Character/Domain/Items/ConsumableItem.cs",
+                "Assets/_project/CodeBase/Character/Domain/Items/EquipmentItem.cs",
+                "Assets/_project/CodeBase/Character/Domain/Items/EquipmentSlot.cs",
+                "Assets/_project/CodeBase/Character/Domain/Items/HeroBuffService.cs",
+                "Assets/_project/CodeBase/Character/Domain/Items/HeroEquipmentService.cs",
+                "Assets/_project/CodeBase/Character/Domain/Items/ItemConfig.cs"
+            ],
+            "references": [
+                "UniRx",
+                "UniTask",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Character.Tests",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/Character/Tests/Editor/CharacterMigrationTests.cs"
+            ],
+            "references": [
+                "PetProject.Character",
+                "UniRx",
+                "UniTask",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Commerce",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Commerce/Ads/AdsService.cs",
+                "Assets/_project/CodeBase/Modules/Commerce/IAP/IAPProvider.cs",
+                "Assets/_project/CodeBase/Modules/Commerce/IAP/IAPService.cs",
+                "Assets/_project/CodeBase/Modules/Commerce/IAP/ItemType.cs",
+                "Assets/_project/CodeBase/Modules/Commerce/IAP/ProductConfig.cs",
+                "Assets/_project/CodeBase/Modules/Commerce/IAP/ProductConfigWrapper.cs"
+            ],
+            "references": [
+                "PetProject.App.Contracts",
+                "PetProject.Progress.Model",
+                "Unity.Purchasing",
+                "Unity.Purchasing.Stores",
+                "UnityEditor.UI",
+                "UnityEngine.Advertisements",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "PetProject.Composition",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Composition/ApplicationAdapters.cs",
+                "Assets/_project/CodeBase/Modules/Composition/CoroutineRunner.cs",
+                "Assets/_project/CodeBase/Modules/Composition/DI/AudioInstaller.cs",
+                "Assets/_project/CodeBase/Modules/Composition/DI/BootstrapInstaller.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Factory/EnemyFactory.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Factory/GameFactory.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Factory/HeroFactory.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Factory/LootFactory.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Factory/StateFactory.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Factory/WorldAssetFactory.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Game.cs",
+                "Assets/_project/CodeBase/Modules/Composition/GameWorldBuilder.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Services/LogData/LogDataService.cs",
+                "Assets/_project/CodeBase/Modules/Composition/Services/Random/UnityRandomService.cs"
+            ],
+            "references": [
+                "Game.Infrastructure.AudioSystem",
+                "Game.Infrastructure.VFXSystem",
+                "Game.Utils",
+                "PetProject.AI",
+                "PetProject.App.Contracts",
+                "PetProject.Application",
+                "PetProject.Assets",
+                "PetProject.Character",
+                "PetProject.Commerce",
+                "PetProject.Gameplay",
+                "PetProject.Input",
+                "PetProject.Pooling",
+                "PetProject.Progress.Model",
+                "PetProject.Progress.Runtime",
+                "PetProject.UI",
+                "UniRx",
+                "UniTask",
+                "Unity.Addressables",
+                "Unity.ResourceManager",
+                "Unity.TextMeshPro",
+                "UnityEditor.UI",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "PetProject.Editor",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/Editor/BlackboardDataEditor.cs",
+                "Assets/_project/CodeBase/Editor/CharacterMenuMigration.cs",
+                "Assets/_project/CodeBase/Editor/CharacterMenuSmoke.cs",
+                "Assets/_project/CodeBase/Editor/EditorApplicationEnvironment.cs",
+                "Assets/_project/CodeBase/Editor/LevelStaticDataEditor.cs",
+                "Assets/_project/CodeBase/Editor/RefactoringGameplaySmoke.cs",
+                "Assets/_project/CodeBase/Editor/RefactoringValidation.cs",
+                "Assets/_project/CodeBase/Editor/SaveStorageSmoke.cs",
+                "Assets/_project/CodeBase/Editor/SpawnMarkerEditor.cs",
+                "Assets/_project/CodeBase/Editor/Tactics/TacticsRuntimeSmoke.cs",
+                "Assets/_project/CodeBase/Editor/Tactics/TacticsSandboxTools.cs",
+                "Assets/_project/CodeBase/Editor/Tactics/TacticsSandboxWindow.cs",
+                "Assets/_project/CodeBase/Editor/Tools.cs",
+                "Assets/_project/CodeBase/Editor/UniqueIdEditor.cs"
+            ],
+            "references": [
+                "Game.Infrastructure.AudioSystem",
+                "Game.Infrastructure.VFXSystem",
+                "PetProject.AI",
+                "PetProject.App.Contracts",
+                "PetProject.Application",
+                "PetProject.Character",
+                "PetProject.Composition",
+                "PetProject.Gameplay",
+                "PetProject.Input",
+                "PetProject.Pooling",
+                "PetProject.Progress.Model",
+                "PetProject.Progress.Runtime",
+                "PetProject.SaveStorage",
+                "PetProject.Tactics",
+                "PetProject.UI",
+                "UniRx",
+                "UniTask",
+                "Unity.Addressables",
+                "Unity.Addressables.Editor",
+                "Unity.ResourceManager",
+                "Unity.TextMeshPro",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "PetProject.Gameplay",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Gameplay/Camera/CameraFollow.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Camera/CameraOcclusionFade.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Components/Audio/AudioPoolItem.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Components/Audio/EnemyAudio.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Components/Audio/EntityAudio.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Components/Audio/PlayerAudio.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Components/Vfx/Hitbox.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Components/VisionSensor.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Configs/AttackConfig.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Configs/AudioConfig.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Configs/EnemyAttackConfig.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Configs/HeroAttackConfig.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Constants/ProjectConstants.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/AgentMoveToHero.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/AnimateAlongAgent.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/Attack.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/AttackRuntime.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/CheckAttackRange.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/EnemyAnimator.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/EnemyDeath.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/EnemyHealth.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/EnemyVision.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/Follow.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/IAttack.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/Loot/EndlessRotation.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/Loot/LootPiece.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/Loot/LootSpawner.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/PhysicsDebug.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/RotateToHero.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Enemies/TriggerObserver.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Factories/EntityFactoryContracts.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Factories/IGameFactory.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Action/HeroAction.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Action/HeroAttackStrategy.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Action/HeroBehaviourFactory.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Action/HeroInteractStrategy.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Action/HeroMoveStrategy.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Action/IdleStrategy.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/HeroAnimator.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/HeroAttack.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/HeroAttackRuntime.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/HeroDeath.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/HeroFacade.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/HeroHealth.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/IVisibilityPointsProvider.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Move/HeroMove.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Move/HeroPathFollower.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Move/IMoveable.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Move/Move.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Move/PathFollower.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/Move/TargetData.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Hero/VisibilityPoints.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Input/ClickInputHandler.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Input/IClickListener.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Input/IInputHandlerService.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Input/InputHandlerService.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/LegacyAudio/AudioService.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/LegacyAudio/IAudioService.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Sensors/BladeSensor.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/EnemySpawnerData.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/HeroStaticData.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/HeroTypeID.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/IStaticDataService.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/LevelDataValidation.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/LevelStaticData.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/LevelTransferData.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/MonsterStaticData.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/MonsterTypeID.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/SaveTriggerData.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/StaticData/StaticDataService.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/TacticsSandbox/TacticsSandboxBehaviour.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/TacticsSandbox/TacticsSandboxView.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Utils/GpuInstansingEnabler.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/Utils/UniqueId.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/AnimatorStateReporter.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/CFXLogic/CFXClickEffect.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/CFXLogic/CFXClickEffectSpawner.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/CFXLogic/CFXFactory.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/CFXLogic/ICFXFactory.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/EnemySpawners/SpawnMarker.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/EnemySpawners/SpawnPoint.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/LevelTransferTrigger.cs",
+                "Assets/_project/CodeBase/Modules/Gameplay/World/SaveTrigger.cs"
+            ],
+            "references": [
+                "Game.Infrastructure.AudioSystem",
+                "Game.Infrastructure.VFXSystem",
+                "Game.Utils",
+                "PetProject.AI",
+                "PetProject.App.Contracts",
+                "PetProject.Assets",
+                "PetProject.Character",
+                "PetProject.Input",
+                "PetProject.Pooling",
+                "PetProject.Progress.Model",
+                "PetProject.Tactics",
+                "UniRx",
+                "UniTask",
+                "Unity.Addressables",
+                "Unity.ResourceManager",
+                "Unity.TextMeshPro",
+                "UnityEditor.UI",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "PetProject.Input",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Input/IInputService.cs",
+                "Assets/_project/CodeBase/Modules/Input/InputService.cs",
+                "Assets/_project/CodeBase/Modules/Input/InputServiceAbstract.cs",
+                "Assets/_project/CodeBase/Modules/Input/InputServiceWASD.cs",
+                "Assets/_project/CodeBase/Modules/Input/MenuInputScope.cs"
+            ],
+            "references": [
+                "Unity.InputSystem",
+                "UnityEditor.UI",
+                "UnityEngine.UI",
+                "Zenject"
+            ]
+        },
+        {
+            "name": "PetProject.Pooling",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Pooling/IPool.cs",
+                "Assets/_project/CodeBase/Modules/Pooling/IPoolable.cs",
+                "Assets/_project/CodeBase/Modules/Pooling/IPoolService.cs",
+                "Assets/_project/CodeBase/Modules/Pooling/Pool.cs",
+                "Assets/_project/CodeBase/Modules/Pooling/PoolExtensions.cs",
+                "Assets/_project/CodeBase/Modules/Pooling/PoolService.cs"
+            ],
+            "references": [
+                "UniTask",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Progress.Model",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/BoughtIAP.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/DataExtensions.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/KillData.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/Loot.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/LootData.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/LootObject.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/PlayerProgress.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/PositionOnLevel.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/PurchaseData.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/SerializableDictionary.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/State.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/Stats.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/Vector3Data.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/Data/WorldData.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Model/GameSaveData.cs"
+            ],
+            "references": [
+                "PetProject.Character",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Progress.Runtime",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Progress.Runtime/PersistentProgressService.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Runtime/ProgressRegistry.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Runtime/SaveEnvironment.cs",
+                "Assets/_project/CodeBase/Modules/Progress.Runtime/SaveLoadService.cs"
+            ],
+            "references": [
+                "PetProject.App.Contracts",
+                "PetProject.Character",
+                "PetProject.Progress.Model",
+                "PetProject.SaveStorage",
+                "UniTask",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.SaveStorage",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/SaveStorage/JsonSlotStore.cs",
+                "Assets/_project/CodeBase/SaveStorage/SaveEnvelope.cs"
+            ],
+            "references": [
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.SaveStorage.Tests",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/SaveStorage/Tests/Editor/JsonSlotStoreTests.cs"
+            ],
+            "references": [
+                "PetProject.SaveStorage",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.Tactics",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Commands/CommandResult.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Commands/TacticalCommand.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Encounter.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridBoard.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridPathfinder.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridPosition.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Rules/DeterministicRandom.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/Rules/EncounterRules.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/State/ActorDefinition.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Runtime/State/EncounterSnapshot.cs"
+            ],
+            "references": []
+        },
+        {
+            "name": "PetProject.Tactics.Tests",
+            "editor": true,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/Tactics/Tests/Editor/EncounterTests.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Tests/Editor/GridRulesTests.cs",
+                "Assets/_project/CodeBase/Modules/Tactics/Tests/Editor/RandomRulesTests.cs"
+            ],
+            "references": [
+                "PetProject.Tactics",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.TestSupport",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Tests/Runtime/PoolProbe.cs"
+            ],
+            "references": [
+                "PetProject.Pooling",
+                "UnityEditor.TestRunner",
+                "UnityEditor.UI",
+                "UnityEngine.TestRunner",
+                "UnityEngine.UI"
+            ]
+        },
+        {
+            "name": "PetProject.UI",
+            "editor": false,
+            "sources": [
+                "Assets/_project/CodeBase/Modules/UI/Character/CharacterAssets.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/CharacterMainMenuView.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/CharacterMenuToolbar.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/SaveSlotsView.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/Elements/BuffIconUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/Elements/ConsumableItemUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/Elements/EquipmentItemUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/Elements/OpenWindowButton.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/HeroWindow/HeroAttributesUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/HeroWindow/HeroTimeEffectsUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/HeroWindow/HeroWindowUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/MainMenuElements/DistributePoints.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/MainMenuElements/ExitButton.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/MainMenuElements/HeroAttributesView.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/MainMenuElements/HeroClassContainerUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/MainMenuElements/HeroClassDescriptionUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/MainMenuElements/HeroClassUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/MainMenuElements/HeroParamentresUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/Windows/DemoWindow.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/Windows/NewGameWindow.cs",
+                "Assets/_project/CodeBase/Modules/UI/Character/Views/Windows/WindowBase.cs",
+                "Assets/_project/CodeBase/Modules/UI/CharacterMenuPresentation.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/ActorUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/HpBar.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/LoadUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/LookAtCamera.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/LootCounter.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/NewGameUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/OpenWindowButton.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/SaveLoadUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Elements/SaveUI.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Services/Factory/IUIFactory.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Services/Factory/UIFactory.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Services/Windows/IWindowService.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Services/Windows/WindowId.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Services/Windows/WindowService.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/UIExtensions.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Windows/OptionWindow.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Windows/Shop/RewardedAdItem.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Windows/ShopItem.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Windows/ShopItemsContainer.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Windows/ShopWindow.cs",
+                "Assets/_project/CodeBase/Modules/UI/Legacy/Windows/WindowBase.cs",
+                "Assets/_project/CodeBase/Modules/UI/LoadingCurtain.cs",
+                "Assets/_project/CodeBase/Modules/UI/WindowsCatalog/Data/WindowConfig.cs",
+                "Assets/_project/CodeBase/Modules/UI/WindowsCatalog/Data/WindowStaticData.cs",
+                "Assets/_project/CodeBase/Modules/UI/WindowsCatalog/WindowCatalog.cs"
+            ],
+            "references": [
+                "PetProject.App.Contracts",
+                "PetProject.Assets",
+                "PetProject.Character",
+                "PetProject.Input",
+                "PetProject.Pooling",
+                "PetProject.Progress.Model",
+                "UniRx",
+                "UniTask",
+                "Unity.Addressables",
+                "Unity.ResourceManager",
+                "Unity.TextMeshPro",
+                "UnityEditor.UI",
+                "UnityEngine.UI"
+            ]
+        }
+    ]
+}

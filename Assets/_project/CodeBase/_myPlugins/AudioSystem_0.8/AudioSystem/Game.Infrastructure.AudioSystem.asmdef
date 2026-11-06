@@ -1,25 +1,25 @@
 {
-    "name": "Game.Infrastructure.AudioSystem",
-    "rootNamespace": "",
-    "references": [
-        "Zenject",
-        "AK.Wwise.Unity.API",
-        "AK.Wwise.Unity.MonoBehaviour",
-        "AK.Wwise.Unity.Utilities",
-        "AK.Wwise.Unity.API.WwiseTypes",
-        "AK.Wwise.Unity.ProjectDatabase",
-        "Game.Utils",
-        "UniRx",
-        "UniTask",
-        "UniTask.Linq"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "Game.Infrastructure.AudioSystem",
+  "rootNamespace": "",
+  "references": [
+    "GUID:0d8beb7f090555447a6cf5ce9e54dbb4",
+    "GUID:3308bf66d1e54c544aa5e0b1729b9bc3",
+    "GUID:073df54755fa07a46942e505bff03711",
+    "GUID:c6a96d81d6329cb46849d34b46ad643b",
+    "GUID:2c578fd18087ea54cb1187b695afab26",
+    "GUID:0e17cbbb8c13f0e40b216acbe5145b4d",
+    "GUID:b1e925b2f18bee3408decb79e4c1de7d",
+    "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+    "GUID:f51ebe6a0ceec4240a699833d6309b23",
+    "GUID:5c01796d064528144a599661eaab93a6"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

@@ -1,0 +1,34 @@
+{
+  "utc": "2026-10-29T19:37:07.693Z",
+  "checked": [
+    {
+      "document": "01_Архитектура/03_Архитектура_после_рефакторинга.md",
+      "bytes": 10843
+    },
+    {
+      "document": "06_Проблемы_и_рефакторинг/03_Отчет_рефакторинг_2026-10-29.md",
+      "bytes": 22923
+    },
+    {
+      "document": "GD/1_План_перехода_к_GDD.md",
+      "bytes": 37618
+    },
+    {
+      "document": "GD/_Шаблон_системной_заметки.md",
+      "bytes": 3546
+    },
+    {
+      "document": "GD/README_Работа_с_GD.md",
+      "bytes": 4306
+    }
+  ],
+  "missingLinks": [],
+  "originalGddUnchanged": true,
+  "cleanBuild": {
+    "result": "Succeeded",
+    "errors": 0,
+    "warnings": 33,
+    "exeExists": true
+  },
+  "success": true
+}

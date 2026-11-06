@@ -1,0 +1,14 @@
+{
+    "success": true,
+    "sceneRestored": true,
+    "saveIsolation": true,
+    "utc": "2026-10-29T20:08:06.7080358Z",
+    "error": "",
+    "checks": [
+        "Standalone scene initializes two actor views without campaign services",
+        "Movement, view position, command retry and blocked destination are consistent",
+        "Action budget and explicit turn ending advance the round",
+        "d20 combat completes, declares a winner and hides the defeated actor",
+        "Ten resets preserve view count; idle frames do not advance simulation"
+    ]
+}

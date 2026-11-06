@@ -15,7 +15,7 @@ namespace AudioSystem.Room
 {
     public class IndoorRoomService : IIndoorRoomService, IInitializable, IDisposable
     {
-        private readonly Transform _listener;
+        private Transform _listener;
         private readonly IAudioZoneRegistry _zoneRegistry;
         private readonly IAudioFacade _audioFacade;
         private readonly float _updateInterval;
@@ -35,7 +35,7 @@ namespace AudioSystem.Room
         public IndoorRoomService(IAudioZoneRegistry zoneRegistry,
             IAudioFacade audioFacade, AudioDatabase database)
         {
-            _listener = Camera.main.transform;
+            _listener = Camera.main != null ? Camera.main.transform : null;
             _zoneRegistry = zoneRegistry;
             _audioFacade = audioFacade;
             _updateInterval = database.IndoorUpdateInterval;
@@ -77,7 +77,7 @@ namespace AudioSystem.Room
             var state = new RoomState();
             _roomStates[room] = state;
 
-            bool listenerInside = room.RoomCollider.bounds.Contains(_listener.position);
+            bool listenerInside = _listener != null && room.RoomCollider.bounds.Contains(_listener.position);
             state.ListenerInside = listenerInside;
 
             room.OnEmitterEntered.Subscribe(Emitterentered(room, state));
@@ -164,6 +164,7 @@ namespace AudioSystem.Room
 
         private void UpdateRooms(long _)
         {
+            if (_listener == null && Camera.main != null) _listener = Camera.main.transform;
             if (_listener == null)
                 return;
 

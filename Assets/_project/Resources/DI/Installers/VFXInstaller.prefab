@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3304848525811918385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b53953e36db1d6b47b2eb306276ed71e, type: 3}
+  m_Script: {fileID: 11500000, guid: ccb7ec24065d10347871d5a5716cd42b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game.Infrastructure.VFXSystem::Infrastructure.DI.VFXInstaller
   _database: {fileID: 11400000, guid: cf2c7f2113df8a94095d0753c1c7895a, type: 2}
