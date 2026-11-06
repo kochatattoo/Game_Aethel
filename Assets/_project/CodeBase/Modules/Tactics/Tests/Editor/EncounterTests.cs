@@ -39,6 +39,16 @@ namespace PetProject.Tactics.Tests
             RejectsWithoutMutation(e, TacticalCommand.EndTurn("y", "unknown"), CommandError.UnknownActor);
         }
 
+        [Test] public void InitialActionBudgetAppliesOnlyToFirstTurn()
+        {
+            var hero = new ActorDefinition("hero", "allies", new GridPosition(0, 0), initiativeBonus: 20, initialActionPoints: 2);
+            var encounter = Create(hero, Enemy(new GridPosition(4, 0)));
+            Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(2));
+            encounter.Execute(TacticalCommand.EndTurn("hero-end", "hero"));
+            encounter.Execute(TacticalCommand.EndTurn("enemy-end", "enemy"));
+            Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(3));
+        }
+
         [Test] public void MovementChargesEntirePathAndLeavesOldSnapshotImmutable()
         {
             var e = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(4, 0)));

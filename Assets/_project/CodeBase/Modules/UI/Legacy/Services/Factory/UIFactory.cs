@@ -102,6 +102,7 @@ namespace CodeBase.UI.Services.Factory
 
         public async UniTask CreateUIRootAsync()
         {
+            await _staticData.InitializeAsync();
             GameObject pref = await _assets.Load<GameObject>(AssetAddress.UIRoot);
             _uiRoot = Object.Instantiate(pref).transform;
             
@@ -126,13 +127,6 @@ namespace CodeBase.UI.Services.Factory
         {
             var pool = _poolService.GetPool<T>();
             T window = pool.Spawn(_uiRoot, initializer);
-            return window;
-        }
-
-        private T CreateWindow<T>(WindowId ind) where T : WindowBase
-        {
-            WindowConfig config = _staticData.ForWindow(ind);
-            T window = Object.Instantiate(config.prefab, _uiRoot) as T;
             return window;
         }
 

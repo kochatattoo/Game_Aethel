@@ -1,4 +1,4 @@
-﻿using CodeBase.Utils;
+using CodeBase.Utils;
 using System;
 using System.Linq;
 using UnityEditor;
@@ -10,7 +10,6 @@ namespace CodeBase.Editor
     [CustomEditor(typeof(UniqueId))]
     public class UniqueIdEditor : UnityEditor.Editor
     {
-        [Obsolete]
         private void OnEnable()
         {
             var uniqueId = (UniqueId)target;
@@ -22,7 +21,7 @@ namespace CodeBase.Editor
                 Generate(uniqueId);
             else
             {
-                UniqueId[] uniqueIds = FindObjectsOfType<UniqueId>();
+                UniqueId[] uniqueIds = FindObjectsByType<UniqueId>(FindObjectsSortMode.None);
 
                 if (uniqueIds.Any(other => other != uniqueId && other.Id == uniqueId.Id))
                     Generate(uniqueId);

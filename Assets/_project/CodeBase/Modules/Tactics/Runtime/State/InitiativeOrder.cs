@@ -22,7 +22,7 @@ namespace PetProject.Tactics
                 actor.AssignInitiative((long)rollD20() + actor.Definition.InitiativeBonus);
             _actors = _actors.OrderByDescending(a => a.Initiative)
                 .ThenBy(a => a.Definition.Id, StringComparer.Ordinal).ToList();
-            Current.BeginTurn(_actionsPerTurn);
+            Current.BeginTurn(Current.Definition.InitialActionPoints ?? _actionsPerTurn);
         }
 
         public ActorSnapshot[] CaptureActors() => _actors.Select(a => a.Snapshot()).ToArray();

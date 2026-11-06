@@ -41,6 +41,7 @@ namespace CodeBase.EditorTools
             TacticsSandboxTools.RequireCleanEditMode();
             if (!File.Exists(MotionTestSceneTools.ScenePath)) MotionTestSceneTools.Create();
             EditorSceneManager.OpenScene(MotionTestSceneTools.ScenePath);
+            MotionTestSceneTools.EnsureBaked();
             Directory.CreateDirectory("Library/MotionTest");
             File.WriteAllText(ReportPath, JsonUtility.ToJson(new Report { pending = true }, true));
             SessionState.SetString(Key + ".SaveHash", SaveHash());
@@ -65,12 +66,15 @@ namespace CodeBase.EditorTools
                 await UniTask.DelayFrame(3);
                 var host = Object.FindFirstObjectByType<MotionTestController>();
                 Require(host != null && host.Ready, "Standalone scene initialized: " + host?.Error);
+                host.EncounterDirector.SetEnabled(false);
                 Require(Object.FindObjectsByType<ProjectContext>(FindObjectsSortMode.None).Length == 0, "No campaign DI container");
                 Require(host.Map.Board.Width == 100 && host.Map.Board.Height == 100, "100 x 100 board");
                 report.gridMilliseconds = host.Map.BuildMilliseconds; report.walkableCells = host.Map.WalkableCount;
                 report.checks.Add("100x100 scene, existing hero and independent input initialized without campaign bootstrap");
                 await CheckCameraInput(host);
                 report.checks.Add("Input System keyboard yaw, right-button orbit, wheel zoom and focus reset drive Cinemachine");
+                await CheckHud(host);
+                report.checks.Add("Runtime HUD clicks preserve AP across mode switches, pause the world clock, reset on the shared boundary, support manual End Turn and automatically start a turn at zero AP");
                 host.ResetHero();
                 Require(host.MoveNormally(new Vector3(-16.5f, 0, -13.5f)), "Normal destination accepted");
                 await UniTask.DelayFrame(2); Require(host.IsAnimating, "Run animation active while walking");
@@ -139,6 +143,79 @@ namespace CodeBase.EditorTools
             using var source = new CancellationTokenSource(timeout);
             await UniTask.WaitUntil(() => host.Error != null || (!host.Busy && !host.NormalMoving), cancellationToken: source.Token);
             Require(host.Error == null, host.Error ?? "Motion settled");
+        }
+        private static async UniTask CheckHud(MotionTestController host)
+        {
+            host.ResetHero();
+            await UniTask.DelayFrame(2);
+            var hud = host.Hud;
+            Require(hud != null && hud.ModeButton != null && hud.EndTurnButton != null, "Runtime HUD created in Play Mode");
+            MotionEditorInputGate.InputFixtureActive = true;
+            var mouse = InputSystem.AddDevice<Mouse>("Motion HUD fixture mouse");
+            try
+            {
+                await ClickHud(mouse, hud.ModeButton);
+                await Settled(host);
+                Require(host.Combat && hud.EndTurnButton.gameObject.activeSelf, "HUD enters tactical mode without EditorWindow");
+                var origin = host.Session.Position;
+                var adjacent = new GridPosition(origin.X + 1, origin.Y);
+                for (var i = 0; i < 2; ++i)
+                {
+                    Require(host.TryMove(i % 2 == 0 ? adjacent : origin), "HUD fixture spends two AP");
+                    await Settled(host);
+                }
+                Require(host.Session.Actions == 4, "Two AP spent in tactical mode");
+                await ClickHud(mouse, hud.ModeButton);
+                await UniTask.DelayFrame(2);
+                Require(!host.Combat && host.WorldActions.Get(MotionTestController.HeroActorId, 6) == 4,
+                    "Remaining AP survives exit to normal mode");
+                await ClickHud(mouse, hud.ModeButton);
+                await Settled(host);
+                Require(host.Session.Actions == 4, "Reentry before world boundary preserves remaining AP");
+                var frozen = host.WorldTurn.SecondsToNextRound;
+                await ClickHud(mouse, hud.EndTurnButton);
+                await UniTask.DelayFrame(2);
+                Require(host.Session.Actions == 6, "Manual End Turn with AP starts a full test turn");
+                for (var i = 0; i < 6; ++i)
+                {
+                    Require(host.TryMove(i % 2 == 0 ? adjacent : origin), "HUD fixture spends full budget");
+                    await Settled(host);
+                }
+                Require(host.Session.Actions == 6 && host.Notice.Contains("автоматически"),
+                    "Full AP spend automatically starts a new test turn");
+                Require(Math.Abs(frozen - host.WorldTurn.SecondsToNextRound) < .1, "World clock is paused in tactical mode");
+                Require(host.TryMove(adjacent), "One AP spent after automatic turn");
+                await Settled(host);
+                await ClickHud(mouse, hud.ModeButton);
+                await UniTask.DelayFrame(2);
+                Require(host.WorldActions.Get(MotionTestController.HeroActorId, 6) == 5, "Partial budget saved before world reset");
+                await UniTask.Delay(TimeSpan.FromSeconds(host.WorldTurn.SecondsToNextRound + .1));
+                Require(host.WorldActions.Get(MotionTestController.HeroActorId, 6) == 6,
+                    "Shared world boundary restores AP in normal mode");
+                await ClickHud(mouse, hud.ModeButton);
+                await Settled(host);
+                Require(host.Session.Actions == 6, "Reentry after world boundary uses restored AP");
+                await ClickHud(mouse, hud.ModeButton);
+                await UniTask.DelayFrame(2);
+                Require(!host.Combat && host.Session == null, "HUD returns to normal movement");
+            }
+            finally
+            {
+                InputSystem.RemoveDevice(mouse);
+                MotionEditorInputGate.InputFixtureActive = false;
+            }
+        }
+        private static async UniTask ClickHud(Mouse mouse, UnityEngine.UI.Button button)
+        {
+            Require(button.gameObject.activeInHierarchy && button.interactable, "HUD button is available: " + button.name);
+            var rect = button.GetComponent<RectTransform>();
+            var point = RectTransformUtility.WorldToScreenPoint(null, rect.TransformPoint(rect.rect.center));
+            InputSystem.QueueStateEvent(mouse, new MouseState { position = point });
+            await UniTask.DelayFrame(2);
+            InputSystem.QueueStateEvent(mouse, new MouseState { position = point }.WithButton(MouseButton.Left));
+            await UniTask.DelayFrame(2);
+            InputSystem.QueueStateEvent(mouse, new MouseState { position = point });
+            await UniTask.DelayFrame(2);
         }
         private static async UniTask CheckCameraInput(MotionTestController host)
         {

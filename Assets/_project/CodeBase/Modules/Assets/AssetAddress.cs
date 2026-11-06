@@ -1,4 +1,4 @@
-﻿namespace CodeBase.Infrastructure.AssetManagement
+namespace CodeBase.Infrastructure.AssetManagement
 {
     public static class AssetAddress
     {
@@ -9,5 +9,6 @@
         public const string SaveTrigger = "SaveTrigger";
         public const string TransferToPoint = "LevelTransferPoint";
         public const string UIRoot = "UIRoot";
+        public const string WindowStaticData = "PetProject/Data/WindowStaticData";
     }
 }

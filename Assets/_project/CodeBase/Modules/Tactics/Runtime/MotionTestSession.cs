@@ -14,12 +14,13 @@ namespace PetProject.Tactics
         public int Budget { get; }
         public long Revision { get; private set; }
 
-        public MotionTestSession(GridBoard board, GridPosition start, int budget, int maxHeightStep = 4)
+        public MotionTestSession(GridBoard board, GridPosition start, int budget, int maxHeightStep = 4, int? initialActions = null)
         {
             _board = board ?? throw new ArgumentNullException(nameof(board));
             if (!board.Contains(start) || !board.GetCell(start).Walkable) throw new ArgumentException("Invalid spawn", nameof(start));
             if (budget < 1 || maxHeightStep < 0) throw new ArgumentOutOfRangeException(nameof(budget));
-            Position = start; Actions = Budget = budget; _heightStep = maxHeightStep;
+            if (initialActions < 0 || initialActions > budget) throw new ArgumentOutOfRangeException(nameof(initialActions));
+            Position = start; Actions = initialActions ?? budget; Budget = budget; _heightStep = maxHeightStep;
         }
 
         public GridPath Preview(GridPosition destination) => GridPathfinder.FindPath(_board, Position, destination, null, _heightStep);

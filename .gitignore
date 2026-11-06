@@ -101,4 +101,12 @@ Assets/StreamingAssets/Audio/GeneratedSoundBanks/
 # AkWwiseProjectData.asset
 
 
+# Local agent runtime
+.kimicode/runtime/
+/graphify-out/
+
+/.codex/
+/.kimi-code/
+/.kimicode/
+
 # End of https://www.toptal.com/developers/gitignore/api/unity

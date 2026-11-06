@@ -12,14 +12,16 @@ namespace PetProject.Tactics
         public int AttackBonus { get; }
         public int Defense { get; }
         public int Damage { get; }
+        public int? InitialActionPoints { get; }
 
         public ActorDefinition(string id, string factionId, GridPosition position, int maxHealth = 12,
-            int initiativeBonus = 0, int attackBonus = 3, int defense = 12, int damage = 4)
+            int initiativeBonus = 0, int attackBonus = 3, int defense = 12, int damage = 4, int? initialActionPoints = null)
         {
             if (string.IsNullOrWhiteSpace(id)) throw new ArgumentException("Actor ID is required", nameof(id));
             if (string.IsNullOrWhiteSpace(factionId)) throw new ArgumentException("Faction ID is required", nameof(factionId));
             if (maxHealth < 1) throw new ArgumentOutOfRangeException(nameof(maxHealth));
             if (damage < 1) throw new ArgumentOutOfRangeException(nameof(damage));
+            if (initialActionPoints < 0) throw new ArgumentOutOfRangeException(nameof(initialActionPoints));
             Id = id;
             FactionId = factionId;
             Position = position;
@@ -28,6 +30,7 @@ namespace PetProject.Tactics
             AttackBonus = attackBonus;
             Defense = defense;
             Damage = damage;
+            InitialActionPoints = initialActionPoints;
         }
     }
 }

@@ -1,0 +1,35 @@
+# Unity: generated / noise
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+.utmp/
+MemoryCaptures/
+Recordings/
+
+# IDE: generated project files
+*.csproj
+*.sln
+*.user
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Addressables / binary generated data
+*.bin
+*.bundle
+*.assets
+
+# Local tools and generated graphs
+.kimicode/runtime/
+.codex/tools/
+.codex/state/
+.codex/backups/
+graphify-out/

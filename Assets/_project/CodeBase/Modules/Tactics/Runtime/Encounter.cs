@@ -14,11 +14,14 @@ namespace PetProject.Tactics
             new Dictionary<string, (TacticalCommand, CommandResult)>(StringComparer.Ordinal);
         private readonly IRandomSource _random;
         private long _revision;
+
         public GridBoard Board { get; }
         public EncounterRules Rules { get; }
+        public long Revision => _revision;
         public string CurrentActorId => _roster.WinningFactionId == null ? _turns.Current.Definition.Id : null;
 
-        public Encounter(GridBoard board, IEnumerable<ActorDefinition> actors, IRandomSource random, EncounterRules rules = null)
+        public Encounter(GridBoard board, IEnumerable<ActorDefinition> actors, IRandomSource random,
+            EncounterRules rules = null)
         {
             Board = board ?? throw new ArgumentNullException(nameof(board));
             _random = random ?? throw new ArgumentNullException(nameof(random));
@@ -32,14 +35,17 @@ namespace PetProject.Tactics
         public EncounterSnapshot GetSnapshot() => new EncounterSnapshot(_revision, _turns.Round, CurrentActorId,
             _roster.WinningFactionId, _random.State, _turns.CaptureActors());
 
-        public GridPath PreviewMove(string actorId, GridPosition destination) => _movement.Preview(actorId, destination);
+        public GridPath PreviewMove(string actorId, GridPosition destination) =>
+            _movement.Preview(actorId, destination);
 
         public CommandResult Execute(TacticalCommand command)
         {
             if (command == null) throw new ArgumentNullException(nameof(command));
             // A completed encounter still acknowledges a retry of an accepted command.
             if (_accepted.TryGetValue(command.Id, out var previous))
-                return previous.command.Equals(command) ? previous.result.AsReplay() : Reject(CommandError.CommandIdConflict);
+                return previous.command.Equals(command)
+                    ? previous.result.AsReplay()
+                    : Reject(CommandError.CommandIdConflict);
             if (_roster.WinningFactionId != null) return Reject(CommandError.EncounterCompleted);
             if (!_roster.TryGet(command.ActorId, out var actor)) return Reject(CommandError.UnknownActor);
             if (!actor.IsAlive) return Reject(CommandError.ActorDefeated);
@@ -49,10 +55,18 @@ namespace PetProject.Tactics
             CommandError error;
             switch (command.Kind)
             {
-                case TacticalCommandKind.Move: error = _movement.TryMove(actor, command.Destination, events); break;
-                case TacticalCommandKind.Attack: error = _attacks.TryAttack(actor, command.TargetId, events); break;
-                case TacticalCommandKind.EndTurn: _turns.EndTurn(events); error = CommandError.None; break;
-                default: throw new ArgumentOutOfRangeException(nameof(command));
+                case TacticalCommandKind.Move:
+                    error = _movement.TryMove(actor, command.Destination, events);
+                    break;
+                case TacticalCommandKind.Attack:
+                    error = _attacks.TryAttack(actor, command.TargetId, events);
+                    break;
+                case TacticalCommandKind.EndTurn:
+                    _turns.EndTurn(events);
+                    error = CommandError.None;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
             }
             if (error != CommandError.None) return Reject(error);
             var result = new CommandResult(CommandError.None, ++_revision, events.ToArray());
@@ -60,11 +74,14 @@ namespace PetProject.Tactics
             return result;
         }
 
-        private CommandResult Reject(CommandError error) => new CommandResult(error, _revision, Array.Empty<TacticalEvent>());
+        private CommandResult Reject(CommandError error) =>
+            new CommandResult(error, _revision, Array.Empty<TacticalEvent>());
+
         private int RollD20()
         {
             var roll = _random.NextInt(1, 21);
-            if (roll < 1 || roll > 20) throw new InvalidOperationException("Random source returned an invalid d20 roll");
+            if (roll < 1 || roll > 20)
+                throw new InvalidOperationException("Random source returned an invalid d20 roll");
             return roll;
         }
     }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace CodeBase.Data
 {
@@ -13,18 +13,17 @@ namespace CodeBase.Data
         public Stats HeroStats;
         public PurchaseData PurchaseData;
 
-        public PlayerProgress(string initialLevel)
+        public PlayerProgress(string initialLevel) : this(new WorldData(initialLevel))
         {
-            WorldData = new WorldData(initialLevel);
-            HeroState = new State();
-            HeroStats = new Stats();
-            KillData = new KillData();
-            PurchaseData = new PurchaseData();
         }
 
-        public PlayerProgress()
+        public PlayerProgress() : this(new WorldData())
         {
-            WorldData = new WorldData();
+        }
+
+        private PlayerProgress(WorldData worldData)
+        {
+            WorldData = worldData;
             HeroState = new State();
             HeroStats = new Stats();
             KillData = new KillData();

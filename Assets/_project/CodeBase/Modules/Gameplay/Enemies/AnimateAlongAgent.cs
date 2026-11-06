@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace CodeBase.Enemies
@@ -13,14 +13,11 @@ namespace CodeBase.Enemies
 
         private void Update()
         {
-            if (ShouldMove())
-                Animator.Move(Agent.velocity.magnitude);
+            var speed = Agent.velocity.magnitude;
+            if (speed > MinimalVelocity && Agent.remainingDistance > Agent.stoppingDistance)
+                Animator.Move(speed);
             else
                 Animator.StopMoving();
         }
-
-        private bool ShouldMove() =>
-            Agent.velocity.magnitude > MinimalVelocity
-            && Agent.remainingDistance > Agent.stoppingDistance;
     }
 }

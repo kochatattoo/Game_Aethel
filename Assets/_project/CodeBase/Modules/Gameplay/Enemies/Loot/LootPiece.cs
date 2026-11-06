@@ -1,12 +1,11 @@
-using CodeBase.Data;
-using CodeBase.Infrastructure.Factory;
-using CodeBase.Infrastructure.Services.ObjectPool;
-using CodeBase.Infrastructure.Services.PersistentProgress;
 using System;
 using System.Collections;
-using System.Collections.Generic;
+using CodeBase.Data;
+using CodeBase.Infrastructure.Services.ObjectPool;
+using CodeBase.Infrastructure.Services.PersistentProgress;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CodeBase.Enemies
 {
@@ -20,13 +19,15 @@ namespace CodeBase.Enemies
         [Header("VFX")]
         public GameObject PickupFxPrefab;
 
+        [SerializeField] private string _id;
         private Loot _loot;
         private bool _picked;
-        [SerializeField] private string _id;
-
         private WorldData _worldData;
         private IProgressRegistry _registry;
         private IPool<LootPiece> _pool;
+        private LootPieceView _view;
+
+        private LootPieceView View => _view ??= new LootPieceView(Prefab, PickupPopup, LootText, PickupFxPrefab);
 
         public void Construct(WorldData worldData, IProgressRegistry registry)
         {
@@ -34,26 +35,21 @@ namespace CodeBase.Enemies
             _registry = registry;
         }
 
-        public void SetPool(IPool<LootPiece> pool) => 
-            _pool = pool;
+        public void SetPool(IPool<LootPiece> pool) => _pool = pool;
 
         public void Initialize(Loot loot)
         {
             _loot = loot;
             SetId(GenerateId());
-
-            PickupFxPrefab.SetActive(false);
+            View.Initialize();
         }
-
-        private void OnTriggerEnter(Collider other) =>
-            PickUp();
 
         public void SetId(string id) => _id = id;
 
         public void OnSpawned()
         {
             _picked = false;
-            Prefab.SetActive(true);
+            View.Spawn();
         }
 
         public void Release() => _pool.Despawn(this);
@@ -62,92 +58,34 @@ namespace CodeBase.Enemies
         {
             StopAllCoroutines();
             _registry?.Unregister(this);
-            PickupFxPrefab.SetActive(false);
-            PickupPopup.SetActive(false);
+            View.Reset();
         }
 
-        public void UpdateProgress(PlayerProgress progress)
-        {
-            if (!CheckContainsId(progress))
-            {
-                LootObject lootObject = new(_id, transform.position, _loot);
-                progress.WorldData.LootData.LootsOnGround.Dict.Add(_id, lootObject);
-            }
-        }
+        public void UpdateProgress(PlayerProgress progress) =>
+            LootProgressStorage.Save(progress, _id, transform.position, _loot);
 
         public void LoadProgress(PlayerProgress progress)
         {
             _worldData = progress.WorldData;
-
-            if (TryGetLootPiece(progress, out LootObject lootPiece))
-            {
-                LoadData(lootPiece);
-                progress.WorldData.LootData.LootsOnGround.Dict.Remove(_id);
-            }
+            if (!LootProgressStorage.TryTake(progress, _id, out var loot)) return;
+            _loot = loot.loot;
+            transform.position = loot.positionData.AsUnityVector();
+            _id = loot.id;
         }
 
-        private bool CheckContainsId(PlayerProgress progress)
-        {
-            return GetLootDataDict(progress).ContainsKey(_id);
-        }
-
-        private bool TryGetLootPiece(PlayerProgress progress, out LootObject lootPiece)
-        {
-            return GetLootDataDict(progress).TryGetValue(_id, out lootPiece);
-        }
-
-        private static Dictionary<string, LootObject> GetLootDataDict(PlayerProgress progress)
-        {
-            return progress.WorldData.LootData.LootsOnGround.Dict;
-        }
-
-        private void LoadData(LootObject lootObject)
-        {
-            _loot = lootObject.loot;
-            transform.position = lootObject.positionData.AsUnityVector();
-            _id = lootObject.id;
-        }
-
-        private string GenerateId()
-        {
-            return $"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}_{Guid.NewGuid().ToString()}";
-        }
+        private void OnTriggerEnter(Collider other) => PickUp();
 
         private void PickUp()
         {
-            if (_picked || _loot == null)
-                return;
-
+            if (_picked || _loot == null) return;
             _picked = true;
-
             _registry.Unregister(this);
-
-
-            UpdateWorldData();
-            HideLoot();
-            PlayPickupFx();
-            Showtext();
-
+            LootProgressStorage.Collect(_worldData, _id, _loot);
+            View.ShowPickup(_loot);
             StartCoroutine(ReturnToPoolAfterDelay());
         }
 
-        private void UpdateWorldData()
-        {
-            _worldData.LootData.LootsOnGround.Dict.Remove(_id);
-            _worldData.LootData.Collect(_loot);
-        }
-
-        private void HideLoot() =>
-            Prefab.SetActive(false);
-
-        private void PlayPickupFx() =>
-           PickupFxPrefab.SetActive(true);
-
-        private void Showtext()
-        {
-            LootText.text = $"{_loot.Value}";
-            PickupPopup.SetActive(true);
-        }
+        private static string GenerateId() => $"{SceneManager.GetActiveScene().name}_{Guid.NewGuid()}";
 
         private IEnumerator ReturnToPoolAfterDelay()
         {

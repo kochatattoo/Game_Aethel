@@ -45,7 +45,7 @@ namespace CodeBase.Infrastructure.Factory
             drops.Setloot(data.MinLoot, data.MaxLoot);
             drops.Construct(loot, _random);
             enemy.GetComponent<Attack>().Construct(hero.transform, hero.HeroDeath, _vfx);
-            enemy.GetComponent<RotateToHero>()?.Consturct(hero.transform);
+            enemy.GetComponent<RotateToHero>()?.Construct(hero.transform);
             var direction = hero.transform.position - enemy.transform.position;
             direction.y = 0;
             if (direction.sqrMagnitude > .001f) enemy.transform.rotation = Quaternion.LookRotation(direction);

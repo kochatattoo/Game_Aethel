@@ -1,11 +1,30 @@
-[mcp_servers.mcp-unity-petproject]
-command = 'C:/Program Files/nodejs/node.exe'
-args = ['Packages/com.gamelovers.mcp-unity/Server~/build/index.js']
-cwd = 'D:/UnityPetProject/PetProject'
-startup_timeout_sec = 30
-tool_timeout_sec = 120
+# Настройки Codex только для AITW. Unity-пакеты и глобальные правила не изменяются.
+# Живое чтение Unity проверено; прямой интерфейс выключен только для AITW.
+[mcp_servers.unity-efficient]
+command = "D:/DEVELOP/aitw/.codex/tools/unity-efficient/Scripts/unity-mcp-efficient.exe"
+args = []
+enabled = true
+startup_timeout_sec = 20
+tool_timeout_sec = 30
 
-[mcp_servers.mcp-unity-petproject.env]
-MCP_UNITY_SETTINGS_PATH = 'D:/UnityPetProject/PetProject/ProjectSettings/McpUnitySettings.json'
-MCP_UNITY_AUTH_TOKEN_PATH = 'D:/UnityPetProject/PetProject/Library/McpUnity/bridge-token'
-UNITY_HOST = '[::1]'
+[mcp_servers.unity-efficient.env]
+UNITY_MCP_BACKEND_URL = "http://127.0.0.1:2468/mcp"
+UNITY_MCP_OPERATION_TIMEOUT = "10"
+UNITY_MCP_RESULT_DB = "D:/DEVELOP/aitw/.codex/state/unity-efficient/results.sqlite3"
+
+# Эксперимент assist: блокировки и инструменты записи не включены.
+[mcp_servers.token-optimizer]
+command = "C:/Program Files/nodejs/node.exe"
+args = ["D:/DEVELOP/aitw/.codex/scripts/run-token-optimizer.mjs"]
+enabled = true
+startup_timeout_sec = 25
+tool_timeout_sec = 30
+enabled_tools = ["smart_read", "smart_glob", "smart_grep", "get_cached", "expand", "get_optimization_report", "install_doctor"]
+
+[mcp_servers.token-optimizer.env]
+TOKEN_OPTIMIZER_MODE = "assist"
+TOKEN_OPTIMIZER_TOOL_PROFILE = "core"
+TOKEN_OPTIMIZER_STATE_DIR = "D:/DEVELOP/aitw/.codex/state/token-optimizer/hooks"
+
+[mcp_servers.unityMCP]
+enabled = false

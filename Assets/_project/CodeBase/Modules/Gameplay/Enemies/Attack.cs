@@ -1,4 +1,4 @@
-﻿using CodeBase.Configs;
+using CodeBase.Configs;
 using CodeBase.Hero;
 using CodeBase.Logic.Animate;
 using UnityEngine;
@@ -63,8 +63,8 @@ namespace CodeBase.Enemies
 
         private void OnDisable()
         {
-            _heroDeath.PlayerDie -= OnPlayerDie;
-            _animator.StateExited -= OnAnimatorStateExited;
+            if (_heroDeath != null) _heroDeath.PlayerDie -= OnPlayerDie;
+            if (_animator != null) _animator.StateExited -= OnAnimatorStateExited;
         }
 
         private void OnPlayerDie()

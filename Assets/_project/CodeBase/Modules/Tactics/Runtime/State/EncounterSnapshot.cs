@@ -24,5 +24,12 @@ namespace PetProject.Tactics
             RandomState = randomState;
             Actors = Array.AsReadOnly(actors);
         }
+
+        public ActorSnapshot GetActor(string id)
+        {
+            for (var i = 0; i < Actors.Count; ++i)
+                if (Actors[i].Id == id) return Actors[i];
+            throw new InvalidOperationException("Неизвестный участник: " + id);
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace CodeBase.MotionTest
 {
     public sealed class MotionGridView : MonoBehaviour
     {
-        private MotionTestController _host;
+        private IMotionGridContext _host;
         private Mesh _mesh;
         private Mesh _gridMesh;
         private GridPosition _gridCell = new GridPosition(int.MinValue, int.MinValue);
@@ -19,7 +19,7 @@ namespace CodeBase.MotionTest
         private readonly List<Color> _colors = new List<Color>();
         private readonly List<int> _indices = new List<int>();
         private GameObject _root;
-        public void Bind(MotionTestController host)
+        public void Bind(IMotionGridContext host)
         {
             _host = host; _root = new GameObject("Motion grid and preview"); _root.transform.SetParent(transform, false);
             _mesh = CreateMesh("Path preview"); _gridMesh = CreateMesh("Cell outlines");
@@ -37,15 +37,15 @@ namespace CodeBase.MotionTest
         {
             if (_host == null || !_host.Ready) return;
             _host.Map.Cell(_host.Hero.transform.position, out var cell);
-            if (cell == _lastCell && _lastCombat == _host.Combat && _lastAll == _host.ShowAllCells) return;
-            _lastCell = cell; _lastCombat = _host.Combat; _lastAll = _host.ShowAllCells; Refresh();
+            if (cell == _lastCell && _lastCombat == _host.TacticalActive && _lastAll == _host.ShowAllCells) return;
+            _lastCell = cell; _lastCombat = _host.TacticalActive; _lastAll = _host.ShowAllCells; Refresh();
         }
         public void Refresh()
         {
             if (_mesh == null) return;
             RefreshGrid();
             _mesh.Clear(); _vertices.Clear(); _colors.Clear(); _indices.Clear();
-            if (!_host.Combat) return;
+            if (!_host.TacticalActive) return;
             var map = _host.Map; var config = _host.World.Config; var size = config.Dimension;
             map.Cell(_host.Hero.transform.position, out var center);
             var path = _host.Preview;
@@ -55,7 +55,7 @@ namespace CodeBase.MotionTest
                 for (var i = 1; i < path.Cells.Count; ++i)
                 {
                     cost += map.Board.GetCell(path.Cells[i]).MoveCost;
-                    var color = _host.Busy ? new Color(.3f, .85f, 1, 1) : cost <= _host.Session.Actions ? new Color(.25f, 1, .65f, 1) : new Color(1, .25f, .25f, 1);
+                    var color = _host.Busy ? new Color(.3f, .85f, 1, 1) : cost <= _host.TacticalActions ? new Color(.25f, 1, .65f, 1) : new Color(1, .25f, .25f, 1);
                     Strip(map.World(path.Cells[i - 1]) + Vector3.up * .16f, map.World(path.Cells[i]) + Vector3.up * .16f, .09f, color);
                 }
             }
@@ -66,11 +66,11 @@ namespace CodeBase.MotionTest
         private void RefreshGrid()
         {
             _host.Map.Cell(_host.Hero.transform.position, out var center);
-            var revision = _host.Session?.Revision ?? -1;
-            if (_gridCell == center && _gridRevision == revision && _gridCombat == _host.Combat && _gridAll == _host.ShowAllCells) return;
-            _gridCell = center; _gridRevision = revision; _gridCombat = _host.Combat; _gridAll = _host.ShowAllCells;
+            var revision = _host.TacticalRevision;
+            if (_gridCell == center && _gridRevision == revision && _gridCombat == _host.TacticalActive && _gridAll == _host.ShowAllCells) return;
+            _gridCell = center; _gridRevision = revision; _gridCombat = _host.TacticalActive; _gridAll = _host.ShowAllCells;
             _gridMesh.Clear(); _vertices.Clear(); _colors.Clear(); _indices.Clear();
-            if (!_host.Combat) return;
+            if (!_host.TacticalActive) return;
             var map = _host.Map; var config = _host.World.Config; var size = config.Dimension;
             var radius = _host.ShowAllCells ? size : config.VisibleRadius;
             for (var z = Mathf.Max(0, center.Y - radius); z <= Mathf.Min(size - 1, center.Y + radius); ++z)
@@ -79,7 +79,7 @@ namespace CodeBase.MotionTest
                 var cell = new GridPosition(x, z);
                 if (!map.Board.GetCell(cell).Walkable) continue;
                 var color = map.Board.GetCell(cell).MoveCost > 1 ? new Color(1, .65f, .2f, .4f) : new Color(.3f, .8f, .95f, .28f);
-                if (cell == _host.Session.Position) color = new Color(.2f, 1, .7f, .9f);
+                if (cell == _host.TacticalPosition) color = new Color(.2f, 1, .7f, .9f);
                 Outline(map.World(cell), config.CellSize * .47f, .04f, color);
             }
             _gridMesh.SetVertices(_vertices); _gridMesh.SetColors(_colors); _gridMesh.SetTriangles(_indices, 0); _gridMesh.RecalculateBounds();

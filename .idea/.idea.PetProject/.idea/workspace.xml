@@ -10,18 +10,7 @@
     <configurations />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8616aab4-4196-4422-9874-9fd27bd3d93c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Commands/CommandResult.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Commands/CommandResult.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Encounter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Encounter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridBoard.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridBoard.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridPathfinder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Grid/GridPathfinder.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/MotionTestSession.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/MotionTestSession.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Rules/DeterministicRandom.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/Rules/DeterministicRandom.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/State/EncounterSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Runtime/State/EncounterSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Tests/Editor/EncounterTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_project/CodeBase/Modules/Tactics/Tests/Editor/EncounterTests.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Architecture/Architecture-Current.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Architecture/Architecture-Current.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Docs/Architecture/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Docs/Architecture/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="8616aab4-4196-4422-9874-9fd27bd3d93c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,7 +140,7 @@
       <workItem from="1776157776105" duration="252000" />
       <workItem from="1776869967390" duration="61000" />
       <workItem from="1776951542885" duration="1198000" />
-      <workItem from="1793347959513" duration="4405000" />
+      <workItem from="1793347959513" duration="4594000" />
     </task>
     <task id="LOCAL-00001" summary="added TestMotion scene and logic for hero">
       <option name="closed" value="true" />
@@ -161,7 +150,23 @@
       <option name="project" value="LOCAL" />
       <updated>1793352248886</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="work on tactical logic for move">
+      <option name="closed" value="true" />
+      <created>1793378713110</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1793378713110</updated>
+    </task>
+    <task id="LOCAL-00003" summary="added files">
+      <option name="closed" value="true" />
+      <created>1793378768649</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1793378768649</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,7 +182,9 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="added TestMotion scene and logic for hero" />
-    <option name="LAST_COMMIT_MESSAGE" value="added TestMotion scene and logic for hero" />
+    <MESSAGE value="work on tactical logic for move" />
+    <MESSAGE value="added files" />
+    <option name="LAST_COMMIT_MESSAGE" value="added files" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

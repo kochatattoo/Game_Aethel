@@ -10,13 +10,19 @@ namespace CodeBase.MotionTest
         public CinemachineOrbitalFollow Orbit;
         public Transform Pivot;
         private Transform _hero;
-        private MotionTestController _host;
+        private IMotionCameraInput _host;
         private InputActionMap _input;
         public float Yaw => Orbit.HorizontalAxis.Value;
         public float Pitch => Orbit.VerticalAxis.Value;
         public float Zoom => VirtualCamera.Lens.OrthographicSize;
-        public bool Orbiting => _input != null && _input["Orbit"].IsPressed();
-        public void Bind(MotionTestController host, Transform hero, InputActionMap input) { _host = host; _hero = hero; _input = input; Focus(); }
+        public bool Orbiting => _host != null && _host.MotionInput != null && _host.MotionInput.Orbiting;
+        public void Bind(IMotionCameraInput host, Transform hero, InputActionMap input)
+        {
+            _host = host;
+            _hero = hero;
+            _input = input;
+            Focus();
+        }
         public void Focus()
         {
             Orbit.HorizontalAxis.Value = 45; Orbit.VerticalAxis.Value = 45;
@@ -33,7 +39,7 @@ namespace CodeBase.MotionTest
                 if (_input["YawRight"].WasPressedThisFrame()) Orbit.HorizontalAxis.Value += 45;
                 if (_input["Focus"].WasPressedThisFrame()) Focus();
             }
-            if (!_host.PointerInputAllowed) return;
+            if (!_host.PointerInputAllowed || _host.PointerOverUi) return;
             var mouse = _input["Point"].ReadValue<Vector2>();
             if (mouse.x < 0 || mouse.y < 0 || mouse.x >= Screen.width || mouse.y >= Screen.height) return;
             if (Orbiting)

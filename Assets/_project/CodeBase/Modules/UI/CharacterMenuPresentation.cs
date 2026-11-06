@@ -22,6 +22,13 @@ namespace CodeBase.CharacterIntegration
 
         public CharacterMenuPresentation(CharacterAssets assets) => _assets = assets;
 
+        public async UniTask<ICharacterMenuSettings> LoadConfigAsync(CancellationToken token)
+        {
+            var config = await _assets.LoadAsync<ScriptableObject>(CharacterAssets.Config, token);
+            return config as ICharacterMenuSettings ??
+                throw new InvalidOperationException("Несовместимая конфигурация меню персонажа");
+        }
+
         public async UniTask<string> LoadCatalogAsync(CancellationToken token) =>
             (await _assets.LoadAsync<TextAsset>(CharacterAssets.Classes, token)).text;
 

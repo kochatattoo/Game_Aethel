@@ -21,9 +21,16 @@ namespace CodeBase.CharacterIntegration
         UniTask ShowMainMenuAsync();
     }
 
+    public interface ICharacterMenuSettings
+    {
+        string InitialLevel { get; }
+        CharacterBalance Balance { get; }
+    }
+
     public interface ICharacterPresentation : IDisposable
     {
         bool HasView { get; }
+        UniTask<ICharacterMenuSettings> LoadConfigAsync(CancellationToken token);
         UniTask<string> LoadCatalogAsync(CancellationToken token);
         UniTask WarmUpAsync(CancellationToken token);
         UniTask ShowMenuAsync(ICharacterMenuActions actions, bool worldReady, bool canContinue, bool hasHero, string notice, CancellationToken token);

@@ -1,4 +1,4 @@
-﻿using CodeBase.Infrastructure.State;
+using CodeBase.Infrastructure.State;
 using Zenject;
 
 namespace CodeBase.Infrastructure
@@ -13,11 +13,6 @@ namespace CodeBase.Infrastructure
         }
 
         public void Initialize()
-        {
-           CreateGame();
-        }
-
-        private void CreateGame()
         {
             _gameStateMachine.CreateGameStates();
             _gameStateMachine.Enter<BootstrapState>();

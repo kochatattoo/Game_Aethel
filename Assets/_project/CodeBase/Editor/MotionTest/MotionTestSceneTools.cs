@@ -20,6 +20,7 @@ namespace CodeBase.EditorTools
         public const string DataRoot = "Assets/_project/StaticData/Tests/Motion";
         public const string HeroPath = "Assets/_project/Prefabs/Tests/MotionTestHero.prefab";
         public const string InputPath = "Assets/_project/InputSystem/Tests/MotionTest.inputactions";
+        public const string SkeletonPath = "Assets/_project/Resources_moved/Enemies/Enemy_Skeleton.prefab";
 
         [InitializeOnLoadMethod]
         private static void RegisterUndo()
@@ -75,6 +76,7 @@ namespace CodeBase.EditorTools
             var host = root.AddComponent<MotionTestController>(); host.TestBudget = config.ActionBudget;
             var world = new GameObject("Motion environment").AddComponent<MotionTestWorld>(); world.Config = config;
             host.World = world; host.HeroPrefab = hero; host.InputAsset = input;
+            host.EnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SkeletonPath);
             world.Generate();
             var sun = new GameObject("Directional light").AddComponent<Light>();
             sun.type = LightType.Directional; sun.intensity = 1.6f; sun.color = new Color(1, .94f, .84f);
@@ -152,6 +154,27 @@ namespace CodeBase.EditorTools
             map.AddAction("Focus", InputActionType.Button, "<Keyboard>/f");
             File.WriteAllText(InputPath, asset.ToJson()); Object.DestroyImmediate(asset);
             AssetDatabase.ImportAsset(InputPath); return AssetDatabase.LoadAssetAtPath<InputActionAsset>(InputPath);
+        }
+
+        public static void EnsureBaked()
+        {
+            var host = Object.FindFirstObjectByType<MotionTestController>();
+            if (host == null || host.World == null) return;
+            if (host.World.BakedSignature == host.World.Signature) return;
+            Rebuild(host.World);
+            EditorSceneManager.SaveScene(host.gameObject.scene);
+        }
+
+        [MenuItem("Tools/PetProject/Motion/Configure Skeleton Combat")]
+        public static void ConfigureSkeletonCombat()
+        {
+            var host = Object.FindFirstObjectByType<MotionTestController>();
+            if (host == null || host.gameObject.scene.path != ScenePath) throw new InvalidOperationException("Open Test_MotionScene first");
+            Undo.RecordObject(host, "Configure skeleton combat");
+            host.EnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SkeletonPath);
+            host.EnemySpawn = new Vector3(-4.5f, 0, -15.5f);
+            EditorUtility.SetDirty(host);
+            EditorSceneManager.SaveScene(host.gameObject.scene);
         }
 
         public static void Rebuild(MotionTestWorld world)

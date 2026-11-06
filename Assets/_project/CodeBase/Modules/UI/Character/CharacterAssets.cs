@@ -15,6 +15,7 @@ namespace CodeBase.CharacterIntegration
         public const string Creation = "PetProject/UI/CharacterCreation";
         public const string Attributes = "PetProject/UI/Attributes";
         public const string Classes = "PetProject/Data/HeroClasses";
+        public const string Config = "PetProject/Data/CharacterMenuConfig";
         private readonly Dictionary<string, AsyncOperationHandle> _handles = new();
 
         public async UniTask<T> LoadAsync<T>(string address, CancellationToken token = default) where T : UnityEngine.Object

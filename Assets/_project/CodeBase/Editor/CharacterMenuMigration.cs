@@ -43,6 +43,7 @@ namespace CodeBase.EditorTools
             if(!AssetDatabase.IsValidFolder("Assets/_project/Resources/CharacterMenu"))AssetDatabase.CreateFolder("Assets/_project/Resources","CharacterMenu");
             const string configPath="Assets/_project/Resources/CharacterMenu/Config.asset";
             if(AssetDatabase.LoadAssetAtPath<CharacterMenuConfig>(configPath)==null)AssetDatabase.CreateAsset(ScriptableObject.CreateInstance<CharacterMenuConfig>(),configPath);
+            Register(settings,group,configPath,CharacterAssets.Config);
             const string contextPath="Assets/_project/Resources/ProjectContext.prefab";
             Directory.CreateDirectory("Library/CharacterMigration/backup");
             const string contextBackup="Library/CharacterMigration/backup/ProjectContext.prefab";

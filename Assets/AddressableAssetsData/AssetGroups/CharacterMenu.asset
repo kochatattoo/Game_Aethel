@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: CharacterMenu
   m_GUID: 63cf22058f35efc48b5456c378b50680
   m_SerializeEntries:
+  - m_GUID: be14247ea29edd249aa10fc61bbab554
+    m_Address: PetProject/Data/CharacterMenuConfig
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 030c55114d6708241b805a2174865dba
     m_Address: PetProject/HeroIcons/Wizard
     m_ReadOnly: 0
