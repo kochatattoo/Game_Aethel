@@ -35,29 +35,18 @@ CI/Upload-ToYandexDisk.ps1    # выкладка
 
 ## Структура репозитория
 
-Обнови информацию
-
 ```
 Assets/
-  _Source/               # всё наше (подчёркивание держит папку сверху)
-    Scripts/             # весь наш код — раскладка в Scripts/AGENTS.md
-    Scenes/              # BootScene, LoadingScene, Levels/ (lv_00_interlude, lv_01_convoy,
-                         # lv_02_monastery, lv_03_slavecamp, lv_04_swampcamp, lv_0_worldmap),
-                         # Test/ — тестовые сцены
-    Art/                 # 3D/, Animations/, Audio/, Fonts/, Materials/, Sprites/, VFX/
-    Configs/             # ассеты SO (классы конфигов — в Scripts/Runtime/Configs)
-    Prefabs/             # Characters/, Installers/, UI/, VFX/, TEAS/, Audio/, Gameplay/, Static/…
-  _Old/                  # свалка старого контента — не опираться
-  Settings/              # настройки рендера, качества, Localization/
-  Editor/                # вне сборок (Assembly-CSharp-Editor): AddressablesLinkFix,
-                         # AvatarPrefabWiringUtility, PlayerAvatarSetupV5Fix (разовые утилиты префабов)
-  Tools/                 # наш код вне _Source: сборка ConfigEditor —
-                         # окна Tools/SO Configurate Windows к манифестам конфигов
-  GSpreadSheets/, Resources/, StreamingAssets/, AddressableAssetsData/, Gizmos/
+  Code/                  # весь собственный C#: Character/, Editor/, Modules/, SaveStorage/,
+                         # Tests/, Input/, _myPlugins/
+  Art/                   # модели, анимации, текстуры, шрифты, материалы, шейдеры, VFX
+  Configs/               # SO, JSON, Input Actions, настройки рендера и Resources-конфиги
+  Prefabs/               # префабы игры, UI, аудио, VFX и Resources-префабы
+  Scenes/                # Bootstrap, Reload, Level_1–4, Prototypes/, TEST/
+  Resources/, StreamingAssets/, AddressableAssetsData/, Gizmos/  # служебные каталоги Unity
   # НЕ РЕДАКТИРОВАТЬ: Import/ (Enviro 3 и др.), Plugins/ (Zenject, Odin, DOTween, RootMotion,
   # GPUInstancerPro, Graphy, IngameDebugConsole, BloodEffectsPack …), Wwise/ (генерит
-  # интегратор), Packages/ (NuGetForUnity), AnimusSystems/, MagicaCloth2/, MicroVerse/,
-  # Pixel Crushers/, Rowlan/, Environment/, UniStorm Weather System/, Twisted Image/
+  # интегратор), Packages/ (NuGetForUnity), TextMesh Pro/, GoogleMobileAds/
 Packages/                # манифест UPM-зависимостей
 ProjectSettings/
 CI/                      # PowerShell-скрипты упаковки и выкладки билда
@@ -65,14 +54,9 @@ Docs/                    # планы фич (Plans/); план живёт, по
 Wwise/                   # исходный проект Wwise (звуковой дизайн)
 ```
 
-Основная масса кода — под `Assets/_Source/Scripts`, четыре корня: `Shared/` (базовый слой),
-`Systems/` (подсистемы), `Runtime/` (игра), `Architecture/` (билдеры сборок). Вне дерева
-билдеров стоят две редакторные сборки — `Game.Tools.Setup` (`Scripts/Runtime/Editor/Setup`)
-и `ConfigEditor` (`Assets/Tools/SO Configurate Windows`): их `references` правятся руками.
-
-Путей `Assets/Scripts`, `Assets/Source`,
-`_Source/{Editor,Domain,Infrastructure,Presentation,Application}` больше не существует —
-встретил такой путь в документе, документ устарел.
+Основная масса кода — под `Assets/Code`. Каталоги `Resources` и `Resources_moved` внутри
+`Art`, `Configs` и `Prefabs` сохраняют относительные пути загрузки и адреса Addressables.
+Путь `Assets/_project` больше не используется — встретил его в актуальном документе, обнови.
 
 ## Правила
 
@@ -286,13 +270,12 @@ Read-only интерфейсы — префикс `IReadOnly` (`IReadOnlyHealthM
 
 - `.agents/MD-IMPROVER.md` — процедура аудита файлов инструкций для агентов;
   читай при задачах на проверку, обновление или улучшение всех AGENTS.md в проекте
-- Свои `AGENTS.md` есть у `Assets/_Source/{Scripts,Configs,Scenes,Prefabs,Art}`, у `CI/`, `Docs/`
-  и у `Assets/Tools/SO Configurate Windows` — плюс у каждой системы и крупной папки кода.
-  Работаешь в папке — читай ближайший файл, он конкретнее корневого
+- Свои `AGENTS.md` могут быть у `Assets/{Code,Configs,Scenes,Prefabs,Art}`, `CI/`, `Docs/`
+  и крупных папок кода. Работаешь в папке — читай ближайший файл, он конкретнее корневого
 
 ## Экономия контекста
 
-- Собственный C#: `Assets/_project/CodeBase`. Остальной код — сторонний, пока явно не указано иное.
+- Собственный C#: `Assets/Code`. Остальной код — сторонний, пока явно не указано иное.
 - Graphify CLI из корня: `.kimicode/runtime/graphify-venv/Scripts/graphify.exe`.
 - Структурные вопросы и связи классов: сначала `... graphify.exe query "<вопрос>" --budget 1200`;
   конкретный тип — `... graphify.exe explain "<тип>"`, цепочка — `... graphify.exe path A B`.

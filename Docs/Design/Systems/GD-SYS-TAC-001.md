@@ -2,7 +2,7 @@
 
 **Статус:** реализован и проверен технический прототип D1. Числа и упрощения не являются окончательно утверждённым балансом GDD.  
 **Основание:** GDD §3.2; дорожная карта D1, будущие D2–D4.  
-**Модуль:** `PetProject.Tactics`, `Assets/_project/CodeBase/Modules/Tactics/Runtime`. Сборка не имеет Unity Engine references.
+**Модуль:** `PetProject.Tactics`, `Assets/Code/Modules/Tactics/Runtime`. Сборка не имеет Unity Engine references.
 
 ## Назначение и границы
 

@@ -72,7 +72,7 @@ graph TD
 - Modules/AI, Input, Pooling, Assets, Commerce: соответствующие системы.
 - Modules/Tactics/Runtime: чистое C#-ядро; Modules/Tactics/Tests/Editor: тесты. Gameplay/TacticsSandbox и Editor/Tactics: отдельный технический полигон.
 - Character/Domain, SaveStorage, _myPlugins: сохранены самостоятельными модулями.
-- Editor и Tests: инструменты и проверки. Generated PlayerInputAction остаётся в Assets/_project/InputSystem; asmref включает его в PetProject.Input.
+- Editor и Tests: инструменты и проверки. Input Actions находятся в Assets/Configs/Input; generated PlayerInputAction и asmref — в Assets/Code/Input.
 
 Имена пространств имён в основном сохранены. Старый namespace может содержать Infrastructure/Factory, хотя файл теперь принадлежит Gameplay или Composition. Это осознанное ограничение текущей миграции, чтобы не совмещать перенос сборок с массовым переименованием типов.
 

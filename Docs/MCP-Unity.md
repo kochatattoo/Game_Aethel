@@ -45,7 +45,7 @@ try {
 - `npm ci` и TypeScript build завершились успешно.
 - `codex mcp get mcp-unity-petproject --json` распознал проектную запись.
 - MCP SDK client выполнил initialize, resources/list, tools/list, чтение `unity://scenes_hierarchy`, `get_scene_info` и `get_console_logs`.
-- Обнаружено 34 инструмента. Активная сцена: `Assets/_project/Scenes/Bootstrap.unity`, 3 корневых объекта, без несохранённых изменений.
+- Обнаружено 34 инструмента. Активная сцена: `Assets/Scenes/Bootstrap.unity`, 3 корневых объекта, без несохранённых изменений.
 - Пробный запрос ошибок Console вернул `[]`. Это результат конкретного запроса, а не утверждение об отсутствии всех ошибок проекта.
 - Play mode, тесты игры и player build не запускались. Сцены и игровой код установка не редактировала.
 

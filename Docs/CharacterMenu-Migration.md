@@ -18,14 +18,14 @@
 
 | Назначение | Путь от корня проекта |
 | --- | --- |
-| Независимая модель, профиль, экипировка и баффы | Assets/_project/CodeBase/Character/Domain |
-| Представления из донора | Assets/_project/CodeBase/Character/UI |
-| Связь с Zenject, прогрессом, вводом и состояниями | Assets/_project/CodeBase/Character/Integration |
-| Префабы, иконки и зависимости | Assets/_project/Source/CharacterMenu |
-| Баланс и стартовый уровень | Assets/_project/Resources/CharacterMenu/Config.asset |
+| Независимая модель, профиль, экипировка и баффы | Assets/Code/Character/Domain |
+| Представления из донора | Assets/Code/Character/UI |
+| Связь с Zenject, прогрессом, вводом и состояниями | Assets/Code/Character/Integration |
+| Префабы, иконки и зависимости | Assets/Art/CharacterMenu |
+| Баланс и стартовый уровень | Assets/Configs/Resources/CharacterMenu/Config.asset |
 | Адреса ресурсов | Addressables, группа CharacterMenu, префикс PetProject/ |
-| Тесты модели | Assets/_project/CodeBase/Character/Tests/Editor |
-| Настройка ассетов и изолированный smoke run | Assets/_project/CodeBase/Editor/CharacterMenuMigration.cs и CharacterMenuSmoke.cs |
+| Тесты модели | Assets/Code/Character/Tests/Editor |
+| Настройка ассетов и изолированный smoke run | Assets/Code/Editor/CharacterMenuMigration.cs и CharacterMenuSmoke.cs |
 
 Начальный уровень — Level_2. Базовые HP=50 и урон=2; дополнительная STM даёт 5 HP, дополнительная STR — 0.5 урона. Отсчёт идёт от базовых атрибутов выбранного класса. Это переходный баланс прототипа; различия классов пока описаны в каталоге, отдельные способности не реализованы.
 

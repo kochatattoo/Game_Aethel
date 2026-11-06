@@ -10,11 +10,11 @@ const cache = join(root, 'Library', 'PackageCache');
 const nunitPackage = readdirSync(cache).find(name => name.startsWith('com.unity.ext.nunit@'));
 if (!nunitPackage) throw new Error('Open the project in Unity once to restore the existing NUnit package.');
 const escapeXml = value => value.replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;');
-let source = join(root, 'Assets', '_project', 'CodeBase', 'Modules', 'Tactics');
+let source = join(root, 'Assets', 'Code', 'Modules', 'Tactics');
 const nunit = join(cache, nunitPackage, 'net40', 'unity-custom', 'nunit.framework.dll');
 mkdirSync(output, { recursive: true });
 if (process.argv.includes('--head')) {
-  const trackedRoot = 'Assets/_project/CodeBase/Modules/Tactics/Runtime';
+  const trackedRoot = 'Assets/Code/Modules/Tactics/Runtime';
   const git = args => {
     const result = spawnSync('git', args, { cwd: root, encoding: 'utf8' });
     if (result.status !== 0) throw new Error(result.stderr);
@@ -37,7 +37,7 @@ writeFileSync(join(output, 'Checks.csproj'), `<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="${escapeXml(join(source, 'Runtime', '**', '*.cs'))}" />
-    <Compile Include="${escapeXml(join(root, 'Assets', '_project', 'CodeBase', 'Modules', 'Tactics', 'Tests', 'Editor', '*.cs'))}" />
+    <Compile Include="${escapeXml(join(root, 'Assets', 'Code', 'Modules', 'Tactics', 'Tests', 'Editor', '*.cs'))}" />
     <Reference Include="nunit.framework"><HintPath>${escapeXml(nunit)}</HintPath></Reference>
   </ItemGroup>
 </Project>`);

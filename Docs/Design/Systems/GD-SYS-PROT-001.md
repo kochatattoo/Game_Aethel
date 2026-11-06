@@ -1,7 +1,7 @@
 # GD-SYS-PROT-001 — Технический полигон D1
 
 **Статус:** реализован; изолированный Play Mode сценарий пройден.  
-**Сцена:** `Assets/_project/Scenes/Prototypes/TacticsSandbox.unity`.  
+**Сцена:** `Assets/Scenes/Prototypes/TacticsSandbox.unity`.
 **Компоненты:** `CodeBase.TacticsSandbox.TacticsSandboxBehaviour`, `TacticsSandboxView`; инструменты — `CodeBase.EditorTools.TacticsSandboxWindow`, `TacticsSandboxTools`, `TacticsRuntimeSmoke`.
 
 ## Назначение

@@ -28,7 +28,7 @@ function guid(path) {
   if (!existsSync(join(root, path + '.meta'))) return null;
   return /^guid:\s*([0-9a-f]{32})\s*$/im.exec(read(path + '.meta'))?.[1] ?? null;
 }
-const files = walk('Assets/_project').filter(path => /\.(cs|asmdef|asmref)$/.test(path));
+const files = walk('Assets/Code').filter(path => /\.(cs|asmdef|asmref)$/.test(path));
 files.push('Packages/manifest.json', 'ProjectSettings/ProjectVersion.txt',
   'Tools/check-tactics.mjs', 'Tools/export-system-code.mjs');
 files.sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
@@ -78,7 +78,7 @@ const descriptions = {
   'PetProject.TestSupport': 'Runtime-компонент тестового пула, TestAssemblies.',
   'Development tools': 'Повторяемые локальные проверки и экспорт этого справочника.',
   'Project configuration': 'Версия Editor и прямые UPM-зависимости; не все SDK проекта.',
-  'Assembly-CSharp (resource sample)': 'RandomizeLightStreak из ресурса FX; находится вне CodeBase и собственных asmdef.'
+  'Assembly-CSharp (resource sample)': 'RandomizeLightStreak из ресурса FX; находится вне собственных asmdef и собственных asmdef.'
 };
 function description(name) {
   return descriptions[name] ?? (name.endsWith('.Tests') ? 'Тесты соответствующего модуля (не runtime-система игры).' : 'Исходники сборки.');
@@ -108,8 +108,9 @@ function visit(name) {
   visiting.delete(name); visited.add(name);
 }
 for (const a of graph) visit(a.name);
-for (const row of rows.filter(r => r.path.startsWith('Assets/_project/CodeBase/') && r.path.endsWith('.cs')))
-  if (!byName.has(row.group)) throw new Error('Own source has no explicit assembly: ' + row.path);
+for (const row of rows.filter(r => r.path.startsWith('Assets/Code/') && r.path.endsWith('.cs')))
+  if (!byName.has(row.group) && row.group !== 'Assembly-CSharp (resource sample)')
+    throw new Error('Own source has no explicit assembly: ' + row.path);
 const fingerprint = sha(rows.map(r => r.path + '\0' + r.sha256).join('\n') + '\n' + sha(readFileSync(join(root, guidePath))));
 
 if (process.argv.includes('--verify')) {
@@ -143,8 +144,8 @@ const counts = { cs: rows.filter(r => r.path.endsWith('.cs')).length,
 const parts = [`# Aethel — кодовая база систем и руководство разработчика\n\n${marker}\n`,
   `Снимок: ${created} (UTC). Базовый commit: \`${git(['rev-parse', '--short', 'HEAD'])}\`; ветка: \`${git(['branch', '--show-current'])}\`. В снимок входят текущие файлы рабочего дерева, включая незакоммиченные изменения.\n`,
   `**${counts.cs} C#-файлов; ${counts.asmdef} asmdef; ${counts.asmref} asmref; ${counts.sourceLines.toLocaleString('ru-RU')} строк исходников/конфигурации/инструментов.**\n`,
-  'Охват: все `.cs`, `.asmdef`, `.asmref` внутри `Assets/_project`, два локальных инструмента из Tools, manifest UPM и версия Editor. Включён generated PlayerInputAction и один FX-скрипт из Resources. Тесты и Editor-код явно отнесены к своим сборкам.\n',
-  'За пределами снимка: сторонние SDK/пакеты вне Assets/_project, shader-код, сцены/prefab/материалы, бинарные ассеты, пользовательские сохранения, секреты окружения, Library и Wwise-проект. Это справочник кодовых систем, а не переносимый архив всей Unity-игры. Локальные JSON с идентификаторами сервисов не экспортируются.\n',
+  'Охват: все `.cs`, `.asmdef`, `.asmref` внутри `Assets/Code`, два локальных инструмента из Tools, manifest UPM и версия Editor. Включён generated PlayerInputAction и один FX-скрипт из Resources. Тесты и Editor-код явно отнесены к своим сборкам.\n',
+  'За пределами снимка: сторонние SDK/пакеты вне Assets/Code, shader-код, сцены/prefab/материалы, бинарные ассеты, пользовательские сохранения, секреты окружения, Library и Wwise-проект. Это справочник кодовых систем, а не переносимый архив всей Unity-игры. Локальные JSON с идентификаторами сервисов не экспортируются.\n',
   normalized(read(guidePath)), '\n## Оглавление исходников по сборкам\n',
   '| Сборка / группа | C# | Всего файлов | Назначение |\n|---|---:|---:|---|'];
 for (let i = 0; i < groups.length; ++i) {

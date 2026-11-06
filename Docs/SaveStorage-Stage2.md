@@ -35,11 +35,11 @@ HasPosition сохраняется явно: Unity JsonUtility может пре
 
 | Назначение | Путь от корня проекта |
 |---|---|
-| Формат, проверка, backup, атомарная запись | Assets/_project/CodeBase/SaveStorage |
-| DTO, адаптер старого прогресса, оркестратор | Assets/_project/CodeBase/Infrastructure/Services/SaveLoad |
-| UI трёх слотов | Assets/_project/CodeBase/Character/Integration/SaveSlotsView.cs |
-| Проверки файлов | Assets/_project/CodeBase/SaveStorage/Tests/Editor |
-| Изолированная проверка интеграции | Assets/_project/CodeBase/Editor/SaveStorageSmoke.cs |
+| Формат, проверка, backup, атомарная запись | Assets/Code/SaveStorage |
+| DTO, адаптер старого прогресса, оркестратор | Assets/Code/Infrastructure/Services/SaveLoad |
+| UI трёх слотов | Assets/Code/Character/Integration/SaveSlotsView.cs |
+| Проверки файлов | Assets/Code/SaveStorage/Tests/Editor |
+| Изолированная проверка интеграции | Assets/Code/Editor/SaveStorageSmoke.cs |
 
 ## Проверка и ограничения
 
