@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 961b24a832d20194ea208113da3127cc
+timeCreated: 1454719951
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55594
+  packageName: Enviro Spawn
+  packageVersion: 2025
+  assetPath: Assets/KrisDevelopment/EnviroSpawn_CS/IncludedResources/Materials/es_bush_set_2.mat
+  uploadId: 758645

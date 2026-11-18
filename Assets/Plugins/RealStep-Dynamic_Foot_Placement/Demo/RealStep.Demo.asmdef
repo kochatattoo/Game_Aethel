@@ -1,0 +1,16 @@
+{
+    "name": "RealStep.Demo",
+    "rootNamespace": "RealStep",
+    "references": [
+        "RealStep.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

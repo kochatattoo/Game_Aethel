@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 346d62e31b0713643b6bfb13ecd5d7c7
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55594
+  packageName: Enviro Spawn
+  packageVersion: 2025
+  assetPath: Assets/KrisDevelopment/EnviroSpawn_CS/Editor/KrisDevelopment.EnviroSpawn.Editor.asmdef
+  uploadId: 758645

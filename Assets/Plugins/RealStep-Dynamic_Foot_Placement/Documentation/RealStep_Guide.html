@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RealStep — Documentation</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #222633;
+    --accent: #33c7a0;
+    --accent-dim: rgba(51,199,160,0.15);
+    --text: #e0e4ec;
+    --text-dim: #8891a4;
+    --border: #2a2e3d;
+    --orange: #f0a050;
+    --blue: #60a0f0;
+    --pink: #d080d0;
+    --green: #50d070;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+  }
+  .header {
+    background: linear-gradient(135deg, var(--surface) 0%, #151825 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 36px 0 30px;
+    text-align: center;
+  }
+  .header h1 { font-size: 2rem; color: #fff; letter-spacing: 1px; }
+  .header h1 span { color: var(--accent); }
+  .header .sub { color: var(--text-dim); font-size: 0.9rem; margin-top: 6px; }
+  .container { max-width: 720px; margin: 0 auto; padding: 28px 20px 50px; }
+  nav {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  nav h3 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 8px; }
+  nav a { display: block; color: var(--accent); text-decoration: none; padding: 3px 0; font-size: 0.9rem; }
+  nav a:hover { color: #fff; }
+  section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  h2 { font-size: 1.2rem; color: #fff; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 0.95rem; color: var(--accent); margin: 14px 0 6px; }
+  p { margin-bottom: 10px; }
+  ul { margin: 8px 0 12px 20px; }
+  li { margin-bottom: 4px; }
+  .step { display: flex; gap: 12px; margin-bottom: 12px; }
+  .step-num {
+    flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent); color: var(--bg); font-weight: 700;
+    font-size: 0.8rem; display: flex; align-items: center; justify-content: center;
+  }
+  .step-content { flex: 1; }
+  code {
+    background: var(--surface2); padding: 2px 6px; border-radius: 3px;
+    font-family: 'Cascadia Code', monospace; font-size: 0.85rem; color: var(--orange);
+  }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 0.88rem; }
+  th {
+    text-align: left; padding: 8px 10px; background: var(--surface2);
+    color: var(--accent); font-weight: 600; font-size: 0.75rem;
+    text-transform: uppercase; letter-spacing: 1px;
+  }
+  td { padding: 6px 10px; border-bottom: 1px solid var(--border); }
+  td:first-child { color: #fff; font-weight: 500; font-family: 'Cascadia Code', monospace; font-size: 0.85rem; }
+  .tag { display: inline-block; padding: 1px 7px; border-radius: 3px; font-size: 0.72rem; font-weight: 600; }
+  .tag-float { background: rgba(96,160,240,0.15); color: var(--blue); }
+  .tag-bool { background: rgba(51,199,160,0.15); color: var(--accent); }
+  .tag-layer { background: rgba(208,128,208,0.15); color: var(--pink); }
+  .tag-range { background: rgba(240,160,80,0.15); color: var(--orange); }
+  .tag-event { background: rgba(240,80,80,0.15); color: #f06060; }
+  .tip {
+    background: var(--accent-dim); border-left: 3px solid var(--accent);
+    padding: 10px 14px; border-radius: 0 5px 5px 0; margin: 12px 0; font-size: 0.88rem;
+  }
+  .tip strong { color: var(--accent); }
+  .warn {
+    background: rgba(240,160,80,0.1); border-left: 3px solid var(--orange);
+    padding: 10px 14px; border-radius: 0 5px 5px 0; margin: 12px 0; font-size: 0.88rem;
+  }
+  .warn strong { color: var(--orange); }
+  .changelog-item { margin-bottom: 6px; }
+  .changelog-item .badge {
+    display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 0.7rem;
+    font-weight: 600; margin-right: 4px; vertical-align: middle;
+  }
+  .badge-new { background: rgba(80,208,112,0.15); color: var(--green); }
+  .badge-fix { background: rgba(240,160,80,0.15); color: var(--orange); }
+  .badge-change { background: rgba(96,160,240,0.15); color: var(--blue); }
+  .badge-remove { background: rgba(240,80,80,0.15); color: #f06060; }
+  .badge-old { background: rgba(136,145,164,0.15); color: var(--text-dim); }
+  .footer { text-align: center; color: var(--text-dim); font-size: 0.75rem; padding-top: 16px; border-top: 1px solid var(--border); }
+  @media (max-width: 600px) { .container { padding: 14px; } section { padding: 16px; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Real<span>Step</span></h1>
+  <div class="sub">Dynamic Foot Placement &mdash; v1.1</div>
+</div>
+
+<div class="container">
+
+<nav>
+  <h3>Contents</h3>
+  <a href="#quickstart">Quick Start</a>
+  <a href="#features">Features</a>
+  <a href="#reference">Component Reference</a>
+  <a href="#events">Events</a>
+  <a href="#changelog">Changelog</a>
+</nav>
+
+<section id="quickstart">
+  <h2>Quick Start</h2>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">Ensure your character has an <strong>Animator</strong> with a <strong>Humanoid</strong> avatar and <strong>IK Pass</strong> enabled on the Animator Controller layer.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">Add <code>Foot IK</code> via <strong>Add Component &rarr; RealStep &rarr; Foot IK</strong>.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">Set the <code>Ground Layer</code> to match your terrain/ground layers.</div>
+  </div>
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">Press <strong>Play</strong> &mdash; feet will automatically adapt to slopes, stairs, and uneven surfaces.</div>
+  </div>
+
+  <div class="tip">
+    <strong>Tip:</strong> Use the Help button in the inspector header to open this documentation. Use <code>Show Gizmos</code> to visualize raycasts in Scene view.
+  </div>
+</section>
+
+<section id="features">
+  <h2>Features</h2>
+  <ul>
+    <li><strong>Foot IK Placement</strong> &mdash; Feet adapt to ground height and rotation on slopes, stairs, and uneven terrain.</li>
+    <li><strong>Pelvis Adjustment</strong> &mdash; Body height adjusts automatically to match foot positions.</li>
+    <li><strong>Body Tilt</strong> &mdash; Character body tilts to match ground slope with smooth interpolation.</li>
+    <li><strong>Per-Foot Weight</strong> &mdash; Independent IK weight control for left and right foot.</li>
+    <li><strong>Auto Max Step</strong> &mdash; Automatic step height detection based on character size.</li>
+    <li><strong>Smooth Enable/Disable</strong> &mdash; Smoothly blend IK on/off via <code>DisableSmooth()</code>.</li>
+    <li><strong>Foot Events</strong> &mdash; UnityEvents for foot grounding and lifting (footsteps, particles, etc).</li>
+    <li><strong>Edge Detection</strong> &mdash; Normal validation and hysteresis prevents glitching at edges.</li>
+    <li><strong>Debug Gizmos</strong> &mdash; Visualize raycasts and live grounded state in the inspector.</li>
+  </ul>
+</section>
+
+<section id="reference">
+  <h2>Component Reference</h2>
+
+  <h3>Main</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+    <tr><td>Weight</td><td><span class="tag tag-range">0&ndash;1</span></td><td>Global IK weight. Set to 0 to fully disable.</td></tr>
+  </table>
+
+  <h3>Raycast Settings</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+    <tr><td>MaxStep</td><td><span class="tag tag-float">float</span></td><td>Maximum step height for foot adaptation. Default: 0.75</td></tr>
+    <tr><td>AutoMaxStep</td><td><span class="tag tag-bool">bool</span></td><td>Auto-calculate MaxStep from character height.</td></tr>
+    <tr><td>FootRadius</td><td><span class="tag tag-float">float</span></td><td>Ground detection radius.</td></tr>
+    <tr><td>Ground</td><td><span class="tag tag-layer">LayerMask</span></td><td>Layer mask for ground detection.</td></tr>
+    <tr><td>Offset</td><td><span class="tag tag-float">float</span></td><td>Vertical offset applied to foot placement.</td></tr>
+  </table>
+
+  <h3>Speed</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+    <tr><td>HipsPositionSpeed</td><td><span class="tag tag-float">float</span></td><td>Speed of pelvis height adjustment.</td></tr>
+    <tr><td>FeetPositionSpeed</td><td><span class="tag tag-float">float</span></td><td>Speed of foot vertical interpolation.</td></tr>
+    <tr><td>FeetRotationSpeed</td><td><span class="tag tag-float">float</span></td><td>Speed of foot rotation (deg/s).</td></tr>
+  </table>
+
+  <h3>Weights</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+    <tr><td>HipsWeight</td><td><span class="tag tag-range">0&ndash;1</span></td><td>How much the pelvis adjusts. Default: 0.8</td></tr>
+    <tr><td>LeftFootWeight</td><td><span class="tag tag-range">0&ndash;1</span></td><td>IK weight for left foot.</td></tr>
+    <tr><td>RightFootWeight</td><td><span class="tag tag-range">0&ndash;1</span></td><td>IK weight for right foot.</td></tr>
+  </table>
+
+  <h3>Body Tilt</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+    <tr><td>EnableBodyTilt</td><td><span class="tag tag-bool">bool</span></td><td>Enable body lean to match slope.</td></tr>
+    <tr><td>TiltAmount</td><td><span class="tag tag-range">0&ndash;1</span></td><td>Intensity of body tilt. Default: 0.5</td></tr>
+    <tr><td>TiltSpeed</td><td><span class="tag tag-float">float</span></td><td>Speed of tilt interpolation. Default: 10</td></tr>
+    <tr><td>InvertTilt</td><td><span class="tag tag-bool">bool</span></td><td>Invert the tilt direction.</td></tr>
+  </table>
+
+  <h3>Debug</h3>
+  <table>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+    <tr><td>ShowDebug</td><td><span class="tag tag-bool">bool</span></td><td>Toggle raycast debug gizmos in Scene view.</td></tr>
+  </table>
+</section>
+
+<section id="events">
+  <h2>Events</h2>
+  <p>RealStep fires UnityEvents when foot grounding state changes. Use these to trigger footstep audio, particles, or gameplay logic.</p>
+
+  <table>
+    <tr><th>Event</th><th>Fires When</th></tr>
+    <tr><td>OnLeftFootGrounded</td><td>Left foot touches ground</td></tr>
+    <tr><td>OnLeftFootLifted</td><td>Left foot leaves ground</td></tr>
+    <tr><td>OnRightFootGrounded</td><td>Right foot touches ground</td></tr>
+    <tr><td>OnRightFootLifted</td><td>Right foot leaves ground</td></tr>
+  </table>
+</section>
+
+
+<section id="changelog">
+  <h2>Changelog</h2>
+
+  <h3>v1.1</h3>
+  <div class="changelog-item"><span class="badge badge-new">NEW</span> Body tilt with smooth interpolation, invert direction toggle</div>
+  <div class="changelog-item"><span class="badge badge-new">NEW</span> Per-foot IK weight (independent left/right control)</div>
+  <div class="changelog-item"><span class="badge badge-new">NEW</span> Foot grounding events (OnLeftFootGrounded, OnLeftFootLifted, etc)</div>
+  <div class="changelog-item"><span class="badge badge-new">NEW</span> Auto MaxStep detection from character height</div>
+  <div class="changelog-item"><span class="badge badge-new">NEW</span> Smooth disable via DisableSmooth()</div>
+  <div class="changelog-item"><span class="badge badge-new">NEW</span> Custom inspector with colored sliders, live debug status</div>
+  <div class="changelog-item"><span class="badge badge-new">NEW</span> Help button in inspector (opens this doc)</div>
+  <div class="changelog-item"><span class="badge badge-fix">FIX</span> Foot tilt glitch on edges (normal validation + threshold)</div>
+  <div class="changelog-item"><span class="badge badge-fix">FIX</span> Movement glitch near edges (grounded hysteresis)</div>
+  <div class="changelog-item"><span class="badge badge-fix">FIX</span> Trigger colliders no longer affect foot placement</div>
+  <div class="changelog-item"><span class="badge badge-change">CHANGE</span> Switched from SphereCast to Raycast for cleaner ground detection</div>
+  <div class="changelog-item"><span class="badge badge-change">CHANGE</span> Namespace changed to <code>RealStep</code></div>
+  <div class="changelog-item"><span class="badge badge-change">CHANGE</span> Script renamed from Foot_IK to FootIK</div>
+  <div class="changelog-item"><span class="badge badge-change">CHANGE</span> Folder restructured (Runtime, Editor, Demo, Documentation)</div>
+
+  <h3>v1.0</h3>
+  <div class="changelog-item"><span class="badge badge-old">OLD</span> Initial release with basic foot IK placement</div>
+</section>
+
+<div class="footer">
+  <p>RealStep &mdash; Dynamic Foot Placement</p>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll('nav a').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.getElementById(a.getAttribute('href').slice(1));
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+
+</body>
+</html>

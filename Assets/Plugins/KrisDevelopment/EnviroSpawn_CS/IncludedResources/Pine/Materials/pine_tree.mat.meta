@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 132149fa1e3007c48848a67010717717
+timeCreated: 1427146553
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55594
+  packageName: Enviro Spawn
+  packageVersion: 2025
+  assetPath: Assets/KrisDevelopment/EnviroSpawn_CS/IncludedResources/Pine/Materials/pine_tree.mat
+  uploadId: 758645

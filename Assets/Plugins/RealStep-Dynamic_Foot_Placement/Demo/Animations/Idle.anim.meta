@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 18603e348e6e0d6409c24ae2c91e3faa
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322927
+  packageName: "RealStep \u2013 Dynamic Foot Placement"
+  packageVersion: 1.1
+  assetPath: Assets/RealStep-Dynamic_Foot_Placement/Demo/Animations/Idle.anim
+  uploadId: 882830

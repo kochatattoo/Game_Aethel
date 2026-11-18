@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b55822f4788409545a6d5643ad27dd56
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 322927
+  packageName: "RealStep \u2013 Dynamic Foot Placement"
+  packageVersion: 1.1
+  assetPath: Assets/RealStep-Dynamic_Foot_Placement/Demo/Materials/Character/M_Metal_Chrome.mat
+  uploadId: 882830

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d470d44e2a65d0649b33a987ae9fd5b1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 55594
+  packageName: Enviro Spawn
+  packageVersion: 2025
+  assetPath: Assets/KrisDevelopment/EnviroSpawn_CS/Prefabs/envirospawn_example_terrain_variant.prefab
+  uploadId: 758645
