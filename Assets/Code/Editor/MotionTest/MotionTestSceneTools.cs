@@ -174,7 +174,11 @@ namespace CodeBase.EditorTools
             if (host == null || host.gameObject.scene.path != ScenePath) throw new InvalidOperationException("Open Test_MotionScene first");
             Undo.RecordObject(host, "Configure skeleton combat");
             host.EnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SkeletonPath);
-            host.EnemySpawn = new Vector3(-4.5f, 0, -15.5f);
+            host.EnemySpawns = new[]
+            {
+                new SkeletonEnemySpawn(new Vector3(-4.5f, 0, -15.5f), "skeleton-pack"),
+                new SkeletonEnemySpawn(new Vector3(-2.5f, 0, -15.5f), "skeleton-pack")
+            };
             EditorUtility.SetDirty(host);
             EditorSceneManager.SaveScene(host.gameObject.scene);
         }

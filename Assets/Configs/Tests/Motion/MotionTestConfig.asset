@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7adb2576a257062469f18070117cbf27, type: 3}
   m_Name: MotionTestConfig
   m_EditorClassIdentifier: PetProject.Gameplay::CodeBase.MotionTest.MotionTestConfig
-  WorldSize: 100
+  WorldSize: 140
   CellSize: 1
   Seed: 718
   ActionBudget: 6

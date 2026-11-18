@@ -9,15 +9,18 @@ namespace PetProject.Tactics
         public int Health { get; }
         public int ActionPoints { get; }
         public long Initiative { get; }
+        public bool HasCompletedTurn { get; }
         public bool IsAlive => Health > 0;
 
-        internal ActorSnapshot(ActorDefinition definition, GridPosition position, int health, int actionPoints, long initiative)
+        internal ActorSnapshot(ActorDefinition definition, GridPosition position, int health, int actionPoints,
+            long initiative, bool hasCompletedTurn)
         {
             Definition = definition;
             Position = position;
             Health = health;
             ActionPoints = actionPoints;
             Initiative = initiative;
+            HasCompletedTurn = hasCompletedTurn;
         }
     }
 }

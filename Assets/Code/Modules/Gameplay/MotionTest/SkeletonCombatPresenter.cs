@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using PetProject.Tactics;
@@ -9,12 +10,13 @@ namespace CodeBase.MotionTest
     internal sealed class SkeletonCombatPresenter
     {
         private readonly IMotionEncounterContext _host;
-        private readonly SkeletonEnemyActor _enemy;
+        private readonly IReadOnlyDictionary<string, SkeletonEnemyActor> _enemies;
 
-        public SkeletonCombatPresenter(IMotionEncounterContext host, SkeletonEnemyActor enemy)
+        public SkeletonCombatPresenter(IMotionEncounterContext host,
+            IReadOnlyDictionary<string, SkeletonEnemyActor> enemies)
         {
             _host = host;
-            _enemy = enemy;
+            _enemies = enemies;
         }
 
         public async UniTask PlayAsync(TacticalCommand command, CommandResult result, GridPath path,
@@ -31,7 +33,7 @@ namespace CodeBase.MotionTest
             if (path == null || !path.Found || path.Cells.Count < 2) return;
             var actorTransform = actorId == MotionTestController.HeroActorId
                 ? _host.Hero.transform
-                : _enemy.Instance.transform;
+                : _enemies[actorId].Instance.transform;
             SetMoving(actorId, true);
             for (var i = 1; i < path.Cells.Count; ++i)
             {
@@ -42,8 +44,7 @@ namespace CodeBase.MotionTest
                     if (!GridPathMovement.MoveStep(actorTransform, _host.Map, destination,
                         _host.World.Config.Speed))
                     {
-                        _host.SetNotice(
-                            "Представление потеряло опору; выполните Reset");
+                        _host.SetNotice("Представление потеряло опору; выполните Reset");
                         return;
                     }
                     await UniTask.Yield();
@@ -62,21 +63,21 @@ namespace CodeBase.MotionTest
             var target = attack.TargetId;
             var attackerTransform = attacker == MotionTestController.HeroActorId
                 ? _host.Hero.transform
-                : _enemy.Instance.transform;
+                : _enemies[attacker].Instance.transform;
             var targetTransform = target == MotionTestController.HeroActorId
                 ? _host.Hero.transform
-                : _enemy.Instance.transform;
+                : _enemies[target].Instance.transform;
             var direction = targetTransform.position - attackerTransform.position;
             direction.y = 0;
             if (direction.sqrMagnitude > .001f) attackerTransform.rotation = Quaternion.LookRotation(direction);
             if (attacker == MotionTestController.HeroActorId) _host.HeroAnimator.PlayAttack();
-            else _enemy.Animator.PlayAttack1();
+            else _enemies[attacker].Animator.PlayAttack1();
             await UniTask.Delay(TimeSpan.FromSeconds(.25));
             if (version != currentVersion()) return;
             if (attack.Kind == TacticalEventKind.AttackHit)
             {
                 if (target == MotionTestController.HeroActorId) _host.HeroAnimator.PlayHit();
-                else _enemy.Animator.PlayHit();
+                else _enemies[target].Animator.PlayHit();
             }
             _host.SetNotice(attack.Kind == TacticalEventKind.AttackHit
                 ? $"{attacker}: d20={attack.Roll}, урон {attack.Amount}"
@@ -92,16 +93,17 @@ namespace CodeBase.MotionTest
                     if (version != currentVersion()) return;
                     continue;
                 }
-                _enemy.Animator.PlayDeath();
+                var enemy = _enemies[defeated.ActorId];
+                enemy.Animator.PlayDeath();
                 var elapsed = 0f;
-                while (!_enemy.Animator.DeathAnimationCompleted && elapsed < 10f)
+                while (!enemy.Animator.DeathAnimationCompleted && elapsed < 10f)
                 {
                     if (version != currentVersion()) return;
                     elapsed += Time.deltaTime;
                     await UniTask.Yield();
                 }
-                _enemy.MarkDead();
-                if (!_enemy.Animator.DeathAnimationCompleted)
+                enemy.MarkDead();
+                if (!enemy.Animator.DeathAnimationCompleted)
                     _host.SetNotice("Анимация смерти скелета не завершилась; труп сохранён");
             }
         }
@@ -115,8 +117,8 @@ namespace CodeBase.MotionTest
             }
             else
             {
-                if (moving) _enemy.Animator.Move(_host.World.Config.Speed);
-                else _enemy.Animator.StopMoving();
+                if (moving) _enemies[actorId].Animator.Move(_host.World.Config.Speed);
+                else _enemies[actorId].Animator.StopMoving();
             }
         }
     }

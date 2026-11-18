@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
 using PetProject.Tactics;
@@ -66,7 +67,7 @@ namespace CodeBase.MotionTest
         NavMeshAgent HeroAgent { get; }
         HeroAnimator HeroAnimator { get; }
         Camera GameCamera { get; }
-        Vector3 EnemySpawn { get; }
+        IReadOnlyList<SkeletonEnemySpawn> EnemySpawns { get; }
         int TestBudget { get; }
         bool Combat { get; }
         bool Busy { get; }

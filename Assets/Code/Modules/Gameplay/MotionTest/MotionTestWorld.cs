@@ -38,7 +38,8 @@ namespace CodeBase.MotionTest
             if (GeneratedRoot != null) throw new System.InvalidOperationException("Remove the previous generated root with Undo before generating");
             GeneratedRoot = new GameObject("GeneratedRoot").transform;
             GeneratedRoot.SetParent(transform, false);
-            Box("Ground 100 x 100", new Vector3(0, -.5f, 0), new Vector3(Config.WorldSize, 1, Config.WorldSize), Config.Floor);
+            Box($"Ground {Config.WorldSize:0} x {Config.WorldSize:0}", new Vector3(0, -.5f, 0),
+                new Vector3(Config.WorldSize, 1, Config.WorldSize), Config.Floor);
             Block("Cube obstacle", new Vector3(-5, 1.5f, -12), new Vector3(4, 3, 4));
             Block("Long wall", new Vector3(-1, 2, -5), new Vector3(2, 4, 12));
             Block("Thin wall between cells", new Vector3(-12, 1.5f, -8), new Vector3(.2f, 3, 5));

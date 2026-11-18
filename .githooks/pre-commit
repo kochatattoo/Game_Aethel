@@ -1,0 +1,35 @@
+#!/bin/sh
+node - <<'NODE'
+const { execFileSync } = require('child_process');
+
+const warningBytes = 100 * 1024 * 1024;
+const maximumBytes = 200 * 1024 * 1024;
+const options = { maxBuffer: 64 * 1024 * 1024 };
+const changed = execFileSync('git', ['diff', '--cached', '--name-only', '--diff-filter=ACM', '-z'], options)
+  .toString().split('\0').filter(Boolean);
+const entries = execFileSync('git', ['ls-files', '-s', '-z'], options).toString().split('\0').filter(Boolean);
+const blobs = new Map();
+
+for (const entry of entries) {
+  const match = entry.match(/^\d+\s+([0-9a-f]+)\s+\d+\t([\s\S]+)$/);
+  if (match) blobs.set(match[2], match[1]);
+}
+
+let rejected = false;
+for (const file of changed) {
+  const blob = blobs.get(file);
+  if (!blob) continue;
+  const size = Number(execFileSync('git', ['cat-file', '-s', blob], { encoding: 'utf8' }).trim());
+  if (size > maximumBytes) {
+    console.error(`Файл превышает 200 МиB: ${file} (${(size / 1048576).toFixed(1)} МиB)`);
+    rejected = true;
+  } else if (size > warningBytes) {
+    console.warn(`GitHub может отклонить файл больше 100 МиB: ${file} (${(size / 1048576).toFixed(1)} МиB)`);
+  }
+}
+
+if (rejected) {
+  console.error('Коммит отменён. Удалите файл, уменьшите его или перенесите в Git LFS.');
+  process.exit(1);
+}
+NODE

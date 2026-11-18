@@ -88,7 +88,8 @@ namespace CodeBase.EditorTools
                     foreach (var name in new[] { "Seed", "CellSize", "VisibleRadius", "Speed" }) EditorGUILayout.PropertyField(config.FindProperty(name));
                     config.ApplyModifiedProperties();
                     if (GUILayout.Button("Generate + Bake NavMesh (Undo)")) MotionTestSceneTools.Rebuild(_host.World);
-                    EditorGUILayout.LabelField("Габариты", "100 × 100 units");
+                    EditorGUILayout.LabelField("Габариты",
+                        $"{_host.World.Config.WorldSize:0} × {_host.World.Config.WorldSize:0} units");
                 }
             }
             EditorGUILayout.Space();

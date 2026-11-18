@@ -33,7 +33,8 @@ namespace PetProject.Tactics
             BeginTurn();
         }
 
-        public ActorSnapshot[] CaptureActors() => _actors.Select(a => a.Snapshot()).ToArray();
+        public ActorSnapshot[] CaptureActors() =>
+            _actors.Select(a => a.Snapshot(_completedThisRound.Contains(a.Definition.Id))).ToArray();
 
         public void EndTurn(List<TacticalEvent> events)
         {

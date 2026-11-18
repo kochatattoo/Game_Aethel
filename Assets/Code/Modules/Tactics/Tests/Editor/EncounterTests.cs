@@ -213,6 +213,31 @@ namespace PetProject.Tactics.Tests
             Assert.That(Actor(e, "hero").ActionPoints, Is.EqualTo(3));
         }
 
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void CompletedTurnsRemainMarkedUntilNextRound()
+        {
+            var encounter = Create(Hero(new GridPosition(0, 0)), Enemy(new GridPosition(2, 0)),
+                Enemy(new GridPosition(4, 0), id: "last", initiative: -100));
+            Assert.That(encounter.GetSnapshot().Actors.All(a => !a.HasCompletedTurn), Is.True);
+
+            encounter.Execute(TacticalCommand.EndTurn("hero-end", "hero"));
+            Assert.That(Actor(encounter, "hero").HasCompletedTurn, Is.True);
+            Assert.That(Actor(encounter, "enemy").HasCompletedTurn, Is.False);
+            Assert.That(Actor(encounter, "last").HasCompletedTurn, Is.False);
+
+            encounter.Execute(TacticalCommand.EndTurn("enemy-end", "enemy"));
+            Assert.That(Actor(encounter, "hero").HasCompletedTurn, Is.True);
+            Assert.That(Actor(encounter, "enemy").HasCompletedTurn, Is.True);
+            Assert.That(Actor(encounter, "last").HasCompletedTurn, Is.False);
+            Assert.That(encounter.GetSnapshot().Round, Is.EqualTo(1));
+
+            encounter.Execute(TacticalCommand.EndTurn("last-end", "last"));
+            Assert.That(encounter.GetSnapshot().Round, Is.EqualTo(2));
+            Assert.That(encounter.GetSnapshot().Actors.All(a => !a.HasCompletedTurn), Is.True);
+        }
+
         [Test] public void DefeatedActorsDoNotOccupyCellsOrReceiveTurns()
         {
             var e = Create(Hero(new GridPosition(0, 0), 100), Enemy(new GridPosition(1, 0), 4),

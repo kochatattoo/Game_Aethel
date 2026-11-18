@@ -270,7 +270,7 @@ Read-only интерфейсы — префикс `IReadOnly` (`IReadOnlyHealthM
 
 - `.agents/MD-IMPROVER.md` — процедура аудита файлов инструкций для агентов;
   читай при задачах на проверку, обновление или улучшение всех AGENTS.md в проекте
-- Свои `AGENTS.md` могут быть у `Assets/{Code,Configs,Scenes,Prefabs,Art}`, `CI/`, `Docs/`
+- Свои `AGENTS.md` могут быть у `Assets/{Code,Configs,Scenes,Prefabs,Art,Plugins}`, `CI/`, `Docs/`
   и крупных папок кода. Работаешь в папке — читай ближайший файл, он конкретнее корневого
 
 ## Экономия контекста

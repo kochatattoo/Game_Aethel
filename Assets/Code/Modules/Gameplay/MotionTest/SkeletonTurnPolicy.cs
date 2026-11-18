@@ -21,7 +21,7 @@ namespace CodeBase.MotionTest
             tree.AddChild(factory.BuildTree());
             tree.Process();
             if (factory.Command == null) tree.Process();
-            return factory.Command ?? TacticalCommand.EndTurn(nextId(), MotionEnemyTarget.SkeletonActorId);
+            return factory.Command ?? TacticalCommand.EndTurn(nextId(), snapshot.CurrentActorId);
         }
     }
 }

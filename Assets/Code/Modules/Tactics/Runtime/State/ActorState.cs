@@ -37,6 +37,7 @@ namespace PetProject.Tactics
             return applied;
         }
 
-        public ActorSnapshot Snapshot() => new ActorSnapshot(Definition, Position, Health, ActionPoints, Initiative);
+        public ActorSnapshot Snapshot(bool hasCompletedTurn) =>
+            new ActorSnapshot(Definition, Position, Health, ActionPoints, Initiative, hasCompletedTurn);
     }
 }

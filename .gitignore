@@ -109,4 +109,10 @@ Assets/StreamingAssets/Audio/GeneratedSoundBanks/
 /.kimi-code/
 /.kimicode/
 
+# Исходные архивы RPGHero (>100 МиB); распакованные ассеты остаются в проекте
+Assets/Import/3D/RPGHero/SRP/FreeRPGHeroesHD.zip
+Assets/Import/3D/RPGHero/SRP/FreeRPGHeroesHD.zip.meta
+Assets/Import/3D/RPGHero/SRP/FreeRPGHeroesLW.zip
+Assets/Import/3D/RPGHero/SRP/FreeRPGHeroesLW.zip.meta
+
 # End of https://www.toptal.com/developers/gitignore/api/unity

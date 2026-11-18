@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using PetProject.Tactics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
@@ -22,6 +24,15 @@ namespace CodeBase.MotionTest
         private Text _targetHealthText;
         private Text _noticeText;
         private Font _font;
+        private RectTransform _turnQueuePanel;
+        private Text _roundText;
+        private readonly List<TurnQueueEntry> _turnQueueEntries = new List<TurnQueueEntry>();
+
+        private sealed class TurnQueueEntry
+        {
+            public Image Background;
+            public Text Label;
+        }
 
         public void Bind(IMotionHudContext host)
         {
@@ -30,6 +41,7 @@ namespace CodeBase.MotionTest
             _font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             EnsureEventSystem();
             var canvas = CreateCanvas();
+            CreateTurnQueue(canvas);
             var panel = CreatePanel(canvas.transform);
             _modeText = CreateText("Mode indicator", panel, new Vector2(12, -10),
                 new Vector2(436, 28), 20, TextAnchor.MiddleLeft);
@@ -76,6 +88,7 @@ namespace CodeBase.MotionTest
                 if (snapshot != null)
                 {
                     RefreshEncounter(director, snapshot);
+                    RefreshTurnQueue(snapshot);
                     return;
                 }
             }
@@ -101,6 +114,7 @@ namespace CodeBase.MotionTest
 
         private void RefreshExploration()
         {
+            _turnQueuePanel.gameObject.SetActive(false);
             var aligning = _host.Status == "Aligning";
             _modeText.text = _host.Combat
                 ? "Тактический режим"
@@ -128,6 +142,75 @@ namespace CodeBase.MotionTest
             _noticeText.text = _host.Notice ?? string.Empty;
         }
 
+        private void CreateTurnQueue(Transform canvas)
+        {
+            _turnQueuePanel = CreateRect("Turn queue", canvas, new Vector2(0, -12), new Vector2(484, 88));
+            _turnQueuePanel.anchorMin = _turnQueuePanel.anchorMax = new Vector2(.5f, 1);
+            _turnQueuePanel.pivot = new Vector2(.5f, 1);
+            var background = _turnQueuePanel.gameObject.AddComponent<Image>();
+            background.color = new Color(.025f, .035f, .05f, .92f);
+            background.raycastTarget = false;
+            _roundText = CreateText("Round", _turnQueuePanel, new Vector2(8, -4),
+                new Vector2(468, 24), 16, TextAnchor.MiddleCenter);
+            _turnQueuePanel.gameObject.SetActive(false);
+        }
+
+        private void RefreshTurnQueue(EncounterSnapshot snapshot)
+        {
+            _turnQueuePanel.gameObject.SetActive(true);
+            _turnQueuePanel.sizeDelta = new Vector2(Mathf.Max(180, snapshot.Actors.Count * 156 + 16), 88);
+            _roundText.text = $"Раунд {snapshot.Round}";
+            _roundText.rectTransform.sizeDelta = new Vector2(_turnQueuePanel.sizeDelta.x - 16, 24);
+            EnsureTurnQueueEntries(snapshot.Actors.Count);
+            var entryIndex = 0;
+            for (var completedPass = 0; completedPass < 2; ++completedPass)
+            foreach (var actor in snapshot.Actors)
+            {
+                if (actor.HasCompletedTurn != (completedPass == 1)) continue;
+                var entry = _turnQueueEntries[entryIndex++];
+                entry.Label.text = actor.IsAlive
+                    ? $"{ActorDisplayName(actor.Id)}\nОД {actor.ActionPoints}"
+                    : $"{ActorDisplayName(actor.Id)}\nПобеждён";
+                entry.Label.color = actor.HasCompletedTurn ? new Color(.55f, .58f, .62f) : Color.white;
+                entry.Background.color = actor.HasCompletedTurn
+                    ? new Color(.16f, .17f, .19f, .9f)
+                    : actor.Id == snapshot.CurrentActorId
+                        ? new Color(.12f, .42f, .32f, 1f)
+                        : new Color(.16f, .24f, .32f, 1f);
+            }
+        }
+
+        private void EnsureTurnQueueEntries(int count)
+        {
+            while (_turnQueueEntries.Count > count)
+            {
+                var last = _turnQueueEntries.Count - 1;
+                Destroy(_turnQueueEntries[last].Background.gameObject);
+                _turnQueueEntries.RemoveAt(last);
+            }
+            while (_turnQueueEntries.Count < count)
+            {
+                var index = _turnQueueEntries.Count;
+                var rect = CreateRect("Turn " + (index + 1), _turnQueuePanel,
+                    new Vector2(8 + index * 156, -32), new Vector2(148, 48));
+                var image = rect.gameObject.AddComponent<Image>();
+                image.raycastTarget = false;
+                var label = CreateText("Actor", rect, Vector2.zero, new Vector2(148, 48),
+                    15, TextAnchor.MiddleCenter);
+                StretchToParent(label.rectTransform);
+                _turnQueueEntries.Add(new TurnQueueEntry { Background = image, Label = label });
+            }
+        }
+
+        private static string ActorDisplayName(string actorId)
+        {
+            if (actorId == MotionTestController.HeroActorId) return "Герой";
+            if (actorId == MotionEnemyTarget.SkeletonActorId) return "Скелет 1";
+            if (actorId != null && actorId.StartsWith("skeleton-"))
+                return "Скелет " + actorId.Substring("skeleton-".Length);
+            return actorId;
+        }
+
         private void RefreshHealth()
         {
             var director = _host.EncounterDirector;
@@ -135,7 +218,7 @@ namespace CodeBase.MotionTest
             _heroHealthText.text = $"HP героя: {director.HeroHealth}/12";
             _targetHealthText.gameObject.SetActive(director.IsEnemySelected);
             if (director.IsEnemySelected)
-                _targetHealthText.text = $"Цель: скелет · HP {director.EnemyHealth}/5";
+                _targetHealthText.text = $"Цель: скелет · HP {director.EnemyHealth}/{director.EnemyMaxHealth}";
         }
 
         private Transform CreateCanvas()

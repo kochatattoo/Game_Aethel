@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using PetProject.Tactics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,7 +8,7 @@ namespace CodeBase.MotionTest
     internal static class EncounterPlacement
     {
         public static bool FindCell(SurfaceGridMap map, MotionTestConfig config, Vector3 from,
-            GridPosition? excluded, out GridPosition destination)
+            ICollection<GridPosition> excluded, out GridPosition destination)
         {
             map.Cell(from, out var origin);
             var best = float.MaxValue;
@@ -19,7 +20,8 @@ namespace CodeBase.MotionTest
             for (var x = origin.X - 3; x <= origin.X + 3; ++x)
             {
                 var cell = new GridPosition(x, z);
-                if (!map.Board.Contains(cell) || !map.Board.GetCell(cell).Walkable || cell == excluded) continue;
+                if (!map.Board.Contains(cell) || !map.Board.GetCell(cell).Walkable ||
+                    excluded != null && excluded.Contains(cell)) continue;
                 var point = map.World(cell);
                 var distance = (from - point).sqrMagnitude;
                 if (distance > 16 || distance >= best) continue;

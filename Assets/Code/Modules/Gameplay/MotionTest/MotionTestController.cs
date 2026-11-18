@@ -15,7 +15,11 @@ namespace CodeBase.MotionTest
         public GameObject HeroPrefab;
         public GameObject EnemyPrefab;
         public MeleeTacticsAIConfig EnemyAI;
-        public Vector3 EnemySpawn = new Vector3(-4.5f, 0, -15.5f);
+        public SkeletonEnemySpawn[] EnemySpawns =
+        {
+            new SkeletonEnemySpawn(new Vector3(-4.5f, 0, -15.5f), "skeleton-pack"),
+            new SkeletonEnemySpawn(new Vector3(-2.5f, 0, -15.5f), "skeleton-pack")
+        };
         public Camera GameCamera;
         public MotionCameraController CameraRig;
         public InputActionAsset InputAsset;
@@ -76,7 +80,7 @@ namespace CodeBase.MotionTest
         GameObject IMotionEncounterContext.EnemyPrefab => EnemyPrefab;
         MeleeTacticsAIConfig IMotionEncounterContext.EnemyAI => EnemyAI;
         Camera IMotionEncounterContext.GameCamera => GameCamera;
-        Vector3 IMotionEncounterContext.EnemySpawn => EnemySpawn;
+        System.Collections.Generic.IReadOnlyList<SkeletonEnemySpawn> IMotionEncounterContext.EnemySpawns => EnemySpawns;
         int IMotionEncounterContext.TestBudget => TestBudget;
 
         private void Awake()

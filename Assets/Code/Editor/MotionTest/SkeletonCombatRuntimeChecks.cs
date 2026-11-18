@@ -95,6 +95,9 @@ namespace CodeBase.EditorTools
                 Require(host.Hud.HeroHealthValue.Contains("12/12"), "HUD shows hero health");
                 report.checks.Add("Real pointer click enables target highlighter and health HUD");
                 await WaitFor(() => director.Active && director.Snapshot != null, "Detection creates Encounter", 20000);
+                Require(director.Snapshot.Actors.Count == 3 &&
+                    director.Snapshot.Actors.Count(a => a.FactionId == "enemies") == 2,
+                    "Detection pulls both skeletons from the same group into combat");
                 Require(director.Snapshot.Actors.Single(a => a.Id == MotionTestController.HeroActorId).ActionPoints == 4,
                     "Initial hero AP comes from world budget");
                 report.checks.Add("Click follows skeleton; detection creates Encounter with preserved world AP");
@@ -102,7 +105,7 @@ namespace CodeBase.EditorTools
                 await WaitFor(() => director.PlayerTurnReady, "First hero turn", 15000);
                 await UniTask.DelayFrame(2);
                 Require(!host.Hud.ModeButton.interactable, "Free mode exit is disabled during real combat");
-                var enemyStart = director.Snapshot.GetActor(MotionEnemyTarget.SkeletonActorId).Position;
+                var enemyStart = director.Snapshot.GetActor(target.ActorId).Position;
                 MotionEditorInputGate.InputFixtureActive = true;
                 var mouse = InputSystem.AddDevice<Mouse>("Skeleton HUD fixture mouse");
                 try
@@ -121,7 +124,7 @@ namespace CodeBase.EditorTools
                 await WaitFor(() => director.IsDefeated || director.PlayerTurnReady && director.Snapshot.Round >= 2,
                     "BehaviourTree completes enemy turn", 15000);
                 var afterEnemy = director.Snapshot;
-                Require(afterEnemy.GetActor(MotionEnemyTarget.SkeletonActorId).Position != enemyStart ||
+                Require(afterEnemy.GetActor(target.ActorId).Position != enemyStart ||
                     afterEnemy.GetActor(MotionTestController.HeroActorId).Health < 12,
                     "BehaviourTree moves skeleton toward hero or attacks in melee");
                 report.checks.Add("BehaviourTree executes movement or attack during enemy turn");
@@ -172,8 +175,8 @@ namespace CodeBase.EditorTools
                         continue;
                     }
                     var hero = snapshot.Actors.Single(a => a.Id == MotionTestController.HeroActorId);
-                    var enemy = snapshot.Actors.Single(a => a.Id == MotionEnemyTarget.SkeletonActorId);
-                    if (!enemy.IsAlive)
+                    var enemy = snapshot.Actors.FirstOrDefault(a => a.FactionId == "enemies" && a.IsAlive);
+                    if (enemy == null)
                     {
                         await UniTask.Yield();
                         continue;
@@ -183,6 +186,13 @@ namespace CodeBase.EditorTools
                         await UniTask.Yield();
                         continue;
                     }
+                    if (hero.ActionPoints < host.EnemyAI.AttackCost)
+                    {
+                        director.EndTurnFromHud();
+                        await UniTask.Yield();
+                        continue;
+                    }
+                    director.SelectTarget(enemy.Id);
                     if (GridAdjacency.IsAdjacent(hero.Position, enemy.Position))
                     {
                         director.TryHeroAttack();
@@ -257,7 +267,7 @@ namespace CodeBase.EditorTools
             target.transform.rotation = Quaternion.LookRotation(enemyPoint - heroPoint);
             Physics.SyncTransforms();
             host.WorldActions.Set(MotionTestController.HeroActorId, 6, 6);
-            host.WorldActions.Set(MotionEnemyTarget.SkeletonActorId, 4, 6);
+            host.WorldActions.Set(target.ActorId, 4, 6);
             MotionEditorInputGate.InputFixtureActive = true;
             var mouse = InputSystem.AddDevice<Mouse>("Skeleton opening fixture mouse");
             try
@@ -284,19 +294,19 @@ namespace CodeBase.EditorTools
                 var snapshot = director.Snapshot;
                 Require(snapshot.CurrentActorId == MotionTestController.HeroActorId && snapshot.Revision == 1,
                     "Opening attack: hero acts first and no command runs before the attack");
-                Require(snapshot.GetActor(MotionTestController.HeroActorId).ActionPoints == 5,
-                    "Opening attack: exactly one AP spent");
+                Require(snapshot.GetActor(MotionTestController.HeroActorId).ActionPoints == 3,
+                    "Opening attack: exactly three AP spent");
                 Require(heroCell == snapshot.GetActor(MotionTestController.HeroActorId).Position &&
-                    enemyCell == snapshot.GetActor(MotionEnemyTarget.SkeletonActorId).Position,
+                    enemyCell == snapshot.GetActor(target.ActorId).Position,
                     "Opening attack: logical cells match actor placement");
-                Require(snapshot.GetActor(MotionEnemyTarget.SkeletonActorId).Definition.Damage == 2,
+                Require(snapshot.GetActor(target.ActorId).Definition.Damage == 2,
                     "Skeleton tactical damage is two HP");
                 report.checks.Add("Real pointer click behind skeleton starts Encounter with hero opening attack");
                 await ClickTarget(mouse, host, target);
                 await WaitFor(() => director.Snapshot != null && director.Snapshot.Revision >= 2,
                     "Real pointer click attacks skeleton during combat", 5000);
-                Require(director.Snapshot.GetActor(MotionTestController.HeroActorId).ActionPoints == 4,
-                    "Combat pointer attack spends one AP");
+                Require(director.Snapshot.GetActor(MotionTestController.HeroActorId).ActionPoints == 0,
+                    "Combat pointer attack spends three AP");
                 report.checks.Add("Real pointer click on adjacent skeleton executes combat Attack");
             }
             finally

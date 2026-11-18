@@ -83,7 +83,7 @@ namespace CodeBase.MotionTest
             _approachPath.Cells[_approachPath.Cells.Count - 1]);
         private void SetEndTurn() => Command = TacticalCommand.EndTurn(_nextId(), Enemy.Id);
 
-        private ActorSnapshot Enemy => _snapshot.GetActor(MotionEnemyTarget.SkeletonActorId);
+        private ActorSnapshot Enemy => _snapshot.GetActor(_snapshot.CurrentActorId);
         private ActorSnapshot Hero => _snapshot.GetActor(MotionTestController.HeroActorId);
         private int AttackPriority => _config != null ? _config.AttackPriority : 100;
         private int MovePriority => _config != null ? _config.MovePriority : 50;

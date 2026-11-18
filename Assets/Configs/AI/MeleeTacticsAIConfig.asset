@@ -16,3 +16,10 @@ MonoBehaviour:
   _movePriority: 50
   _endTurnPriority: 0
   _maxMovementCostPerCommand: 6
+  _actionsPerTurn: 6
+  _attackCost: 3
+  _maxHealth: 5
+  _initiativeBonus: 0
+  _attackBonus: 3
+  _defense: 12
+  _damage: 2

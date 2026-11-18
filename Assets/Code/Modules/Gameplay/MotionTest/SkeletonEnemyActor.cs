@@ -8,6 +8,9 @@ namespace CodeBase.MotionTest
 {
     internal sealed class SkeletonEnemyActor : IDisposable
     {
+        public string Id { get; }
+        public string GroupId { get; }
+        public bool IsAlive { get; private set; } = true;
         public GameObject Instance { get; }
         public EnemyAnimator Animator { get; }
         public NavMeshAgent Agent { get; }
@@ -16,9 +19,11 @@ namespace CodeBase.MotionTest
 
         private readonly CapsuleCollider _selectionCollider;
 
-        private SkeletonEnemyActor(GameObject instance)
+        private SkeletonEnemyActor(GameObject instance, string id, string groupId)
         {
             Instance = instance;
+            Id = id;
+            GroupId = groupId;
             Animator = instance.GetComponent<EnemyAnimator>();
             Agent = instance.GetComponent<NavMeshAgent>();
             Detection = instance.GetComponent<SkeletonDetectionAdapter>();
@@ -26,11 +31,11 @@ namespace CodeBase.MotionTest
             _selectionCollider = instance.GetComponent<CapsuleCollider>();
         }
 
-        public static SkeletonEnemyActor Create(GameObject prefab, Vector3 spawn, MotionHero hero,
-            MotionTestConfig config, Transform parent, Action spotted)
+        public static SkeletonEnemyActor Create(GameObject prefab, SkeletonEnemySpawn spawn, string id,
+            MotionHero hero, MotionTestConfig config, Transform parent, Action spotted)
         {
-            var instance = Object.Instantiate(prefab, spawn, Quaternion.identity, parent);
-            instance.name = "Enemy_Skeleton — Motion combat";
+            var instance = Object.Instantiate(prefab, spawn.Position, Quaternion.identity, parent);
+            instance.name = "Enemy_Skeleton — " + id;
             var direction = hero.Instance.transform.position - instance.transform.position;
             direction.y = 0;
             if (direction.sqrMagnitude > .001f) instance.transform.rotation = Quaternion.LookRotation(direction);
@@ -55,10 +60,10 @@ namespace CodeBase.MotionTest
             selectionCollider.height = config.AgentHeight;
             selectionCollider.radius = Mathf.Max(config.AgentRadius, .45f);
 
-            instance.AddComponent<MotionEnemyTarget>();
+            instance.AddComponent<MotionEnemyTarget>().Initialize(id, spawn.GroupId);
             instance.AddComponent<MotionTargetHighlighter>().Initialize(config);
             var detection = instance.AddComponent<SkeletonDetectionAdapter>();
-            var enemy = new SkeletonEnemyActor(instance);
+            var enemy = new SkeletonEnemyActor(instance, id, spawn.GroupId);
             enemy.Agent.agentTypeID = config.AgentTypeId;
             enemy.Agent.radius = config.AgentRadius;
             enemy.Agent.height = config.AgentHeight;
@@ -80,6 +85,7 @@ namespace CodeBase.MotionTest
 
         public void MarkDead()
         {
+            IsAlive = false;
             Detection.enabled = false;
             _selectionCollider.enabled = false;
             Highlighter.SetVisible(false);
