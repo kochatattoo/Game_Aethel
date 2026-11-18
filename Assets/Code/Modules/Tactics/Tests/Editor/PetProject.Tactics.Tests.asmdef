@@ -1,12 +1,19 @@
 {
-  "name": "PetProject.Tactics.Tests",
-  "references": [
-    "GUID:f03962106f38998408c86e9739a19fdf"
-  ],
-  "includePlatforms": [
-    "Editor"
-  ],
-  "optionalUnityReferences": [
-    "TestAssemblies"
-  ]
+    "name": "PetProject.Tactics.Tests",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f03962106f38998408c86e9739a19fdf",
+        "GUID:c804b73382c8b02499ec0100d8aee3a6"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

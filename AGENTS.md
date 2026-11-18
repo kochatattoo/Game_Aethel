@@ -158,6 +158,10 @@ MCP его не ослабляет, отчёт по-прежнему обяза�
 ## MotionTest: бой и настройка
 
 - Полигон — `Assets/Scenes/TEST/Test_MotionScene.unity`; руководство — `Docs/Testing/Test-MotionScene.md`.
+- Чистые расчёты и API разделены на `PetProject.CharacterStats.Core`, `PetProject.EnemyArchetypes.Core`,
+  `PetProject.Navigation.Core`, `PetProject.Tactics.Grid.Core` и боевой `PetProject.Tactics`.
+  Все имеют `noEngineReferences=true`. Unity SO/MonoBehaviour — адаптеры; `MotionTestComposer`
+  связывает определения, `ICharacterMovement` и `INavigationLifecycle`. Core не зависит от компоновщиков.
 - Общие ОД, радиус связывания группы, пауза решения AI и параметры героя — только в
   `MotionCombatRulesConfig`. `MeleeTacticsAIConfig` содержит только поведение AI. Ранг, имя,
   шесть характеристик, кубики и prefab конкретного противника — в `EnemyArchetypeConfig`.

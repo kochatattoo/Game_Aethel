@@ -1,7 +1,17 @@
 {
-  "name": "PetProject.Tactics",
-  "rootNamespace": "PetProject.Tactics",
-  "references": [],
-  "autoReferenced": false,
-  "noEngineReferences": true
+    "name": "PetProject.Tactics",
+    "rootNamespace": "PetProject.Tactics",
+    "references": [
+        "GUID:9b4f6c3fc993a9b4d90160642a058b00",
+        "GUID:c804b73382c8b02499ec0100d8aee3a6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
 }

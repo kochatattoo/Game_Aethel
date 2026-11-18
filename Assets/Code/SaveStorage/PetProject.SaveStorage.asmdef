@@ -1,5 +1,14 @@
 {
-  "name": "PetProject.SaveStorage",
-  "autoReferenced": true,
-  "references": []
+    "name": "PetProject.SaveStorage",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

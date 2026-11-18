@@ -1,4 +1,5 @@
 using System;
+using PetProject.CharacterStats;
 
 namespace PetProject.Tactics
 {
@@ -13,11 +14,13 @@ namespace PetProject.Tactics
         public int Defense { get; }
         public int Damage { get; }
         public int? InitialActionPoints { get; }
-        public int AttackDiceSides { get; }
-        public int DamageDiceCount { get; }
-        public int DamageDiceSides { get; }
-        public int DamageBonus { get; }
-        public bool UsesDamageDice => DamageDiceCount > 1 || DamageDiceSides > 1;
+        public DiceDefinition AttackDice { get; }
+        public DiceDefinition DamageDice { get; }
+        public int AttackDiceSides => AttackDice.Sides;
+        public int DamageDiceCount => DamageDice.Count;
+        public int DamageDiceSides => DamageDice.Sides;
+        public int DamageBonus => DamageDice.Bonus;
+        public bool UsesDamageDice => DamageDice.UsesDice;
 
         public ActorDefinition(string id, string factionId, GridPosition position, int maxHealth = 12,
             int initiativeBonus = 0, int attackBonus = 3, int defense = 12, int damage = 4,
@@ -41,10 +44,8 @@ namespace PetProject.Tactics
             Defense = defense;
             Damage = damage;
             InitialActionPoints = initialActionPoints;
-            AttackDiceSides = attackDiceSides;
-            DamageDiceCount = damageDiceCount;
-            DamageDiceSides = damageDiceSides;
-            DamageBonus = damageBonus;
+            AttackDice = new DiceDefinition(1, attackDiceSides);
+            DamageDice = new DiceDefinition(damageDiceCount, damageDiceSides, damageBonus);
         }
     }
 }

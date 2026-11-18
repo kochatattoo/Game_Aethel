@@ -1,5 +1,10 @@
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
+using PetProject.CharacterStats;
+using PetProject.EnemyArchetypes;
 using UnityEngine;
+using CoreDefinition = PetProject.EnemyArchetypes.EnemyArchetypeDefinition;
+using CoreKind = PetProject.EnemyArchetypes.EnemyArchetypeKind;
+using CoreRank = PetProject.EnemyArchetypes.EnemyRank;
 
 namespace CodeBase.MotionTest
 {
@@ -32,6 +37,9 @@ namespace CodeBase.MotionTest
         [SerializeField, Min(1)] private int _damageDiceCount = 1;
         [SerializeField, Min(2)] private int _damageDiceSides = 4;
         [SerializeField] private int _damageBonus;
+        [System.NonSerialized] private CoreDefinition _definition;
+
+        public CoreDefinition Definition => _definition ??= CreateDefinition();
 
         public EnemyArchetype Archetype => _archetype;
         public EnemyRank Rank => _rank;
@@ -44,32 +52,31 @@ namespace CodeBase.MotionTest
         public int Intelligence => _intelligence;
         public int Wisdom => _wisdom;
         public int Charisma => _charisma;
-        public int InitiativeBonus => Modifier(_dexterity);
-        public int AttackBonus => AttackModifier + _proficiencyBonus;
-        public int Defense => _baseDefense + _armorBonus + Modifier(_dexterity);
-        public int MaxHealth => Mathf.Max(1, _baseMaxHealth + Modifier(_constitution) * _healthPerConstitutionModifier);
-        public int AttackDiceSides => _attackDiceSides;
-        public int DamageDiceCount => _damageDiceCount;
-        public int DamageDiceSides => _damageDiceSides;
-        public int DamageBonus => _damageBonus;
+        public int InitiativeBonus => Definition.Stats.InitiativeBonus;
+        public int AttackBonus => Definition.Stats.AttackBonus;
+        public int Defense => Definition.Stats.Defense;
+        public int MaxHealth => Definition.Stats.MaxHealth;
+        public int AttackDiceSides => Definition.AttackDice.Sides;
+        public int DamageDiceCount => Definition.DamageDice.Count;
+        public int DamageDiceSides => Definition.DamageDice.Sides;
+        public int DamageBonus => Definition.DamageDice.Bonus;
         public Color HealthBarColor => _rank == EnemyRank.Boss ? new Color(.75f, .2f, .85f) :
             _rank == EnemyRank.Uncommon ? new Color(1f, .65f, .15f) : new Color(.9f, .22f, .18f);
 
-        private int AttackModifier => _attackAttribute switch
-        {
-            EnemyAttackAttribute.Strength => Modifier(_strength),
-            EnemyAttackAttribute.Dexterity => Modifier(_dexterity),
-            EnemyAttackAttribute.Constitution => Modifier(_constitution),
-            EnemyAttackAttribute.Intelligence => Modifier(_intelligence),
-            EnemyAttackAttribute.Wisdom => Modifier(_wisdom),
-            EnemyAttackAttribute.Charisma => Modifier(_charisma),
-            _ => 0
-        };
+        public static int Modifier(int characteristic) => CharacterAttributes.Modifier(characteristic);
 
-        public static int Modifier(int characteristic) => Mathf.FloorToInt((characteristic - 10) * .5f);
+        private CoreDefinition CreateDefinition()
+        {
+            var attributes = new CharacterAttributes(_strength, _dexterity, _constitution, _intelligence, _wisdom, _charisma);
+            var settings = new CombatStatsSettings(_baseMaxHealth, _healthPerConstitutionModifier, _proficiencyBonus,
+                _baseDefense, _armorBonus, (CharacteristicType)_attackAttribute);
+            return new CoreDefinition((CoreKind)_archetype, (CoreRank)_rank, _displayName, attributes, settings,
+                new DiceDefinition(1, _attackDiceSides), new DiceDefinition(_damageDiceCount, _damageDiceSides, _damageBonus));
+        }
 
         private void OnValidate()
         {
+            _definition = null;
             _strength = Mathf.Clamp(_strength, 1, 30);
             _dexterity = Mathf.Clamp(_dexterity, 1, 30);
             _constitution = Mathf.Clamp(_constitution, 1, 30);

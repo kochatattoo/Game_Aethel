@@ -48,7 +48,7 @@ namespace CodeBase.MotionTest
             get
             {
                 var enemy = _selectedEnemy ?? FirstLivingEnemy();
-                return enemy?.Archetype != null ? enemy.Archetype.MaxHealth : 5;
+                return enemy?.ArchetypeDefinition != null ? enemy.ArchetypeDefinition.Stats.MaxHealth : 5;
             }
         }
         public string SelectedEnemyName => _selectedEnemy?.Archetype != null
@@ -318,31 +318,32 @@ namespace CodeBase.MotionTest
 
             _host.PrepareForEncounter();
             var rules = _host.CombatRules;
+            var heroStats = _host.Composition.HeroStats;
             var actors = new List<ActorDefinition>
             {
                 new ActorDefinition(MotionTestController.HeroActorId, "allies", _heroCell,
-                    rules != null ? rules.HeroMaxHealth : 12,
-                    rules != null ? rules.HeroInitiativeBonus : 0,
-                    rules != null ? rules.HeroAttackBonus : 3,
-                    rules != null ? rules.HeroDefense : 12,
+                    heroStats != null ? heroStats.MaxHealth : 12,
+                    heroStats != null ? heroStats.InitiativeBonus : 0,
+                    heroStats != null ? heroStats.AttackBonus : 3,
+                    heroStats != null ? heroStats.Defense : 12,
                     rules != null ? rules.HeroDamage : 4,
                     _host.WorldActions.Get(MotionTestController.HeroActorId, ActionsPerTurn))
             };
             for (var i = 0; i < _engagedEnemies.Count; ++i)
             {
                 var enemy = _engagedEnemies[i];
-                var archetype = enemy.Archetype;
+                var archetype = enemy.ArchetypeDefinition;
                 actors.Add(new ActorDefinition(enemy.Id, "enemies", _enemyCells[i],
-                    archetype != null ? archetype.MaxHealth : 5,
-                    archetype != null ? archetype.InitiativeBonus : 0,
-                    archetype != null ? archetype.AttackBonus : 2,
-                    archetype != null ? archetype.Defense : 12,
+                    archetype != null ? archetype.Stats.MaxHealth : 5,
+                    archetype != null ? archetype.Stats.InitiativeBonus : 0,
+                    archetype != null ? archetype.Stats.AttackBonus : 2,
+                    archetype != null ? archetype.Stats.Defense : 12,
                     4,
                     _host.WorldActions.Get(enemy.Id, ActionsPerTurn),
-                    archetype != null ? archetype.AttackDiceSides : 20,
-                    archetype != null ? archetype.DamageDiceCount : 1,
-                    archetype != null ? archetype.DamageDiceSides : 4,
-                    archetype != null ? archetype.DamageBonus : 0));
+                    archetype != null ? archetype.AttackDice.Sides : 20,
+                    archetype != null ? archetype.DamageDice.Count : 1,
+                    archetype != null ? archetype.DamageDice.Sides : 4,
+                    archetype != null ? archetype.DamageDice.Bonus : 0));
             }
             _encounter = new Encounter(_host.Map.Board, actors, new DeterministicRandom(718),
                 new EncounterRules(ActionsPerTurn, AttackCost, _host.World.Config.MaxHeightStep),
@@ -655,8 +656,9 @@ namespace CodeBase.MotionTest
                 var spawn = _host.EnemySpawns[i];
                 if (spawn == null) continue;
                 var id = i == 0 ? MotionEnemyTarget.SkeletonActorId : "skeleton-" + (i + 1);
-                var enemy = SkeletonEnemyActor.Create(_host.EnemyPrefab, _host.EnemyAI, spawn, id,
-                    _host.HeroController, _host.World.Config, _host.GameCamera, transform, () =>
+                var enemy = SkeletonEnemyActor.Create(_host.EnemyPrefab, _host.EnemyAI, spawn,
+                    _host.Composition.GetEnemyArchetype(spawn), id, _host.HeroController, _host.World.Config,
+                    _host.GameCamera, transform, () =>
                     {
                         if (!_enabled || Active || Pending) return;
                         _pendingGroupId = spawn.GroupId;

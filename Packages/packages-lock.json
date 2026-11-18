@@ -450,6 +450,13 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.vertoker.assemblybuilder": {
+      "version": "https://github.com/vertoker/assemblybuilder.git?path=/Assets/AssemblyBuilder",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "6f522498d22140eac97b37284315cc20e2ed3d2a"
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,

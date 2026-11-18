@@ -67,6 +67,7 @@ namespace CodeBase.MotionTest
         GameObject EnemyPrefab { get; }
         MeleeTacticsAIConfig EnemyAI { get; }
         MotionCombatRulesConfig CombatRules { get; }
+        IMotionTestComposition Composition { get; }
         NavMeshAgent HeroAgent { get; }
         HeroAnimator HeroAnimator { get; }
         Camera GameCamera { get; }

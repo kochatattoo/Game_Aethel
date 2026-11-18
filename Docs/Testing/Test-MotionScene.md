@@ -33,6 +33,18 @@
 - Тактический motor перед каждым шагом проверяет опору, NavMesh и capsule clearance. Прямого прохождения через препятствия между клетками нет.
 - Сетка и preview используют общие mesh, не отдельные GameObject на клетку.
 
+## Границы Core и Unity
+
+- `PetProject.CharacterStats.Core`: атрибуты, модификаторы, производные и `DiceDefinition`.
+- `PetProject.EnemyArchetypes.Core`: чистые определения архетипов, без prefab и Unity.
+- `PetProject.Navigation.Core`: остаток маршрута, lifecycle и `ICharacterMovement`.
+- `PetProject.Tactics.Grid.Core`: доска, клетки и поиск пути.
+- `PetProject.Tactics`: бой, атаки, ОД, инициатива и lifecycle столкновения.
+
+Все Core-сборки имеют `noEngineReferences=true`. Unity SO и MonoBehaviour выполняют только адаптацию данных,
+ввод/вывод и представление. `MotionTestComposer` создаёт `ICharacterMovement`, `INavigationLifecycle`
+и определения героя/противников. Зависимости генерируются через `AssemblyGraph.asset` и `Build All`.
+
 ## Конфигурация
 
 ### `MotionCombatRulesConfig`

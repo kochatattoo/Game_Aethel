@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a1fcd7b19e48f0a7c23ca983ddeff0, type: 3}
+  m_Name: PetProject.Commerce
+  m_EditorClassIdentifier: AssemblyBuilder::AssemblyBuilder.AssemblyBuilder
+  _readonly: 0
+  _inheritMode: 1
+  _publicParents:
+  - {fileID: 11400000, guid: 8a812ebebed1a5e4993b417bbef05c6f, type: 2}
+  - {fileID: 11400000, guid: ffe527b340df7c94fbd46cbcde446b3e, type: 2}
+  - {fileID: 11400000, guid: 6d10ca8d2bea6144ea3476f957080480, type: 2}
+  - {fileID: 11400000, guid: 44d721b6e1252014d999936057f25845, type: 2}
+  - {fileID: 11400000, guid: 68bded18240ffbb4183250f4be41e113, type: 2}
+  - {fileID: 11400000, guid: decaa50563bea3949a3184a5a6378963, type: 2}
+  _privateParents: []
+  _definitions:
+  - {fileID: 5897886265953266890, guid: 14e99d2a23f7d6e4390936a5944904a1, type: 3}

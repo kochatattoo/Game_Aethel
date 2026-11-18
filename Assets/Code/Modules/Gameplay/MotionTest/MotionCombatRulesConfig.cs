@@ -1,3 +1,4 @@
+using PetProject.CharacterStats;
 using UnityEngine;
 
 namespace CodeBase.MotionTest
@@ -33,13 +34,18 @@ namespace CodeBase.MotionTest
         public int HeroIntelligence => _heroIntelligence;
         public int HeroWisdom => _heroWisdom;
         public int HeroCharisma => _heroCharisma;
-        public int HeroMaxHealth => _heroBaseMaxHealth + Modifier(_heroConstitution) * _heroHealthPerConstitutionModifier;
-        public int HeroDefense => _heroBaseDefense + _heroArmorBonus + Modifier(_heroDexterity);
-        public int HeroAttackBonus => Modifier(_heroStrength) + _heroProficiencyBonus;
-        public int HeroInitiativeBonus => Modifier(_heroDexterity);
+        public int HeroMaxHealth => HeroStats.MaxHealth;
+        public int HeroDefense => HeroStats.Defense;
+        public int HeroAttackBonus => HeroStats.AttackBonus;
+        public int HeroInitiativeBonus => HeroStats.InitiativeBonus;
         public int HeroDamage => _heroDamage;
+        public IReadOnlyCombatStats HeroStats => CombatStatsCalculator.Calculate(
+            new CharacterAttributes(_heroStrength, _heroDexterity, _heroConstitution, _heroIntelligence,
+                _heroWisdom, _heroCharisma),
+            new CombatStatsSettings(_heroBaseMaxHealth, _heroHealthPerConstitutionModifier,
+                _heroProficiencyBonus, _heroBaseDefense, _heroArmorBonus, CharacteristicType.Strength));
 
-        public static int Modifier(int characteristic) => Mathf.FloorToInt((characteristic - 10) * .5f);
+        public static int Modifier(int characteristic) => CharacterAttributes.Modifier(characteristic);
 
         private void OnValidate()
         {

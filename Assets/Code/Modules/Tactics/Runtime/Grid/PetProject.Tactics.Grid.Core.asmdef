@@ -1,0 +1,14 @@
+{
+    "name": "PetProject.Tactics.Grid.Core",
+    "rootNamespace": "PetProject.Tactics",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

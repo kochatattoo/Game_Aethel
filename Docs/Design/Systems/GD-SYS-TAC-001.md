@@ -12,7 +12,7 @@ Encounter хранит авторитетное состояние одного 
 
 ## Фактические типы
 
-- `ActorDefinition`: неизменяемые начальные параметры — ActorId, FactionId, клетка появления, HP, бонус инициативы/атаки, защита, фиксированный урон или настраиваемые кубики урона.
+- `ActorDefinition`: неизменяемые начальные параметры — ActorId, FactionId, клетка появления, HP, бонус инициативы/атаки, защита, фиксированный урон или `DiceDefinition` из `PetProject.CharacterStats.Core`.
 - `EncounterRules`: ОД за ход, цена атаки, допустимый перепад высоты.
 - `Encounter`: создание очереди, проверка/исполнение команд, победа и приватное изменяемое состояние участников.
 - `TacticalCommand`: Move, Attack, EndTurn с command ID и ActorId.
@@ -75,4 +75,4 @@ Play Mode полигон подтвердил расход ОД, ручное з
 
 D2: ActorId и versioned campaign payload, шесть атрибутов и адаптер профиля. D3: управление настоящим отрядом и запрет real-time атак в тактике. D4: определения умений, длительности эффектов в ходах, дальность/LOS/укрытия/AoE.
 
-На полигоне шесть атрибутов настраиваются отдельно для каждого `EnemyArchetypeConfig`; это не миграция профиля кампании. Общие ОД, радиус связывания группы и пауза AI вынесены в `MotionCombatRulesConfig`, поведение — в `MeleeTacticsAIConfig`. Текущая проверка попадания и кубики урона описаны в `Docs/Testing/Test-MotionScene.md`.
+На полигоне шесть атрибутов вычисляются через `PetProject.CharacterStats.Core` и задаются Unity-адаптером `EnemyArchetypeConfig`; это не миграция профиля кампании. Чистое определение — `PetProject.EnemyArchetypes.Core.EnemyArchetypeDefinition`. Общие ОД, радиус связывания группы и пауза AI вынесены в `MotionCombatRulesConfig`, поведение — в `MeleeTacticsAIConfig`. Grid выделена в `PetProject.Tactics.Grid.Core`; бой остаётся в `PetProject.Tactics`. Текущая проверка попадания и кубики урона описаны в `Docs/Testing/Test-MotionScene.md`.

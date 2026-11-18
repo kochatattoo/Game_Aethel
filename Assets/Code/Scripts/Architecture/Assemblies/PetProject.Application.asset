@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a1fcd7b19e48f0a7c23ca983ddeff0, type: 3}
+  m_Name: PetProject.Application
+  m_EditorClassIdentifier: AssemblyBuilder::AssemblyBuilder.AssemblyBuilder
+  _readonly: 0
+  _inheritMode: 1
+  _publicParents:
+  - {fileID: 11400000, guid: 8a812ebebed1a5e4993b417bbef05c6f, type: 2}
+  - {fileID: 11400000, guid: ffe527b340df7c94fbd46cbcde446b3e, type: 2}
+  - {fileID: 11400000, guid: 60b941c33f864364e9f323a0c377bf19, type: 2}
+  - {fileID: 11400000, guid: 1322d1bac07c5f740aaf5784e79e60a9, type: 2}
+  - {fileID: 11400000, guid: 46bef285a35bc234a99b5fe98b8f0c3f, type: 2}
+  - {fileID: 11400000, guid: 66a4d7b8437813740bfca20be6047fb7, type: 2}
+  - {fileID: 11400000, guid: 17c62985ff19376449429cf8668105ba, type: 2}
+  - {fileID: 11400000, guid: 42a2bb5d0650d4841b290f8c8e8a9b1e, type: 2}
+  _privateParents: []
+  _definitions:
+  - {fileID: 5897886265953266890, guid: 780bf2ffdc47b8a42b158fb086cecf27, type: 3}

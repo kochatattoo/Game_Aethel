@@ -29,7 +29,7 @@ namespace PetProject.Tactics
                 Math.Abs((long)_board.GetCell(actor.Position).Height - _board.GetCell(target.Position).Height) > _rules.MaxHeightStep)
                 return CommandError.TargetOutOfRange;
             if (actor.ActionPoints < _rules.AttackCost) return CommandError.NotEnoughActions;
-            var roll = _rollDice(1, actor.Definition.AttackDiceSides);
+            var roll = _rollDice(actor.Definition.AttackDice.Count, actor.Definition.AttackDice.Sides);
             var hit = (long)roll + actor.Definition.AttackBonus > target.Definition.Defense;
             actor.SpendActions(_rules.AttackCost);
             var damageRoll = 0;
@@ -37,9 +37,9 @@ namespace PetProject.Tactics
             if (hit)
             {
                 damageRoll = actor.Definition.UsesDamageDice
-                    ? _rollDice(actor.Definition.DamageDiceCount, actor.Definition.DamageDiceSides)
+                    ? _rollDice(actor.Definition.DamageDice.Count, actor.Definition.DamageDice.Sides)
                     : actor.Definition.Damage;
-                damage = target.TakeDamage(Math.Max(0, damageRoll + actor.Definition.DamageBonus));
+                damage = target.TakeDamage(Math.Max(0, damageRoll + actor.Definition.DamageDice.Bonus));
             }
             events.Add(new TacticalEvent(hit ? TacticalEventKind.AttackHit : TacticalEventKind.AttackMiss,
                 actor.Definition.Id, targetId, target.Position, damage, roll, damageRoll));

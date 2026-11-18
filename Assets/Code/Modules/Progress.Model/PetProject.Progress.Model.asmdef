@@ -1,7 +1,16 @@
 {
-  "name": "PetProject.Progress.Model",
-  "references": [
-    "GUID:3f094c1204c0ec04f990fbcb0f6a4dae"
-  ],
-  "autoReferenced": true
+    "name": "PetProject.Progress.Model",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3f094c1204c0ec04f990fbcb0f6a4dae"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
+using PetProject.Navigation;
 using PetProject.Tactics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -42,6 +43,7 @@ namespace CodeBase.MotionTest
         public MotionPointerInput MotionInput { get; private set; }
         public MotionHero HeroController { get; private set; }
         public SurfaceGridMap Map { get; private set; }
+        public IMotionTestComposition Composition { get; private set; }
         public MotionTestSession Session => _tacticalMode?.Session;
         public WorldTurnClock WorldTurn { get; private set; }
         public WorldActionBudgets WorldActions { get; private set; }
@@ -80,6 +82,7 @@ namespace CodeBase.MotionTest
         private MotionTacticalMode _tacticalMode;
         private MotionGridView _view;
         private MotionNavigationFeedback _navigationFeedback;
+        private ICharacterMovement _characterMovement;
         private int _lastWorldTenths = -1;
 
         MotionTestWorld IMotionGridContext.World => World;
@@ -102,9 +105,11 @@ namespace CodeBase.MotionTest
                 ValidateWorld();
                 WorldTurn = new WorldTurnClock();
                 WorldActions = new WorldActionBudgets();
+                Composition = new MotionTestComposer(CombatRules);
                 HeroController = MotionHero.Create(HeroPrefab, World.Config);
                 Physics.SyncTransforms();
                 Map = new SurfaceGridMap(World.Config);
+                _characterMovement = Composition.CreateCharacterMovement(HeroController, Map);
                 _tacticalMode = new MotionTacticalMode(HeroController, Map, World.Config, WorldActions,
                     () => TestBudget, SetNotice, Fail, InvalidatePreview, RefreshTacticalView);
                 MotionInput = new MotionPointerInput(InputAsset,
@@ -113,7 +118,7 @@ namespace CodeBase.MotionTest
                 _view = gameObject.AddComponent<MotionGridView>();
                 _view.Bind(this);
                 _navigationFeedback = gameObject.AddComponent<MotionNavigationFeedback>();
-                _navigationFeedback.Bind(World.Config, MoveMarkerPrefab);
+                _navigationFeedback.Bind(World.Config, MoveMarkerPrefab, Composition.CreateNavigationLifecycle());
                 Hud = gameObject.AddComponent<MotionTestHud>();
                 Hud.Bind(this);
                 EncounterDirector = gameObject.AddComponent<SkeletonCombatDirector>();
@@ -164,7 +169,8 @@ namespace CodeBase.MotionTest
         public bool MoveNormally(Vector3 point)
         {
             if (!Ready || Combat || Busy || EncounterActive || EncounterPending) return false;
-            if (!HeroController.MoveNormally(point, Map, out var error)) return Reject(error);
+            var destination = new NavigationPoint(point.x, point.y, point.z);
+            if (!_characterMovement.TryMove(destination, out var error)) return Reject(error);
             _navigationFeedback.ShowPath(HeroAgent.path, HeroAgent.pathEndPosition);
             AddHistory("Герой: маршрут к " + point.ToString("F1"));
             SetNotice("Движение к " + point.ToString("F1"));

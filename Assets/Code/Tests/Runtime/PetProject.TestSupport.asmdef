@@ -1,9 +1,16 @@
 {
-  "name": "PetProject.TestSupport",
-  "references": [
-    "GUID:9b5640642a758944da163d62bfee39af"
-  ],
-  "optionalUnityReferences": [
-    "TestAssemblies"
-  ]
+    "name": "PetProject.TestSupport",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9b5640642a758944da163d62bfee39af"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

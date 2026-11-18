@@ -1,6 +1,7 @@
 using System;
 using CodeBase.Enemies;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
+using PetProject.EnemyArchetypes;
 using UnityEngine;
 using UnityEngine.AI;
 using Object = UnityEngine.Object;
@@ -12,6 +13,7 @@ namespace CodeBase.MotionTest
         public string Id { get; }
         public string GroupId { get; }
         public EnemyArchetypeConfig Archetype { get; }
+        public IEnemyArchetype ArchetypeDefinition { get; }
         public MeleeTacticsAIConfig Behavior { get; }
         public bool IsAlive { get; private set; } = true;
         public GameObject Instance { get; }
@@ -24,12 +26,13 @@ namespace CodeBase.MotionTest
         private readonly CapsuleCollider _selectionCollider;
 
         private SkeletonEnemyActor(GameObject instance, string id, string groupId,
-            EnemyArchetypeConfig archetype, MeleeTacticsAIConfig behavior)
+            EnemyArchetypeConfig archetype, IEnemyArchetype archetypeDefinition, MeleeTacticsAIConfig behavior)
         {
             Instance = instance;
             Id = id;
             GroupId = groupId;
             Archetype = archetype;
+            ArchetypeDefinition = archetypeDefinition;
             Behavior = behavior;
             Animator = instance.GetComponent<EnemyAnimator>();
             Agent = instance.GetComponent<NavMeshAgent>();
@@ -39,8 +42,8 @@ namespace CodeBase.MotionTest
         }
 
         public static SkeletonEnemyActor Create(GameObject fallbackPrefab, MeleeTacticsAIConfig fallbackAI,
-            SkeletonEnemySpawn spawn, string id, MotionHero hero, MotionTestConfig config, Camera gameCamera,
-            Transform parent, Action spotted)
+            SkeletonEnemySpawn spawn, IEnemyArchetype archetypeDefinition, string id, MotionHero hero,
+            MotionTestConfig config, Camera gameCamera, Transform parent, Action spotted)
         {
             var archetype = spawn.Archetype;
             var prefab = archetype != null && archetype.Prefab != null ? archetype.Prefab : fallbackPrefab;
@@ -73,7 +76,7 @@ namespace CodeBase.MotionTest
             instance.AddComponent<MotionEnemyTarget>().Initialize(id, spawn.GroupId, archetype);
             instance.AddComponent<MotionTargetHighlighter>().Initialize(config);
             var detection = instance.AddComponent<SkeletonDetectionAdapter>();
-            var enemy = new SkeletonEnemyActor(instance, id, spawn.GroupId, archetype,
+            var enemy = new SkeletonEnemyActor(instance, id, spawn.GroupId, archetype, archetypeDefinition,
                 archetype != null && archetype.AI != null ? archetype.AI : fallbackAI);
             enemy.Agent.agentTypeID = config.AgentTypeId;
             enemy.Agent.radius = config.AgentRadius;
