@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using PetProject.Tactics;
@@ -31,7 +32,8 @@ namespace CodeBase.MotionTest
             Snapshot?.GetActor(MotionTestController.HeroActorId).Position ?? default;
         public int HeroActions =>
             Snapshot?.GetActor(MotionTestController.HeroActorId).ActionPoints ?? 0;
-        public int HeroHealth => Snapshot?.GetActor(MotionTestController.HeroActorId).Health ?? 12;
+        public int HeroHealth => Snapshot?.GetActor(MotionTestController.HeroActorId).Health ?? HeroMaxHealth;
+        public int HeroMaxHealth => _host != null && _host.CombatRules != null ? _host.CombatRules.HeroMaxHealth : 12;
         public int EnemyHealth
         {
             get
@@ -41,7 +43,17 @@ namespace CodeBase.MotionTest
                 return Snapshot != null ? Snapshot.GetActor(enemy.Id).Health : EnemyMaxHealth;
             }
         }
-        public int EnemyMaxHealth => _host?.EnemyAI != null ? _host.EnemyAI.MaxHealth : 5;
+        public int EnemyMaxHealth
+        {
+            get
+            {
+                var enemy = _selectedEnemy ?? FirstLivingEnemy();
+                return enemy?.Archetype != null ? enemy.Archetype.MaxHealth : 5;
+            }
+        }
+        public string SelectedEnemyName => _selectedEnemy?.Archetype != null
+            ? _selectedEnemy.Archetype.DisplayName
+            : "Скелет";
         public bool IsEnemySelected => _selectedEnemy != null;
 
         private IMotionEncounterContext _host;
@@ -60,6 +72,9 @@ namespace CodeBase.MotionTest
         private SkeletonTurnPolicy _turnPolicy;
         private GridPosition _heroCell;
         private string _pendingGroupId;
+        private string _engagedGroupId;
+        private Vector3 _pendingGroupOrigin;
+        private bool _enemyThinking;
         private float _alignmentElapsed;
         private int _command;
         private int _presentationVersion;
@@ -91,7 +106,9 @@ namespace CodeBase.MotionTest
             PresentationBusy = false;
             _openingAttack = false;
             _pendingGroupId = null;
+            _engagedGroupId = null;
             _followingEnemy = null;
+            _enemyThinking = false;
             _state = State.Exploration;
             _encounter = null;
             _snapshot = null;
@@ -254,6 +271,7 @@ namespace CodeBase.MotionTest
                 return;
             }
             _pendingGroupId = _selectedEnemy.GroupId;
+            _pendingGroupOrigin = _selectedEnemy.Instance.transform.position;
             _openingAttack = true;
             Pending = true;
             _host.SetNotice("Внезапная атака — группа скелетов вступает в бой");
@@ -270,9 +288,14 @@ namespace CodeBase.MotionTest
             }
 
             var groupId = _pendingGroupId ?? _selectedEnemy?.GroupId;
+            _engagedGroupId = groupId;
             _engagedEnemies.Clear();
             foreach (var enemy in _enemies)
-                if (enemy.IsAlive && enemy.GroupId == groupId) _engagedEnemies.Add(enemy);
+            {
+                if (!enemy.IsAlive || enemy.GroupId != groupId) continue;
+                var distance = Vector3.Distance(_pendingGroupOrigin, enemy.Instance.transform.position);
+                if (distance <= GroupLinkRadius) _engagedEnemies.Add(enemy);
+            }
             if (_engagedEnemies.Count == 0)
             {
                 AbortPlacement("В группе нет живых противников");
@@ -294,22 +317,32 @@ namespace CodeBase.MotionTest
             }
 
             _host.PrepareForEncounter();
+            var rules = _host.CombatRules;
             var actors = new List<ActorDefinition>
             {
-                new ActorDefinition(MotionTestController.HeroActorId, "allies", _heroCell, 12, 0, 3, 12, 4,
+                new ActorDefinition(MotionTestController.HeroActorId, "allies", _heroCell,
+                    rules != null ? rules.HeroMaxHealth : 12,
+                    rules != null ? rules.HeroInitiativeBonus : 0,
+                    rules != null ? rules.HeroAttackBonus : 3,
+                    rules != null ? rules.HeroDefense : 12,
+                    rules != null ? rules.HeroDamage : 4,
                     _host.WorldActions.Get(MotionTestController.HeroActorId, ActionsPerTurn))
             };
-            var ai = _host.EnemyAI;
             for (var i = 0; i < _engagedEnemies.Count; ++i)
             {
                 var enemy = _engagedEnemies[i];
+                var archetype = enemy.Archetype;
                 actors.Add(new ActorDefinition(enemy.Id, "enemies", _enemyCells[i],
-                    ai != null ? ai.MaxHealth : 5,
-                    ai != null ? ai.InitiativeBonus : 0,
-                    ai != null ? ai.AttackBonus : 3,
-                    ai != null ? ai.Defense : 12,
-                    ai != null ? ai.Damage : 2,
-                    _host.WorldActions.Get(enemy.Id, ActionsPerTurn)));
+                    archetype != null ? archetype.MaxHealth : 5,
+                    archetype != null ? archetype.InitiativeBonus : 0,
+                    archetype != null ? archetype.AttackBonus : 2,
+                    archetype != null ? archetype.Defense : 12,
+                    4,
+                    _host.WorldActions.Get(enemy.Id, ActionsPerTurn),
+                    archetype != null ? archetype.AttackDiceSides : 20,
+                    archetype != null ? archetype.DamageDiceCount : 1,
+                    archetype != null ? archetype.DamageDiceSides : 4,
+                    archetype != null ? archetype.DamageBonus : 0));
             }
             _encounter = new Encounter(_host.Map.Board, actors, new DeterministicRandom(718),
                 new EncounterRules(ActionsPerTurn, AttackCost, _host.World.Config.MaxHeightStep),
@@ -372,6 +405,7 @@ namespace CodeBase.MotionTest
             }
             _state = State.Combat;
             _host.SetNotice($"Бой начался: противников {_engagedEnemies.Count}");
+            _host.AddHistory($"Группа {_engagedGroupId}: в бою скелетов {_engagedEnemies.Count}");
             _host.RefreshTacticalView();
             if (_openingAttack)
             {
@@ -437,23 +471,129 @@ namespace CodeBase.MotionTest
             }
         }
 
-        private void RunEnemyTurn() => Execute(_turnPolicy.CreateCommand(_encounter, Snapshot, NextId));
+        private void RunEnemyTurn()
+        {
+            if (_enemyThinking) return;
+            _enemyThinking = true;
+            var actorId = Snapshot.CurrentActorId;
+            _host.SetNotice($"{ActorName(actorId)} обдумывает действие");
+            _host.AddHistory($"{ActorName(actorId)}: пауза решения {EnemyDecisionDelay:0.##} с");
+            ThinkAndExecuteAsync(_presentationVersion, actorId).Forget(Debug.LogException);
+        }
+
+        private async UniTask ThinkAndExecuteAsync(int version, string actorId)
+        {
+            try
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(EnemyDecisionDelay));
+                if (version != _presentationVersion || _state != State.Combat || _encounter == null) return;
+                if (Snapshot.CurrentActorId != actorId) return;
+                _enemyThinking = false;
+                Execute(_turnPolicy.CreateCommand(_encounter, Snapshot, NextId,
+                    _enemiesById[actorId].Behavior));
+            }
+            finally
+            {
+                if (version == _presentationVersion) _enemyThinking = false;
+            }
+        }
 
         private void Execute(TacticalCommand command, GridPath path = null)
         {
             if (PresentationBusy || _encounter == null) return;
             if (command.Kind == TacticalCommandKind.Move && path == null)
                 path = _encounter.PreviewMove(command.ActorId, command.Destination);
+            var before = _encounter.GetSnapshot();
             var result = _encounter.Execute(command);
             if (!result.Accepted)
             {
-                _host.SetNotice(ErrorText(result.Error));
+                var error = ErrorText(result.Error);
+                _host.SetNotice(error);
+                _host.AddHistory("Отказ: " + error);
                 return;
             }
             if (result.IsReplay) return;
+            LogCommand(result, before);
+            UpdateHealthBars();
             PresentationBusy = true;
             _host.RefreshTacticalView();
             RunPresentationAsync(command, result, path).Forget(Debug.LogException);
+        }
+
+        private void UpdateHealthBars()
+        {
+            if (Snapshot == null) return;
+            foreach (var enemy in _engagedEnemies)
+            {
+                var actor = Snapshot.GetActor(enemy.Id);
+                enemy.HealthBar.SetHealth(actor.Health, actor.Definition.MaxHealth);
+            }
+        }
+
+        private void LogCommand(CommandResult result, EncounterSnapshot before)
+        {
+            var after = _encounter.GetSnapshot();
+            foreach (var combatEvent in result.Events)
+            {
+                if (combatEvent.Kind == TacticalEventKind.Moved)
+                {
+                    _host.AddHistory($"{ActorName(combatEvent.ActorId)}: клетка {combatEvent.Position}, " +
+                        $"-{combatEvent.Amount} ОД");
+                }
+                else if (combatEvent.Kind == TacticalEventKind.AttackHit ||
+                    combatEvent.Kind == TacticalEventKind.AttackMiss)
+                {
+                    LogAttack(combatEvent, before, after);
+                }
+                else if (combatEvent.Kind == TacticalEventKind.ActorDefeated)
+                {
+                    _host.AddHistory($"{ActorName(combatEvent.ActorId)}: побеждён");
+                }
+                else if (combatEvent.Kind == TacticalEventKind.TurnEnded)
+                {
+                    _host.AddHistory($"{ActorName(combatEvent.ActorId)}: ход завершён");
+                }
+                else if (combatEvent.Kind == TacticalEventKind.TurnStarted)
+                {
+                    _host.AddHistory($"Раунд {after.Round}: ход {ActorName(combatEvent.ActorId)}, " +
+                        $"{combatEvent.Amount} ОД");
+                }
+            }
+        }
+
+        private void LogAttack(TacticalEvent attack, EncounterSnapshot before, EncounterSnapshot after)
+        {
+            var attacker = before.GetActor(attack.ActorId);
+            var targetBefore = before.GetActor(attack.TargetId);
+            var targetAfter = after.GetActor(attack.TargetId);
+            var definition = attacker.Definition;
+            var attackTotal = attack.Roll + definition.AttackBonus;
+            var hit = attack.Kind == TacticalEventKind.AttackHit;
+            var message = $"{ActorName(attacker.Id)} → {ActorName(targetBefore.Id)}: " +
+                $"d{definition.AttackDiceSides} {attack.Roll} {Signed(definition.AttackBonus)} = {attackTotal}; " +
+                $"нужно > {targetBefore.Definition.Defense} — {(hit ? "попадание" : "промах")}";
+            if (hit)
+            {
+                message += definition.UsesDamageDice
+                    ? $"; {definition.DamageDiceCount}d{definition.DamageDiceSides} = {attack.DamageRoll} " +
+                        $"{Signed(definition.DamageBonus)}, урон {attack.Amount}"
+                    : $"; фиксированный урон {attack.Amount}";
+                message += $"; HP {targetBefore.Health} → {targetAfter.Health}";
+            }
+            _host.AddHistory(message);
+        }
+
+        private static string Signed(int value) => value >= 0 ? "+" + value : value.ToString();
+
+        private string ActorName(string actorId)
+        {
+            if (actorId == MotionTestController.HeroActorId) return "Герой";
+            if (_enemiesById.TryGetValue(actorId, out var enemy) && enemy.Archetype != null)
+                return enemy.Archetype.DisplayName;
+            if (actorId == MotionEnemyTarget.SkeletonActorId) return "Скелет 1";
+            if (actorId != null && actorId.StartsWith("skeleton-"))
+                return "Скелет " + actorId.Substring("skeleton-".Length);
+            return actorId;
         }
 
         private async UniTask RunPresentationAsync(TacticalCommand command, CommandResult result, GridPath path)
@@ -496,12 +636,14 @@ namespace CodeBase.MotionTest
             _engagedEnemies.Clear();
             _enemyCells.Clear();
             _host.RestoreExploration();
+            _host.AddHistory("Победа: группа противников уничтожена");
             _host.SetNotice("Победа — обычное движение восстановлено");
         }
 
         private void FinishDefeat()
         {
             _state = State.Defeat;
+            _host.AddHistory("Поражение: герой побеждён");
             _host.SetNotice("Поражение — нажмите «Сбросить бой»");
         }
 
@@ -513,11 +655,12 @@ namespace CodeBase.MotionTest
                 var spawn = _host.EnemySpawns[i];
                 if (spawn == null) continue;
                 var id = i == 0 ? MotionEnemyTarget.SkeletonActorId : "skeleton-" + (i + 1);
-                var enemy = SkeletonEnemyActor.Create(_host.EnemyPrefab, spawn, id, _host.HeroController,
-                    _host.World.Config, transform, () =>
+                var enemy = SkeletonEnemyActor.Create(_host.EnemyPrefab, _host.EnemyAI, spawn, id,
+                    _host.HeroController, _host.World.Config, _host.GameCamera, transform, () =>
                     {
                         if (!_enabled || Active || Pending) return;
                         _pendingGroupId = spawn.GroupId;
+                        _pendingGroupOrigin = spawn.Position;
                         Pending = true;
                     });
                 _enemies.Add(enemy);
@@ -534,10 +677,14 @@ namespace CodeBase.MotionTest
             return null;
         }
 
-        private int ActionsPerTurn => _host.EnemyAI != null
-            ? _host.EnemyAI.ActionsPerTurn
+        private int ActionsPerTurn => _host.CombatRules != null
+            ? _host.CombatRules.ActionsPerTurn
             : Mathf.Max(1, _host.TestBudget);
-        private int AttackCost => _host.EnemyAI != null ? _host.EnemyAI.AttackCost : 3;
+        private int AttackCost => _host.CombatRules != null ? _host.CombatRules.AttackCost : 3;
+        private float GroupLinkRadius => _host.CombatRules != null ? _host.CombatRules.GroupLinkRadius : 12;
+        private float EnemyDecisionDelay => _host.CombatRules != null
+            ? Mathf.Max(.5f, _host.CombatRules.EnemyDecisionDelay)
+            : .75f;
 
         private string NextId() => "skeleton-combat-" + ++_command;
 

@@ -9,14 +9,15 @@ namespace PetProject.Tactics
         private readonly GridBoard _board;
         private readonly EncounterRules _rules;
         private readonly EncounterRoster _roster;
-        private readonly Func<int> _rollD20;
+        private readonly Func<int, int, int> _rollDice;
 
-        public MeleeAttackResolver(GridBoard board, EncounterRules rules, EncounterRoster roster, Func<int> rollD20)
+        public MeleeAttackResolver(GridBoard board, EncounterRules rules, EncounterRoster roster,
+            Func<int, int, int> rollDice)
         {
             _board = board;
             _rules = rules;
             _roster = roster;
-            _rollD20 = rollD20;
+            _rollDice = rollDice;
         }
 
         public CommandError TryAttack(ActorState actor, string targetId, List<TacticalEvent> events)
@@ -28,12 +29,20 @@ namespace PetProject.Tactics
                 Math.Abs((long)_board.GetCell(actor.Position).Height - _board.GetCell(target.Position).Height) > _rules.MaxHeightStep)
                 return CommandError.TargetOutOfRange;
             if (actor.ActionPoints < _rules.AttackCost) return CommandError.NotEnoughActions;
-            var roll = _rollD20();
-            var hit = (long)roll + actor.Definition.AttackBonus >= target.Definition.Defense;
+            var roll = _rollDice(1, actor.Definition.AttackDiceSides);
+            var hit = (long)roll + actor.Definition.AttackBonus > target.Definition.Defense;
             actor.SpendActions(_rules.AttackCost);
-            var damage = hit ? target.TakeDamage(actor.Definition.Damage) : 0;
+            var damageRoll = 0;
+            var damage = 0;
+            if (hit)
+            {
+                damageRoll = actor.Definition.UsesDamageDice
+                    ? _rollDice(actor.Definition.DamageDiceCount, actor.Definition.DamageDiceSides)
+                    : actor.Definition.Damage;
+                damage = target.TakeDamage(Math.Max(0, damageRoll + actor.Definition.DamageBonus));
+            }
             events.Add(new TacticalEvent(hit ? TacticalEventKind.AttackHit : TacticalEventKind.AttackMiss,
-                actor.Definition.Id, targetId, target.Position, damage, roll));
+                actor.Definition.Id, targetId, target.Position, damage, roll, damageRoll));
             if (!target.IsAlive) _roster.RecordDefeat(target, actor.Definition.Id, events);
             return CommandError.None;
         }

@@ -14,9 +14,10 @@ namespace CodeBase.MotionTest
             _config = config;
         }
 
-        public TacticalCommand CreateCommand(Encounter encounter, EncounterSnapshot snapshot, Func<string> nextId)
+        public TacticalCommand CreateCommand(Encounter encounter, EncounterSnapshot snapshot, Func<string> nextId,
+            MeleeTacticsAIConfig config = null)
         {
-            var factory = new SkeletonMeleeBehaviourFactory(encounter, snapshot, _config, nextId);
+            var factory = new SkeletonMeleeBehaviourFactory(encounter, snapshot, config ?? _config, nextId);
             var tree = new BehaviourTree("Skeleton combat turn");
             tree.AddChild(factory.BuildTree());
             tree.Process();

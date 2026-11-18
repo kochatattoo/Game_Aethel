@@ -41,11 +41,13 @@ namespace CodeBase.MotionTest
         string Status { get; }
         string Notice { get; }
         int TestBudget { get; }
+        MotionCombatRulesConfig CombatRules { get; }
         bool Combat { get; }
         bool EncounterActive { get; }
         bool Ready { get; }
         bool Busy { get; }
         bool CanSwitchMode { get; }
+        IReadOnlyList<string> History { get; }
         event Action Changed;
 
         bool SetCombat(bool requested);
@@ -64,6 +66,7 @@ namespace CodeBase.MotionTest
         GameObject Hero { get; }
         GameObject EnemyPrefab { get; }
         MeleeTacticsAIConfig EnemyAI { get; }
+        MotionCombatRulesConfig CombatRules { get; }
         NavMeshAgent HeroAgent { get; }
         HeroAnimator HeroAnimator { get; }
         Camera GameCamera { get; }
@@ -82,6 +85,7 @@ namespace CodeBase.MotionTest
         void RestoreExploration();
         void ResetHero();
         void SetNotice(string message);
+        void AddHistory(string message);
         void RefreshTacticalView();
         void SetEncounterPreview(GridPath path, GridPosition cell);
         void ClearPreview();

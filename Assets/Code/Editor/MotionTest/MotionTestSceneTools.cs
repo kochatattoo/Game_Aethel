@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using CodeBase.Hero;
+using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
 using CodeBase.MotionTest;
 using Unity.Cinemachine;
 using Unity.Cinemachine.TargetTracking;
@@ -22,6 +23,8 @@ namespace CodeBase.EditorTools
         public const string HeroPath = "Assets/Prefabs/Tests/MotionTestHero.prefab";
         public const string InputPath = "Assets/Configs/Input/Tests/MotionTest.inputactions";
         public const string SkeletonPath = "Assets/Prefabs/Resources_moved/Enemies/Enemy_Skeleton.prefab";
+        private const string MoveMarkerPath = "Assets/Import/VFX/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/" +
+            "Light/CFXR3 LightGlow A (Loop).prefab";
 
         [InitializeOnLoadMethod]
         private static void RegisterUndo()
@@ -174,13 +177,81 @@ namespace CodeBase.EditorTools
             if (host == null || host.gameObject.scene.path != ScenePath) throw new InvalidOperationException("Open Test_MotionScene first");
             Undo.RecordObject(host, "Configure skeleton combat");
             host.EnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SkeletonPath);
+            host.MoveMarkerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(MoveMarkerPath);
+            var rules = AssetDatabase.LoadAssetAtPath<MotionCombatRulesConfig>(
+                DataRoot + "/MotionCombatRulesConfig.asset");
+            if (rules == null)
+            {
+                rules = ScriptableObject.CreateInstance<MotionCombatRulesConfig>();
+                AssetDatabase.CreateAsset(rules, DataRoot + "/MotionCombatRulesConfig.asset");
+            }
+            host.CombatRules = rules;
+            host.EnemyAI = AssetDatabase.LoadAssetAtPath<MeleeTacticsAIConfig>(
+                "Assets/Configs/AI/MeleeTacticsAIConfig.asset");
+            var skeleton = EnsureArchetype("Skeleton", EnemyArchetype.Skeleton, EnemyRank.Normal, "Скелет",
+                10, 10, 10, 10, 10, 10, EnemyAttackAttribute.Strength, 5, 2, 1, 4, 0);
+            var archer = EnsureArchetype("SkeletonArcher", EnemyArchetype.SkeletonArcher, EnemyRank.Normal,
+                "Скелет-лучник", 10, 16, 10, 10, 10, 10, EnemyAttackAttribute.Dexterity, 5, 2, 1, 6, 0);
+            var mage = EnsureArchetype("SkeletonMage", EnemyArchetype.SkeletonMage, EnemyRank.Normal,
+                "Скелет-маг", 8, 12, 10, 16, 14, 10, EnemyAttackAttribute.Intelligence, 5, 2, 1, 8, 0);
+            var captain = EnsureArchetype("SkeletonCaptain", EnemyArchetype.SkeletonCaptain, EnemyRank.Uncommon,
+                "Скелет-капитан", 14, 12, 14, 10, 12, 10, EnemyAttackAttribute.Strength, 12, 3, 1, 8, 1);
+            var general = EnsureArchetype("SkeletonGeneral", EnemyArchetype.SkeletonGeneral, EnemyRank.Boss,
+                "Скелет-генерал", 16, 12, 16, 10, 12, 8, EnemyAttackAttribute.Strength, 30, 4, 2, 8, 2);
+            AssetDatabase.SaveAssets();
             host.EnemySpawns = new[]
             {
-                new SkeletonEnemySpawn(new Vector3(-4.5f, 0, -15.5f), "skeleton-pack"),
-                new SkeletonEnemySpawn(new Vector3(-2.5f, 0, -15.5f), "skeleton-pack")
+                new SkeletonEnemySpawn(new Vector3(-6, 0, -18), "skeleton-patrol", skeleton),
+                new SkeletonEnemySpawn(new Vector3(0, 0, -20), "skeleton-patrol", skeleton),
+                new SkeletonEnemySpawn(new Vector3(4, 0, -12), "skeleton-patrol", archer),
+                new SkeletonEnemySpawn(new Vector3(-22, 0, 12), "skeleton-crypt", mage),
+                new SkeletonEnemySpawn(new Vector3(-16, 0, 14), "skeleton-crypt", captain),
+                new SkeletonEnemySpawn(new Vector3(22, 0, 22), "skeleton-general", general)
             };
             EditorUtility.SetDirty(host);
             EditorSceneManager.SaveScene(host.gameObject.scene);
+        }
+
+        private static EnemyArchetypeConfig EnsureArchetype(string fileName, EnemyArchetype archetype,
+            EnemyRank rank, string displayName, int strength, int dexterity, int constitution, int intelligence,
+            int wisdom, int charisma, EnemyAttackAttribute attackAttribute, int baseHealth, int armorBonus,
+            int damageCount, int damageSides, int damageBonus)
+        {
+            const string directory = "Assets/Configs/Enemies/Archetypes";
+            Directory.CreateDirectory(directory);
+            var path = directory + "/" + fileName + ".asset";
+            var config = AssetDatabase.LoadAssetAtPath<EnemyArchetypeConfig>(path);
+            if (config == null)
+            {
+                config = ScriptableObject.CreateInstance<EnemyArchetypeConfig>();
+                AssetDatabase.CreateAsset(config, path);
+            }
+            var serialized = new SerializedObject(config);
+            serialized.FindProperty("_archetype").enumValueIndex = (int)archetype;
+            serialized.FindProperty("_rank").enumValueIndex = (int)rank;
+            serialized.FindProperty("_displayName").stringValue = displayName;
+            serialized.FindProperty("_prefab").objectReferenceValue = AssetDatabase.LoadAssetAtPath<GameObject>(SkeletonPath);
+            serialized.FindProperty("_ai").objectReferenceValue = AssetDatabase.LoadAssetAtPath<MeleeTacticsAIConfig>(
+                "Assets/Configs/AI/MeleeTacticsAIConfig.asset");
+            serialized.FindProperty("_strength").intValue = strength;
+            serialized.FindProperty("_dexterity").intValue = dexterity;
+            serialized.FindProperty("_constitution").intValue = constitution;
+            serialized.FindProperty("_intelligence").intValue = intelligence;
+            serialized.FindProperty("_wisdom").intValue = wisdom;
+            serialized.FindProperty("_charisma").intValue = charisma;
+            serialized.FindProperty("_attackAttribute").enumValueIndex = (int)attackAttribute;
+            serialized.FindProperty("_baseMaxHealth").intValue = baseHealth;
+            serialized.FindProperty("_healthPerConstitutionModifier").intValue = 1;
+            serialized.FindProperty("_proficiencyBonus").intValue = 2;
+            serialized.FindProperty("_baseDefense").intValue = 10;
+            serialized.FindProperty("_armorBonus").intValue = armorBonus;
+            serialized.FindProperty("_attackDiceSides").intValue = 20;
+            serialized.FindProperty("_damageDiceCount").intValue = damageCount;
+            serialized.FindProperty("_damageDiceSides").intValue = damageSides;
+            serialized.FindProperty("_damageBonus").intValue = damageBonus;
+            serialized.ApplyModifiedProperties();
+            EditorUtility.SetDirty(config);
+            return config;
         }
 
         public static void Rebuild(MotionTestWorld world)

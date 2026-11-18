@@ -29,7 +29,7 @@ namespace PetProject.Tactics
             _roster = new EncounterRoster(board, actors);
             _turns = new InitiativeOrder(_roster.Actors, Rules.ActionsPerTurn, RollD20, openingActorId);
             _movement = new MovementResolver(board, Rules, _roster);
-            _attacks = new MeleeAttackResolver(board, Rules, _roster, RollD20);
+            _attacks = new MeleeAttackResolver(board, Rules, _roster, RollDice);
         }
 
         public EncounterSnapshot GetSnapshot() => new EncounterSnapshot(_revision, _turns.Round, CurrentActorId,
@@ -77,12 +77,19 @@ namespace PetProject.Tactics
         private CommandResult Reject(CommandError error) =>
             new CommandResult(error, _revision, Array.Empty<TacticalEvent>());
 
-        private int RollD20()
+        private int RollD20() => RollDice(1, 20);
+
+        private int RollDice(int count, int sides)
         {
-            var roll = _random.NextInt(1, 21);
-            if (roll < 1 || roll > 20)
-                throw new InvalidOperationException("Random source returned an invalid d20 roll");
-            return roll;
+            var result = 0;
+            for (var i = 0; i < count; ++i)
+            {
+                var roll = _random.NextInt(1, sides + 1);
+                if (roll < 1 || roll > sides)
+                    throw new InvalidOperationException($"Random source returned an invalid d{sides} roll");
+                result += roll;
+            }
+            return result;
         }
     }
 }

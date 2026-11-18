@@ -69,8 +69,21 @@ namespace CodeBase.EditorTools
                 director.ResetCombat();
                 director.SetEnabled(true);
                 await UniTask.DelayFrame(3);
-                var target = Object.FindFirstObjectByType<MotionEnemyTarget>();
+                var target = NearestTarget(host);
                 Require(target != null, "Skeleton target spawned without EnemyFactory");
+                var targets = Object.FindObjectsByType<MotionEnemyTarget>(FindObjectsSortMode.None);
+                Require(targets.Length == 6, "Six skeletons spawn in groups 3/2/1");
+                Require(targets.Where(t => t.Archetype != null).Select(t => t.Archetype).Distinct().Count() == 5,
+                    "Five configurable skeleton archetypes are assigned");
+                var worldHealthBars = Object.FindObjectsByType<MotionWorldHealthBar>(FindObjectsSortMode.None);
+                Require(worldHealthBars.Length == 6 && worldHealthBars.All(bar => Mathf.Approximately(bar.CurrentNormalized, 1)),
+                    "All skeletons have full world-space health bars");
+                Require(host.Hud.PlayerStatsValue.Contains("СИЛ") && host.Hud.HeroHealthFillAmount == 1,
+                    "Player characteristics and screen health bar are visible");
+                var heroBody = host.Hero.GetComponent<CapsuleCollider>();
+                var heroRigidbody = host.Hero.GetComponent<Rigidbody>();
+                Require(heroBody != null && !heroBody.isTrigger && heroRigidbody != null && heroRigidbody.isKinematic,
+                    "Hero has physical capsule and kinematic Rigidbody");
                 Require(!director.Active, "No combat before detection");
                 host.WorldActions.Set(MotionTestController.HeroActorId, 4, 6);
                 report.checks.Add("Skeleton visual prefab initializes without campaign services or real-time combat");
@@ -82,6 +95,15 @@ namespace CodeBase.EditorTools
                     await ClickTarget(explorationMouse, host, target);
                     await WaitFor(() => host.NormalMoving || director.Active || director.Pending,
                         "Real pointer click starts following", 5000);
+                    var navigation = host.GetComponent<MotionNavigationFeedback>();
+                    Require(navigation.PathVisible && navigation.MarkerVisible,
+                        "Ground click shows NavMesh route and destination VFX");
+                    var initialPathLength = navigation.RemainingPathLength;
+                    await WaitFor(() => navigation.RemainingPathLength > 0 &&
+                        navigation.RemainingPathLength < initialPathLength - .1f,
+                        "NavMesh route shortens while hero moves", 5000);
+                    Require(host.Hud.HistoryValue.Contains("маршрут"),
+                        "Action history contains normal movement");
                 }
                 finally
                 {
@@ -95,9 +117,9 @@ namespace CodeBase.EditorTools
                 Require(host.Hud.HeroHealthValue.Contains("12/12"), "HUD shows hero health");
                 report.checks.Add("Real pointer click enables target highlighter and health HUD");
                 await WaitFor(() => director.Active && director.Snapshot != null, "Detection creates Encounter", 20000);
-                Require(director.Snapshot.Actors.Count == 3 &&
-                    director.Snapshot.Actors.Count(a => a.FactionId == "enemies") == 2,
-                    "Detection pulls both skeletons from the same group into combat");
+                Require(director.Snapshot.Actors.Count == 4 &&
+                    director.Snapshot.Actors.Count(a => a.FactionId == "enemies") == 3,
+                    "Detection pulls all three skeletons from the patrol group into combat");
                 Require(director.Snapshot.Actors.Single(a => a.Id == MotionTestController.HeroActorId).ActionPoints == 4,
                     "Initial hero AP comes from world budget");
                 report.checks.Add("Click follows skeleton; detection creates Encounter with preserved world AP");
@@ -127,12 +149,14 @@ namespace CodeBase.EditorTools
                 Require(afterEnemy.GetActor(target.ActorId).Position != enemyStart ||
                     afterEnemy.GetActor(MotionTestController.HeroActorId).Health < 12,
                     "BehaviourTree moves skeleton toward hero or attacks in melee");
+                Require(host.History.Any(entry => entry.Contains("пауза решения")),
+                    "Enemy decision delay is applied and logged");
                 report.checks.Add("BehaviourTree executes movement or attack during enemy turn");
                 MotionRuntimeChecks.Capture(host, "Library/MotionTest/skeleton-combat-start.png");
 
                 var start = DateTime.UtcNow;
                 var decided = false;
-                while ((DateTime.UtcNow - start).TotalSeconds < 45)
+                while ((DateTime.UtcNow - start).TotalSeconds < 90)
                 {
                     if (director.IsDefeated)
                     {
@@ -186,7 +210,7 @@ namespace CodeBase.EditorTools
                         await UniTask.Yield();
                         continue;
                     }
-                    if (hero.ActionPoints < host.EnemyAI.AttackCost)
+                    if (hero.ActionPoints < host.CombatRules.AttackCost)
                     {
                         director.EndTurnFromHud();
                         await UniTask.Yield();
@@ -230,7 +254,7 @@ namespace CodeBase.EditorTools
             var director = host.EncounterDirector;
             director.ResetCombat();
             await UniTask.DelayFrame(3);
-            var target = Object.FindFirstObjectByType<MotionEnemyTarget>();
+            var target = NearestTarget(host);
             Require(target != null, "Opening attack: enemy exists");
             Require(host.Map.Cell(target.transform.position, out var enemyCell),
                 "Opening attack: enemy cell exists");
@@ -294,13 +318,16 @@ namespace CodeBase.EditorTools
                 var snapshot = director.Snapshot;
                 Require(snapshot.CurrentActorId == MotionTestController.HeroActorId && snapshot.Revision == 1,
                     "Opening attack: hero acts first and no command runs before the attack");
+                Require(host.Hud.HistoryValue.Contains("d20"),
+                    "Combat history shows attack dice formula");
                 Require(snapshot.GetActor(MotionTestController.HeroActorId).ActionPoints == 3,
                     "Opening attack: exactly three AP spent");
                 Require(heroCell == snapshot.GetActor(MotionTestController.HeroActorId).Position &&
                     enemyCell == snapshot.GetActor(target.ActorId).Position,
                     "Opening attack: logical cells match actor placement");
-                Require(snapshot.GetActor(target.ActorId).Definition.Damage == 2,
-                    "Skeleton tactical damage is two HP");
+                Require(snapshot.GetActor(target.ActorId).Definition.DamageDiceCount == 1 &&
+                    snapshot.GetActor(target.ActorId).Definition.DamageDiceSides == 4,
+                    "Skeleton tactical damage uses 1d4");
                 report.checks.Add("Real pointer click behind skeleton starts Encounter with hero opening attack");
                 await ClickTarget(mouse, host, target);
                 await WaitFor(() => director.Snapshot != null && director.Snapshot.Revision >= 2,
@@ -345,6 +372,21 @@ namespace CodeBase.EditorTools
                 destination = best.Cells[i];
             }
             return destination == best.Cells[0] ? null : director.PreviewHeroMove(destination);
+        }
+
+        private static MotionEnemyTarget NearestTarget(MotionTestController host)
+        {
+            var targets = Object.FindObjectsByType<MotionEnemyTarget>(FindObjectsSortMode.None);
+            MotionEnemyTarget nearest = null;
+            var nearestDistance = float.MaxValue;
+            foreach (var target in targets)
+            {
+                var distance = (target.transform.position - host.Hero.transform.position).sqrMagnitude;
+                if (distance >= nearestDistance) continue;
+                nearest = target;
+                nearestDistance = distance;
+            }
+            return nearest;
         }
 
         private static async UniTask ClickTarget(Mouse mouse, MotionTestController host, MotionEnemyTarget target)

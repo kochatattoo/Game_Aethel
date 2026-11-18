@@ -36,10 +36,19 @@ namespace CodeBase.MotionTest
             foreach (var child in instance.GetComponentsInChildren<Transform>(true)) child.gameObject.layer = 2;
             if (instance.GetComponent<Collider>() == null)
             {
-                var perception = instance.AddComponent<BoxCollider>();
-                perception.isTrigger = true;
-                perception.center = new Vector3(0, config.AgentHeight * .5f, 0);
-                perception.size = new Vector3(config.AgentRadius * 2, config.AgentHeight, config.AgentRadius * 2);
+                var body = instance.AddComponent<CapsuleCollider>();
+                body.isTrigger = false;
+                body.center = new Vector3(0, config.AgentHeight * .5f, 0);
+                body.height = config.AgentHeight;
+                body.radius = config.AgentRadius;
+            }
+            if (instance.GetComponent<Rigidbody>() == null)
+            {
+                var body = instance.AddComponent<Rigidbody>();
+                body.isKinematic = true;
+                body.useGravity = false;
+                body.constraints = RigidbodyConstraints.FreezeRotation;
+                body.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             }
 
             var hero = new MotionHero(instance, config);

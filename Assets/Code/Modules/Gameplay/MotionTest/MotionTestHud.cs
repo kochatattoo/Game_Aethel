@@ -15,6 +15,9 @@ namespace CodeBase.MotionTest
         public bool TargetHealthVisible => _targetHealthText != null && _targetHealthText.gameObject.activeSelf;
         public string HeroHealthValue => _heroHealthText != null ? _heroHealthText.text : string.Empty;
         public string TargetHealthValue => _targetHealthText != null ? _targetHealthText.text : string.Empty;
+        public string HistoryValue => _historyText != null ? _historyText.text : string.Empty;
+        public string PlayerStatsValue => _playerStatsText != null ? _playerStatsText.text : string.Empty;
+        public float HeroHealthFillAmount => _heroHealthFill != null ? _heroHealthFill.fillAmount : 0;
 
         private IMotionHudContext _host;
         private Text _modeText;
@@ -23,7 +26,13 @@ namespace CodeBase.MotionTest
         private Text _heroHealthText;
         private Text _targetHealthText;
         private Text _noticeText;
+        private Text _historyText;
+        private Text _playerStatsText;
+        private Image _heroHealthFill;
         private Font _font;
+        private int _historyCount = -1;
+        private string _historyLast;
+        private bool _playerStatsInitialized;
         private RectTransform _turnQueuePanel;
         private Text _roundText;
         private readonly List<TurnQueueEntry> _turnQueueEntries = new List<TurnQueueEntry>();
@@ -42,22 +51,25 @@ namespace CodeBase.MotionTest
             EnsureEventSystem();
             var canvas = CreateCanvas();
             CreateTurnQueue(canvas);
+            CreateHistory(canvas.transform);
             var panel = CreatePanel(canvas.transform);
-            _modeText = CreateText("Mode indicator", panel, new Vector2(12, -10),
-                new Vector2(436, 28), 20, TextAnchor.MiddleLeft);
-            ModeButton = CreateButton("Mode switch", panel, new Vector2(12, -44),
-                new Vector2(436, 40), out _modeButtonText);
-            EndTurnButton = CreateButton("End turn", panel, new Vector2(12, -91),
-                new Vector2(436, 36), out var endTurnText);
-            endTurnText.text = "Завершить ход — обновить ОД";
-            _actionsText = CreateText("Action points", panel, new Vector2(12, -133),
-                new Vector2(436, 25), 18, TextAnchor.MiddleLeft);
-            _heroHealthText = CreateText("Hero health", panel, new Vector2(12, -158),
-                new Vector2(436, 22), 16, TextAnchor.MiddleLeft);
-            _targetHealthText = CreateText("Target health", panel, new Vector2(12, -180),
-                new Vector2(436, 22), 16, TextAnchor.MiddleLeft);
-            _noticeText = CreateText("Notice", panel, new Vector2(12, -204),
-                new Vector2(436, 30), 15, TextAnchor.MiddleLeft);
+            CreatePlayerStats(canvas.transform);
+            _modeText = CreateText("Mode indicator", panel, new Vector2(10, -8),
+                new Vector2(296, 22), 17, TextAnchor.MiddleLeft);
+            ModeButton = CreateButton("Mode switch", panel, new Vector2(10, -36),
+                new Vector2(296, 32), out _modeButtonText);
+            EndTurnButton = CreateButton("End turn", panel, new Vector2(10, -72),
+                new Vector2(296, 30), out var endTurnText);
+            endTurnText.text = "Завершить ход";
+            _actionsText = CreateText("Action points", panel, new Vector2(10, -108),
+                new Vector2(296, 22), 15, TextAnchor.MiddleLeft);
+            _heroHealthText = CreateText("Hero health", panel, new Vector2(10, -131),
+                new Vector2(296, 18), 14, TextAnchor.MiddleLeft);
+            CreateHeroHealthFill(panel);
+            _targetHealthText = CreateText("Target health", panel, new Vector2(10, -162),
+                new Vector2(296, 18), 14, TextAnchor.MiddleLeft);
+            _noticeText = CreateText("Notice", panel, new Vector2(10, -184),
+                new Vector2(296, 28), 13, TextAnchor.MiddleLeft);
             ModeButton.onClick.AddListener(() =>
             {
                 if (_host.EncounterDirector != null && _host.EncounterDirector.CanReset)
@@ -81,6 +93,8 @@ namespace CodeBase.MotionTest
         private void Refresh()
         {
             if (_host == null || ModeButton == null) return;
+            RefreshHistory();
+            RefreshPlayerStats();
             if (_host.EncounterActive)
             {
                 var director = _host.EncounterDirector;
@@ -140,6 +154,98 @@ namespace CodeBase.MotionTest
             }
             RefreshHealth();
             _noticeText.text = _host.Notice ?? string.Empty;
+        }
+
+        private void CreatePlayerStats(Transform canvas)
+        {
+            var panel = CreateRect("Player characteristics", canvas, new Vector2(12, -240), new Vector2(316, 156));
+            var background = panel.gameObject.AddComponent<Image>();
+            background.color = new Color(.025f, .035f, .05f, .9f);
+            background.raycastTarget = false;
+            CreateText("Title", panel, new Vector2(10, -6), new Vector2(296, 22),
+                16, TextAnchor.MiddleLeft).text = "Характеристики героя";
+            _playerStatsText = CreateText("Values", panel, new Vector2(10, -32),
+                new Vector2(296, 116), 14, TextAnchor.UpperLeft);
+        }
+
+        private void CreateHeroHealthFill(Transform panel)
+        {
+            var background = CreateSolidImage("Hero HP background", panel, new Vector2(10, -151),
+                new Vector2(296, 8));
+            background.color = new Color(.1f, .02f, .02f, .9f);
+            _heroHealthFill = CreateSolidImage("Hero HP fill", background.rectTransform,
+                new Vector2(1, -1), new Vector2(294, 6));
+            _heroHealthFill.type = Image.Type.Filled;
+            _heroHealthFill.fillMethod = Image.FillMethod.Horizontal;
+            _heroHealthFill.fillOrigin = 0;
+        }
+
+        private static Image CreateSolidImage(string name, Transform parent, Vector2 position, Vector2 size)
+        {
+            var rect = CreateRect(name, parent, position, size);
+            var image = rect.gameObject.AddComponent<Image>();
+            image.raycastTarget = false;
+            return image;
+        }
+
+        private void RefreshPlayerStats()
+        {
+            if (_playerStatsInitialized || _host.CombatRules == null || _playerStatsText == null) return;
+            _playerStatsInitialized = true;
+            var rules = _host.CombatRules;
+            _playerStatsText.text =
+                $"СИЛ {rules.HeroStrength} ({SignedStat(rules.HeroStrength)})   " +
+                $"ЛОВ {rules.HeroDexterity} ({SignedStat(rules.HeroDexterity)})   " +
+                $"ТЕЛ {rules.HeroConstitution} ({SignedStat(rules.HeroConstitution)})\n" +
+                $"ИНТ {rules.HeroIntelligence} ({SignedStat(rules.HeroIntelligence)})   " +
+                $"МУД {rules.HeroWisdom} ({SignedStat(rules.HeroWisdom)})   " +
+                $"ХАР {rules.HeroCharisma} ({SignedStat(rules.HeroCharisma)})\n" +
+                $"HP {rules.HeroMaxHealth} · Броня {rules.HeroDefense}\n" +
+                $"Атака +{rules.HeroAttackBonus} · Урон {rules.HeroDamage}\n" +
+                $"Инициатива +{rules.HeroInitiativeBonus}";
+        }
+
+        private static string SignedStat(int characteristic)
+        {
+            var modifier = MotionCombatRulesConfig.Modifier(characteristic);
+            return modifier >= 0 ? "+" + modifier : modifier.ToString();
+        }
+
+        private void CreateHistory(Transform canvas)
+        {
+            var panel = CreateRect("Action history", canvas, new Vector2(-12, 12), new Vector2(420, 190));
+            panel.anchorMin = panel.anchorMax = new Vector2(1, 0);
+            panel.pivot = new Vector2(1, 0);
+            var background = panel.gameObject.AddComponent<Image>();
+            background.color = new Color(.025f, .035f, .05f, .9f);
+            background.raycastTarget = false;
+            CreateText("History title", panel, new Vector2(8, -6), new Vector2(404, 22),
+                15, TextAnchor.MiddleLeft).text = "История действий";
+            _historyText = CreateText("History entries", panel, new Vector2(8, -32),
+                new Vector2(404, 150), 13, TextAnchor.UpperLeft);
+        }
+
+        private void RefreshHistory()
+        {
+            var history = _host.History;
+            if (history == null)
+            {
+                _historyText.text = string.Empty;
+                return;
+            }
+            var last = history.Count > 0 ? history[history.Count - 1] : null;
+            if (_historyCount == history.Count && _historyLast == last) return;
+            _historyCount = history.Count;
+            _historyLast = last;
+            if (history.Count == 0)
+            {
+                _historyText.text = "Действий пока нет";
+                return;
+            }
+            var first = System.Math.Max(0, history.Count - 6);
+            _historyText.text = string.Empty;
+            for (var i = first; i < history.Count; ++i)
+                _historyText.text += (i > first ? "\n" : string.Empty) + "• " + history[i];
         }
 
         private void CreateTurnQueue(Transform canvas)
@@ -215,10 +321,16 @@ namespace CodeBase.MotionTest
         {
             var director = _host.EncounterDirector;
             if (director == null) return;
-            _heroHealthText.text = $"HP героя: {director.HeroHealth}/12";
+            _heroHealthText.text = $"HP героя: {director.HeroHealth}/{director.HeroMaxHealth}";
+            _heroHealthFill.fillAmount = director.HeroMaxHealth > 0
+                ? Mathf.Clamp01((float)director.HeroHealth / director.HeroMaxHealth)
+                : 0;
+            _heroHealthFill.color = _heroHealthFill.fillAmount > .5f ? new Color(.2f, .8f, .35f) :
+                _heroHealthFill.fillAmount > .25f ? new Color(1f, .65f, .15f) : new Color(.9f, .18f, .15f);
             _targetHealthText.gameObject.SetActive(director.IsEnemySelected);
             if (director.IsEnemySelected)
-                _targetHealthText.text = $"Цель: скелет · HP {director.EnemyHealth}/{director.EnemyMaxHealth}";
+                _targetHealthText.text =
+                    $"{director.SelectedEnemyName} · HP {director.EnemyHealth}/{director.EnemyMaxHealth}";
         }
 
         private Transform CreateCanvas()
@@ -246,7 +358,7 @@ namespace CodeBase.MotionTest
 
         private static RectTransform CreatePanel(Transform parent)
         {
-            var panel = CreateRect("Mode panel", parent, new Vector2(16, -16), new Vector2(460, 246));
+            var panel = CreateRect("Mode panel", parent, new Vector2(12, -12), new Vector2(316, 220));
             var image = panel.gameObject.AddComponent<Image>();
             image.color = new Color(.025f, .035f, .05f, .9f);
             return panel;

@@ -162,7 +162,7 @@ namespace PetProject.Tactics.Tests
         [Category(Metadata.Category.Self)]
         public void AttackUsesD20BonusAndDefinitionDamage()
         {
-            var random = new FixedRandom { Roll = 9 };
+            var random = new FixedRandom { Roll = 10 };
             var hero = new ActorDefinition("hero", "allies", new GridPosition(0, 0),
                 initiativeBonus: 20, attackBonus: 3, defense: 12, damage: 2);
             var encounter = new Encounter(new GridBoard(2, 1), new[]
@@ -170,7 +170,7 @@ namespace PetProject.Tactics.Tests
                 hero, Enemy(new GridPosition(1, 0))
             }, random);
             var result = encounter.Execute(TacticalCommand.Attack("attack", "hero", "enemy"));
-            Assert.That(result.Events[0].Roll, Is.EqualTo(9));
+            Assert.That(result.Events[0].Roll, Is.EqualTo(10));
             Assert.That(result.Events[0].Amount, Is.EqualTo(2));
             Assert.That(Actor(encounter, "enemy").Health, Is.EqualTo(10));
             Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(2));
@@ -185,6 +185,38 @@ namespace PetProject.Tactics.Tests
             var result = encounter.Execute(TacticalCommand.Attack("diagonal", "hero", "enemy"));
             Assert.That(result.Accepted, Is.True);
             Assert.That(Actor(encounter, "hero").ActionPoints, Is.EqualTo(2));
+        }
+
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void AttackEqualToDefenseMisses()
+        {
+            var hero = new ActorDefinition("hero", "allies", new GridPosition(0, 0),
+                initiativeBonus: 20, attackBonus: 0, defense: 12, damage: 4);
+            var encounter = new Encounter(new GridBoard(2, 1), new[] { hero, Enemy(new GridPosition(1, 0)) },
+                new QueueRandom(1, 1, 12));
+            var result = encounter.Execute(TacticalCommand.Attack("attack", "hero", "enemy"));
+            Assert.That(result.Events.Single().Kind, Is.EqualTo(TacticalEventKind.AttackMiss));
+            Assert.That(Actor(encounter, "enemy").Health, Is.EqualTo(12));
+        }
+
+        [Test]
+        [Author(Metadata.Author.Kostya)]
+        [Category(Metadata.Category.Self)]
+        public void SuccessfulAttackRollsConfiguredDamageDice()
+        {
+            var hero = new ActorDefinition("hero", "allies", new GridPosition(0, 0),
+                initiativeBonus: 20, attackBonus: 0, defense: 12, damage: 4,
+                damageDiceCount: 1, damageDiceSides: 4);
+            var encounter = new Encounter(new GridBoard(2, 1), new[] { hero, Enemy(new GridPosition(1, 0)) },
+                new QueueRandom(1, 1, 13, 4));
+            var result = encounter.Execute(TacticalCommand.Attack("attack", "hero", "enemy"));
+            var attack = result.Events.Single();
+            Assert.That(attack.Kind, Is.EqualTo(TacticalEventKind.AttackHit));
+            Assert.That(attack.DamageRoll, Is.EqualTo(4));
+            Assert.That(attack.Amount, Is.EqualTo(4));
+            Assert.That(Actor(encounter, "enemy").Health, Is.EqualTo(8));
         }
 
         [Test] public void InvalidAttacksDoNotSpendActionsOrRandomness()
@@ -353,6 +385,19 @@ namespace PetProject.Tactics.Tests
             Assert.Throws<ArgumentException>(() => new Encounter(board, new[]
                 { Hero(new GridPosition(0, 0)), Enemy(new GridPosition(1, 0)) }, random));
             Assert.That(random.State, Is.Zero);
+        }
+
+        private sealed class QueueRandom : IRandomSource
+        {
+            private readonly int[] _rolls;
+            private int _index;
+            public uint State => (uint)_index;
+            public QueueRandom(params int[] rolls) => _rolls = rolls;
+            public int NextInt(int minimumInclusive, int maximumExclusive)
+            {
+                ++_index;
+                return _rolls[_index - 1];
+            }
         }
 
         private sealed class FixedRandom : IRandomSource

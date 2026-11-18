@@ -10,9 +10,10 @@ namespace PetProject.Tactics
         public GridPosition Position { get; }
         public int Amount { get; }
         public int Roll { get; }
+        public int DamageRoll { get; }
 
         internal TacticalEvent(TacticalEventKind kind, string actorId, string targetId = null,
-            GridPosition position = default, int amount = 0, int roll = 0)
+            GridPosition position = default, int amount = 0, int roll = 0, int damageRoll = 0)
         {
             Kind = kind;
             ActorId = actorId;
@@ -20,6 +21,7 @@ namespace PetProject.Tactics
             Position = position;
             Amount = amount;
             Roll = roll;
+            DamageRoll = damageRoll;
         }
     }
 }

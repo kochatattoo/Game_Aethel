@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
 using PetProject.Tactics;
@@ -14,11 +15,17 @@ namespace CodeBase.MotionTest
         public MotionTestWorld World;
         public GameObject HeroPrefab;
         public GameObject EnemyPrefab;
+        public GameObject MoveMarkerPrefab;
         public MeleeTacticsAIConfig EnemyAI;
+        public MotionCombatRulesConfig CombatRules;
         public SkeletonEnemySpawn[] EnemySpawns =
         {
-            new SkeletonEnemySpawn(new Vector3(-4.5f, 0, -15.5f), "skeleton-pack"),
-            new SkeletonEnemySpawn(new Vector3(-2.5f, 0, -15.5f), "skeleton-pack")
+            new SkeletonEnemySpawn(new Vector3(-6, 0, -18), "skeleton-patrol"),
+            new SkeletonEnemySpawn(new Vector3(0, 0, -20), "skeleton-patrol"),
+            new SkeletonEnemySpawn(new Vector3(4, 0, -12), "skeleton-patrol"),
+            new SkeletonEnemySpawn(new Vector3(-22, 0, 12), "skeleton-crypt"),
+            new SkeletonEnemySpawn(new Vector3(-16, 0, 14), "skeleton-crypt"),
+            new SkeletonEnemySpawn(new Vector3(22, 0, 22), "skeleton-general")
         };
         public Camera GameCamera;
         public MotionCameraController CameraRig;
@@ -57,6 +64,7 @@ namespace CodeBase.MotionTest
         public bool MovePressed => MotionInput.MovePressed;
         public string Error { get; private set; }
         public string Notice { get; private set; } = "Обычное движение";
+        public IReadOnlyList<string> History => _history;
         public GridPath Preview => _previewState.Path;
         public GridPosition? Hover => _previewState.Hover;
         public double PreviewMilliseconds => _previewState.Milliseconds;
@@ -68,17 +76,21 @@ namespace CodeBase.MotionTest
         public const string HeroActorId = "hero";
 
         private readonly MotionPreviewState _previewState = new();
+        private readonly List<string> _history = new List<string>();
         private MotionTacticalMode _tacticalMode;
         private MotionGridView _view;
+        private MotionNavigationFeedback _navigationFeedback;
         private int _lastWorldTenths = -1;
 
         MotionTestWorld IMotionGridContext.World => World;
         bool IMotionGridContext.ShowAllCells => ShowAllCells;
         int IMotionHudContext.TestBudget => TestBudget;
         MotionTestWorld IMotionEncounterContext.World => World;
+        MotionCombatRulesConfig IMotionHudContext.CombatRules => CombatRules;
         MotionCameraController IMotionEncounterContext.CameraRig => CameraRig;
         GameObject IMotionEncounterContext.EnemyPrefab => EnemyPrefab;
         MeleeTacticsAIConfig IMotionEncounterContext.EnemyAI => EnemyAI;
+        MotionCombatRulesConfig IMotionEncounterContext.CombatRules => CombatRules;
         Camera IMotionEncounterContext.GameCamera => GameCamera;
         System.Collections.Generic.IReadOnlyList<SkeletonEnemySpawn> IMotionEncounterContext.EnemySpawns => EnemySpawns;
         int IMotionEncounterContext.TestBudget => TestBudget;
@@ -100,6 +112,8 @@ namespace CodeBase.MotionTest
                 CameraRig.Bind(this, Hero.transform, MotionInput.Actions);
                 _view = gameObject.AddComponent<MotionGridView>();
                 _view.Bind(this);
+                _navigationFeedback = gameObject.AddComponent<MotionNavigationFeedback>();
+                _navigationFeedback.Bind(World.Config, MoveMarkerPrefab);
                 Hud = gameObject.AddComponent<MotionTestHud>();
                 Hud.Bind(this);
                 EncounterDirector = gameObject.AddComponent<SkeletonCombatDirector>();
@@ -123,6 +137,7 @@ namespace CodeBase.MotionTest
                 NotifyChanged();
             }
             NotifyWorldClock();
+            _navigationFeedback.Tick(HeroAgent, NormalMoving);
             if (EncounterActive) return;
             _tacticalMode.Tick();
             if (EncounterPending) return;
@@ -150,6 +165,8 @@ namespace CodeBase.MotionTest
         {
             if (!Ready || Combat || Busy || EncounterActive || EncounterPending) return false;
             if (!HeroController.MoveNormally(point, Map, out var error)) return Reject(error);
+            _navigationFeedback.ShowPath(HeroAgent.path, HeroAgent.pathEndPosition);
+            AddHistory("Герой: маршрут к " + point.ToString("F1"));
             SetNotice("Движение к " + point.ToString("F1"));
             return true;
         }
@@ -179,6 +196,7 @@ namespace CodeBase.MotionTest
 
         public void PrepareForEncounter()
         {
+            _navigationFeedback.Clear();
             _tacticalMode.PrepareForEncounter();
             ClearHover();
         }
@@ -194,6 +212,14 @@ namespace CodeBase.MotionTest
         public void SetNotice(string message)
         {
             Notice = message;
+            NotifyChanged();
+        }
+
+        public void AddHistory(string message)
+        {
+            if (string.IsNullOrWhiteSpace(message)) return;
+            _history.Add(message);
+            if (_history.Count > 7) _history.RemoveAt(0);
             NotifyChanged();
         }
 
@@ -233,6 +259,7 @@ namespace CodeBase.MotionTest
         public void ResetHero()
         {
             if (HeroController == null) return;
+            _navigationFeedback.Clear();
             EncounterDirector?.ResetEncounterState();
             Error = null;
             WorldTurn.Reset();
