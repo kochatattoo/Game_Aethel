@@ -281,7 +281,6 @@ GameObject:
   - component: {fileID: 321734203}
   - component: {fileID: 321734202}
   - component: {fileID: 321734204}
-  - component: {fileID: 321734206}
   - component: {fileID: 321734205}
   - component: {fileID: 321734208}
   - component: {fileID: 321734207}
@@ -415,22 +414,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Infrastructure.Utils.CameraOcclusionFade
   sphereRadius: 0.3
---- !u!114 &321734206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 321734200}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 503603caa274f564f838e6f4b45f0da9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Infrastructure.Utils.CameraFollow
-  RotationAngelX: 45
-  Distance: 20
-  OffSetY: 1.5
-  _following: {fileID: 0}
 --- !u!114 &321734207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,7 +1799,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1732567226}
   - component: {fileID: 1732567225}
-  - component: {fileID: 1732567224}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -1824,19 +1806,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1732567224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732567223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed39f2b237e573f4f85990bb5d1440ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: AK.Wwise.Unity.Addressables::AK.Wwise.Unity.WwiseAddressables.InitBankHolder
-  InitBank: {fileID: 11400000, guid: da0af34e26458bd40a488cb9a83bc5b9, type: 2}
 --- !u!114 &1732567225
 MonoBehaviour:
   m_ObjectHideFlags: 0

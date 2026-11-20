@@ -1,5 +1,5 @@
 using System;
-namespace Code.Hero.Attributes
+namespace Code.Character.Attributes
 {
     public sealed class AttributeModifier
     {

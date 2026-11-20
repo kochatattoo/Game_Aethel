@@ -1,6 +1,6 @@
-using Code.Hero.Attributes;
-using Code.Hero.Data;
-using Code.Hero.Items;
+using Code.Character.Attributes;
+using Code.Character.Data;
+using Code.Items;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace Code.UI.Elements
 
         private readonly CompositeDisposable _disposables = new();
 
-        public void Construct(EquipmentItem item, HeroData heroData)
+        public void Construct(EquipmentItem item, CharacterData heroData)
         {
             _disposables.Clear();
 
@@ -45,9 +45,9 @@ namespace Code.UI.Elements
                 .Subscribe(_ =>
                 {
                     if (heroData.Equipment.IsEquipped(item))
-                        heroData.Equipment.Unequip(heroData.Hero, item);
+                        heroData.Equipment.Unequip(heroData.Character, item);
                     else
-                        heroData.Equipment.Equip(heroData.Hero, item);
+                        heroData.Equipment.Equip(heroData.Character, item);
                 })
                 .AddTo(_disposables);
         }

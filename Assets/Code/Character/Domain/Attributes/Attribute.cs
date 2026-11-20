@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UniRx;
 using UnityEngine;
-namespace Code.Hero.Attributes
+namespace Code.Character.Attributes
 {
     public sealed class Attribute : IDisposable
     {

@@ -1,23 +1,23 @@
 using System;
 using System.Collections.Generic;
-using Code.Hero.Data;
+using Code.Character.Data;
 using UnityEngine;
 
 namespace CodeBase.CharacterIntegration
 {
     internal sealed class CharacterClassCatalog : IDisposable
     {
-        private readonly Dictionary<int, HeroClass> _definitions = new();
+        private readonly Dictionary<int, CharacterClass> _definitions = new();
 
-        public IReadOnlyDictionary<int, HeroClass> Definitions => _definitions;
+        public IReadOnlyDictionary<int, CharacterClass> Definitions => _definitions;
 
         public void Load(string json)
         {
-            var catalog = JsonUtility.FromJson<HeroClassesRoot>(json);
+            var catalog = JsonUtility.FromJson<CharacterClassesRoot>(json);
             if (catalog?.heroClasses == null || catalog.heroClasses.Count == 0)
                 throw new InvalidOperationException("Пустой каталог классов");
             foreach (var definition in catalog.heroClasses)
-                if (!_definitions.TryAdd(definition.id, new HeroClass(definition)))
+                if (!_definitions.TryAdd(definition.id, new CharacterClass(definition)))
                     throw new InvalidOperationException("Повторный Id класса");
         }
 

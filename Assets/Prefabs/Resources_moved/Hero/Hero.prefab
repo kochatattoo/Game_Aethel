@@ -3658,7 +3658,6 @@ GameObject:
   - component: {fileID: 6731986883099541286}
   - component: {fileID: 6663385303203229171}
   - component: {fileID: 3871047982461183423}
-  - component: {fileID: 2953306379202035177}
   m_Layer: 12
   m_Name: Axe_L
   m_TagString: Untagged
@@ -3738,19 +3737,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2953306379202035177
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3628838354391580853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8838bc72132aec4498401e7b8736106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Sensors.BladeSensor
-  _attackConfig: {fileID: 11400000, guid: d8cfdbdbe69212a48a001b9c22fad936, type: 2}
 --- !u!1 &3633467405095478575
 GameObject:
   m_ObjectHideFlags: 0
@@ -5268,7 +5254,6 @@ GameObject:
   - component: {fileID: 1690451220140431058}
   - component: {fileID: 3765643673597160914}
   - component: {fileID: 8158422498714893562}
-  - component: {fileID: 2919776533456435173}
   m_Layer: 12
   m_Name: Axe_R
   m_TagString: Untagged
@@ -5348,19 +5333,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2919776533456435173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5393925266829058560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8838bc72132aec4498401e7b8736106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Sensors.BladeSensor
-  _attackConfig: {fileID: 11400000, guid: d8cfdbdbe69212a48a001b9c22fad936, type: 2}
 --- !u!1 &5420024895873446989
 GameObject:
   m_ObjectHideFlags: 0
@@ -7991,11 +7963,9 @@ GameObject:
   - component: {fileID: 8592286806603912263}
   - component: {fileID: 4626737905903953850}
   - component: {fileID: 5978339594781275438}
-  - component: {fileID: 6912626826889903216}
   - component: {fileID: -1781129031036669746}
   - component: {fileID: 4449543265963705239}
   - component: {fileID: 7552671208123744778}
-  - component: {fileID: 2918309980439229268}
   - component: {fileID: -145745790282939351}
   - component: {fileID: 95787943915692043}
   - component: {fileID: 4149419765246734018}
@@ -8119,26 +8089,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &6912626826889903216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588233372288055087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edd77011f1072134ea908d5a1772456b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroFacade
-  _agent: {fileID: 5978339594781275438}
-  _animator: {fileID: -1781129031036669746}
-  _move: {fileID: 4449543265963705239}
-  _attack: {fileID: 7552671208123744778}
-  _health: {fileID: -145745790282939351}
-  _deathFx: {fileID: 5642766282230003982, guid: b5c8ca7ed10b61e499cce8ec3b6e2e4c, type: 3}
-  _footstep: {fileID: 502809385278773222}
-  _audioMaker: {fileID: 4222614273678726130}
 --- !u!114 &-1781129031036669746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8181,22 +8131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26026275762e20f4da1e7ab2928ba75e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroAttack
-  _heroAnimator: {fileID: -1781129031036669746}
-  _heroAttackRuntime: {fileID: 2918309980439229268}
-  _heroAttackConfig: {fileID: 11400000, guid: f84b70f3672b2334e8ac8364d53464d4, type: 2}
---- !u!114 &2918309980439229268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7588233372288055087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a4167bf0a405d74e9da5546fb1a09f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroAttackRuntime
-  _bladeSensor: {fileID: 2919776533456435173}
 --- !u!114 &-145745790282939351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8209,7 +8143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bda6879c9babec4b89d2d76c44531f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Hero.HeroHealth
-  _invulnerabilityDuration: 0.5
 --- !u!114 &95787943915692043
 MonoBehaviour:
   m_ObjectHideFlags: 0

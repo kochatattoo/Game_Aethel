@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using Cysharp.Threading.Tasks;
 using PetProject.Tactics;
 using UnityEditor;
@@ -62,7 +68,7 @@ namespace CodeBase.EditorTools
             try
             {
                 await UniTask.DelayFrame(3);
-                var host = Object.FindFirstObjectByType<MotionTestController>();
+                var host = Object.FindFirstObjectByType<EncounterController>();
                 Require(host != null && host.Ready, "Motion host ready: " + host?.Error);
                 var director = host.EncounterDirector;
                 Require(director != null, "Skeleton combat director exists");
@@ -70,12 +76,12 @@ namespace CodeBase.EditorTools
                 director.SetEnabled(true);
                 await UniTask.DelayFrame(3);
                 var target = NearestTarget(host);
-                Require(target != null, "Skeleton target spawned without EnemyFactory");
-                var targets = Object.FindObjectsByType<MotionEnemyTarget>(FindObjectsSortMode.None);
+                Require(target != null, "Skeleton target spawned without Encounter");
+                var targets = Object.FindObjectsByType<EnemyTarget>(FindObjectsSortMode.None);
                 Require(targets.Length == 6, "Six skeletons spawn in groups 3/2/1");
                 Require(targets.Where(t => t.Archetype != null).Select(t => t.Archetype).Distinct().Count() == 5,
                     "Five configurable skeleton archetypes are assigned");
-                var worldHealthBars = Object.FindObjectsByType<MotionWorldHealthBar>(FindObjectsSortMode.None);
+                var worldHealthBars = Object.FindObjectsByType<WorldHealthBarView>(FindObjectsSortMode.None);
                 Require(worldHealthBars.Length == 6 && worldHealthBars.All(bar => Mathf.Approximately(bar.CurrentNormalized, 1)),
                     "All skeletons have full world-space health bars");
                 Require(host.Hud.PlayerStatsValue.Contains("СИЛ") && host.Hud.HeroHealthFillAmount == 1,
@@ -85,7 +91,7 @@ namespace CodeBase.EditorTools
                 Require(heroBody != null && !heroBody.isTrigger && heroRigidbody != null && heroRigidbody.isKinematic,
                     "Hero has physical capsule and kinematic Rigidbody");
                 Require(!director.Active, "No combat before detection");
-                host.WorldActions.Set(MotionTestController.HeroActorId, 4, 6);
+                host.WorldActions.Set(EncounterActorIds.Hero, 4, 6);
                 report.checks.Add("Skeleton visual prefab initializes without campaign services or real-time combat");
 
                 MotionEditorInputGate.InputFixtureActive = true;
@@ -95,7 +101,7 @@ namespace CodeBase.EditorTools
                     await ClickTarget(explorationMouse, host, target);
                     await WaitFor(() => host.NormalMoving || director.Active || director.Pending,
                         "Real pointer click starts following", 5000);
-                    var navigation = host.GetComponent<MotionNavigationFeedback>();
+                    var navigation = host.GetComponent<NavigationPathView>();
                     Require(navigation.PathVisible && navigation.MarkerVisible,
                         "Ground click shows NavMesh route and destination VFX");
                     var initialPathLength = navigation.RemainingPathLength;
@@ -110,7 +116,7 @@ namespace CodeBase.EditorTools
                     InputSystem.RemoveDevice(explorationMouse);
                     MotionEditorInputGate.InputFixtureActive = false;
                 }
-                Require(director.IsEnemySelected && target.GetComponent<MotionTargetHighlighter>().IsVisible,
+                Require(director.IsEnemySelected && target.GetComponent<TargetHighlightView>().IsVisible,
                     "Attack target selection enables skeleton highlighter");
                 Require(host.Hud.TargetHealthVisible && host.Hud.TargetHealthValue.Contains("5/5"),
                     "Target HUD shows selected skeleton health");
@@ -120,7 +126,7 @@ namespace CodeBase.EditorTools
                 Require(director.Snapshot.Actors.Count == 4 &&
                     director.Snapshot.Actors.Count(a => a.FactionId == "enemies") == 3,
                     "Detection pulls all three skeletons from the patrol group into combat");
-                Require(director.Snapshot.Actors.Single(a => a.Id == MotionTestController.HeroActorId).ActionPoints == 4,
+                Require(director.Snapshot.Actors.Single(a => a.Id == EncounterActorIds.Hero).ActionPoints == 4,
                     "Initial hero AP comes from world budget");
                 report.checks.Add("Click follows skeleton; detection creates Encounter with preserved world AP");
 
@@ -147,11 +153,11 @@ namespace CodeBase.EditorTools
                     "BehaviourTree completes enemy turn", 15000);
                 var afterEnemy = director.Snapshot;
                 Require(afterEnemy.GetActor(target.ActorId).Position != enemyStart ||
-                    afterEnemy.GetActor(MotionTestController.HeroActorId).Health < 12,
+                    afterEnemy.GetActor(EncounterActorIds.Hero).Health < 12,
                     "BehaviourTree moves skeleton toward hero or attacks in melee");
                 Require(host.History.Any(entry => entry.Contains("пауза решения")),
                     "Enemy decision delay is applied and logged");
-                report.checks.Add("BehaviourTree executes movement or attack during enemy turn");
+                report.checks.Add("AI planner executes movement or attack during enemy turn");
                 MotionRuntimeChecks.Capture(host, "Library/MotionTest/skeleton-combat-start.png");
 
                 var start = DateTime.UtcNow;
@@ -177,7 +183,7 @@ namespace CodeBase.EditorTools
                             "Corpse no longer participates in target selection");
                         Require(target.GetComponent<CodeBase.Enemies.EnemyAnimator>().DeathAnimationCompleted,
                             "Skeleton death animation plays to completion");
-                        Require(!target.GetComponent<MotionTargetHighlighter>().IsVisible,
+                        Require(!target.GetComponent<TargetHighlightView>().IsVisible,
                             "Corpse is not highlighted as an attack target");
                         report.checks.Add("Death animation completes; corpse stays visible with a free logical cell");
                         break;
@@ -193,12 +199,12 @@ namespace CodeBase.EditorTools
                         await UniTask.Yield();
                         continue;
                     }
-                    if (snapshot.CurrentActorId != MotionTestController.HeroActorId)
+                    if (snapshot.CurrentActorId != EncounterActorIds.Hero)
                     {
                         await UniTask.Yield();
                         continue;
                     }
-                    var hero = snapshot.Actors.Single(a => a.Id == MotionTestController.HeroActorId);
+                    var hero = snapshot.Actors.Single(a => a.Id == EncounterActorIds.Hero);
                     var enemy = snapshot.Actors.FirstOrDefault(a => a.FactionId == "enemies" && a.IsAlive);
                     if (enemy == null)
                     {
@@ -249,7 +255,7 @@ namespace CodeBase.EditorTools
             }
         }
 
-        private static async UniTask CheckOpeningAttack(MotionTestController host, Report report)
+        private static async UniTask CheckOpeningAttack(EncounterController host, Report report)
         {
             var director = host.EncounterDirector;
             director.ResetCombat();
@@ -290,7 +296,7 @@ namespace CodeBase.EditorTools
                 "Opening attack: actors placed on NavMesh");
             target.transform.rotation = Quaternion.LookRotation(enemyPoint - heroPoint);
             Physics.SyncTransforms();
-            host.WorldActions.Set(MotionTestController.HeroActorId, 6, 6);
+            host.WorldActions.Set(EncounterActorIds.Hero, 6, 6);
             host.WorldActions.Set(target.ActorId, 4, 6);
             MotionEditorInputGate.InputFixtureActive = true;
             var mouse = InputSystem.AddDevice<Mouse>("Skeleton opening fixture mouse");
@@ -316,13 +322,13 @@ namespace CodeBase.EditorTools
                         $"current={failedSnapshot?.CurrentActorId}; revision={failedSnapshot?.Revision}", error);
                 }
                 var snapshot = director.Snapshot;
-                Require(snapshot.CurrentActorId == MotionTestController.HeroActorId && snapshot.Revision == 1,
+                Require(snapshot.CurrentActorId == EncounterActorIds.Hero && snapshot.Revision == 1,
                     "Opening attack: hero acts first and no command runs before the attack");
                 Require(host.Hud.HistoryValue.Contains("d20"),
                     "Combat history shows attack dice formula");
-                Require(snapshot.GetActor(MotionTestController.HeroActorId).ActionPoints == 3,
+                Require(snapshot.GetActor(EncounterActorIds.Hero).ActionPoints == 3,
                     "Opening attack: exactly three AP spent");
-                Require(heroCell == snapshot.GetActor(MotionTestController.HeroActorId).Position &&
+                Require(heroCell == snapshot.GetActor(EncounterActorIds.Hero).Position &&
                     enemyCell == snapshot.GetActor(target.ActorId).Position,
                     "Opening attack: logical cells match actor placement");
                 Require(snapshot.GetActor(target.ActorId).Definition.DamageDiceCount == 1 &&
@@ -332,7 +338,7 @@ namespace CodeBase.EditorTools
                 await ClickTarget(mouse, host, target);
                 await WaitFor(() => director.Snapshot != null && director.Snapshot.Revision >= 2,
                     "Real pointer click attacks skeleton during combat", 5000);
-                Require(director.Snapshot.GetActor(MotionTestController.HeroActorId).ActionPoints == 0,
+                Require(director.Snapshot.GetActor(EncounterActorIds.Hero).ActionPoints == 0,
                     "Combat pointer attack spends three AP");
                 report.checks.Add("Real pointer click on adjacent skeleton executes combat Attack");
             }
@@ -345,7 +351,7 @@ namespace CodeBase.EditorTools
             await UniTask.DelayFrame(3);
         }
 
-        private static GridPath BestApproachPath(MotionTestController host, SkeletonCombatDirector director,
+        private static GridPath BestApproachPath(EncounterController host, EncounterDirector director,
             ActorSnapshot hero, ActorSnapshot enemy)
         {
             GridPath best = null;
@@ -374,10 +380,10 @@ namespace CodeBase.EditorTools
             return destination == best.Cells[0] ? null : director.PreviewHeroMove(destination);
         }
 
-        private static MotionEnemyTarget NearestTarget(MotionTestController host)
+        private static EnemyTarget NearestTarget(EncounterController host)
         {
-            var targets = Object.FindObjectsByType<MotionEnemyTarget>(FindObjectsSortMode.None);
-            MotionEnemyTarget nearest = null;
+            var targets = Object.FindObjectsByType<EnemyTarget>(FindObjectsSortMode.None);
+            EnemyTarget nearest = null;
             var nearestDistance = float.MaxValue;
             foreach (var target in targets)
             {
@@ -389,7 +395,7 @@ namespace CodeBase.EditorTools
             return nearest;
         }
 
-        private static async UniTask ClickTarget(Mouse mouse, MotionTestController host, MotionEnemyTarget target)
+        private static async UniTask ClickTarget(Mouse mouse, EncounterController host, EnemyTarget target)
         {
             var collider = target.GetComponent<CapsuleCollider>();
             Require(collider != null && collider.enabled, "Skeleton selection capsule is enabled");
@@ -402,7 +408,7 @@ namespace CodeBase.EditorTools
             await UniTask.DelayFrame(2);
         }
 
-        private static Vector2 TargetScreenPoint(MotionTestController host, CapsuleCollider collider)
+        private static Vector2 TargetScreenPoint(EncounterController host, CapsuleCollider collider)
         {
             var point = host.GameCamera.WorldToScreenPoint(collider.bounds.center);
             Require(point.z > 0, "Skeleton selection capsule is visible to camera");

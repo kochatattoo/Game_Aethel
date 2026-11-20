@@ -1,6 +1,6 @@
-using Code.Hero.Attributes;
-using Code.Hero.Data;
-using Code.Hero.Items;
+using Code.Character.Attributes;
+using Code.Character.Data;
+using Code.Items;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -19,7 +19,7 @@ namespace Code.UI.Elements
 
         private readonly CompositeDisposable _disposables = new();
 
-        public void Construct(ConsumableItem item, HeroData heroData)
+        public void Construct(ConsumableItem item, CharacterData heroData)
         {
             _disposables.Clear();
 
@@ -34,7 +34,7 @@ namespace Code.UI.Elements
                 .Subscribe(_ =>
                 {
                     // Применяем эффект через сервис баффов
-                    heroData.Buffs.ApplyBuff(heroData.Hero, item);
+                    heroData.Buffs.ApplyBuff(heroData.Character, item);
 
                     // Тут можно добавить логику уничтожения предмета из инвентаря
                     // Destroy(gameObject); 

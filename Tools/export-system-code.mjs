@@ -52,8 +52,12 @@ function owner(path) {
   return boundaries.find(b => path.startsWith(b.directory + '/'))?.target.name ?? 'Assembly-CSharp (resource sample)';
 }
 const descriptions = {
-  'PetProject.Tactics': 'Независимая сетка, правила столкновения, очередь и команды; одиночная motion-сессия.',
-  'PetProject.Character': 'Персонаж, профиль, характеристики, модификаторы, создание и экипировка старой модели.',
+  'PetProject.Tactics': 'Независимая сетка, правила столкновения, очередь, команды и тактическое перемещение.',
+  'PetProject.Encounter.Core': 'Чистые переходы exploration/encounter, preview, группы и тактический AI planner.',
+  'PetProject.Encounter': 'Основной Unity-контур исследования и столкновений.',
+  'PetProject.Character': 'Общие классы персонажей, профиль, характеристики и модификаторы.',
+  'PetProject.Character.Runtime': 'Текущий персонаж, draft создания и агрегат Character + Items.',
+  'PetProject.Items': 'Предметы, экипировка, consumables и временные эффекты.',
   'PetProject.App.Contracts': 'Порты и DTO границ приложения, мира, меню и прогресса.',
   'PetProject.Application': 'Сценарии меню, сессия героя, состояния и загрузка сцен.',
   'PetProject.UI': 'Представления меню/атрибутов/слотов, HUD, старые окна и каталог.',
@@ -61,7 +65,10 @@ const descriptions = {
   'PetProject.Progress.Runtime': 'Регистрация capture/apply, игровые слоты, окружение сохранений.',
   'PetProject.SaveStorage': 'Файловое JSON-хранилище слотов, checksum, backup и архивирование.',
   'PetProject.Composition': 'Zenject installers, конкретные фабрики и сборка мира.',
-  'PetProject.Gameplay': 'Unity-компоненты героя/врагов/мира и адаптеры технических полигонов.',
+  'PetProject.Gameplay': 'Общие Unity-компоненты мира, камеры, сенсоров и статических данных.',
+  'PetProject.Hero': 'Основной runtime героя, движение и navigation-адаптеры.',
+  'PetProject.Enemies': 'Основной runtime противников, архетипы, спавн, обнаружение и добыча.',
+  'PetProject.Navigation': 'NavMesh/Physics-адаптеры, surface grid, пути и placement.',
   'PetProject.Assets': 'Загрузка Addressables, кэш и жизненный цикл экземпляров.',
   'PetProject.Input': 'Сырой ввод, блокировки меню и generated Input Actions.',
   'PetProject.Pooling': 'Типизированные пулы и жизненный цикл активных/свободных объектов.',
@@ -75,7 +82,7 @@ const descriptions = {
   'AudioSystem.Editor': 'Редактор аудиобазы.',
   'Game.Infrastructure.VFXSystem.Editor': 'Редактор VFX.',
   'PetProject.Editor': 'Инструменты миграции, полигонов и проверок проекта.',
-  'PetProject.TestSupport': 'Runtime-компонент тестового пула, TestAssemblies.',
+  'PetProject.TestSupport': 'Editor-only компоненты тестового пула и тактического полигона.',
   'Development tools': 'Повторяемые локальные проверки и экспорт этого справочника.',
   'Project configuration': 'Версия Editor и прямые UPM-зависимости; не все SDK проекта.',
   'Assembly-CSharp (resource sample)': 'RandomizeLightStreak из ресурса FX; находится вне собственных asmdef и собственных asmdef.'

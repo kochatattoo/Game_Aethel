@@ -1,0 +1,18 @@
+{
+    "name": "PetProject.Character.Runtime",
+    "rootNamespace": "Code.Character.Data",
+    "references": [
+        "GUID:3f094c1204c0ec04f990fbcb0f6a4dae",
+        "GUID:cd05f838b19c0f6b04da649560e3d80b",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

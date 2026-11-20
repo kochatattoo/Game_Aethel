@@ -1,4 +1,4 @@
-﻿
+﻿#if UNITY_EDITOR
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -45,3 +45,4 @@ public class GOPResources
         placeSound = AssetDatabase.LoadAssetAtPath<AudioClip>(basePath + "blop.ogg");
     }
 }
+#endif

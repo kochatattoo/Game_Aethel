@@ -1,4 +1,10 @@
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using UnityEditor;
 
 namespace CodeBase.EditorTools
@@ -7,13 +13,13 @@ namespace CodeBase.EditorTools
     [InitializeOnLoad]
     public static class MotionEditorInputGate
     {
-        private static MotionTestController _host;
+        private static EncounterController _host;
         internal static bool InputFixtureActive;
         static MotionEditorInputGate() => EditorApplication.update += Update;
         private static void Update()
         {
             if (!EditorApplication.isPlaying) { _host = null; return; }
-            if (_host == null) _host = UnityEngine.Object.FindFirstObjectByType<MotionTestController>();
+            if (_host == null) _host = UnityEngine.Object.FindFirstObjectByType<EncounterController>();
             if (_host == null) return;
             _host.PointerInputFilter ??= PointerAllowed;
             _host.KeyboardInputFilter ??= KeyboardAllowed;

@@ -1,7 +1,7 @@
 ﻿using CodeBase.Infrastructure;
 using Cysharp.Threading.Tasks;
 
-namespace Assets._project.CodeBase.Logic.CFXLogic
+namespace CodeBase.Logic.CFXLogic
 {
     public interface ICFXFactory: IService
     {

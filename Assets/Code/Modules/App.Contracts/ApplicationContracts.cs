@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.Infrastructure.Services.SaveLoad;
 using Cysharp.Threading.Tasks;
 
@@ -35,9 +35,9 @@ namespace CodeBase.CharacterIntegration
         UniTask WarmUpAsync(CancellationToken token);
         UniTask ShowMenuAsync(ICharacterMenuActions actions, bool worldReady, bool canContinue, bool hasHero, string notice, CancellationToken token);
         void ShowSlots(ICharacterMenuActions actions, ISaveSlotService slots, bool playing, bool newGame,
-            Action<string> create, Action<string> load, IReadOnlyDictionary<int, HeroClass> classes);
-        UniTask ShowCreationAsync(IHeroDataProvider provider, CharacterBalance balance, Action<HeroData> commit, Action cancel, CancellationToken token);
-        UniTask ShowAttributesAsync(IHeroDataService hero, CancellationToken token);
+            Action<string> create, Action<string> load, IReadOnlyDictionary<int, CharacterClass> classes);
+        UniTask ShowCreationAsync(ICharacterClassProvider provider, CharacterBalance balance, Action<CharacterData> commit, Action cancel, CancellationToken token);
+        UniTask ShowAttributesAsync(ICharacterDataService hero, CancellationToken token);
         void Clear();
         void SetToolbar(ICharacterMenuActions actions, bool visible);
     }

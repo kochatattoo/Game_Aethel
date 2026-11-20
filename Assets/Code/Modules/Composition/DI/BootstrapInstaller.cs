@@ -1,6 +1,6 @@
 using CodeBase.Composition;
-using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
-using Assets._project.CodeBase.Infrastructure.Services.Input;
+using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using CodeBase.Infrastructure.Services.Input;
 using CodeBase.Infrastructure;
 using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
@@ -20,6 +20,9 @@ using CodeBase.UI.Services.Windows;
 using UnityEngine;
 using Zenject;
 using CodeBase.CharacterIntegration;
+using PetProject.Encounter;
+using PetProject.Navigation;
+using UnityEngine.InputSystem;
 
 namespace CodeBase.DI
 {
@@ -27,6 +30,11 @@ namespace CodeBase.DI
     {
         public GameObject CoroutineRunner;
         public GameObject LoadingCurtain;
+        [SerializeField] private NavigationConfig _navigationConfig;
+        [SerializeField] private EncounterRulesConfig _encounterRules;
+        [SerializeField] private InputActionAsset _encounterInput;
+        [SerializeField] private GameObject _heroPrefab;
+        [SerializeField] private GameObject _enemyPrefab;
 
         public override void InstallBindings()
         {
@@ -96,9 +104,10 @@ namespace CodeBase.DI
             Container.Bind<IApplicationHost>().FromMethod(_ => ApplicationHost.Current).AsSingle();
             Container.BindInterfacesTo<MenuShortcutHandler>().AsSingle();
             Container.Bind<IApplicationWarmup>().To<ApplicationWarmup>().AsSingle();
-            Container.Bind<IWorldBuilder>().To<GameWorldBuilder>().AsSingle();
+            Container.Bind<IWorldBuilder>().To<GameWorldBuilder>().AsSingle()
+                .WithArguments(_navigationConfig, _encounterRules, _encounterInput, _heroPrefab, _enemyPrefab);
             Container.Bind<IWindowCatalog>().To<WindowCatalog>().AsSingle();
-            Container.BindInterfacesAndSelfTo<Code.Hero.Data.HeroDataService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<Code.Character.Data.CharacterDataService>().AsSingle();
             Container.BindInterfacesAndSelfTo<CharacterMenuService>().AsSingle();
             BindLogDataService();
             BindBlackboardService();
@@ -118,8 +127,6 @@ namespace CodeBase.DI
             BindSaveLoad();
             BindPoolService();
             Container.Bind<WorldAssetFactory>().AsSingle();
-            Container.Bind<IHeroFactory>().To<HeroFactory>().AsSingle();
-            Container.Bind<IEnemyFactory>().To<EnemyFactory>().AsSingle();
             Container.Bind<ILootFactory>().To<LootFactory>().AsSingle();
             BindGameFactory();
             BindUIFactory();

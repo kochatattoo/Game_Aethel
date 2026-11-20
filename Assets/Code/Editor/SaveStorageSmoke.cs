@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.CharacterIntegration;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.SaveLoad;
@@ -69,8 +69,8 @@ namespace CodeBase.EditorTools
             Press((Button)new SerializedObject(window).FindProperty("_acceptButton").objectReferenceValue);
             await UniTask.WaitUntil(()=>!menu.HasPendingNewGame).Timeout(TimeSpan.FromSeconds(60), DelayType.Realtime);
             if(Slots.ActiveSlotId!="slot-3" || !Slots.GetSlots().Single(s=>s.Id=="slot-3").CanLoad)throw new InvalidOperationException("Новый герой не записан в слот 3");
-            var hero=UnityEngine.Object.FindFirstObjectByType<CodeBase.Hero.HeroFacade>();
-            if(hero==null || !hero.GetComponent<UnityEngine.AI.NavMeshAgent>().isOnNavMesh || Math.Abs(hero.Health.Max-50)>.001f || Math.Abs(hero.GetComponent<CodeBase.Hero.HeroAttack>().Damage-7)>.001f)throw new InvalidOperationException("Мир/позиция/характеристики не восстановлены");
+            var hero=UnityEngine.Object.FindFirstObjectByType<CodeBase.Hero.HeroCombatStats>();
+            if(hero==null || !hero.GetComponent<UnityEngine.AI.NavMeshAgent>().isOnNavMesh || Math.Abs(hero.GetComponent<CodeBase.Hero.HeroHealth>().Max-50)>.001f || Math.Abs(hero.Damage-7)>.001f)throw new InvalidOperationException("Мир/позиция/характеристики не восстановлены");
             menu.OpenAttributes();Report("ui-new-profile-world");
         }
         private static void Press(Button button)
@@ -131,8 +131,8 @@ namespace CodeBase.EditorTools
             SessionState.SetBool("PetProject.SaveStorage.HadTestKey",PlayerPrefs.HasKey(Key));
             SessionState.SetString("PetProject.SaveStorage.Session",Guid.NewGuid().ToString("N"));
             var json=File.ReadAllText("Assets/Configs/Resources_moved/Hero/Classes/HeroClasses.json");
-            var dto=JsonUtility.FromJson<HeroClassesRoot>(json).heroClasses.First(c=>c.id==1);
-            using var hero=new HeroClass(dto);hero.Attributes.AddBaseValue("str",10);
+            var dto=JsonUtility.FromJson<CharacterClassesRoot>(json).heroClasses.First(c=>c.id==1);
+            using var hero=new CharacterClass(dto);hero.Attributes.AddBaseValue("str",10);
             var progress=new PlayerProgress("Level_2"){CharacterSchemaVersion=1,Character=CharacterProfileData.Capture(hero)};
             progress.HeroState.MaxHP=50;progress.HeroState.ResetHP();progress.HeroStats.Damage=7;progress.HeroStats.DamageRadius=1;
             var legacy=JsonUtility.ToJson(progress);

@@ -1,5 +1,5 @@
 using System;
-namespace Code.Hero.Data
+namespace Code.Character.Data
 {
     [Serializable]
     public sealed class CharacterBalance

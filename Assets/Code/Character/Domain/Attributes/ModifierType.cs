@@ -1,4 +1,4 @@
-﻿namespace Code.Hero.Attributes
+﻿namespace Code.Character.Attributes
 {
     public enum ModifierType
     {

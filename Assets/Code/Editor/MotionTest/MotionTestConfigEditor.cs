@@ -1,24 +1,30 @@
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using UnityEditor;
 using UnityEngine;
 
 namespace CodeBase.EditorTools
 {
-    [CustomEditor(typeof(MotionTestConfig))]
-    public sealed class MotionTestConfigEditor : UnityEditor.Editor
+    [CustomEditor(typeof(NavigationConfig))]
+    public sealed class NavigationConfigEditor : UnityEditor.Editor
     {
         [MenuItem("Tools/PetProject/Motion/Field Settings")]
         private static void Open()
         {
-            var config = Selection.activeObject as MotionTestConfig;
+            var config = Selection.activeObject as NavigationConfig;
             if (config == null)
             {
-                var host = Object.FindFirstObjectByType<MotionTestController>();
+                var host = Object.FindFirstObjectByType<EncounterController>();
                 if (host != null && host.World != null) config = host.World.Config;
             }
             if (config == null)
-                config = AssetDatabase.LoadAssetAtPath<MotionTestConfig>(
-                    MotionTestSceneTools.DataRoot + "/MotionTestConfig.asset");
+                config = AssetDatabase.LoadAssetAtPath<NavigationConfig>(
+                    MotionTestSceneTools.DataRoot + "/NavigationConfig.asset");
             Selection.activeObject = config;
             EditorGUIUtility.PingObject(config);
         }
@@ -31,7 +37,7 @@ namespace CodeBase.EditorTools
             DrawDefaultInspector();
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Цвета материалов поля", EditorStyles.boldLabel);
-            var config = (MotionTestConfig)target;
+            var config = (NavigationConfig)target;
             DrawMaterialColor("Пол", config.Floor);
             DrawMaterialColor("Препятствия", config.Obstacle);
             DrawMaterialColor("Пандусы", config.Ramp);

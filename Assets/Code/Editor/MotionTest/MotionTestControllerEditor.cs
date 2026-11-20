@@ -1,21 +1,27 @@
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using UnityEditor;
 using UnityEngine;
 
 namespace CodeBase.EditorTools
 {
-    [CustomEditor(typeof(MotionTestController))]
-    public sealed class MotionTestControllerEditor : UnityEditor.Editor
+    [CustomEditor(typeof(EncounterController))]
+    public sealed class EncounterControllerEditor : UnityEditor.Editor
     {
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
-            var controller = (MotionTestController)target;
+            var controller = (EncounterController)target;
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Связывание групп", EditorStyles.boldLabel);
             if (controller.CombatRules == null || controller.EnemySpawns == null)
             {
-                EditorGUILayout.HelpBox("Назначьте MotionCombatRulesConfig для проверки связей.", MessageType.Warning);
+                EditorGUILayout.HelpBox("Назначьте EncounterRulesConfig для проверки связей.", MessageType.Warning);
                 return;
             }
             var radius = controller.CombatRules.GroupLinkRadius;
@@ -36,7 +42,7 @@ namespace CodeBase.EditorTools
 
         private void OnSceneGUI()
         {
-            var controller = (MotionTestController)target;
+            var controller = (EncounterController)target;
             if (controller.CombatRules == null || controller.EnemySpawns == null) return;
             var radius = controller.CombatRules.GroupLinkRadius;
             for (var i = 0; i < controller.EnemySpawns.Length; ++i)

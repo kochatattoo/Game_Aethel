@@ -1,4 +1,10 @@
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using UnityEditor;
 using UnityEngine;
 
@@ -6,14 +12,14 @@ namespace CodeBase.EditorTools
 {
     public sealed class MotionTestWindow : EditorWindow
     {
-        private MotionTestController _host;
+        private EncounterController _host;
         private Vector2 _scroll;
         private double _nextRefresh;
         [MenuItem("Tools/PetProject/Motion/Test Motion Window")]
         public static void Open() => GetWindow<MotionTestWindow>("Test Motion").Show();
         private void OnInspectorUpdate()
         {
-            if (_host == null) _host = FindFirstObjectByType<MotionTestController>();
+            if (_host == null) _host = FindFirstObjectByType<EncounterController>();
             if (EditorApplication.timeSinceStartup < _nextRefresh) return;
             _nextRefresh = EditorApplication.timeSinceStartup + .1; Repaint();
         }
@@ -74,11 +80,11 @@ namespace CodeBase.EditorTools
             {
                 EditorGUILayout.HelpBox("Play → фокус Game View → ЛКМ по земле. В бою: наведение показывает цену, ЛКМ выполняет путь.", MessageType.Info);
                 var serialized = new SerializedObject(_host); serialized.Update();
-                EditorGUILayout.PropertyField(serialized.FindProperty("TestBudget"), new GUIContent("ОД на тестовый ход"));
+                EditorGUILayout.PropertyField(serialized.FindProperty("ActionBudget"), new GUIContent("ОД на тестовый ход"));
                 serialized.ApplyModifiedProperties();
                 EditorGUILayout.BeginHorizontal();
                 foreach (var budget in new[] { 3, 6, 12 })
-                    if (GUILayout.Button(budget + " ОД")) { Undo.RecordObject(_host, "Motion budget"); _host.TestBudget = budget; EditorUtility.SetDirty(_host); }
+                    if (GUILayout.Button(budget + " ОД")) { Undo.RecordObject(_host, "Motion budget"); _host.ActionBudget = budget; EditorUtility.SetDirty(_host); }
                 EditorGUILayout.EndHorizontal();
                 if (_host.World != null && _host.World.Config != null)
                 {

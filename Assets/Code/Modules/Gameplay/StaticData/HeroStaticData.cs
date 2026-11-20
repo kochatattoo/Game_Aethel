@@ -3,7 +3,7 @@ using UnityEngine.AddressableAssets;
 
 namespace CodeBase.StaticData
 {
-    [CreateAssetMenu(fileName = "HeroData", menuName = "StaticData/Hero")]
+    [CreateAssetMenu(fileName = "CharacterData", menuName = "StaticData/Hero")]
     public class HeroStaticData : ScriptableObject
     {
         public HeroTypeID HeroTypeId;

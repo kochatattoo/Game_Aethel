@@ -2,7 +2,7 @@
 using System;
 using Zenject;
 
-namespace Assets._project.CodeBase.Logic.CFXLogic
+namespace CodeBase.Logic.CFXLogic
 {
     public class CFXClickEffectSpawner : IInitializable, IDisposable
     {

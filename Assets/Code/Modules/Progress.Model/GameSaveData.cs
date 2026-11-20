@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.Data;
 
 namespace CodeBase.Infrastructure.Services.SaveLoad

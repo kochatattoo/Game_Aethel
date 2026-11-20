@@ -9,6 +9,5 @@ namespace CodeBase.Logic
 
         event Action HealthChanged;
 
-        void TakeDamage(float damage);
     }
 }

@@ -1,6 +1,7 @@
-﻿using CodeBase.Logic;
+using CodeBase.Logic;
 using UnityEditor;
 using UnityEngine;
+
 namespace CodeBase.Editor
 {
     [CustomEditor(typeof(SpawnMarker))]

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Code.Hero.Data;
+using Code.Character.Data;
 using Code.UI.Elements;
 using Code.UI.Windows;
 using CodeBase.Infrastructure.Services.SaveLoad;
@@ -51,15 +51,15 @@ namespace CodeBase.CharacterIntegration
         }
 
         public void ShowSlots(ICharacterMenuActions actions, ISaveSlotService slots, bool playing, bool newGame,
-            Action<string> create, Action<string> load, IReadOnlyDictionary<int, HeroClass> classes)
+            Action<string> create, Action<string> load, IReadOnlyDictionary<int, CharacterClass> classes)
         {
             Replace(new GameObject("SaveSlots", typeof(RectTransform)));
             _view.AddComponent<SaveSlotsView>().Construct(slots, playing, newGame, create, load,
                 () => actions.ShowMainMenuAsync().Forget(Debug.LogException), classes);
         }
 
-        public async UniTask ShowCreationAsync(IHeroDataProvider provider, CharacterBalance balance,
-            Action<HeroData> commit, Action cancel, CancellationToken token)
+        public async UniTask ShowCreationAsync(ICharacterClassProvider provider, CharacterBalance balance,
+            Action<CharacterData> commit, Action cancel, CancellationToken token)
         {
             var prefab = await _assets.LoadAsync<GameObject>(CharacterAssets.Creation, token);
             Replace(Object.Instantiate(prefab));
@@ -68,7 +68,7 @@ namespace CodeBase.CharacterIntegration
             window.Construct(provider, _assets, balance, commit);
         }
 
-        public async UniTask ShowAttributesAsync(IHeroDataService hero, CancellationToken token)
+        public async UniTask ShowAttributesAsync(ICharacterDataService hero, CancellationToken token)
         {
             var prefab = await _assets.LoadAsync<GameObject>(CharacterAssets.Attributes, token);
             Replace(Object.Instantiate(prefab));

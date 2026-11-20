@@ -4,7 +4,7 @@ using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
 using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem.Data;
 using UnityEngine;
 
-namespace Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem
+namespace CodeBase.Infrastructure.Services.AIServices.BlackboardSystem
 {
     public class ArbiterBlackboardService: MonoBehaviour, IArbiterBlackboardService
     {

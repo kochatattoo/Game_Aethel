@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.Data;
 using UnityEngine;
 
@@ -8,9 +8,9 @@ namespace CodeBase.CharacterIntegration
 {
     internal sealed class PlayerProgressValidator
     {
-        private readonly IReadOnlyDictionary<int, HeroClass> _classes;
+        private readonly IReadOnlyDictionary<int, CharacterClass> _classes;
 
-        public PlayerProgressValidator(IReadOnlyDictionary<int, HeroClass> classes)
+        public PlayerProgressValidator(IReadOnlyDictionary<int, CharacterClass> classes)
         {
             _classes = classes;
         }

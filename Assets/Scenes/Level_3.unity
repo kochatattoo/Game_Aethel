@@ -6908,7 +6908,6 @@ GameObject:
   m_Component:
   - component: {fileID: 317913950}
   - component: {fileID: 317913949}
-  - component: {fileID: 317913948}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -6916,19 +6915,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &317913948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 317913947}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed39f2b237e573f4f85990bb5d1440ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: AK.Wwise.Unity.Addressables::AK.Wwise.Unity.WwiseAddressables.InitBankHolder
-  InitBank: {fileID: 11400000, guid: da0af34e26458bd40a488cb9a83bc5b9, type: 2}
 --- !u!114 &317913949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35558,7 +35544,6 @@ GameObject:
   - component: {fileID: 1632628852}
   - component: {fileID: 1632628851}
   - component: {fileID: 1632628849}
-  - component: {fileID: 1632628853}
   - component: {fileID: 1632628854}
   - component: {fileID: 1632628856}
   - component: {fileID: 1632628855}
@@ -35679,22 +35664,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1632628853
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632628848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 503603caa274f564f838e6f4b45f0da9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Infrastructure.Utils.CameraFollow
-  RotationAngelX: 45
-  Distance: 20
-  OffSetY: 1.5
-  _following: {fileID: 0}
 --- !u!114 &1632628854
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -83,6 +83,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BootstrapInstaller
   CoroutineRunner: {fileID: 6185335028906658508, guid: 5e13d311ca1ac1d46a62a0247c83fbb8, type: 3}
   LoadingCurtain: {fileID: 1285770907932750103, guid: 3b86ded1adf095a42b6c8eb1ab7fa1fc, type: 3}
+  _navigationConfig: {fileID: 11400000, guid: c1b3a7fdf46f1884d8967a9dd593f8fa, type: 2}
+  _encounterRules: {fileID: 11400000, guid: 99035c2ec5994fd4696e4179719345d2, type: 2}
+  _encounterInput: {fileID: -944628639613478452, guid: c2c5eef52402f10408b81ffd6b305d61, type: 3}
+  _heroPrefab: {fileID: 7588233372288055087, guid: d39a7a35f5447d2448cf55bce2638f77, type: 3}
+  _enemyPrefab: {fileID: 496500528517931436, guid: 77435d1fa4bdd6b4d87fa0131981bf3e, type: 3}
 --- !u!114 &-3694246095291744325
 MonoBehaviour:
   m_ObjectHideFlags: 0

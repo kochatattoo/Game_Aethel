@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.Data;
 using CodeBase.Infrastructure.Services.PersistentProgress;
 using CodeBase.Infrastructure.Services.SaveLoad;
@@ -13,10 +13,10 @@ using UnityEngine.InputSystem;
 namespace CodeBase.CharacterIntegration
 {
     /// <summary>Application use cases. Presentation, persistence and character state have separate owners.</summary>
-    public sealed class CharacterMenuService : IHeroDataProvider, ICharacterMenuActions, IDisposable
+    public sealed class CharacterMenuService : ICharacterClassProvider, ICharacterMenuActions, IDisposable
     {
         private readonly ICharacterPresentation _presentation;
-        private readonly IHeroDataService _hero;
+        private readonly ICharacterDataService _hero;
         private readonly IPersistentProgressService _progress;
         private readonly ISaveLoadService _save;
         private readonly ISaveSlotService _slots;
@@ -31,9 +31,9 @@ namespace CodeBase.CharacterIntegration
         private bool _opening;
 
         public bool HasPendingNewGame => _worldFlow.HasPendingNewGame;
-        public IReadOnlyDictionary<int, HeroClass> HeroClassesReadonly => _catalog.Definitions;
+        public IReadOnlyDictionary<int, CharacterClass> CharacterClassesReadonly => _catalog.Definitions;
 
-        public CharacterMenuService(ICharacterPresentation presentation, IHeroDataService hero,
+        public CharacterMenuService(ICharacterPresentation presentation, ICharacterDataService hero,
             IPersistentProgressService progress, ISaveLoadService save, ISaveSlotService slots,
             IGameStateMachine states, ILoadingScreen curtain, IApplicationHost host, CharacterSession session)
         {
@@ -52,12 +52,18 @@ namespace CodeBase.CharacterIntegration
 
         public async UniTask LoadAsync(CancellationToken token)
         {
-            if (_initialized) return;
+            if (_initialized) 
+                return;
+
             _config = await _presentation.LoadConfigAsync(token);
-            if (_config == null) throw new InvalidOperationException("Не настроен CharacterMenu/Config");
+
+            if (_config == null) 
+                throw new InvalidOperationException("Не настроен CharacterMenu/Config");
+
             var json = await _presentation.LoadCatalogAsync(token);
             _catalog.Load(json);
             _session.Configure(_catalog.Definitions, _config.Balance);
+
             await _presentation.WarmUpAsync(token);
             _slots.InitializeStorage(IsValid, _config.InitialLevel);
             _initialized = true;
@@ -66,7 +72,7 @@ namespace CodeBase.CharacterIntegration
         public UniTask ShowMainMenuAsync() => PresentAsync(async () =>
         {
             await _presentation.ShowMenuAsync(this, _worldFlow.WorldReady, IsValid(_save.LoadProgress()),
-                _hero.CurrentHero.Value != null, _slots.Notice, _lifetime.Token);
+                _hero.CurrentCharacter.Value != null, _slots.Notice, _lifetime.Token);
             _curtain.Hide();
         });
 
@@ -74,7 +80,9 @@ namespace CodeBase.CharacterIntegration
 
         public void OpenSlots(bool newGame = false)
         {
-            if (_opening) return;
+            if (_opening)
+                return;
+
             _presentation.ShowSlots(this, _slots, _worldFlow.WorldReady, newGame, BeginProfile, LoadSlot,
                 _catalog.Definitions);
         }
@@ -102,10 +110,10 @@ namespace CodeBase.CharacterIntegration
             ShowMainMenuAsync().Forget(HandleError);
         }
 
-        private void Commit(HeroData hero)
+        private void Commit(CharacterData hero)
         {
             _progress.Progress = PlayerProgressFactory.Create(hero, _config.InitialLevel);
-            _hero.SetHero(hero);
+            _hero.SetCharacter(hero);
             _worldFlow.StartNewGame();
         }
 
@@ -138,7 +146,9 @@ namespace CodeBase.CharacterIntegration
 
         public void OpenAttributes()
         {
-            if (_opening || _hero.CurrentHero.Value == null) return;
+            if (_opening || _hero.CurrentCharacter.Value == null) 
+                return;
+
             PresentAsync(() => _presentation.ShowAttributesAsync(_hero, _lifetime.Token)).Forget(HandleError);
         }
 
@@ -161,7 +171,9 @@ namespace CodeBase.CharacterIntegration
 
         private void HandleError(Exception error)
         {
-            if (error is OperationCanceledException) return;
+            if (error is OperationCanceledException) 
+                return;
+
             _worldFlow.ResetAfterError();
             _slots.CancelPendingProfile();
             Debug.LogException(error);
@@ -172,7 +184,9 @@ namespace CodeBase.CharacterIntegration
         public void Tick()
         {
             var keys = Keyboard.current;
-            if (!_initialized || _opening || keys == null || !_worldFlow.WorldReady) return;
+            if (!_initialized || _opening || keys == null || !_worldFlow.WorldReady) 
+                return;
+
             if (keys.escapeKey.wasPressedThisFrame)
             {
                 if (_presentation.HasView) Resume();

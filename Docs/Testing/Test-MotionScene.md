@@ -1,6 +1,6 @@
 # Test_MotionScene
 
-Самостоятельный Editor-полигон движения и тактического боя, без загрузки кампании и пользовательских слотов.
+Проверочная сцена основного gameplay-контура, без загрузки кампании и пользовательских слотов. Используемые runtime-сборки входят в player build.
 Сцена: `Assets/Scenes/TEST/Test_MotionScene.unity`. В основной список сцен сборки не добавлена.
 
 ## Запуск и управление
@@ -21,7 +21,7 @@
 | Исходный ракурс | F |
 
 В обычном режиме клик строит полный маршрут по NavMesh, показывает ломаную линию по всем углам пути и VFX точки назначения.
-`MotionNavigationFeedback` использует переиспользуемый массив `GetCornersNonAlloc`: пройденные сегменты обрезаются, линия начинается у героя и сокращается до цели без ежекадровых аллокаций corners.
+`NavigationPathView` использует переиспользуемый массив `GetCornersNonAlloc`: пройденные сегменты обрезаются, линия начинается у героя и сокращается до цели без ежекадровых аллокаций corners.
 Используется `CFXR3 LightGlow A (Loop)`; без назначенного prefab создаётся примитивная точка. Линия и маркер исчезают после arrival или перехода в бой.
 
 ## Площадка и столкновения
@@ -35,6 +35,7 @@
 
 ## Границы Core и Unity
 
+- `PetProject.Encounter.Core`: переходы exploration/encounter, preview, состав группы и чистый AI planner.
 - `PetProject.CharacterStats.Core`: атрибуты, модификаторы, производные и `DiceDefinition`.
 - `PetProject.EnemyArchetypes.Core`: чистые определения архетипов, без prefab и Unity.
 - `PetProject.Navigation.Core`: остаток маршрута, lifecycle и `ICharacterMovement`.
@@ -42,14 +43,14 @@
 - `PetProject.Tactics`: бой, атаки, ОД, инициатива и lifecycle столкновения.
 
 Все Core-сборки имеют `noEngineReferences=true`. Unity SO и MonoBehaviour выполняют только адаптацию данных,
-ввод/вывод и представление. `MotionTestComposer` создаёт `ICharacterMovement`, `INavigationLifecycle`
-и определения героя/противников. Зависимости генерируются через `AssemblyGraph.asset` и `Build All`.
+ввод/вывод и представление. `EncounterController` создаёт `ICharacterMovement` и `INavigationLifecycle`; определения противников
+предоставляет `EnemyArchetypeConfig`. Зависимости генерируются через `AssemblyGraph.asset` и `Build All`.
 
 ## Конфигурация
 
-### `MotionCombatRulesConfig`
+### `EncounterRulesConfig`
 
-Путь: `Assets/Configs/Tests/Motion/MotionCombatRulesConfig.asset`.
+Путь: `Assets/Configs/Tests/Motion/EncounterRulesConfig.asset`.
 Открытие: **Tools → PetProject → Motion → Combat Rules Settings**.
 
 Содержит только общие правила столкновения:
@@ -82,7 +83,7 @@
 | Скелет-капитан | Необычный | Усиленные HP/характеристики, 1d8+1 |
 | Скелет-генерал | Босс | 30 базовых HP, 2d8+2 |
 
-Лучник и маг пока используют ближний BehaviourTree; архетипы подготавливают данные для следующих боевых действий.
+Лучник и маг пока используют общий ближний AI planner; архетипы подготавливают данные для следующих боевых действий.
 
 Модификатор характеристики: `floor((значение - 10) / 2)`.
 Производные скелета:
@@ -103,7 +104,7 @@
 | `skeleton-general` | 1 | Генерал `(22, 0, 22)` |
 
 При обнаружении героя или внезапной атаке в бой входят живые противники с тем же `GroupId` внутри `GroupLinkRadius`.
-Противники вне радиуса и других групп не добавляются. При выборе `MotionTestController` в Scene View показываются радиусы и связи;
+Противники вне радиуса и других групп не добавляются. При выборе `EncounterController` в Scene View показываются радиусы и связи;
 Inspector сообщает число союзников в радиусе каждого спавна.
 
 Перед каждым действием AI соблюдает `EnemyDecisionDelay`. Пауза не продвигает симуляцию боя и отменяется сменой presentation version.
@@ -139,14 +140,14 @@ DOTween настроен штатно через **Tools → Demigiant → DOTwe
 
 | Область | Решение |
 |---|---|
-| Общие правила | `MotionCombatRulesConfig`, `MotionCombatRulesConfigEditor` |
-| Группы/Editor | `SkeletonEnemySpawn`, `MotionTestControllerEditor`, `SkeletonCombatDirector` |
-| AI | `MeleeTacticsAIConfig`, `SkeletonTurnPolicy` |
+| Общие правила | `EncounterRulesConfig`, `EncounterRulesConfigEditor` |
+| Группы/Editor | `EnemySpawnDefinition`, `EncounterControllerEditor`, `EncounterDirector` |
+| AI | `MeleeTacticsAIConfig`, `EnemyTurnPolicy` |
 | Архетипы/характеристики | `EnemyArchetypeConfig`, `EnemyArchetypeConfigEditor` |
 | Кубики | `ActorDefinition`, `MeleeAttackResolver`, `Encounter`, `TacticalEvent` |
-| Маршрут/VFX | `MotionNavigationFeedback`, `MotionTestController`, `MotionTestSceneTools` |
-| Коллизии | `MotionHero`, `GridPathMovement`, `SurfaceGridMap` |
-| UI/история/HP | `MotionTestHud`, `MotionWorldHealthBar`, `MotionContracts`, `SkeletonCombatDirector` |
+| Маршрут/VFX | `NavigationPathView`, `EncounterController`, `MotionTestSceneTools` |
+| Коллизии | `HeroMotor`, `GridPathMovement`, `SurfaceGridMap` |
+| UI/история/HP | `EncounterHudView`, `WorldHealthBarView`, `MotionContracts`, `EncounterDirector` |
 
 Пути кода указаны от `Assets/Code/Modules` или `Assets/Code/Editor` по смыслу таблицы.
 
@@ -154,13 +155,14 @@ DOTween настроен штатно через **Tools → Demigiant → DOTwe
 
 - Unity Test Runner, EditMode: фильтр **PetProject.Tactics.Tests**.
 - **Tools → PetProject → Motion → Run Skeleton Combat Checks**: реальные клики, вход группы, HUD, AI, смерть, reset и внезапная атака.
-- Текущий прогон EditMode: **54/54 passed**, 0 failed, 0 skipped. Добавлены проверки строгого сравнения с бронёй и настраиваемых кубиков урона.
-- Текущий `Run Skeleton Combat Checks`: `success=true`. Дополнительно подтверждены сокращение NavMesh-маршрута, 5 архетипов, группа 3/2/1 и совместный вход 3 противников, 6 world-space HP-баров, характеристики и HP-полоса героя, физический capsule/kinematic Rigidbody, VFX, пауза AI, формула d20, поражение/reset и внезапная атака.
-- Результат runtime-проверки: `Library/MotionTest/skeleton-combat-checks.json`.
+- **Tools → PetProject → Motion → Run Runtime Checks**: независимый запуск, ввод, HUD, NavMesh, тактические ОД, пандусы и 20 циклов смены режима. Результат: `Library/MotionTest/runtime-checks.json`.
+- **Tools → PetProject → Encounter → Validate Runtime**: campaign-проверка создания героя, противников и команды движения на Level_2. Результат: `Library/Encounter/campaign-checks.json`.
+- **Tools → PetProject → Encounter → Run Asset Checks**: отсутствие Missing Scripts в игровых prefab и сценах. Результат: `Library/Encounter/asset-checks.txt`.
+- Результат проверки боя: `Library/MotionTest/skeleton-combat-checks.json`.
 - Ошибки Unity Services/Token Exchange при текущем сетевом окружении относятся к внешним сервисам Unity и не входят в проверку полигона.
 
 ## Ограничения
 
 Это полигон, не полная D&D-система: нет критических 1/20, спасбросков, укрытий, LOS, дальнего боя и заклинаний.
-Шесть атрибутов скелета пока не интегрированы с пятиатрибутным профилем кампании и миграцией героя.
-Мир статичен; одна X/Z-позиция поддерживает одну поверхность. Отдельная player-сборка этим документом не подтверждается.
+Пять атрибутов профиля кампании преобразуются в шесть боевых характеристик героя через адаптер персонажа.
+Мир статичен; одна X/Z-позиция поддерживает одну поверхность. Runtime-сборки Encounter/Navigation/Hero/Enemies входят в player build и используются основными Level_1–4.

@@ -6,7 +6,7 @@ namespace CodeBase.Data
     public class PlayerProgress
     {
         public int CharacterSchemaVersion;
-        public Code.Hero.Data.CharacterProfileData Character;
+        public Code.Character.Data.CharacterProfileData Character;
         public State HeroState;
         public KillData KillData;
         public WorldData WorldData;

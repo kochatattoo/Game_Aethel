@@ -9,31 +9,43 @@
 <!-- TACTICS-D1 -->
 > **Дополнение D1:** реализованы независимое тактическое ядро и технический полигон. [Отчёт D1](../Design/Tactics-D1-Report.md), [контракты систем](../Design/Systems/README.md). Основной игровой цикл пока использует прежние адаптеры; подключение полноценного отряда относится к D2/D3.
 
-> **Декомпозиция MotionTest/Core:** добавлены `PetProject.CharacterStats.Core`, `PetProject.EnemyArchetypes.Core`,
-> `PetProject.Navigation.Core` и `PetProject.Tactics.Grid.Core`. `PetProject.Tactics` сохраняет бой,
-> атаки, ОД и инициативу. Unity SO/MonoBehaviour являются адаптерами; `MotionTestComposer` связывает
-> hero/enemy definitions, `ICharacterMovement` и `INavigationLifecycle` без обратных ссылок Core на Unity.
-> Все references генерируются AssemblyBuilder из `Assets/Code/Scripts/Architecture`.
+> **Обновление 19.11.2026:** Level_1–4 переведены на Encounter. Старые Hero/Enemy movement,
+> combat и factory-компоненты удалены из кода и сериализованных ассетов. Character и Items разделены,
+> Input консолидирован в собственной сборке; MotionTest остаётся только названием Editor-проверок и полигона.
+
+> **Декомпозиция Encounter/Core:** бывший MotionTest распределён между production-системами Encounter,
+> Navigation, Hero, Enemies, AI, Input и UI. Добавлены `PetProject.Encounter.Core`,
+> `PetProject.CharacterStats.Core`, `PetProject.EnemyArchetypes.Core`, `PetProject.Navigation.Core` и
+> `PetProject.Tactics.Grid.Core`. `PetProject.Tactics` сохраняет бой, атаки, ОД и инициативу.
+> Core не ссылается на Unity-адаптеры. Все references генерируются AssemblyBuilder из
+> `Assets/Code/Scripts/Architecture`.
 
 ## Сборки
 
-В CodeBase — 32 asmdef. К прежним runtime, Editor и тестовым сборкам добавлены четыре независимые Core-библиотеки с `noEngineReferences=true`. TestSupport содержит только компонент тестового пула и помечен TestAssemblies; это не новая игровая подсистема.
+В экспортируемом контуре — 39 asmdef. К прежним runtime, Editor и тестовым сборкам добавлены пять независимых Core-библиотек с `noEngineReferences=true`. TestSupport содержит только Editor-only компоненты и инструменты полигона и не входит в player build.
 
 | Сборка | Ответственность | Прямые проектные зависимости |
 |---|---|---|
 | PetProject.Tactics | Правила столкновения, атаки, ОД, очередь, команды, RNG; noEngineReferences=true | CharacterStats.Core, Tactics.Grid.Core |
+| PetProject.Encounter.Core | Переходы exploration/encounter, preview, группы, AI planner; noEngineReferences=true | Tactics, Navigation.Core, Tactics.Grid.Core |
+| PetProject.Encounter | Основная Unity-оркестрация exploration и столкновений | Encounter.Core, Tactics, Navigation, Hero, Enemies, AI, Input, UI, Gameplay |
+| PetProject.Navigation | NavMesh/Physics-адаптеры, grid map, grid motor, placement, path view | Navigation.Core, Tactics.Grid.Core |
+| PetProject.Hero | Runtime героя, HeroMotor, HeroNavigationAdapter и текущие campaign-адаптеры | Gameplay, Input, AI, Navigation |
+| PetProject.Enemies | EnemyActor, архетипы, обнаружение, спавн и добыча | Gameplay, Hero, AI, Navigation, UI, Encounter.Core |
+| PetProject.Items | Предметы, экипировка и временные эффекты | Character |
+| PetProject.Character.Runtime | Текущий персонаж, draft и агрегат Character + Items | Character, Items |
 | PetProject.Tactics.Grid.Core | Клетки, доска, соседство, поиск пути; noEngineReferences=true | — |
 | PetProject.CharacterStats.Core | Шесть атрибутов, модификаторы, производные, dice value API; noEngineReferences=true | — |
 | PetProject.EnemyArchetypes.Core | Чистые определения, ранги и боевые параметры врагов; noEngineReferences=true | CharacterStats.Core |
 | PetProject.Navigation.Core | Остаток маршрута, lifecycle движения, ICharacterMovement; noEngineReferences=true | — |
-| PetProject.Character | Модель героя, атрибуты, модификаторы, черновик создания | — |
+| PetProject.Character | Общие классы персонажей, атрибуты, модификаторы и профиль | — |
 | PetProject.AI | Blackboard, behaviour tree, стратегии и эксперты | — |
 | PetProject.App.Contracts | Порты прогресса, меню, мира, окружения и интеграций | Progress.Model, Character |
 | PetProject.Application | Сценарии меню, сессия персонажа, состояния и переходы | App.Contracts, Progress.Model, Character, Input, Pooling |
 | PetProject.Assets | Загрузка Addressables и владение экземплярами | — |
 | PetProject.Commerce | Адаптеры Ads/IAP и SDK-зависимости | App.Contracts, Progress.Model |
-| PetProject.Composition | Zenject installers, конкретные фабрики, сборка мира | Application, App.Contracts, Progress.Runtime, Progress.Model, Character, UI, Gameplay, AI, Input, Pooling, Assets, Commerce |
-| PetProject.Gameplay | Герой, враги, бой, добыча, мир, игровые конфиги; адаптер полигона и MotionTestComposer | App.Contracts, Progress.Model, Character, AI, Input, Pooling, Assets, Tactics, Tactics.Grid.Core, CharacterStats.Core, EnemyArchetypes.Core, Navigation.Core |
+| PetProject.Composition | Zenject installers, конкретные фабрики, сборка мира | Application, App.Contracts, Progress.Runtime, Progress.Model, Character.Runtime, Encounter, Navigation, Hero, Enemies, UI, Gameplay, AI, Input, Pooling, Assets, Commerce |
+| PetProject.Gameplay | Общий мир, камеры, сенсоры, игровые Configs/StaticData и базовые компоненты | App.Contracts, Progress.Model, Character, AI, Input, Pooling, Assets |
 | PetProject.Input | Сырые действия ввода, generated Input Actions, блокировка меню | — |
 | PetProject.Pooling | Типизированные пулы и их жизненный цикл | — |
 | PetProject.Progress.Model | Сериализуемые данные прогресса и игровой save DTO | Character |
@@ -82,16 +94,19 @@ graph TD
 ## Где теперь искать код
 
 - Modules/Application: CharacterMenuService, CharacterSession, State, SceneLoader, переходы.
-- Modules/UI: CharacterMenuPresentation, CharacterAssets, представления меню/слотов/атрибутов, Legacy, WindowsCatalog.
+- Modules/UI: CharacterMenuPresentation, CharacterAssets, представления меню/слотов/атрибутов, Runtime, WindowsCatalog.
 - Modules/Progress.Model: PlayerProgress и сериализуемые структуры; Modules/Progress.Runtime: ProgressRegistry, SaveLoadService, SaveEnvironment.
-- Modules/Gameplay: Hero, Enemies, World, StaticData, Factories и интерпретация целей ввода.
-- Modules/Composition: BootstrapInstaller, AudioInstaller, GameWorldBuilder, WorldAssetFactory, HeroFactory, EnemyFactory, LootFactory, GameFactory.
+- Modules/Gameplay: общий мир, StaticData, камеры и игровые конфиги; Hero и Enemies вынесены в самостоятельные системы.
+- Modules/Composition: BootstrapInstaller, AudioInstaller, GameWorldBuilder, WorldAssetFactory, LootFactory, GameFactory.
 - Modules/AI, Input, Pooling, Assets, Commerce: соответствующие системы.
 - Modules/Tactics/Runtime: бой и правила; Modules/Tactics/Runtime/Grid: отдельная Grid Core; Modules/Tactics/Tests/Editor: тесты.
 - Modules/CharacterStats/Core, Modules/EnemyArchetypes/Core, Modules/Navigation/Core: чистые API и расчёты без Unity.
-- Gameplay/TacticsSandbox, Gameplay/MotionTest и Editor/Tactics: Unity-адаптеры и технические полигоны. Gameplay/MotionTest/MotionTestComposer: компоновка полигона.
-- Character/Domain, SaveStorage, _myPlugins: сохранены самостоятельными модулями.
-- Editor и Tests: инструменты и проверки. Input Actions находятся в Assets/Configs/Input; generated PlayerInputAction и asmref — в Assets/Code/Input.
+- Modules/Encounter: основной runtime и Core; Modules/Navigation: Core и NavMesh-адаптеры.
+- Modules/Hero, Modules/Enemies, Modules/AI, Modules/Input, Modules/UI: соответствующие production-системы.
+- Tests/Runtime/TacticsSandbox и Editor/Tactics: Editor-only компоненты и инструменты полигона.
+- Character/Domain, Character/Runtime, Modules/Items, SaveStorage, _myPlugins: самостоятельные модули.
+- Editor и Tests: инструменты и проверки. Input Actions находятся в Assets/Configs/Input;
+  generated PlayerInputAction — в Modules/Input/Generated, отдельный asmref больше не нужен.
 
 Имена пространств имён в основном сохранены. Старый namespace может содержать Infrastructure/Factory, хотя файл теперь принадлежит Gameplay или Composition. Это осознанное ограничение текущей миграции, чтобы не совмещать перенос сборок с массовым переименованием типов.
 
@@ -112,7 +127,7 @@ graph TD
 
 BootstrapState → WarmUpState → MainMenuState. Выбор сохранения или подтверждение героя → ReloadGameState → LoadProgressState → LoadLevelState → GameLoopState.
 
-LoadLevelState ждёт IWorldBuilder.BuildAsync. Мир создаёт спавнеры, добычу, триггеры, героя и HUD, затем ProgressRegistry.ApplyAsync восстанавливает участников. IAsyncProgressReader позволяет дождаться создания врагов. Только после этого меню отмечает мир готовым и снимает блокировку загрузки.
+LoadLevelState ждёт IWorldBuilder.BuildAsync. GameWorldBuilder создаёт Encounter, героя, противников, навигацию и HUD, связывает добычу и KillData, затем ProgressRegistry.ApplyAsync восстанавливает участников. Только после этого меню отмечает мир готовым и снимает блокировку загрузки.
 
 Данные слота не зависят от GameFactory: SaveLoadService вызывает IProgressRegistry.Capture и сохраняет через JsonSlotStore. UI получает SaveSlotInfo, не внутреннюю структуру файлового хранилища. В Editor пути тестов и выход из Play mode передаются через отдельные адаптеры.
 

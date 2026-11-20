@@ -233,7 +233,7 @@ namespace Animancer
 
         /************************************************************************************************************************/
 
-#if UNITY_ASSERTIONS || ANIMANCER_ON_PLAY_EVENTS
+#if ANIMANCER_ON_PLAY_EVENTS
         /// <summary>[Assert-Only] An event which is triggered whenever a state is played.</summary>
         /// <remarks>
         /// Some useful methods for this event are <see cref="AnimancerState.LogPlayingMessage"/>

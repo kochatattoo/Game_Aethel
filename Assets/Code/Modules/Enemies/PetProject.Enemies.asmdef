@@ -1,0 +1,31 @@
+{
+    "name": "PetProject.Enemies",
+    "rootNamespace": "CodeBase.Enemies",
+    "references": [
+        "GUID:5ef972048b7d34f4e9fb8fe19d2fd352",
+        "GUID:7beb6af7fa83439489d8b305b2d9663a",
+        "GUID:2424a06c373e26f0d5fbe0351ea511c3",
+        "GUID:f1341bf49f9f6f24cbb0263239e478e3",
+        "GUID:853c21dec2dd31dbb3e7733a8426e5d9",
+        "GUID:ea20ae203de919d40bdad5fa738143c7",
+        "GUID:2aab2ce4d6a014d9706d28f54c768547",
+        "GUID:9058c8aacf9e6a74a99e2fe536c50829",
+        "GUID:9b4f6c3fc993a9b4d90160642a058b00",
+        "GUID:5cd118ad42ba95743aced52580055b28",
+        "GUID:9b5640642a758944da163d62bfee39af",
+        "GUID:b1e925b2f18bee3408decb79e4c1de7d",
+        "GUID:294c415bde9ea804b8b9eb98d0a6df49",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

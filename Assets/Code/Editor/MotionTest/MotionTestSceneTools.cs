@@ -2,7 +2,13 @@ using System;
 using System.IO;
 using CodeBase.Hero;
 using CodeBase.Infrastructure.Services.AIServices.BehaviourTree.Configuration;
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using Unity.Cinemachine;
 using Unity.Cinemachine.TargetTracking;
 using UnityEditor;
@@ -36,7 +42,7 @@ namespace CodeBase.EditorTools
         {
             // NavMeshData is an external generated asset; Undo of geometry requires a fresh bake.
             if (EditorApplication.isPlaying) return;
-            var world = Object.FindFirstObjectByType<MotionTestWorld>();
+            var world = Object.FindFirstObjectByType<EncounterWorld>();
             if (world == null) return;
             world.BakedSignature = ""; EditorUtility.SetDirty(world);
             EditorSceneManager.MarkSceneDirty(world.gameObject.scene);
@@ -60,10 +66,10 @@ namespace CodeBase.EditorTools
             Directory.CreateDirectory("Assets/Prefabs/Tests");
             Directory.CreateDirectory("Assets/Configs/Input/Tests");
             AssetDatabase.Refresh();
-            var config = AssetDatabase.LoadAssetAtPath<MotionTestConfig>(DataRoot + "/MotionTestConfig.asset");
+            var config = AssetDatabase.LoadAssetAtPath<NavigationConfig>(DataRoot + "/NavigationConfig.asset");
             if (config == null)
             {
-                config = ScriptableObject.CreateInstance<MotionTestConfig>();
+                config = ScriptableObject.CreateInstance<NavigationConfig>();
                 config.Floor = MaterialAsset("Floor", new Color(.1f, .16f, .2f));
                 config.Obstacle = MaterialAsset("Obstacle", new Color(.48f, .65f, .73f));
                 config.Ramp = MaterialAsset("Ramp", new Color(.95f, .65f, .25f));
@@ -72,17 +78,17 @@ namespace CodeBase.EditorTools
                 config.Decoration = MaterialAsset("Sphere", new Color(.3f, .65f, .57f));
                 config.GridMaterial = new Material(Shader.Find("PetProject/Motion Grid")) { name = "Motion grid" };
                 AssetDatabase.CreateAsset(config.GridMaterial, MaterialRoot + "/Grid.mat");
-                AssetDatabase.CreateAsset(config, DataRoot + "/MotionTestConfig.asset");
+                AssetDatabase.CreateAsset(config, DataRoot + "/NavigationConfig.asset");
             }
             var hero = CreateHero();
             var input = CreateInput();
             var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             var root = new GameObject("Test Motion — controller");
-            var host = root.AddComponent<MotionTestController>(); host.TestBudget = config.ActionBudget;
-            var world = new GameObject("Motion environment").AddComponent<MotionTestWorld>(); world.Config = config;
+            var host = root.AddComponent<EncounterController>(); host.ActionBudget = config.ActionBudget;
+            var world = new GameObject("Motion environment").AddComponent<EncounterWorld>(); world.Config = config;
             host.World = world; host.HeroPrefab = hero; host.InputAsset = input;
             host.EnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SkeletonPath);
-            world.Generate();
+            EncounterWorldGenerator.Generate(world);
             var sun = new GameObject("Directional light").AddComponent<Light>();
             sun.type = LightType.Directional; sun.intensity = 1.6f; sun.color = new Color(1, .94f, .84f);
             sun.shadows = LightShadows.Soft; sun.transform.rotation = Quaternion.Euler(48, -35, 0);
@@ -104,7 +110,7 @@ namespace CodeBase.EditorTools
             orbital.VerticalAxis.Range = new Vector2(30, 65); orbital.RadialAxis.Value = 1;
             orbital.HorizontalAxis.Recentering.Enabled = false; orbital.VerticalAxis.Recentering.Enabled = false;
             cm.gameObject.AddComponent<CinemachineRotationComposer>();
-            var cameraRig = root.AddComponent<MotionCameraController>();
+            var cameraRig = root.AddComponent<IsometricCameraController>();
             cameraRig.VirtualCamera = cm; cameraRig.Orbit = orbital; cameraRig.Pivot = pivot;
             host.GameCamera = camera; host.CameraRig = cameraRig;
             Bake(world);
@@ -163,7 +169,7 @@ namespace CodeBase.EditorTools
 
         public static void EnsureBaked()
         {
-            var host = Object.FindFirstObjectByType<MotionTestController>();
+            var host = Object.FindFirstObjectByType<EncounterController>();
             if (host == null || host.World == null) return;
             if (host.World.BakedSignature == host.World.Signature) return;
             Rebuild(host.World);
@@ -173,17 +179,17 @@ namespace CodeBase.EditorTools
         [MenuItem("Tools/PetProject/Motion/Configure Skeleton Combat")]
         public static void ConfigureSkeletonCombat()
         {
-            var host = Object.FindFirstObjectByType<MotionTestController>();
+            var host = Object.FindFirstObjectByType<EncounterController>();
             if (host == null || host.gameObject.scene.path != ScenePath) throw new InvalidOperationException("Open Test_MotionScene first");
             Undo.RecordObject(host, "Configure skeleton combat");
             host.EnemyPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(SkeletonPath);
             host.MoveMarkerPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(MoveMarkerPath);
-            var rules = AssetDatabase.LoadAssetAtPath<MotionCombatRulesConfig>(
-                DataRoot + "/MotionCombatRulesConfig.asset");
+            var rules = AssetDatabase.LoadAssetAtPath<EncounterRulesConfig>(
+                DataRoot + "/EncounterRulesConfig.asset");
             if (rules == null)
             {
-                rules = ScriptableObject.CreateInstance<MotionCombatRulesConfig>();
-                AssetDatabase.CreateAsset(rules, DataRoot + "/MotionCombatRulesConfig.asset");
+                rules = ScriptableObject.CreateInstance<EncounterRulesConfig>();
+                AssetDatabase.CreateAsset(rules, DataRoot + "/EncounterRulesConfig.asset");
             }
             host.CombatRules = rules;
             host.EnemyAI = AssetDatabase.LoadAssetAtPath<MeleeTacticsAIConfig>(
@@ -201,12 +207,12 @@ namespace CodeBase.EditorTools
             AssetDatabase.SaveAssets();
             host.EnemySpawns = new[]
             {
-                new SkeletonEnemySpawn(new Vector3(-6, 0, -18), "skeleton-patrol", skeleton),
-                new SkeletonEnemySpawn(new Vector3(0, 0, -20), "skeleton-patrol", skeleton),
-                new SkeletonEnemySpawn(new Vector3(4, 0, -12), "skeleton-patrol", archer),
-                new SkeletonEnemySpawn(new Vector3(-22, 0, 12), "skeleton-crypt", mage),
-                new SkeletonEnemySpawn(new Vector3(-16, 0, 14), "skeleton-crypt", captain),
-                new SkeletonEnemySpawn(new Vector3(22, 0, 22), "skeleton-general", general)
+                new EnemySpawnDefinition(new Vector3(-6, 0, -18), "skeleton-patrol", skeleton),
+                new EnemySpawnDefinition(new Vector3(0, 0, -20), "skeleton-patrol", skeleton),
+                new EnemySpawnDefinition(new Vector3(4, 0, -12), "skeleton-patrol", archer),
+                new EnemySpawnDefinition(new Vector3(-22, 0, 12), "skeleton-crypt", mage),
+                new EnemySpawnDefinition(new Vector3(-16, 0, 14), "skeleton-crypt", captain),
+                new EnemySpawnDefinition(new Vector3(22, 0, 22), "skeleton-general", general)
             };
             EditorUtility.SetDirty(host);
             EditorSceneManager.SaveScene(host.gameObject.scene);
@@ -254,7 +260,7 @@ namespace CodeBase.EditorTools
             return config;
         }
 
-        public static void Rebuild(MotionTestWorld world)
+        public static void Rebuild(EncounterWorld world)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) throw new InvalidOperationException("Rebuild is only available in Edit Mode");
             Undo.IncrementCurrentGroup(); var undoGroup = Undo.GetCurrentGroup();
@@ -263,18 +269,18 @@ namespace CodeBase.EditorTools
             // owner before removing its referenced root, otherwise Undo restores objects but loses the binding.
             Undo.RegisterCompleteObjectUndo(world, "Rebuild motion terrain");
             if (world.GeneratedRoot != null) Undo.DestroyObjectImmediate(world.GeneratedRoot.gameObject);
-            world.GeneratedRoot = null; world.Generate();
+            world.GeneratedRoot = null; EncounterWorldGenerator.Generate(world);
             Undo.RegisterCreatedObjectUndo(world.GeneratedRoot.gameObject, "Create motion terrain");
             Bake(world); EditorSceneManager.MarkSceneDirty(world.gameObject.scene); Undo.CollapseUndoOperations(undoGroup);
         }
         [MenuItem("Tools/PetProject/Motion/Rebuild And Save Test Scene")]
         public static void RebuildAndSave()
         {
-            var host = Object.FindFirstObjectByType<MotionTestController>();
+            var host = Object.FindFirstObjectByType<EncounterController>();
             if (host == null || host.gameObject.scene.path != ScenePath) throw new InvalidOperationException("Open Test_MotionScene first");
             Rebuild(host.World); EditorSceneManager.SaveScene(host.gameObject.scene);
         }
-        private static void Bake(MotionTestWorld world)
+        private static void Bake(EncounterWorld world)
         {
             Physics.SyncTransforms();
             world.Surface.BuildNavMesh();

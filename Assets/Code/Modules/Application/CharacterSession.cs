@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.Data;
 using UniRx;
 using UnityEngine;
@@ -9,17 +9,17 @@ namespace CodeBase.CharacterIntegration
 {
     public sealed class CharacterSession : ICharacterStatsSource, IDisposable
     {
-        private readonly IHeroDataService _hero;
+        private readonly ICharacterDataService _hero;
         private readonly CompositeDisposable _statsBinding = new();
-        private IReadOnlyDictionary<int, HeroClass> _classes;
+        private IReadOnlyDictionary<int, CharacterClass> _classes;
         private CharacterBalance _balance;
         private PlayerProgressValidator _validator;
 
         public event Action StatsChanged;
 
-        public CharacterSession(IHeroDataService hero) => _hero = hero;
+        public CharacterSession(ICharacterDataService hero) => _hero = hero;
 
-        public void Configure(IReadOnlyDictionary<int, HeroClass> classes, CharacterBalance balance)
+        public void Configure(IReadOnlyDictionary<int, CharacterClass> classes, CharacterBalance balance)
         {
             _classes = classes;
             _balance = balance;
@@ -33,18 +33,20 @@ namespace CodeBase.CharacterIntegration
             _statsBinding.Clear();
             if (progress.Character == null)
             {
-                _hero.SetHero(null);
+                _hero.SetCharacter(null);
                 return;
             }
             if (!IsValid(progress)) throw new InvalidOperationException("Сохранение персонажа несовместимо");
 
-            var hero = new HeroData(progress.Character.Restore(_classes[progress.Character.ClassId]), _balance);
-            _hero.SetHero(hero);
+            var hero = new CharacterData(progress.Character.Restore(_classes[progress.Character.ClassId]), _balance);
+            _hero.SetCharacter(hero);
+
             hero.Stats.Damage.Subscribe(value =>
             {
                 progress.HeroStats.Damage = value;
                 StatsChanged?.Invoke();
             }).AddTo(_statsBinding);
+
             hero.Stats.MaxHealth.Subscribe(value =>
             {
                 progress.HeroState.MaxHP = value;

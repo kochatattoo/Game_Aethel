@@ -1,6 +1,12 @@
 using System;
 using System.IO;
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -19,7 +25,7 @@ namespace CodeBase.EditorTools
         public static void Run()
         {
             TacticsSandboxTools.RequireCleanEditMode();
-            var host = Object.FindFirstObjectByType<MotionTestController>();
+            var host = Object.FindFirstObjectByType<EncounterController>();
             if (host == null || host.gameObject.scene.path != MotionTestSceneTools.ScenePath)
                 throw new InvalidOperationException("Open Test_MotionScene first");
             var result = new Result();

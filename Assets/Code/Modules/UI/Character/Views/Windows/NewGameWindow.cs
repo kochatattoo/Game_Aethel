@@ -1,5 +1,5 @@
 using System;
-using Code.Hero.Data;
+using Code.Character.Data;
 using Code.UI.MainMenuElements;
 using CodeBase.CharacterIntegration;
 using TMPro;
@@ -10,19 +10,19 @@ namespace Code.UI.Windows
 {
     public class NewGameWindow : WindowBase
     {
-        [SerializeField] private HeroClassContainerUI heroClassContainerUI;
-        [SerializeField] private HeroClassDescriptionUI heroClassDescriptionUI;
-        [SerializeField] private HeroAttributesView heroAttributesView;
-        [SerializeField] private HeroParamentresUI heroParamentresUI;
+        [SerializeField] private CharacterClassContainerUI heroClassContainerUI;
+        [SerializeField] private CharacterClassDescriptionUI heroClassDescriptionUI;
+        [SerializeField] private CharacterAttributesView heroAttributesView;
+        [SerializeField] private CharacterParametersUI heroParamentresUI;
         [SerializeField] private Button _acceptButton;
         [SerializeField] private TextMeshProUGUI _classNameField;
         private readonly CompositeDisposable _lifetime=new();
-        private HeroDataFabric _draft;
+        private CharacterDraft _draft;
         private bool _submitted;
-        public HeroDataFabric Draft=>_draft;
-        public void Construct(IHeroDataProvider provider,CharacterAssets assets,CharacterBalance balance,Action<HeroData> confirm)
+        public CharacterDraft Draft=>_draft;
+        public void Construct(ICharacterClassProvider provider,CharacterAssets assets,CharacterBalance balance,Action<CharacterData> confirm)
         {
-            _draft=new HeroDataFabric(provider);_draft.Initialize();
+            _draft=new CharacterDraft(provider);_draft.Initialize();
             _draft.SelectedClass.Subscribe(hero=>{_classNameField.text=hero?.Name??"Выберите класс";if(hero!=null&&ColorUtility.TryParseHtmlString(hero.Color,out var color))_classNameField.color=color;_acceptButton.interactable=_draft.CanConfirm;}).AddTo(_lifetime);
             _draft.BonusPoints.Subscribe(_=>_acceptButton.interactable=_draft.CanConfirm).AddTo(_lifetime);
             heroClassContainerUI.Construct(_draft,assets);
@@ -32,7 +32,7 @@ namespace Code.UI.Windows
             _acceptButton.OnClickAsObservable().Subscribe(_=>{
                 if(_submitted||!_draft.CanConfirm)return;
                 _submitted=true;_acceptButton.interactable=false;
-                var hero=_draft.CreateHeroData(balance);
+                var hero=_draft.CreateCharacterData(balance);
                 try{confirm(hero);}catch{hero.Dispose();_submitted=false;_acceptButton.interactable=true;throw;}
             }).AddTo(_lifetime);
             foreach(var key in _draft.Classes.Keys){_draft.SelectClass(key);break;}

@@ -1,4 +1,4 @@
-using Code.Hero.Data;
+using Code.Character.Data;
 using UnityEngine;
 
 namespace CodeBase.CharacterIntegration

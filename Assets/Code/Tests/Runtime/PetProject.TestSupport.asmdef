@@ -2,9 +2,13 @@
     "name": "PetProject.TestSupport",
     "rootNamespace": "",
     "references": [
-        "GUID:9b5640642a758944da163d62bfee39af"
+        "GUID:9b5640642a758944da163d62bfee39af",
+        "GUID:f03962106f38998408c86e9739a19fdf",
+        "GUID:c804b73382c8b02499ec0100d8aee3a6"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

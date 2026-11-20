@@ -1,16 +1,16 @@
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.Data;
 
 namespace CodeBase.CharacterIntegration
 {
     internal static class PlayerProgressFactory
     {
-        public static PlayerProgress Create(HeroData hero, string initialLevel)
+        public static PlayerProgress Create(CharacterData hero, string initialLevel)
         {
             var progress = new PlayerProgress(initialLevel)
             {
                 CharacterSchemaVersion = 1,
-                Character = CharacterProfileData.Capture(hero.Hero)
+                Character = CharacterProfileData.Capture(hero.Character)
             };
             progress.HeroState.MaxHP = hero.Stats.MaxHealth.Value;
             progress.HeroState.ResetHP();

@@ -41,7 +41,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4011480526653575329}
   - component: {fileID: 7357136730840266428}
-  - component: {fileID: 7846184652717993037}
   m_Layer: 10
   m_Name: AttakSphere
   m_TagString: Untagged
@@ -85,19 +84,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 200
   m_Center: {x: -68.1, y: -19.1, z: 0}
---- !u!114 &7846184652717993037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5624441832877626149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8838bc72132aec4498401e7b8736106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Sensors.BladeSensor
-  _attackConfig: {fileID: 11400000, guid: d6add3058db72ee4283b66c5b0f995a9, type: 2}
 --- !u!1001 &1796828367922533306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -206,10 +192,6 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6093746773622666093, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
-      propertyPath: _bladeSensor
-      value: 
-      objectReference: {fileID: 5148417242225843199}
     - target: {fileID: 6281855846235723745, guid: bc8724e40aa66b7418ab15bd14e3bc55, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.833166
@@ -630,10 +612,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1592396645, guid: 1d6a1f892e553d1499063fb87a1266c4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4011480526653575329}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1543670934, guid: 1d6a1f892e553d1499063fb87a1266c4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5148417242225843199}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d6a1f892e553d1499063fb87a1266c4, type: 3}
 --- !u!4 &4759174485787105730 stripped
 Transform:
@@ -645,21 +624,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1592396645, guid: 1d6a1f892e553d1499063fb87a1266c4, type: 3}
   m_PrefabInstance: {fileID: 4759174485204037824}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &4759174486613490774 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1543670934, guid: 1d6a1f892e553d1499063fb87a1266c4, type: 3}
-  m_PrefabInstance: {fileID: 4759174485204037824}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5148417242225843199
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4759174486613490774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8838bc72132aec4498401e7b8736106, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Sensors.BladeSensor
-  _attackConfig: {fileID: 11400000, guid: d6add3058db72ee4283b66c5b0f995a9, type: 2}

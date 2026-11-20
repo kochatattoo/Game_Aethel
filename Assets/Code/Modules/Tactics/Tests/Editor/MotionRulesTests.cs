@@ -31,7 +31,7 @@ namespace PetProject.Tactics.Tests
         [Test] public void PreviewHasNoMutationAndMoveChargesWeightedCells()
         {
             var board = new GridBoard(3, 1, new[] { new GridCell(new GridPosition(1, 0), moveCost: 2) });
-            var session = new MotionTestSession(board, new GridPosition(0, 0), 6);
+            var session = new TacticalMovementSession(board, new GridPosition(0, 0), 6);
             Assert.That(session.Preview(new GridPosition(2, 0)).Cost, Is.EqualTo(3));
             Assert.That(session.Actions, Is.EqualTo(6)); Assert.That(session.Revision, Is.Zero);
             Assert.That(session.Move("move", new GridPosition(2, 0), 0).Accepted, Is.True);
@@ -39,7 +39,7 @@ namespace PetProject.Tactics.Tests
         }
         [Test] public void OverBudgetAndUnreachableMovesAreAtomic()
         {
-            var session = new MotionTestSession(new GridBoard(4, 1), new GridPosition(0, 0), 1);
+            var session = new TacticalMovementSession(new GridBoard(4, 1), new GridPosition(0, 0), 1);
             Assert.That(session.Move("far", new GridPosition(3, 0), 0).Error, Is.EqualTo("NotEnoughActions"));
             Assert.That(session.Move("outside", new GridPosition(-1, 0), 0).Accepted, Is.False);
             Assert.That(session.Actions, Is.EqualTo(1)); Assert.That(session.Position, Is.EqualTo(new GridPosition(0, 0)));
@@ -47,7 +47,7 @@ namespace PetProject.Tactics.Tests
         }
         [Test] public void RetryAndConflictingIdDoNotSpendTwice()
         {
-            var session = new MotionTestSession(new GridBoard(4, 1), new GridPosition(0, 0), 6);
+            var session = new TacticalMovementSession(new GridBoard(4, 1), new GridPosition(0, 0), 6);
             session.Move("one", new GridPosition(1, 0), 0);
             Assert.That(session.Move("one", new GridPosition(1, 0), 0).IsReplay, Is.True);
             Assert.That(session.Move("one", new GridPosition(2, 0), 0).Error, Is.EqualTo("CommandIdConflict"));
@@ -55,7 +55,7 @@ namespace PetProject.Tactics.Tests
         }
         [Test] public void NewTurnInvalidatesOldPreview()
         {
-            var session = new MotionTestSession(new GridBoard(4, 1), new GridPosition(0, 0), 6);
+            var session = new TacticalMovementSession(new GridBoard(4, 1), new GridPosition(0, 0), 6);
             session.NewTurn();
             Assert.That(session.Move("stale", new GridPosition(1, 0), 0).Error, Is.EqualTo("StalePreview"));
             Assert.That(session.Actions, Is.EqualTo(6)); Assert.That(session.Revision, Is.EqualTo(1));

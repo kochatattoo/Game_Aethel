@@ -1,0 +1,32 @@
+{
+    "name": "PetProject.Encounter",
+    "rootNamespace": "PetProject.Encounter",
+    "references": [
+        "GUID:2aab2ce4d6a014d9706d28f54c768547",
+        "GUID:f03962106f38998408c86e9739a19fdf",
+        "GUID:853c21dec2dd31dbb3e7733a8426e5d9",
+        "GUID:2424a06c373e26f0d5fbe0351ea511c3",
+        "GUID:178237d50f1e8f22892bb2916c2995ae",
+        "GUID:f1341bf49f9f6f24cbb0263239e478e3",
+        "GUID:e5de24f572a2e574da727ddde5321f98",
+        "GUID:ea20ae203de919d40bdad5fa738143c7",
+        "GUID:5ef972048b7d34f4e9fb8fe19d2fd352",
+        "GUID:9b4f6c3fc993a9b4d90160642a058b00",
+        "GUID:9058c8aacf9e6a74a99e2fe536c50829",
+        "GUID:c66e3a1462cd90f47b452c3caaec7ee6",
+        "GUID:c804b73382c8b02499ec0100d8aee3a6",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:8c4dd21966739024fbd72155091d199e",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

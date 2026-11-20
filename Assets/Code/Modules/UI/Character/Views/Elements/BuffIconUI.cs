@@ -1,4 +1,4 @@
-using Code.Hero.Items;
+using Code.Items;
 using System;
 using TMPro;
 using UniRx;
@@ -45,7 +45,7 @@ namespace Code.UI.Elements
                     }
 
                     // Самозавершение потока не требуется, так как 
-                    // HeroTimeEffectsUI уничтожит объект, и сработает OnDestroy
+                    // CharacterEffectsUI уничтожит объект, и сработает OnDestroy
                 })
                 .AddTo(_disposables); // гарантирует, что если бафф удалится раньше времени (например, выпили антидот), расчет мгновенно прекратится.
         }

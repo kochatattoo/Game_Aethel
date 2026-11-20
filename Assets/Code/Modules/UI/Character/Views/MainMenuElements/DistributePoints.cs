@@ -1,4 +1,4 @@
-using Code.Hero.Data;
+using Code.Character.Data;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace Code.UI.MainMenuElements
         [SerializeField] private Button _increaseBtn,_decreaseBtn;
         [SerializeField] private TextMeshProUGUI _attributePointsText;
         private CompositeDisposable _binding;
-        public void Bind(HeroClass hero,HeroDataFabric draft,CompositeDisposable lifetime)
+        public void Bind(CharacterClass hero,CharacterDraft draft,CompositeDisposable lifetime)
         {
             _binding?.Dispose();_binding=new CompositeDisposable();_binding.AddTo(lifetime);
             hero.Attributes[_attrName].Subscribe(v=>{_attributePointsText.text=v.ToString();_attributePointsText.color=draft.Allocated(_attrName)>0?Color.yellow:Color.white;}).AddTo(_binding);

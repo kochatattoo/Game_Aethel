@@ -16,6 +16,8 @@ MonoBehaviour:
   _inheritMode: 1
   _publicParents:
   - {fileID: 11400000, guid: 42a2bb5d0650d4841b290f8c8e8a9b1e, type: 2}
+  - {fileID: 11400000, guid: d6ffb51f1bb48a24baf7baf302c39459, type: 2}
+  - {fileID: 11400000, guid: c0a10000000000000000000000000004, type: 2}
   _privateParents: []
   _definitions:
   - {fileID: 5897886265953266890, guid: 5b90c0e315c04c04b910907e040a5187, type: 3}

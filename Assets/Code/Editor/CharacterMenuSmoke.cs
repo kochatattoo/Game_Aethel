@@ -68,11 +68,12 @@ namespace CodeBase.EditorTools
         [MenuItem("Tools/PetProject/Character Menu/Smoke/Validate Runtime")]
         public static void Validate()
         {
-            RequirePlay();var hero=Object.FindFirstObjectByType<HeroFacade>();if(hero==null)throw new InvalidOperationException("Игровой герой не создан");
-            var attack=hero.GetComponent<HeroAttack>();var data=ProjectContext.Instance.Container.Resolve<ISaveLoadService>().LoadProgress();
-            if(data?.Character==null||data.Character.ClassId!=1||Math.Abs(attack.Damage-7)>0.001f||Math.Abs(hero.Health.Max-50)>0.001f)throw new InvalidOperationException("HP/урон/сохранение не совпадают с профилем");
+            RequirePlay();var stats=Object.FindFirstObjectByType<HeroCombatStats>();
+            if(stats==null)throw new InvalidOperationException("Игровой герой не создан");
+            var health=stats.GetComponent<HeroHealth>();var data=ProjectContext.Instance.Container.Resolve<ISaveLoadService>().LoadProgress();
+            if(data?.Character==null||data.Character.ClassId!=1||Math.Abs(stats.Damage-7)>0.001f||Math.Abs(health.Max-50)>0.001f)throw new InvalidOperationException("HP/урон/сохранение не совпадают с профилем");
             if(Object.FindObjectsByType<DemoWindow>(FindObjectsSortMode.None).Length!=1)throw new InvalidOperationException("Нет единственного окна атрибутов");
-            Directory.CreateDirectory("Library/CharacterMigration");File.WriteAllText("Library/CharacterMigration/runtime-validation.json",JsonUtility.ToJson(new Result{success=true,scene=SceneManager.GetActiveScene().name,classId=data.Character.ClassId,damage=attack.Damage,maxHealth=hero.Health.Max},true));
+            Directory.CreateDirectory("Library/CharacterMigration");File.WriteAllText("Library/CharacterMigration/runtime-validation.json",JsonUtility.ToJson(new Result{success=true,scene=SceneManager.GetActiveScene().name,classId=data.Character.ClassId,damage=stats.Damage,maxHealth=health.Max},true));
             Debug.Log("Проверка CharacterMenu пройдена: герой, атрибуты, сохранение и игровой урон согласованы");
         }
         [Serializable] private class Result{public bool success;public string scene;public int classId;public float damage,maxHealth;}

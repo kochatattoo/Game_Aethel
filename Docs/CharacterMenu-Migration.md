@@ -18,9 +18,11 @@
 
 | Назначение | Путь от корня проекта |
 | --- | --- |
-| Независимая модель, профиль, экипировка и баффы | Assets/Code/Character/Domain |
-| Представления из донора | Assets/Code/Character/UI |
-| Связь с Zenject, прогрессом, вводом и состояниями | Assets/Code/Character/Integration |
+| Общие классы, профиль, атрибуты и производные | Assets/Code/Character/Domain |
+| Текущий персонаж, draft и reactive service | Assets/Code/Character/Runtime |
+| Предметы, экипировка и баффы | Assets/Code/Modules/Items |
+| Представления из донора | Assets/Code/Modules/UI/Character |
+| Связь с Zenject, прогрессом, вводом и состояниями | Assets/Code/Modules/Application и Assets/Code/Modules/Composition |
 | Префабы, иконки и зависимости | Assets/Art/CharacterMenu |
 | Баланс и стартовый уровень | Assets/Configs/Resources/CharacterMenu/Config.asset |
 | Адреса ресурсов | Addressables, группа CharacterMenu, префикс PetProject/ |

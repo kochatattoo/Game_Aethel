@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Code.Hero.Data;
+using Code.Character.Data;
 using CodeBase.Infrastructure.Services.SaveLoad;
 
 using TMPro;
@@ -14,14 +14,14 @@ namespace CodeBase.CharacterIntegration
         private ISaveSlotService _slots;
         private bool _playing, _newGame, _busy;
         private Action<string> _create, _load;
-        private IReadOnlyDictionary<int,HeroClass> _classes;
+        private IReadOnlyDictionary<int,CharacterClass> _classes;
         private RectTransform _panel;
         private TMP_Text _status;
         private readonly List<GameObject> _rows = new();
         private GameObject _confirmation;
 
         public void Construct(ISaveSlotService slots, bool playing, bool newGame,
-            Action<string> create, Action<string> load, Action close, IReadOnlyDictionary<int,HeroClass> classes)
+            Action<string> create, Action<string> load, Action close, IReadOnlyDictionary<int,CharacterClass> classes)
         {
             _classes=classes;
             _slots=slots; _playing=playing; _newGame=newGame; _create=create; _load=load;

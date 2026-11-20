@@ -5,7 +5,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using Cysharp.Threading.Tasks;
 using PetProject.Tactics;
 using UnityEditor;
@@ -64,13 +70,15 @@ namespace CodeBase.EditorTools
             try
             {
                 await UniTask.DelayFrame(3);
-                var host = Object.FindFirstObjectByType<MotionTestController>();
+                var host = Object.FindFirstObjectByType<EncounterController>();
                 Require(host != null && host.Ready, "Standalone scene initialized: " + host?.Error);
                 host.EncounterDirector.SetEnabled(false);
                 Require(Object.FindObjectsByType<ProjectContext>(FindObjectsSortMode.None).Length == 0, "No campaign DI container");
-                Require(host.Map.Board.Width == 100 && host.Map.Board.Height == 100, "100 x 100 board");
+                var dimension = host.World.Config.Dimension;
+                Require(host.Map.Board.Width == dimension && host.Map.Board.Height == dimension,
+                    "Размер доски соответствует NavigationConfig");
                 report.gridMilliseconds = host.Map.BuildMilliseconds; report.walkableCells = host.Map.WalkableCount;
-                report.checks.Add("100x100 scene, existing hero and independent input initialized without campaign bootstrap");
+                report.checks.Add($"{dimension}x{dimension} scene, existing hero and independent input initialized without campaign bootstrap");
                 await CheckCameraInput(host);
                 report.checks.Add("Input System keyboard yaw, right-button orbit, wheel zoom and focus reset drive Cinemachine");
                 await CheckHud(host);
@@ -106,7 +114,7 @@ namespace CodeBase.EditorTools
                 Require(!host.Combat && host.MoveNormally(new Vector3(-16.5f, 0, -15.5f)), "Queued mode exit restores NavMesh movement");
                 await Settled(host);
                 report.checks.Add("Mode exit during accepted movement waits and restores normal navigation");
-                host.ResetHero(); host.TestBudget = 12;
+                host.ResetHero(); host.ActionBudget = 12;
                 Require(host.MoveNormally(new Vector3(8.5f, 2, 9.5f)), "Upper platform path accepted");
                 await Settled(host, 18000);
                 Require(host.Hero.transform.position.y > 1.8f, "NavMesh climbed gentle ramp");
@@ -123,10 +131,10 @@ namespace CodeBase.EditorTools
                 {
                     host.SetCombat(false); host.SetCombat(true); await Settled(host);
                 }
-                Require(Object.FindObjectsByType<MotionTestController>(FindObjectsSortMode.None).Length == 1, "One controller after transitions");
+                Require(Object.FindObjectsByType<EncounterController>(FindObjectsSortMode.None).Length == 1, "One controller after transitions");
                 Require(host.Error == null, "No transition error");
                 report.checks.Add("Twenty mode cycles keep a single controller and valid movement state");
-                host.ResetHero(); host.TestBudget = 6;
+                host.ResetHero(); host.ActionBudget = 6;
                 await UniTask.DelayFrame(2); Capture(host, "Library/MotionTest/normal-preview.png");
                 report.success = true;
             }
@@ -137,14 +145,14 @@ namespace CodeBase.EditorTools
                 EditorApplication.isPlaying = false;
             }
         }
-        private static async UniTask Settled(MotionTestController host, int timeout = 8000)
+        private static async UniTask Settled(EncounterController host, int timeout = 8000)
         {
             await UniTask.DelayFrame(2);
             using var source = new CancellationTokenSource(timeout);
             await UniTask.WaitUntil(() => host.Error != null || (!host.Busy && !host.NormalMoving), cancellationToken: source.Token);
             Require(host.Error == null, host.Error ?? "Motion settled");
         }
-        private static async UniTask CheckHud(MotionTestController host)
+        private static async UniTask CheckHud(EncounterController host)
         {
             host.ResetHero();
             await UniTask.DelayFrame(2);
@@ -167,7 +175,7 @@ namespace CodeBase.EditorTools
                 Require(host.Session.Actions == 4, "Two AP spent in tactical mode");
                 await ClickHud(mouse, hud.ModeButton);
                 await UniTask.DelayFrame(2);
-                Require(!host.Combat && host.WorldActions.Get(MotionTestController.HeroActorId, 6) == 4,
+                Require(!host.Combat && host.WorldActions.Get(EncounterActorIds.Hero, 6) == 4,
                     "Remaining AP survives exit to normal mode");
                 await ClickHud(mouse, hud.ModeButton);
                 await Settled(host);
@@ -188,9 +196,9 @@ namespace CodeBase.EditorTools
                 await Settled(host);
                 await ClickHud(mouse, hud.ModeButton);
                 await UniTask.DelayFrame(2);
-                Require(host.WorldActions.Get(MotionTestController.HeroActorId, 6) == 5, "Partial budget saved before world reset");
+                Require(host.WorldActions.Get(EncounterActorIds.Hero, 6) == 5, "Partial budget saved before world reset");
                 await UniTask.Delay(TimeSpan.FromSeconds(host.WorldTurn.SecondsToNextRound + .1));
-                Require(host.WorldActions.Get(MotionTestController.HeroActorId, 6) == 6,
+                Require(host.WorldActions.Get(EncounterActorIds.Hero, 6) == 6,
                     "Shared world boundary restores AP in normal mode");
                 await ClickHud(mouse, hud.ModeButton);
                 await Settled(host);
@@ -217,7 +225,7 @@ namespace CodeBase.EditorTools
             InputSystem.QueueStateEvent(mouse, new MouseState { position = point });
             await UniTask.DelayFrame(2);
         }
-        private static async UniTask CheckCameraInput(MotionTestController host)
+        private static async UniTask CheckCameraInput(EncounterController host)
         {
             MotionEditorInputGate.InputFixtureActive = true;
             var mouse = InputSystem.AddDevice<Mouse>("Motion fixture mouse");
@@ -260,7 +268,7 @@ namespace CodeBase.EditorTools
                 }
             return Convert.ToBase64String(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(text.ToString())));
         }
-        public static void Capture(MotionTestController host, string path)
+        public static void Capture(EncounterController host, string path)
         {
             var camera = host.GameCamera; var oldTarget = camera.targetTexture; var oldActive = RenderTexture.active;
             var texture = RenderTexture.GetTemporary(1280, 800, 24);

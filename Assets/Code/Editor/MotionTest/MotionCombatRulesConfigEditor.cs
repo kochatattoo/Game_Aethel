@@ -1,19 +1,25 @@
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using UnityEditor;
 using UnityEngine;
 
 namespace CodeBase.EditorTools
 {
-    [CustomEditor(typeof(MotionCombatRulesConfig))]
-    public sealed class MotionCombatRulesConfigEditor : UnityEditor.Editor
+    [CustomEditor(typeof(EncounterRulesConfig))]
+    public sealed class EncounterRulesConfigEditor : UnityEditor.Editor
     {
         [MenuItem("Tools/PetProject/Motion/Combat Rules Settings")]
         private static void Open()
         {
-            var config = Selection.activeObject as MotionCombatRulesConfig;
+            var config = Selection.activeObject as EncounterRulesConfig;
             if (config == null)
-                config = AssetDatabase.LoadAssetAtPath<MotionCombatRulesConfig>(
-                    MotionTestSceneTools.DataRoot + "/MotionCombatRulesConfig.asset");
+                config = AssetDatabase.LoadAssetAtPath<EncounterRulesConfig>(
+                    MotionTestSceneTools.DataRoot + "/EncounterRulesConfig.asset");
             Selection.activeObject = config;
             EditorGUIUtility.PingObject(config);
         }
@@ -46,7 +52,7 @@ namespace CodeBase.EditorTools
             Draw("_heroDamage", "Фиксированный урон");
             serializedObject.ApplyModifiedProperties();
 
-            var config = (MotionCombatRulesConfig)target;
+            var config = (EncounterRulesConfig)target;
             EditorGUILayout.HelpBox(
                 $"HP {config.HeroMaxHealth} · броня {config.HeroDefense} · атака +{config.HeroAttackBonus} · " +
                 $"урон {config.HeroDamage}", MessageType.None);
@@ -59,7 +65,7 @@ namespace CodeBase.EditorTools
         {
             var property = serializedObject.FindProperty(propertyName);
             EditorGUILayout.PropertyField(property, new GUIContent(label));
-            EditorGUILayout.LabelField($"Модификатор: {MotionCombatRulesConfig.Modifier(property.intValue):+#;-#;0}",
+            EditorGUILayout.LabelField($"Модификатор: {EncounterRulesConfig.Modifier(property.intValue):+#;-#;0}",
                 EditorStyles.miniLabel);
         }
     }

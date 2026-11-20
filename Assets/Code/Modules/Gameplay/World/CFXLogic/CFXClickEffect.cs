@@ -2,7 +2,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets._project.CodeBase.Logic.CFXLogic
+namespace CodeBase.Logic.CFXLogic
 {
     public class CFXClickEffect : MonoBehaviour, IPoolable<CFXClickEffect>
     {

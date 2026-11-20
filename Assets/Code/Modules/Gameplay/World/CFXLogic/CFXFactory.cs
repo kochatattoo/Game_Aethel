@@ -1,9 +1,9 @@
-﻿using Assets._project.CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
-using Assets._project.CodeBase.Infrastructure.Services.Input;
+﻿using CodeBase.Infrastructure.Services.AIServices.BlackboardSystem;
+using CodeBase.Infrastructure.Services.Input;
 using Cysharp.Threading.Tasks;
 using System;
 
-namespace Assets._project.CodeBase.Logic.CFXLogic
+namespace CodeBase.Logic.CFXLogic
 {
     public class CFXFactory : ICFXFactory
     {

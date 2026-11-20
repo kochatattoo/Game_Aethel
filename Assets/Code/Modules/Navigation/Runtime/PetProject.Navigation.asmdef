@@ -1,0 +1,18 @@
+{
+    "name": "PetProject.Navigation",
+    "rootNamespace": "PetProject.Navigation",
+    "references": [
+        "GUID:c66e3a1462cd90f47b452c3caaec7ee6",
+        "GUID:c804b73382c8b02499ec0100d8aee3a6",
+        "GUID:8c4dd21966739024fbd72155091d199e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

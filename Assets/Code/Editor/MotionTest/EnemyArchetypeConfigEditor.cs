@@ -1,4 +1,10 @@
-using CodeBase.MotionTest;
+using CodeBase.Enemies;
+using CodeBase.Hero;
+using CodeBase.Infrastructure.Services;
+using CodeBase.Infrastructure.Utils;
+using CodeBase.UI.Encounter;
+using PetProject.Encounter;
+using PetProject.Navigation;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,7 +27,7 @@ namespace CodeBase.EditorTools
             serializedObject.Update();
             EditorGUILayout.HelpBox(
                 "Архетип конкретного противника. Каждый спавн может ссылаться на свой актив. " +
-                "AI вынесен в MeleeTacticsAIConfig, общие правила — в MotionCombatRulesConfig.", MessageType.Info);
+                "AI вынесен в MeleeTacticsAIConfig, общие правила — в EncounterRulesConfig.", MessageType.Info);
             EditorGUILayout.LabelField("Идентификация и поведение", EditorStyles.boldLabel);
             Draw("_archetype", "Архетип");
             Draw("_rank", "Ранг");

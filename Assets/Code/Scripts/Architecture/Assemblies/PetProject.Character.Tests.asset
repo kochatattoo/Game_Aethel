@@ -18,6 +18,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 60b941c33f864364e9f323a0c377bf19, type: 2}
   - {fileID: 11400000, guid: 46bef285a35bc234a99b5fe98b8f0c3f, type: 2}
   - {fileID: 11400000, guid: 66a4d7b8437813740bfca20be6047fb7, type: 2}
+  - {fileID: 11400000, guid: 738a669858324c18fae291b473bd8c29, type: 2}
+  - {fileID: 11400000, guid: fa5d4ba39e9494fd9f84b2c05f6d7bcb, type: 2}
   _privateParents: []
   _definitions:
   - {fileID: 5897886265953266890, guid: 30360ffa08318814a8e9d52dc3c29f4d, type: 3}

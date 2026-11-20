@@ -17,6 +17,8 @@ MonoBehaviour:
   _publicParents:
   - {fileID: 11400000, guid: d6ffb51f1bb48a24baf7baf302c39459, type: 2}
   - {fileID: 11400000, guid: c0a10000000000000000000000000004, type: 2}
+  - {fileID: 11400000, guid: a1519cdbcbc59c3ad2b862ea9477e30d, type: 2}
+  - {fileID: 11400000, guid: c0a10000000000000000000000000003, type: 2}
   _privateParents: []
   _definitions:
   - {fileID: 5897886265953266890, guid: 4ea80b53d39d97c4284c219ac265a6d7, type: 3}

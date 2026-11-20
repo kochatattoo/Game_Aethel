@@ -1,0 +1,28 @@
+{
+    "name": "PetProject.Hero",
+    "rootNamespace": "CodeBase.Hero",
+    "references": [
+        "GUID:5ef972048b7d34f4e9fb8fe19d2fd352",
+        "GUID:e5de24f572a2e574da727ddde5321f98",
+        "GUID:f1341bf49f9f6f24cbb0263239e478e3",
+        "GUID:853c21dec2dd31dbb3e7733a8426e5d9",
+        "GUID:c66e3a1462cd90f47b452c3caaec7ee6",
+        "GUID:c804b73382c8b02499ec0100d8aee3a6",
+        "GUID:5cd118ad42ba95743aced52580055b28",
+        "GUID:7beb6af7fa83439489d8b305b2d9663a",
+        "GUID:2aae566e8ea9f424ea45002fd29f5815",
+        "GUID:294c415bde9ea804b8b9eb98d0a6df49",
+        "GUID:b1e925b2f18bee3408decb79e4c1de7d",
+        "GUID:560b04d1a97f54a4e82edc0cbbb69285",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

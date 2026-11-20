@@ -155,27 +155,34 @@ MCP его не ослабляет, отчёт по-прежнему обяза�
 Создание `.asmdef`, билдеров и запуск `Build` — изменение состояния проекта, требует разрешения
 заранее по Правилу 4.
 
-## MotionTest: бой и настройка
+## Encounter: основной gameplay и полигон
 
-- Полигон — `Assets/Scenes/TEST/Test_MotionScene.unity`; руководство — `Docs/Testing/Test-MotionScene.md`.
-- Чистые расчёты и API разделены на `PetProject.CharacterStats.Core`, `PetProject.EnemyArchetypes.Core`,
-  `PetProject.Navigation.Core`, `PetProject.Tactics.Grid.Core` и боевой `PetProject.Tactics`.
-  Все имеют `noEngineReferences=true`. Unity SO/MonoBehaviour — адаптеры; `MotionTestComposer`
-  связывает определения, `ICharacterMovement` и `INavigationLifecycle`. Core не зависит от компоновщиков.
-- Общие ОД, радиус связывания группы, пауза решения AI и параметры героя — только в
-  `MotionCombatRulesConfig`. `MeleeTacticsAIConfig` содержит только поведение AI. Ранг, имя,
-  шесть характеристик, кубики и prefab конкретного противника — в `EnemyArchetypeConfig`.
-- Пять архетипов лежат в `Assets/Configs/Enemies/Archetypes`: обычный скелет, лучник, маг,
-  необычный капитан и босс-генерал. Каждый `SkeletonEnemySpawn` ссылается на свой архетип.
-- Группа определяется `GroupId` у `SkeletonEnemySpawn`. В бой входят живые союзники той же группы
-  внутри `GroupLinkRadius`; остальные группы не подключаются автоматически. Текущая раскладка — 3/2/1,
-  группы разнесены по карте.
+- Проверочная сцена — `Assets/Scenes/TEST/Test_MotionScene.unity`; руководство —
+  `Docs/Testing/Test-MotionScene.md`. Используемый ею код является production-кодом и входит в player build.
+- Основные runtime-сборки: `PetProject.Encounter`, `PetProject.Navigation`, `PetProject.Hero`,
+  `PetProject.Enemies`, `PetProject.AI`, `PetProject.Input`, `PetProject.UI`. Композиция — в
+  `PetProject.Composition`. Процедурный генератор полигона и проверки — только в `PetProject.Editor`.
+- Чистые расчёты и API разделены на `PetProject.Encounter.Core`, `PetProject.CharacterStats.Core`,
+  `PetProject.EnemyArchetypes.Core`, `PetProject.Navigation.Core`, `PetProject.Tactics.Grid.Core` и
+  `PetProject.Tactics`. Все имеют `noEngineReferences=true`. Core не зависит от Unity-адаптеров.
+- `EncounterStateMachine` владеет переходами exploration/encounter, `EncounterGroupResolver` — составом
+  группы, `MeleeTurnPlanner` — чистым выбором действия AI. `EncounterController` и `EncounterDirector`
+  выполняют только Unity-оркестрацию и представление.
+- Общие ОД, радиус связывания группы, пауза решения AI и параметры героя — в `EncounterRulesConfig`.
+  `MeleeTacticsAIConfig` содержит только поведение AI. Ранг, имя, характеристики, кубики и prefab
+  конкретного противника — в `EnemyArchetypeConfig`.
+- Пять архетипов лежат в `Assets/Configs/Enemies/Archetypes`. Каждый `EnemySpawnDefinition` ссылается
+  на свой архетип. Группа определяется `GroupId`; в бой входят живые союзники той же группы внутри
+  `GroupLinkRadius`, остальные группы не подключаются автоматически.
 - Проверка атаки — `dX + AttackBonus > Defense`; равенство — промах. Урон скелета по умолчанию —
   `1d4 + DamageBonus`. Не возвращать фиксированный урон и сравнение `>=` без изменения GD-документа.
 - Пауза AI — не менее 0,5 с. Обычный клик показывает полный NavMesh-маршрут и VFX точки;
-  `MotionNavigationFeedback` обрезает пройденные сегменты через переиспользуемый corners-буфер.
+  `NavigationPathView` обрезает пройденные сегменты через переиспользуемый corners-буфер.
   Тактическое движение проверяет capsule clearance каждый шаг. История действий — справа снизу,
-  характеристики и HP героя — слева, HP скелетов — world-space Canvas над ними.
+  характеристики и HP героя — слева, HP противников — world-space Canvas над ними.
+- Level_1–4 используют `Encounter` через `GameWorldBuilder`: герой, противники, навигация и HUD
+  создаются без старых `HeroFacade`, `HeroFactory`, `EnemyFactory` и movement/combat-компонентов.
+  Смерть противника вызывает добычу через `EnemyActor.Defeated`; `KillData` хранит ID spawn-определения.
 - Стартовый asset-postprocessor ExplosiveLLC отключён в `SetupInputLayers.cs`. DOTween настроен через
   Utility Panel, его `DOTweenUpgradeManager.dll` удалён штатным Setup; автопоказ этих окон не восстанавливать.
 
